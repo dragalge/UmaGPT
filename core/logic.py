@@ -1,17 +1,9 @@
-import json
-
+import core.state as state
 from core.state import check_current_year, stat_state
-
-with open("config.json", "r", encoding="utf-8") as file:
-  config = json.load(file)
-
-PRIORITY_STAT = config["priority_stat"]
-MAX_FAILURE = config["maximum_failure"]
-STAT_CAPS = config["stat_caps"]
 
 # Get priority stat from config
 def get_stat_priority(stat_key: str) -> int:
-  return PRIORITY_STAT.index(stat_key) if stat_key in PRIORITY_STAT else 999
+  return state.PRIORITY_STAT.index(stat_key) if stat_key in state.PRIORITY_STAT else 999
 
 # Will do train with the most support card
 # Used in the first year (aim for rainbow)
@@ -22,18 +14,18 @@ def most_support_card(results):
   # Get all training but wit
   non_wit_results = {
     k: v for k, v in results.items()
-    if k != "wit" and int(v["failure"]) <= MAX_FAILURE
+    if k != "wit" and int(v["failure"]) <= state.MAX_FAILURE
   }
 
   # Check if train is bad
   all_others_bad = len(non_wit_results) == 0
 
-  if all_others_bad and wit_data and int(wit_data["failure"]) <= MAX_FAILURE and wit_data["total_support"] >= 2:
+  if all_others_bad and wit_data and int(wit_data["failure"]) <= state.MAX_FAILURE and wit_data["total_support"] >= 2:
     print("\n[INFO] All trainings are unsafe, but WIT is safe and has enough support cards.")
     return "wit"
 
   filtered_results = {
-    k: v for k, v in results.items() if int(v["failure"]) <= MAX_FAILURE
+    k: v for k, v in results.items() if int(v["failure"]) <= state.MAX_FAILURE
   }
 
   if not filtered_results:
@@ -71,7 +63,7 @@ def rainbow_training(results):
   # Get rainbow training
   rainbow_candidates = {
     stat: data for stat, data in results.items()
-    if int(data["failure"]) <= MAX_FAILURE and data["support"].get(stat, 0) > 0
+    if int(data["failure"]) <= state.MAX_FAILURE and data["support"].get(stat, 0) > 0
   }
 
   if not rainbow_candidates:
@@ -94,7 +86,7 @@ def rainbow_training(results):
 def filter_by_stat_caps(results, current_stats):
   return {
     stat: data for stat, data in results.items()
-    if current_stats.get(stat, 0) < STAT_CAPS.get(stat, 1200)
+    if current_stats.get(stat, 0) < state.STAT_CAPS.get(stat, 1200)
   }
   
 # Decide training

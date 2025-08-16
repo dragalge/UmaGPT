@@ -34,11 +34,11 @@ def deduplicate_boxes(boxes, min_dist=5):
       filtered.append((x, y, w, h))
   return filtered
 
-def is_infirmary_active(REGION):
-  screenshot = capture_region(REGION)
+def is_btn_active(region, treshold = 150):
+  screenshot = capture_region(region)
   grayscale = screenshot.convert("L")
   stat = ImageStat.Stat(grayscale)
   avg_brightness = stat.mean[0]
 
-  # Treshold infirmary btn
-  return avg_brightness > 150
+  # Treshold btn btn
+  return avg_brightness > treshold

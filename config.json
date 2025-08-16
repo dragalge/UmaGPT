@@ -1,13 +1,30 @@
 {
-  "priority_stat": ["spd", "sta", "wit", "pwr", "guts"],
+  "priority_stat": [
+    "spd",
+    "sta",
+    "wit",
+    "pwr",
+    "guts"
+  ],
   "minimum_mood": "NORMAL",
-  "maximum_failure": 10,
+  "maximum_failure": 15,
   "prioritize_g1_race": false,
   "stat_caps": {
-  "spd": 1100,
-  "sta": 600,
-  "pwr": 600,
-  "guts": 600,
-  "wit": 1100
+    "spd": 1100,
+    "sta": 1000,
+    "pwr": 1000,
+    "guts": 500,
+    "wit": 1000
+  },
+  "skill": {
+    "is_auto_buy_skill": true,
+    "skill_pts_check": 400,
+    "skill_list": [
+      "Concentration",
+      "Red Shift/LP1211-M",
+      "U=ma2",
+      "Professor of Curvature",
+      "Swinging Maestro"
+    ]
   }
 }

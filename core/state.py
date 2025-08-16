@@ -1,10 +1,39 @@
 import re
+import json
 
 from utils.screenshot import capture_region, enhanced_screenshot
 from core.ocr import extract_text, extract_number
 from core.recognizer import match_template
 
-from utils.constants import SUPPORT_CARD_ICON_REGION, MOOD_REGION, TURN_REGION, FAILURE_REGION, YEAR_REGION, MOOD_LIST, CRITERIA_REGION
+from utils.constants import SUPPORT_CARD_ICON_REGION, MOOD_REGION, TURN_REGION, FAILURE_REGION, YEAR_REGION, MOOD_LIST, CRITERIA_REGION, SKILL_PTS_REGION
+
+is_bot_running = False
+
+MINIMUM_MOOD = None
+PRIORITIZE_G1_RACE = None
+IS_AUTO_BUY_SKILL = None
+SKILL_PTS_CHECK = None
+PRIORITY_STAT = None
+MAX_FAILURE = None
+STAT_CAPS = None
+SKILL_LIST = None
+
+def load_config():
+  with open("config.json", "r", encoding="utf-8") as file:
+    return json.load(file)
+
+def reload_config():
+  global PRIORITY_STAT, MINIMUM_MOOD, MAX_FAILURE, PRIORITIZE_G1_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
+  config = load_config()
+
+  PRIORITY_STAT = config["priority_stat"]
+  MINIMUM_MOOD = config["minimum_mood"]
+  MAX_FAILURE = config["maximum_failure"]
+  PRIORITIZE_G1_RACE = config["prioritize_g1_race"]
+  STAT_CAPS = config["stat_caps"]
+  IS_AUTO_BUY_SKILL = config["skill"]["is_auto_buy_skill"]
+  SKILL_PTS_CHECK = config["skill"]["skill_pts_check"]
+  SKILL_LIST = config["skill"]["skill_list"]
 
 # Get Stat
 def stat_state():
@@ -20,8 +49,7 @@ def stat_state():
   for stat, region in stat_regions.items():
     img = enhanced_screenshot(region)
     val = extract_number(img)
-    digits = ''.join(filter(str.isdigit, val))
-    result[stat] = int(digits) if digits.isdigit() else 0
+    result[stat] = val
   return result
 
 # Check support card in each training
@@ -116,4 +144,9 @@ def check_current_year():
 def check_criteria():
   img = enhanced_screenshot(CRITERIA_REGION)
   text = extract_text(img)
+  return text
+
+def check_skill_pts():
+  img = enhanced_screenshot(SKILL_PTS_REGION)
+  text = extract_number(img)
   return text

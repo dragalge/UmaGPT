@@ -1,22 +1,20 @@
 import pyautogui
 import time
-import json
 
 pyautogui.useImageNotFoundException(False)
 
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria
+import core.state as state
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts
 from core.logic import do_something
 from utils.constants import MOOD_LIST
-from core.recognizer import is_infirmary_active, match_template
+from core.recognizer import is_btn_active, match_template
 from utils.scenario import ura
+from core.skill import buy_skill
 
-with open("config.json", "r", encoding="utf-8") as file:
-  config = json.load(file)
-
-MINIMUM_MOOD = config["minimum_mood"]
-PRIORITIZE_G1_RACE = config["prioritize_g1_race"]
-
-def click(img, confidence = 0.8, minSearch = 2, click = 1, text = ""):
+def click(img: str, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = ""):
+  if not state.is_bot_running:
+    return False
+  
   btn = pyautogui.locateCenterOnScreen(img, confidence=confidence, minSearchTime=minSearch)
   if btn:
     if text:
@@ -134,11 +132,8 @@ def race_select(prioritize_g1 = False):
             pyautogui.moveTo(match_aptitude, duration=0.2)
             pyautogui.click()
             for i in range(2):
-              race_btn = pyautogui.locateCenterOnScreen("assets/buttons/race_btn.png", confidence=0.8, minSearchTime=2)
-              if race_btn:
-                pyautogui.moveTo(race_btn, duration=0.2)
-                pyautogui.click(race_btn)
-                time.sleep(0.5)
+              click(img="assets/buttons/race_btn.png")
+              time.sleep(0.5)
             return True
       
       for i in range(4):
@@ -155,11 +150,8 @@ def race_select(prioritize_g1 = False):
         pyautogui.click(match_aptitude)
 
         for i in range(2):
-          race_btn = pyautogui.locateCenterOnScreen("assets/buttons/race_btn.png", confidence=0.8, minSearchTime=2)
-          if race_btn:
-            pyautogui.moveTo(race_btn, duration=0.2)
-            pyautogui.click(race_btn)
-            time.sleep(0.5)
+          click(img="assets/buttons/race_btn.png")
+          time.sleep(0.5)
         return True
       
       for i in range(4):
@@ -168,7 +160,7 @@ def race_select(prioritize_g1 = False):
     return False
 
 def race_prep():
-  view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=20)
+  view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10)
   if view_result_btn:
     pyautogui.click(view_result_btn)
     time.sleep(0.5)
@@ -182,9 +174,28 @@ def after_race():
   pyautogui.click()
   click(img="assets/buttons/next2_btn.png", minSearch=5)
 
+def auto_buy_skill():
+  if check_skill_pts() < state.SKILL_PTS_CHECK:
+    return
+
+  click(img="assets/buttons/skills_btn.png")
+  print("[INFO] Buying skills")
+  time.sleep(0.5)
+
+  if buy_skill():
+    click(img="assets/buttons/confirm_btn.png", minSearch=0.5)
+    click(img="assets/buttons/learn_btn.png", minSearch=0.5)
+    time.sleep(0.5)
+    click(img="assets/buttons/close_btn.png", minSearch=2)
+    time.sleep(0.5)
+    click(img="assets/buttons/back_btn.png")
+  else:
+    print("[INFO] No matching skills found. Going back.")
+    click(img="assets/buttons/back_btn.png")
+
 def career_lobby():
   # Program start
-  while True:
+  while state.is_bot_running:
     # First check, event
     if click(img="assets/icons/event_choice_1.png", minSearch=0.2, text="[INFO] Event found, automatically select top choice."):
       continue
@@ -209,19 +220,20 @@ def career_lobby():
     time.sleep(0.5)
 
     # Check if there is debuff status
-    debuffed = pyautogui.locateOnScreen("assets/buttons/infirmary_btn2.png", confidence=0.9, minSearchTime=1)
+    debuffed = pyautogui.locateOnScreen("assets/buttons/infirmary_btn.png", confidence=0.9, minSearchTime=1)
     if debuffed:
-      if is_infirmary_active((debuffed.left, debuffed.top, debuffed.width, debuffed.height)):
+      if is_btn_active((debuffed.left, debuffed.top, debuffed.width, debuffed.height)):
         pyautogui.click(debuffed)
         print("[INFO] Character has debuff, go to infirmary instead.")
         continue
 
     mood = check_mood()
     mood_index = MOOD_LIST.index(mood)
-    minimum_mood = MOOD_LIST.index(MINIMUM_MOOD)
+    minimum_mood = MOOD_LIST.index(state.MINIMUM_MOOD)
     turn = check_turn()
     year = check_current_year()
     criteria = check_criteria()
+    year_parts = year.split(" ")
     
     print("\n=======================================================================================\n")
     print(f"Year: {year}")
@@ -231,6 +243,8 @@ def career_lobby():
     # URA SCENARIO
     if year == "Finale Season" and turn == "Race Day":
       print("[INFO] URA Finale")
+      if state.IS_AUTO_BUY_SKILL:
+        auto_buy_skill()
       ura()
       for i in range(2):
         if click(img="assets/buttons/race_btn.png", minSearch=2):
@@ -244,6 +258,8 @@ def career_lobby():
     # If calendar is race day, do race
     if turn == "Race Day" and year != "Finale Season":
       print("[INFO] Race Day.")
+      if state.IS_AUTO_BUY_SKILL and year_parts[0] != "Junior":
+        auto_buy_skill()
       race_day()
       continue
 
@@ -263,10 +279,9 @@ def career_lobby():
         click(img="assets/buttons/back_btn.png", text="[INFO] Race not found. Proceeding to training.")
         time.sleep(0.5)
 
-    year_parts = year.split(" ")
     # If Prioritize G1 Race is true, check G1 race every turn
-    if PRIORITIZE_G1_RACE and year_parts[0] != "Junior" and len(year_parts) > 3 and year_parts[3] not in ["Jul", "Aug"]:
-      g1_race_found = do_race(PRIORITIZE_G1_RACE)
+    if state.PRIORITIZE_G1_RACE and year_parts[0] != "Junior" and len(year_parts) > 3 and year_parts[3] not in ["Jul", "Aug"]:
+      g1_race_found = do_race(state.PRIORITIZE_G1_RACE)
       if g1_race_found:
         continue
       else:

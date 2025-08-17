@@ -3,6 +3,7 @@ import pygetwindow as gw
 import threading
 import uvicorn
 import keyboard
+import pyautogui
 
 from core.execute import career_lobby
 import core.state as state
@@ -12,13 +13,14 @@ hotkey = "f1"
 
 def focus_umamusume():
   try:
-    win = gw.getWindowsWithTitle("Umamusume")[0]
-    if win.isMinimized:
-      win.restore()
+    win = gw.getWindowsWithTitle("Umamusume")
+    target_window = next((w for w in win if w.title.strip() == "Umamusume"), None)
+    if target_window.isMinimized:
+      target_window.restore()
     else:
-      win.minimize()
+      target_window.minimize()
       time.sleep(0.2)
-      win.restore()
+      target_window.restore()
       time.sleep(0.5)
   except Exception as e:
     print(f"Error focusing window: {e}")
@@ -47,6 +49,10 @@ def hotkey_listener():
     time.sleep(0.5)
 
 def start_server():
+  res = pyautogui.resolution()
+  if res.width != 1920 or res.height != 1080:
+    print(f"[ERROR] Your resolution is {res.width} x {res.height}. Please set your screen to 1920 x 1080.")
+    return
   host = "127.0.0.1"
   port = 8000
   print(f"[INFO] Press '{hotkey}' to start/stop the bot.")

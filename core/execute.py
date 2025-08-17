@@ -86,8 +86,13 @@ def do_recreation():
     pyautogui.click(recreation_summer_btn)
 
 def do_race(prioritize_g1 = False):
-  click(img="assets/buttons/races_btn.png", minSearch=10)
-  click(img="assets/buttons/ok_btn.png", minSearch=0.7)
+  click(img="assets/buttons/races_btn.png", minSearch=10)  
+
+  if state.CANCEL_CONSECUTIVE_RACE:
+    click(img="assets/buttons/cancel_btn.png", text="[INFO] Already raced 3+ times consecutively. Cancelling race and doing training.")
+    return False
+
+  click(img="assets/buttons/ok_btn.png")
 
   found = race_select(prioritize_g1=prioritize_g1)
   if not found:
@@ -102,7 +107,7 @@ def do_race(prioritize_g1 = False):
 def race_day():
   click(img="assets/buttons/race_day_btn.png", minSearch=10)
   
-  click(img="assets/buttons/ok_btn.png", minSearch=0.7)
+  click(img="assets/buttons/ok_btn.png")
   time.sleep(0.5)
 
   for i in range(2):
@@ -276,7 +281,7 @@ def career_lobby():
         continue
       else:
         # If there is no race matching to aptitude, go back and do training instead
-        click(img="assets/buttons/back_btn.png", text="[INFO] Race not found. Proceeding to training.")
+        click(img="assets/buttons/back_btn.png", minSearch=0.5, text="[INFO] Race not found. Proceeding to training.")
         time.sleep(0.5)
 
     # If Prioritize G1 Race is true, check G1 race every turn
@@ -286,7 +291,7 @@ def career_lobby():
         continue
       else:
         # If there is no G1 race, go back and do training
-        click(img="assets/buttons/back_btn.png", text="[INFO] G1 race not found. Proceeding to training.")
+        click(img="assets/buttons/back_btn.png", minSearch=0.5, text="[INFO] G1 race not found. Proceeding to training.")
         time.sleep(0.5)
     
     # Check training button

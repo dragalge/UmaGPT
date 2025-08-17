@@ -17,19 +17,21 @@ PRIORITY_STAT = None
 MAX_FAILURE = None
 STAT_CAPS = None
 SKILL_LIST = None
+CANCEL_CONSECUTIVE_RACE = None
 
 def load_config():
   with open("config.json", "r", encoding="utf-8") as file:
     return json.load(file)
 
 def reload_config():
-  global PRIORITY_STAT, MINIMUM_MOOD, MAX_FAILURE, PRIORITIZE_G1_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
+  global PRIORITY_STAT, MINIMUM_MOOD, MAX_FAILURE, PRIORITIZE_G1_RACE, CANCEL_CONSECUTIVE_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
   config = load_config()
 
   PRIORITY_STAT = config["priority_stat"]
   MINIMUM_MOOD = config["minimum_mood"]
   MAX_FAILURE = config["maximum_failure"]
   PRIORITIZE_G1_RACE = config["prioritize_g1_race"]
+  CANCEL_CONSECUTIVE_RACE = config["cancel_consecutive_race"]
   STAT_CAPS = config["stat_caps"]
   IS_AUTO_BUY_SKILL = config["skill"]["is_auto_buy_skill"]
   SKILL_PTS_CHECK = config["skill"]["skill_pts_check"]

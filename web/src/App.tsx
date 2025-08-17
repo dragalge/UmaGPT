@@ -9,11 +9,12 @@ import StatCaps from "./components/StatCaps";
 import Mood from "./components/Mood";
 import FailChance from "./components/FailChance";
 import PrioritizeG1 from "./components/PrioritizeG1";
+import CancelConsecutive from "./components/CancelConsecutive";
 
 function App() {
   const { config, setConfig, saveConfig } = useConfig(defaultConfig);
 
-  const { priority_stat, minimum_mood, maximum_failure, prioritize_g1_race, stat_caps, skill } = config;
+  const { priority_stat, minimum_mood, maximum_failure, prioritize_g1_race, cancel_consecutive_race, stat_caps, skill } = config;
   const { is_auto_buy_skill, skill_pts_check, skill_list } = skill;
 
   const setPriorityStat = (newList: string[]) => {
@@ -30,6 +31,10 @@ function App() {
 
   const setPrioritizeG1 = (newState: boolean) => {
     setConfig((prev) => ({ ...prev, prioritize_g1_race: newState }));
+  };
+
+  const setCancelConsecutive = (newState: boolean) => {
+    setConfig((prev) => ({ ...prev, cancel_consecutive_race: newState }));
   };
 
   const setStatCaps = (keys: string, value: number) => {
@@ -90,6 +95,9 @@ function App() {
 
           {/* PRIORITIZE G1 */}
           <PrioritizeG1 prioritizeG1Race={prioritize_g1_race} setPrioritizeG1={setPrioritizeG1} />
+
+          {/* CANCEL CONSECUTIVE RACE */}
+          <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={setCancelConsecutive} />
         </div>
         <p className="mt-4">
           Press <span className="font-bold">f1</span> to start/stop the bot.

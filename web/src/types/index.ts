@@ -17,6 +17,7 @@ export type Config = {
   minimum_mood: string;
   maximum_failure: number;
   prioritize_g1_race: boolean;
+  cancel_consecutive_race: boolean;
   stat_caps: Stat;
   skill: Skill;
 };

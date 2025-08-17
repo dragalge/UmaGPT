@@ -9,6 +9,7 @@
   "minimum_mood": "NORMAL",
   "maximum_failure": 15,
   "prioritize_g1_race": false,
+  "cancel_consecutive_race": true,
   "stat_caps": {
     "spd": 1100,
     "sta": 1000,

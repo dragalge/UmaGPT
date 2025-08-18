@@ -8,7 +8,7 @@ This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/s
 
 ![Screenshot](screenshot.png)
 
-# ⚠️ USE IT WITH YOUR OWN RISK ⚠️
+# ⚠️ USE IT AT YOUR OWN RISK ⚠️
 
 I am not responsible for any issues, account bans, or losses that may occur from using it.
 Use responsibly and at your own discretion.

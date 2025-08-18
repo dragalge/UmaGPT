@@ -12,7 +12,7 @@ export default function Mood({ minimumMood, setMood }: Props) {
       <label htmlFor="mood" className="flex gap-2 items-center">
         <span className="text-xl">Minimum Mood</span>
         <Select value={minimumMood} onValueChange={(val) => setMood(val)}>
-          <SelectTrigger className="w-[150px]">
+          <SelectTrigger className="w-28">
             <SelectValue placeholder="Mood" />
           </SelectTrigger>
           <SelectContent>

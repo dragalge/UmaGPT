@@ -10,9 +10,23 @@ import Mood from "./components/Mood";
 import FailChance from "./components/FailChance";
 import PrioritizeG1 from "./components/PrioritizeG1";
 import CancelConsecutive from "./components/CancelConsecutive";
+import { useConfigPreset } from "./hooks/useConfigPreset";
+import { useEffect, useState } from "react";
 
 function App() {
-  const { config, setConfig, saveConfig } = useConfig(defaultConfig);
+  const { activeIndex, activeConfig, presets, setActiveIndex, setNamePreset, savePreset } = useConfigPreset();
+  const { config, setConfig, saveConfig } = useConfig(activeConfig ?? defaultConfig);
+  const [presetName, setPresetName] = useState<string>("");
+
+  useEffect(() => {
+    if (presets[activeIndex]) {
+      setPresetName(presets[activeIndex].name);
+      setConfig(presets[activeIndex].config ?? defaultConfig);
+    } else {
+      setPresetName("");
+      setConfig(defaultConfig);
+    }
+  }, [activeIndex, presets, setConfig]);
 
   const { priority_stat, minimum_mood, maximum_failure, prioritize_g1_race, cancel_consecutive_race, stat_caps, skill } = config;
   const { is_auto_buy_skill, skill_pts_check, skill_list } = skill;
@@ -61,6 +75,16 @@ function App() {
     <div className="w-full flex justify-center">
       <div className="mt-24 w-3/4">
         <h1 className="text-4xl font-bold">Uma Auto Train</h1>
+        <div className="flex flex-col gap-2 mt-4">
+          <div className="flex gap-2">
+            {presets.map((_, i) => (
+              <Button className="w-8 font-medium cursor-pointer" key={_.name} variant={i === activeIndex ? "default" : "outline"} size="sm" onClick={() => setActiveIndex(i)}>
+                {i + 1}
+              </Button>
+            ))}
+          </div>
+          <Input className="mt-2 w-52" value={presetName} onChange={(e) => setPresetName(e.target.value)} />
+        </div>
 
         <div className="flex flex-col mt-2 gap-4">
           <div className="flex divide-x-2">
@@ -102,7 +126,16 @@ function App() {
         <p className="mt-4">
           Press <span className="font-bold">f1</span> to start/stop the bot.
         </p>
-        <Button type="button" size={"lg"} className="px-3 py-1 font-semibold text-lg cursor-pointer mt-6" onClick={saveConfig}>
+        <Button
+          type="button"
+          size={"lg"}
+          className="px-3 py-1 font-semibold text-lg cursor-pointer mt-6"
+          onClick={() => {
+            setNamePreset(activeIndex, presetName);
+            savePreset(config);
+            saveConfig();
+          }}
+        >
           Save Config
         </Button>
       </div>

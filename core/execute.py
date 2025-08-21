@@ -1,5 +1,6 @@
 import pyautogui
 import time
+from PIL import ImageGrab
 
 pyautogui.useImageNotFoundException(False)
 
@@ -7,14 +8,42 @@ import core.state as state
 from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts
 from core.logic import do_something
 from utils.constants import MOOD_LIST
-from core.recognizer import is_btn_active, match_template
+from core.recognizer import is_btn_active, match_template, multi_match_templates
 from utils.scenario import ura
 from core.skill import buy_skill
 
-def click(img: str, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = ""):
+templates = {
+  "event": "assets/icons/event_choice_1.png",
+  "inspiration": "assets/buttons/inspiration_btn.png",
+  "next": "assets/buttons/next_btn.png",
+  "cancel": "assets/buttons/cancel_btn.png",
+  "tazuna": "assets/ui/tazuna_hint.png",
+  "infirmary": "assets/buttons/infirmary_btn.png"
+}
+
+def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = "", boxes = None):
   if not state.is_bot_running:
     return False
-  
+
+  if boxes:
+    if isinstance(boxes, list):
+      if len(boxes) == 0:
+        return False
+      box = boxes[0]
+    else :
+      box = boxes
+
+    if text:
+      print(text)
+    x, y, w, h = box
+    center = (x + w // 2, y + h // 2)
+    pyautogui.moveTo(center[0], center[1], duration=0.175)
+    pyautogui.click(clicks=click)
+    return True
+
+  if img is None:
+    return False
+
   btn = pyautogui.locateCenterOnScreen(img, confidence=confidence, minSearchTime=minSearch)
   if btn:
     if text:
@@ -203,35 +232,25 @@ def auto_buy_skill():
 def career_lobby():
   # Program start
   while state.is_bot_running:
-    # First check, event
-    if click(img="assets/icons/event_choice_1.png", minSearch=0.2, text="[INFO] Event found, automatically select top choice."):
+    screen = ImageGrab.grab()
+    matches = multi_match_templates(templates, screen=screen)
+
+    if click(boxes=matches["event"], text="[INFO] Event found, selecting top choice."):
+      continue
+    if click(boxes=matches["inspiration"], text="[INFO] Inspiration found."):
+      continue
+    if click(boxes=matches["next"]):
+      continue
+    if click(boxes=matches["cancel"]):
       continue
 
-    # Second check, inspiration
-    if click(img="assets/buttons/inspiration_btn.png", minSearch=0.2, text="[INFO] Inspiration found."):
-      continue
-
-    if click(img="assets/buttons/next_btn.png", minSearch=0.2):
-      continue
-
-    if click(img="assets/buttons/cancel_btn.png", minSearch=0.2):
-      continue
-
-    # Check if current menu is in career lobby
-    tazuna_hint = pyautogui.locateCenterOnScreen("assets/ui/tazuna_hint.png", confidence=0.8, minSearchTime=0.2)
-
-    if tazuna_hint is None:
+    if not matches["tazuna"]:
       print("[INFO] Should be in career lobby.")
       continue
 
-    time.sleep(0.5)
-
-    # Check if there is debuff status
-    debuffed = pyautogui.locateOnScreen("assets/buttons/infirmary_btn.png", confidence=0.9, minSearchTime=1)
-    if debuffed:
-      if is_btn_active((debuffed.left, debuffed.top, debuffed.width, debuffed.height)):
-        pyautogui.click(debuffed)
-        print("[INFO] Character has debuff, go to infirmary instead.")
+    if matches["infirmary"]:
+      if is_btn_active(matches["infirmary"][0]):
+        click(boxes=matches["infirmary"][0], text="[INFO] Character debuffed, going to infirmary.")
         continue
 
     mood = check_mood()
@@ -241,7 +260,7 @@ def career_lobby():
     year = check_current_year()
     criteria = check_criteria()
     year_parts = year.split(" ")
-    
+
     print("\n=======================================================================================\n")
     print(f"Year: {year}")
     print(f"Mood: {mood}")

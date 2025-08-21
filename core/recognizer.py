@@ -24,6 +24,26 @@ def match_template(template_path, region=None, threshold=0.85):
 
   return deduplicate_boxes(boxes)
 
+def multi_match_templates(templates, screen=None, threshold=0.85):
+  if screen is None:
+    screen = ImageGrab.grab()
+  screen_bgr = cv2.cvtColor(np.array(screen), cv2.COLOR_RGB2BGR)
+
+  results = {}
+  for name, path in templates.items():
+    template = cv2.imread(path, cv2.IMREAD_COLOR)
+    if template is None:
+      results[name] = []
+      continue
+    if template.shape[2] == 4:
+      template = cv2.cvtColor(template, cv2.COLOR_BGRA2BGR)
+
+    result = cv2.matchTemplate(screen_bgr, template, cv2.TM_CCOEFF_NORMED)
+    loc = np.where(result >= threshold)
+    h, w = template.shape[:2]
+    boxes = [(x, y, w, h) for (x, y) in zip(*loc[::-1])]
+    results[name] = boxes
+  return results
 
 def deduplicate_boxes(boxes, min_dist=5):
   filtered = []
@@ -40,5 +60,5 @@ def is_btn_active(region, treshold = 150):
   stat = ImageStat.Stat(grayscale)
   avg_brightness = stat.mean[0]
 
-  # Treshold btn btn
+  # Treshold btn
   return avg_brightness > treshold

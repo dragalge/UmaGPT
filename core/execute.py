@@ -67,7 +67,11 @@ def check_training():
     "wit": "assets/icons/train_wit.png"
   }
   results = {}
+  
+  fail_check_states="train","no_train","check_all"
 
+  failcheck="check_all"
+  margin=5
   for key, icon_path in training_types.items():
     pos = pyautogui.locateCenterOnScreen(icon_path, confidence=0.8)
     if pos:
@@ -75,7 +79,27 @@ def check_training():
       pyautogui.mouseDown()
       support_counts = check_support_card()
       total_support = sum(support_counts.values())
-      failure_chance = check_failure()
+      print(f"failcheck: {failcheck}")
+      if key != "wit":
+        if failcheck == "check_all":
+          failure_chance = check_failure()
+          if failure_chance > (state.MAX_FAILURE + margin):
+            print("Failure rate too high skip to check wit")
+            failcheck="no_train"
+            failure_chance = state.MAX_FAILURE + margin
+          elif failure_chance < (state.MAX_FAILURE - margin):
+            print("Failure rate is low enough, skipping the rest of failure checks.")
+            failcheck="train"
+            failure_chance = 0
+        elif failcheck == "no_train":
+          failure_chance = state.MAX_FAILURE + margin
+        elif failcheck == "train":
+          failure_chance = 0
+      else:
+        if failcheck == "train":
+          failure_chance = 0
+        else:
+          failure_chance = check_failure()
       results[key] = {
         "support": support_counts,
         "total_support": total_support,
@@ -248,7 +272,8 @@ def career_lobby():
       continue
 
     if not matches["tazuna"]:
-      print("[INFO] Should be in career lobby.")
+      #print("[INFO] Should be in career lobby.")
+      print(".", end="")
       continue
 
     if matches["infirmary"]:

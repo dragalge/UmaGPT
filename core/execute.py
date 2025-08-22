@@ -18,7 +18,8 @@ templates = {
   "next": "assets/buttons/next_btn.png",
   "cancel": "assets/buttons/cancel_btn.png",
   "tazuna": "assets/ui/tazuna_hint.png",
-  "infirmary": "assets/buttons/infirmary_btn.png"
+  "infirmary": "assets/buttons/infirmary_btn.png",
+  "retry": "assets/buttons/retry_btn.png"
 }
 
 def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = "", boxes = None):
@@ -242,6 +243,8 @@ def career_lobby():
     if click(boxes=matches["next"]):
       continue
     if click(boxes=matches["cancel"]):
+      continue
+    if click(boxes=matches["retry"]):
       continue
 
     if not matches["tazuna"]:

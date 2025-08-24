@@ -5,7 +5,7 @@ from PIL import ImageGrab
 pyautogui.useImageNotFoundException(False)
 
 import core.state as state
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level
 from core.logic import do_something
 from utils.constants import MOOD_LIST
 from core.recognizer import is_btn_active, match_template, multi_match_templates
@@ -260,6 +260,7 @@ def career_lobby():
     screen = ImageGrab.grab()
     matches = multi_match_templates(templates, screen=screen)
 
+    energy_level = check_energy_level()
     if click(boxes=matches["event"], text="[INFO] Event found, selecting top choice."):
       continue
     if click(boxes=matches["inspiration"], text="[INFO] Inspiration found."):
@@ -284,6 +285,8 @@ def career_lobby():
     mood = check_mood()
     mood_index = MOOD_LIST.index(mood)
     minimum_mood = MOOD_LIST.index(state.MINIMUM_MOOD)
+    #minimum_mood_junior_year = MOOD_LIST.index(state.MINIMUM_MOOD_JUNIOR_YEAR)
+    minimum_mood_junior_year = MOOD_LIST.index("NORMAL")
     turn = check_turn()
     year = check_current_year()
     criteria = check_criteria()
@@ -318,10 +321,16 @@ def career_lobby():
       continue
 
     # Mood check
-    if mood_index < minimum_mood:
-      print("[INFO] Mood is low, trying recreation to increase mood")
-      do_recreation()
-      continue
+    if year_parts[0] == "Junior":
+      if mood_index < minimum_mood_junior_year:
+        print("[INFO] Mood is low, trying recreation to increase mood")
+        do_recreation()
+        continue
+    else:
+      if mood_index < minimum_mood:
+        print("[INFO] Mood is low, trying recreation to increase mood")
+        do_recreation()
+        continue
 
     # Check if goals is not met criteria AND it is not Pre-Debut AND turn is less than 10 AND Goal is already achieved
     if criteria.split(" ")[0] != "criteria" and year != "Junior Year Pre-Debut" and turn < 10 and criteria != "Goal Achievedl":

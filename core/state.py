@@ -3,9 +3,9 @@ import json
 
 from utils.screenshot import capture_region, enhanced_screenshot
 from core.ocr import extract_text, extract_number
-from core.recognizer import match_template
+from core.recognizer import match_template, count_pixels_of_color
 
-from utils.constants import SUPPORT_CARD_ICON_REGION, MOOD_REGION, TURN_REGION, FAILURE_REGION, YEAR_REGION, MOOD_LIST, CRITERIA_REGION, SKILL_PTS_REGION
+from utils.constants import SUPPORT_CARD_ICON_REGION, MOOD_REGION, TURN_REGION, FAILURE_REGION, YEAR_REGION, MOOD_LIST, CRITERIA_REGION, SKILL_PTS_REGION, ENERGY_REGION
 
 is_bot_running = False
 
@@ -64,6 +64,13 @@ def check_support_card(threshold=0.8):
     "wit": "assets/icons/support_card_type_wit.png",
     "friend": "assets/icons/support_card_type_friend.png"
   }
+
+  SUPPORT_FRIEND_LEVELS = {
+    "blue": "assets/icons/support_level_blue.png",
+    "green": "assets/icons/support_level_green.png",
+    "yellow": "assets/icons/support_level_yellow.png",
+    "max": "assets/icons/support_level_max.png",
+  } ################################################################################ add friendship level as a target at junior level
 
   count_result = {}
 
@@ -152,3 +159,30 @@ def check_skill_pts():
   img = enhanced_screenshot(SKILL_PTS_REGION)
   text = extract_number(img)
   return text
+
+def check_energy_level(threshold=0.85):
+  #find where the right side of the bar is on screen
+  right_bar_match = match_template("assets/ui/energy_bar_right_end_part.png", ENERGY_REGION, threshold)
+  if right_bar_match:
+    x, y, w, h = right_bar_match[0]
+    energy_bar_length = x
+
+    x, y, w, h = ENERGY_REGION
+    top_bottom_middle_pixel = round((y + h) / 2, 0)
+
+    MAX_ENERGY_REGION = (x, top_bottom_middle_pixel, x + energy_bar_length, top_bottom_middle_pixel+1)
+
+
+    #[118,117,118] is gray for missing energy, region templating for this one is a problem, so we do this
+    empty_energy_pixel_count = count_pixels_of_color([118,117,118], MAX_ENERGY_REGION)
+    
+    #use the energy_bar_length (a few extra pixels from the outside are remaining so we subtract that)
+    total_energy_length = energy_bar_length - 1
+    hundred_energy_pixel_constant = 236 #counted pixels from one end of the bar to the other, should be fine since we're working in only 1080p
+    
+    energy_level = ((total_energy_length - empty_energy_pixel_count) / hundred_energy_pixel_constant) * 100
+    print(f"Remaining energy guestimate = {energy_level:.2f}")
+    return energy_level
+  else:
+    print(f"Couldn't find energy bar, returning -1")
+    return -1

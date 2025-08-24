@@ -62,19 +62,3 @@ def is_btn_active(region, treshold = 150):
 
   # Treshold btn
   return avg_brightness > treshold
-
-def count_pixels_of_color(color_rgb=[118,117,118], region=None):
-  #[118,117,118] is gray for missing energy
-  if region:
-    screen = np.array(ImageGrab.grab(bbox=region))  # (left, top, right, bottom)
-  else:
-    return -1
-
-  #cv2.namedWindow("opencv")
-  #cv2.imshow("opencv",screen)
-  #cv2.waitKey(0)
-
-  color = np.array(color_rgb, np.uint8)
-  dst = cv2.inRange(screen, color, color)
-  pixel_count = cv2.countNonZero(dst)
-  return pixel_count

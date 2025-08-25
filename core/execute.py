@@ -7,7 +7,7 @@ pyautogui.useImageNotFoundException(False)
 import core.state as state
 from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level
 from core.logic import do_something
-from utils.constants import MOOD_LIST
+from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SKIP_BTN_BIG_REGION
 from core.recognizer import is_btn_active, match_template, multi_match_templates
 from utils.scenario import ura
 from core.skill import buy_skill
@@ -113,7 +113,7 @@ def check_training():
   return results
 
 def do_train(train):
-  train_btn = pyautogui.locateCenterOnScreen(f"assets/icons/train_{train}.png", confidence=0.8)
+  train_btn = pyautogui.locateCenterOnScreen(f"assets/icons/train_{train}.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
   if train_btn:
     pyautogui.tripleClick(train_btn, interval=0.1, duration=0.2)
 
@@ -221,13 +221,49 @@ def race_select(prioritize_g1 = False):
     return False
 
 def race_prep():
-  view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10)
-  if view_result_btn:
+  lock_icon = pyautogui.locateCenterOnScreen("assets/ui/lock_icon.png", confidence=0.9, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
+  if not lock_icon:
+    print(f"lock icon not found trying to find view results")
+    view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
     pyautogui.click(view_result_btn)
     time.sleep(0.5)
     for i in range(3):
       pyautogui.tripleClick(interval=0.2)
       time.sleep(0.5)
+  else:
+    print(f"lock icon found, trying normal race {lock_icon}")
+    race_btn = pyautogui.locateCenterOnScreen("assets/buttons/race_btn.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
+    pyautogui.click(race_btn)
+    time.sleep(2)
+    race_exclamation_btn = pyautogui.locateCenterOnScreen("assets/buttons/race_exclamation_btn.png", confidence=0.9, minSearchTime=20)
+    pyautogui.click(race_exclamation_btn)
+    time.sleep(0.5)
+    skip_btn = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=2, region=SCREEN_BOTTOM_REGION)
+    skip_btn_big = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn_big.png", confidence=0.8, minSearchTime=2, region=SKIP_BTN_BIG_REGION)
+    if not skip_btn_big and not skip_btn:
+      skip_btn = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
+      skip_btn_big = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn_big.png", confidence=0.8, minSearchTime=10, region=SKIP_BTN_BIG_REGION)
+    if skip_btn:
+      pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+    if skip_btn_big:
+      pyautogui.tripleClick(skip_btn_big, interval=0.2, duration=0.4)
+    time.sleep(3)
+    if skip_btn:
+      pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+    if skip_btn_big:
+      pyautogui.tripleClick(skip_btn_big, interval=0.2, duration=0.4)
+    time.sleep(0.5)
+    if skip_btn:
+      pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+    if skip_btn_big:
+      pyautogui.tripleClick(skip_btn_big, interval=0.2, duration=0.4)
+    time.sleep(3)
+    skip_btn = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
+    pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+    #since we didn't get the trophy before, if we get it we close the trophy
+    close_btn = pyautogui.locateCenterOnScreen("assets/buttons/close_btn.png", confidence=0.8, minSearchTime=10)
+    pyautogui.tripleClick(close_btn, interval=0.2, duration=0.4)
+
 
 def after_race():
   click(img="assets/buttons/next_btn.png", minSearch=5)
@@ -260,7 +296,8 @@ def career_lobby():
     screen = ImageGrab.grab()
     matches = multi_match_templates(templates, screen=screen)
 
-    energy_level = check_energy_level()
+    #energy_level = check_energy_level()
+
     if click(boxes=matches["event"], text="[INFO] Event found, selecting top choice."):
       continue
     if click(boxes=matches["inspiration"], text="[INFO] Inspiration found."):

@@ -32,11 +32,30 @@ def most_support_card(results):
     print("\n[INFO] No safe training found. All failure chances are too high.")
     return None
 
+  PRIORITY_WEIGHTS_LIST={
+    "HEAVY": 1.5,
+    "MEDIUM": 1,
+    "LIGHT": 0.5,
+    "NONE": 0
+  }
+
+  priority_weight = PRIORITY_WEIGHTS_LIST[state.PRIORITY_WEIGHT]
+
+  # priority adjuster, will be better with a config in the web
+  PRIORITY_EFFECTS_LIST = {
+    0: 2,   # first
+    1: 1,   # second
+    2: 0,   # third
+    3: -1,  # fourth
+    4: -2   # last
+  }
+
+  # this is the weight adder used for skewing results of training decisions PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * PRIORITY_WEIGHTS_LIST[priority_weight]
   # Best training
   best_training = max(
     filtered_results.items(),
     key=lambda x: (
-      x[1]["total_support"],
+      x[1]["total_support"] + PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * priority_weight,
       -get_stat_priority(x[0])  # priority decides when supports are equal
     )
   )

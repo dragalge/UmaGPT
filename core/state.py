@@ -24,11 +24,13 @@ def load_config():
     return json.load(file)
 
 def reload_config():
-  global PRIORITY_STAT, MINIMUM_MOOD, MAX_FAILURE, PRIORITIZE_G1_RACE, CANCEL_CONSECUTIVE_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
+  global PRIORITY_STAT, PRIORITY_WEIGHT, MINIMUM_MOOD, MINIMUM_MOOD_JUNIOR_YEAR, MAX_FAILURE, PRIORITIZE_G1_RACE, CANCEL_CONSECUTIVE_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
   config = load_config()
 
   PRIORITY_STAT = config["priority_stat"]
+  PRIORITY_WEIGHT = config["priority_weight"]
   MINIMUM_MOOD = config["minimum_mood"]
+  MINIMUM_MOOD_JUNIOR_YEAR = config["minimum_mood_junior_year"]
   MAX_FAILURE = config["maximum_failure"]
   PRIORITIZE_G1_RACE = config["prioritize_g1_race"]
   CANCEL_CONSECUTIVE_RACE = config["cancel_consecutive_race"]

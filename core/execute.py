@@ -67,7 +67,7 @@ def check_training():
     "wit": "assets/icons/train_wit.png"
   }
   results = {}
-  
+
   fail_check_states="train","no_train","check_all"
 
   failcheck="check_all"
@@ -322,8 +322,7 @@ def career_lobby():
     mood = check_mood()
     mood_index = MOOD_LIST.index(mood)
     minimum_mood = MOOD_LIST.index(state.MINIMUM_MOOD)
-    #minimum_mood_junior_year = MOOD_LIST.index(state.MINIMUM_MOOD_JUNIOR_YEAR)
-    minimum_mood_junior_year = MOOD_LIST.index("NORMAL")
+    minimum_mood_junior_year = MOOD_LIST.index(state.MINIMUM_MOOD_JUNIOR_YEAR)
     turn = check_turn()
     year = check_current_year()
     criteria = check_criteria()

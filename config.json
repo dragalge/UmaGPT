@@ -6,7 +6,9 @@
     "pwr",
     "guts"
   ],
+  "priority_weight":"NONE",
   "minimum_mood": "NORMAL",
+  "minimum_mood_junior_year": "NORMAL",
   "maximum_failure": 15,
   "prioritize_g1_race": false,
   "cancel_consecutive_race": true,

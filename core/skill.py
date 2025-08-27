@@ -1,3 +1,4 @@
+import time
 import pyautogui
 import Levenshtein
 
@@ -11,6 +12,9 @@ def buy_skill():
   found = False
 
   for i in range(10):
+    # Pause a bit at the bottom to wait until the scrolling animation ends
+    if i > 8:
+      time.sleep(0.5)
     buy_skill_icon = match_template("assets/icons/buy_skill.png", threshold=0.9)
 
     if buy_skill_icon:
@@ -32,7 +36,7 @@ def buy_skill():
 
   return found
 
-def is_skill_match(text: str, skill_list: list[str], threshold: float = 0.75) -> bool:
+def is_skill_match(text: str, skill_list: list[str], threshold: float = 0.8) -> bool:
   for skill in skill_list:
     similarity = Levenshtein.ratio(text.lower(), skill.lower())
     if similarity >= threshold:

@@ -7,7 +7,7 @@ pyautogui.useImageNotFoundException(False)
 import core.state as state
 from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts
 from core.logic import do_something
-from utils.constants import MOOD_LIST
+from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION
 from core.recognizer import is_btn_active, match_template, multi_match_templates
 from utils.scenario import ura
 from core.skill import buy_skill
@@ -67,15 +67,39 @@ def check_training():
     "wit": "assets/icons/train_wit.png"
   }
   results = {}
+  
+  fail_check_states="train","no_train","check_all"
 
+  failcheck="check_all"
+  margin=5
   for key, icon_path in training_types.items():
-    pos = pyautogui.locateCenterOnScreen(icon_path, confidence=0.8)
+    pos = pyautogui.locateCenterOnScreen(icon_path, confidence=0.8, region=SCREEN_BOTTOM_REGION)
     if pos:
       pyautogui.moveTo(pos, duration=0.1)
       pyautogui.mouseDown()
       support_counts = check_support_card()
       total_support = sum(support_counts.values())
-      failure_chance = check_failure()
+      print(f"failcheck: {failcheck}")
+      if key != "wit":
+        if failcheck == "check_all":
+          failure_chance = check_failure()
+          if failure_chance > (state.MAX_FAILURE + margin):
+            print("Failure rate too high skip to check wit")
+            failcheck="no_train"
+            failure_chance = state.MAX_FAILURE + margin
+          elif failure_chance < (state.MAX_FAILURE - margin):
+            print("Failure rate is low enough, skipping the rest of failure checks.")
+            failcheck="train"
+            failure_chance = 0
+        elif failcheck == "no_train":
+          failure_chance = state.MAX_FAILURE + margin
+        elif failcheck == "train":
+          failure_chance = 0
+      else:
+        if failcheck == "train":
+          failure_chance = 0
+        else:
+          failure_chance = check_failure()
       results[key] = {
         "support": support_counts,
         "total_support": total_support,
@@ -89,13 +113,13 @@ def check_training():
   return results
 
 def do_train(train):
-  train_btn = pyautogui.locateCenterOnScreen(f"assets/icons/train_{train}.png", confidence=0.8)
+  train_btn = pyautogui.locateCenterOnScreen(f"assets/icons/train_{train}.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
   if train_btn:
     pyautogui.tripleClick(train_btn, interval=0.1, duration=0.2)
 
 def do_rest():
-  rest_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_btn.png", confidence=0.8)
-  rest_summber_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8)
+  rest_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
+  rest_summber_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
 
   if rest_btn:
     pyautogui.moveTo(rest_btn, duration=0.15)
@@ -105,8 +129,8 @@ def do_rest():
     pyautogui.click(rest_summber_btn)
 
 def do_recreation():
-  recreation_btn = pyautogui.locateCenterOnScreen("assets/buttons/recreation_btn.png", confidence=0.8)
-  recreation_summer_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8)
+  recreation_btn = pyautogui.locateCenterOnScreen("assets/buttons/recreation_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
+  recreation_summer_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
 
   if recreation_btn:
     pyautogui.moveTo(recreation_btn, duration=0.15)
@@ -248,7 +272,8 @@ def career_lobby():
       continue
 
     if not matches["tazuna"]:
-      print("[INFO] Should be in career lobby.")
+      #print("[INFO] Should be in career lobby.")
+      print(".", end="")
       continue
 
     if matches["infirmary"]:

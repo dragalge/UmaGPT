@@ -219,17 +219,19 @@ def race_select(prioritize_g1 = False):
     return False
 
 def race_prep():
-  lock_icon = pyautogui.locateCenterOnScreen("assets/ui/lock_icon.png", confidence=0.9, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
-  if not lock_icon:
-    print(f"lock icon not found trying to find view results")
-    view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
-    pyautogui.click(view_result_btn)
+#  lock_icon = pyautogui.locateCenterOnScreen("assets/ui/lock_icon.png", confidence=0.9, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
+#  if not lock_icon:
+#    print(f"lock icon not found trying to find view results")
+  view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
+  pyautogui.click(view_result_btn)
+  time.sleep(0.5)
+  for i in range(3):
+    pyautogui.tripleClick(interval=0.2)
     time.sleep(0.5)
-    for i in range(3):
-      pyautogui.tripleClick(interval=0.2)
-      time.sleep(0.5)
-  else:
-    print(f"lock icon found, trying normal race {lock_icon}")
+  pyautogui.click()
+  next_button = pyautogui.locateCenterOnScreen("assets/buttons/next_btn.png", confidence=0.9, minSearchTime=2, region=SCREEN_BOTTOM_REGION)
+  if not next_button:
+    print(f"Wouldn't be able to move onto the after race since there's no next button.")
     race_btn = pyautogui.locateCenterOnScreen("assets/buttons/race_btn.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
     pyautogui.click(race_btn)
     time.sleep(2)
@@ -295,7 +297,7 @@ def career_lobby():
     matches = multi_match_templates(templates, screen=screen)
 
     #energy_level = check_energy_level()
-
+    
     if click(boxes=matches["event"], text="[INFO] Event found, selecting top choice."):
       continue
     if click(boxes=matches["inspiration"], text="[INFO] Inspiration found."):

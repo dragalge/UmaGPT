@@ -5,7 +5,7 @@ from PIL import ImageGrab
 pyautogui.useImageNotFoundException(False)
 
 import core.state as state
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts
 from core.logic import do_something
 from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SKIP_BTN_BIG_REGION
 from core.recognizer import is_btn_active, match_template, multi_match_templates
@@ -38,7 +38,7 @@ def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: 
       print(text)
     x, y, w, h = box
     center = (x + w // 2, y + h // 2)
-    pyautogui.moveTo(center[0], center[1], duration=0.175)
+    pyautogui.moveTo(center[0], center[1], duration=0.225)
     pyautogui.click(clicks=click)
     return True
 
@@ -49,7 +49,7 @@ def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: 
   if btn:
     if text:
       print(text)
-    pyautogui.moveTo(btn, duration=0.175)
+    pyautogui.moveTo(btn, duration=0.225)
     pyautogui.click(clicks=click)
     return True
   
@@ -73,13 +73,12 @@ def check_training():
   failcheck="check_all"
   margin=5
   for key, icon_path in training_types.items():
-    pos = pyautogui.locateCenterOnScreen(icon_path, confidence=0.8)
+    pos = pyautogui.locateCenterOnScreen(icon_path, confidence=0.8, region=SCREEN_BOTTOM_REGION)
     if pos:
       pyautogui.moveTo(pos, duration=0.1)
       pyautogui.mouseDown()
-      support_counts = check_support_card()
-      total_support = sum(support_counts.values())
-      print(f"failcheck: {failcheck}")
+      support_card_results = check_support_card()
+
       if key != "wit":
         if failcheck == "check_all":
           failure_chance = check_failure()
@@ -100,12 +99,11 @@ def check_training():
           failure_chance = 0
         else:
           failure_chance = check_failure()
-      results[key] = {
-        "support": support_counts,
-        "total_support": total_support,
-        "failure": failure_chance
-      }
-      print(f"[{key.upper()}] → {support_counts}, Fail: {failure_chance}%")
+
+      support_card_results["failure"] = failure_chance
+      results[key] = support_card_results
+
+      print(f"[{key.upper()}] → Total Supports {support_card_results['total_supports']}, Levels:{support_card_results['total_friendship_levels']} , Fail: {failure_chance}%")
       time.sleep(0.1)
   
   pyautogui.mouseUp()
@@ -118,8 +116,8 @@ def do_train(train):
     pyautogui.tripleClick(train_btn, interval=0.1, duration=0.2)
 
 def do_rest():
-  rest_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_btn.png", confidence=0.8)
-  rest_summber_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8)
+  rest_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
+  rest_summber_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
 
   if rest_btn:
     pyautogui.moveTo(rest_btn, duration=0.15)
@@ -129,8 +127,8 @@ def do_rest():
     pyautogui.click(rest_summber_btn)
 
 def do_recreation():
-  recreation_btn = pyautogui.locateCenterOnScreen("assets/buttons/recreation_btn.png", confidence=0.8)
-  recreation_summer_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8)
+  recreation_btn = pyautogui.locateCenterOnScreen("assets/buttons/recreation_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
+  recreation_summer_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
 
   if recreation_btn:
     pyautogui.moveTo(recreation_btn, duration=0.15)
@@ -140,7 +138,7 @@ def do_recreation():
     pyautogui.click(recreation_summer_btn)
 
 def do_race(prioritize_g1 = False):
-  click(img="assets/buttons/races_btn.png", minSearch=10)  
+  click(img="assets/buttons/races_btn.png", minSearch=10)
 
   consecutive_cancel_btn = pyautogui.locateCenterOnScreen("assets/buttons/cancel_btn.png", minSearchTime=0.7, confidence=0.8)
   if state.CANCEL_CONSECUTIVE_RACE and consecutive_cancel_btn:
@@ -387,7 +385,7 @@ def career_lobby():
         # If there is no G1 race, go back and do training
         click(img="assets/buttons/back_btn.png", minSearch=1, text="[INFO] G1 race not found. Proceeding to training.")
         time.sleep(0.5)
-    
+
     # Check training button
     if not go_to_training():
       print("[INFO] Training button is not found.")
@@ -396,7 +394,7 @@ def career_lobby():
     # Last, do training
     time.sleep(0.5)
     results_training = check_training()
-    
+
     best_training = do_something(results_training)
     if best_training:
       go_to_training()

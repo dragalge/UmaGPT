@@ -1,9 +1,13 @@
 import core.state as state
-from core.state import check_current_year, stat_state
+from core.state import check_current_year, stat_state, check_energy_level
 
 # Get priority stat from config
 def get_stat_priority(stat_key: str) -> int:
   return state.PRIORITY_STAT.index(stat_key) if stat_key in state.PRIORITY_STAT else 999
+
+def check_all_elements_are_same(d):
+    sections = list(d.values())
+    return all(section == sections[0] for section in sections[1:])
 
 # Will do train with the most support card
 # Used in the first year (aim for rainbow)
@@ -19,8 +23,11 @@ def most_support_card(results):
 
   # Check if train is bad
   all_others_bad = len(non_wit_results) == 0
-
-  if all_others_bad and wit_data and int(wit_data["failure"]) <= state.MAX_FAILURE and wit_data["total_support"] >= 2:
+  energy_level = check_energy_level()
+  if all_others_bad and wit_data and int(wit_data["failure"]) <= state.MAX_FAILURE and wit_data["total_supports"] >= 2:
+    if energy_level < 30:
+      print("\n[INFO] All trainings are unsafe and WIT training won't help go back up to safe levels, resting instead.")
+      return None
     print("\n[INFO] All trainings are unsafe, but WIT is safe and has enough support cards.")
     return "wit"
 
@@ -33,9 +40,9 @@ def most_support_card(results):
     return None
 
   PRIORITY_WEIGHTS_LIST={
-    "HEAVY": 1.5,
-    "MEDIUM": 1,
-    "LIGHT": 0.5,
+    "HEAVY": 0.75,
+    "MEDIUM": 0.5,
+    "LIGHT": 0.25,
     "NONE": 0
   }
 
@@ -43,11 +50,11 @@ def most_support_card(results):
 
   # priority adjuster, will be better with a config in the web
   PRIORITY_EFFECTS_LIST = {
-    0: 2,   # first
+    0: 1,   # first
     1: 1,   # second
     2: 0,   # third
-    3: -1,  # fourth
-    4: -2   # last
+    3: 0,  # fourth
+    4: -1   # last
   }
 
   # this is the weight adder used for skewing results of training decisions PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * PRIORITY_WEIGHTS_LIST[priority_weight]
@@ -55,26 +62,30 @@ def most_support_card(results):
   best_training = max(
     filtered_results.items(),
     key=lambda x: (
-      x[1]["total_support"] + PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * priority_weight,
+      x[1]["total_supports"] * (1 + PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * priority_weight),
       -get_stat_priority(x[0])  # priority decides when supports are equal
     )
   )
 
   best_key, best_data = best_training
 
-  if best_data["total_support"] <= 1:
+  if best_data["total_supports"] <= 1:
     if int(best_data["failure"]) == 0:
       # WIT must be at least 2 support cards
       if best_key == "wit":
-        print(f"\n[INFO] Only 1 support and it's WIT. Skipping.")
-        return None
+        if energy_level > 75:
+          print(f"\n[INFO] Only 1 support and it's WIT but energy is too high for rest to be worth it. Still training.")
+          return "wit"
+        else:
+          print(f"\n[INFO] Only 1 support and it's WIT. Skipping.")
+          return None
       print(f"\n[INFO] Only 1 support but 0% failure. Prioritizing based on priority list: {best_key.upper()}")
       return best_key
     else:
       print("\n[INFO] Low value training (only 1 support). Choosing to rest.")
       return None
 
-  print(f"\nBest training: {best_key.upper()} with {best_data['total_support']} support cards and {best_data['failure']}% fail chance")
+  print(f"\nBest training: {best_key.upper()} with {best_data['total_supports']} support cards and {best_data['failure']}% fail chance")
   return best_key
 
 # Do rainbow training
@@ -82,24 +93,32 @@ def rainbow_training(results):
   # Get rainbow training
   rainbow_candidates = {
     stat: data for stat, data in results.items()
-    if int(data["failure"]) <= state.MAX_FAILURE and data["support"].get(stat, 0) > 0
+    if int(data["failure"]) <= state.MAX_FAILURE and data[stat]["friendship_levels"]["yellow"] + data[stat]["friendship_levels"]["max"] > 0
   }
 
   if not rainbow_candidates:
     print("\n[INFO] No rainbow training found under failure threshold.")
     return None
 
+  # 2 points for rainbow supports, 1 point for normal supports, stat priority tie breaker
+  for stat_name in rainbow_candidates:
+    data = rainbow_candidates[stat_name]
+    total_rainbow_friends = data[stat_name]["friendship_levels"]["yellow"] + data[stat_name]["friendship_levels"]["max"]
+    #adding total rainbow friends on top of total supports for two times value nudging the formula towards more rainbows
+    rainbow_points = total_rainbow_friends + data["total_supports"]
+    rainbow_candidates[stat_name]["rainbow_points"] = rainbow_points
+
   # Find support card rainbow in training
   best_rainbow = max(
     rainbow_candidates.items(),
     key=lambda x: (
-      x[1]["support"].get(x[0], 0),
+      x[1]["rainbow_points"],
       -get_stat_priority(x[0])
     )
   )
 
   best_key, best_data = best_rainbow
-  print(f"\n[INFO] Rainbow training selected: {best_key.upper()} with {best_data['support'][best_key]} rainbow supports and {best_data['failure']}% fail chance")
+  print(f"\n[INFO] Rainbow training selected: {best_key.upper()} with {best_data['rainbow_points']} rainbow points and {best_data['failure']}% fail chance")
   return best_key
 
 def filter_by_stat_caps(results, current_stats):

@@ -1,9 +1,10 @@
 import re
 import json
+from math import floor
 
 from utils.screenshot import capture_region, enhanced_screenshot
 from core.ocr import extract_text, extract_number
-from core.recognizer import match_template, count_pixels_of_color
+from core.recognizer import match_template, count_pixels_of_color, find_color_of_pixel, closest_color
 
 from utils.constants import SUPPORT_CARD_ICON_REGION, MOOD_REGION, TURN_REGION, FAILURE_REGION, YEAR_REGION, MOOD_LIST, CRITERIA_REGION, SKILL_PTS_REGION, ENERGY_REGION
 
@@ -57,7 +58,7 @@ def stat_state():
   return result
 
 # Check support card in each training
-def check_support_card(threshold=0.8):
+def check_support_card(threshold=0.8, target="none"):
   SUPPORT_ICONS = {
     "spd": "assets/icons/support_card_type_spd.png",
     "sta": "assets/icons/support_card_type_sta.png",
@@ -67,18 +68,48 @@ def check_support_card(threshold=0.8):
     "friend": "assets/icons/support_card_type_friend.png"
   }
 
-  SUPPORT_FRIEND_LEVELS = {
-    "blue": "assets/icons/support_level_blue.png",
-    "green": "assets/icons/support_level_green.png",
-    "yellow": "assets/icons/support_level_yellow.png",
-    "max": "assets/icons/support_level_max.png",
-  } ################################################################################ add friendship level as a target at junior level
-
   count_result = {}
 
+  SUPPORT_FRIEND_LEVELS = {
+    "gray": [110,108,120],
+    "blue": [42,192,255],
+    "green": [162,230,30],
+    "yellow": [255,173,30],
+    "max": [255,235,120],
+  }
+
+  count_result["total_supports"] = 0
+  count_result["total_friendship_levels"] = {}
+
+  for friend_level, color in SUPPORT_FRIEND_LEVELS.items():
+    count_result["total_friendship_levels"][friend_level] = 0
+
   for key, icon_path in SUPPORT_ICONS.items():
+    count_result[key] = {}
+    count_result[key]["supports"] = 0
+    count_result[key]["friendship_levels"]={}
+    for friend_level, color in SUPPORT_FRIEND_LEVELS.items():
+      count_result[key]["friendship_levels"][friend_level] = 0
+
     matches = match_template(icon_path, SUPPORT_CARD_ICON_REGION, threshold)
-    count_result[key] = len(matches)
+    for match in matches:
+      # add the support as a specific key
+      count_result[key]["supports"] = count_result[key]["supports"] + 1
+      # also add it to the grand total
+      count_result["total_supports"] = count_result["total_supports"] + 1
+
+      #find friend colors and add them to their specific colors
+      x, y, w, h = match
+      match_horizontal_middle = floor((2*x+w)/2)
+      match_vertical_middle = floor((2*y+h)/2)
+      icon_to_friend_bar_distance = 66
+      bbox_left = match_horizontal_middle + SUPPORT_CARD_ICON_REGION[0]
+      bbox_top = match_vertical_middle + SUPPORT_CARD_ICON_REGION[1] + icon_to_friend_bar_distance
+      wanted_pixel = (bbox_left, bbox_top, bbox_left+1, bbox_top+1)
+      friendship_level_color = find_color_of_pixel(wanted_pixel)
+      friend_level = closest_color(SUPPORT_FRIEND_LEVELS, friendship_level_color)
+      count_result[key]["friendship_levels"][friend_level] = count_result[key]["friendship_levels"][friend_level] + 1
+      count_result["total_friendship_levels"][friend_level] = count_result["total_friendship_levels"][friend_level] + 1
 
   return count_result
 
@@ -162,9 +193,13 @@ def check_skill_pts():
   text = extract_number(img)
   return text
 
+previous_right_bar_match=""
+
 def check_energy_level(threshold=0.85):
   #find where the right side of the bar is on screen
+  global previous_right_bar_match
   right_bar_match = match_template("assets/ui/energy_bar_right_end_part.png", ENERGY_REGION, threshold)
+  
   if right_bar_match:
     x, y, w, h = right_bar_match[0]
     energy_bar_length = x
@@ -177,12 +212,15 @@ def check_energy_level(threshold=0.85):
 
     #[118,117,118] is gray for missing energy, region templating for this one is a problem, so we do this
     empty_energy_pixel_count = count_pixels_of_color([118,117,118], MAX_ENERGY_REGION)
-    
+
     #use the energy_bar_length (a few extra pixels from the outside are remaining so we subtract that)
     total_energy_length = energy_bar_length - 1
     hundred_energy_pixel_constant = 236 #counted pixels from one end of the bar to the other, should be fine since we're working in only 1080p
-    
+
+    previous_right_bar_match = right_bar_match
+
     energy_level = ((total_energy_length - empty_energy_pixel_count) / hundred_energy_pixel_constant) * 100
+    print(f"Total energy bar length = {total_energy_length}, Empty energy pixel count = {empty_energy_pixel_count}, Diff = {(total_energy_length - empty_energy_pixel_count)}")
     print(f"Remaining energy guestimate = {energy_level:.2f}")
     return energy_level
   else:

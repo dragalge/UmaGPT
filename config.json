@@ -2,22 +2,22 @@
   "priority_stat": [
     "spd",
     "sta",
-    "wit",
     "pwr",
+    "wit",
     "guts"
   ],
-  "priority_weight":"NONE",
-  "minimum_mood": "NORMAL",
+  "minimum_mood": "GOOD",
+  "priority_weight": "LIGHT",
   "minimum_mood_junior_year": "NORMAL",
-  "maximum_failure": 15,
+  "maximum_failure": 10,
   "prioritize_g1_race": false,
   "cancel_consecutive_race": true,
   "stat_caps": {
-    "spd": 1100,
-    "sta": 1000,
-    "pwr": 1000,
-    "guts": 500,
-    "wit": 1000
+    "spd": 1130,
+    "sta": 800,
+    "pwr": 850,
+    "guts": 400,
+    "wit": 600
   },
   "skill": {
     "is_auto_buy_skill": true,

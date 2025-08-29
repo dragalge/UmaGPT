@@ -225,10 +225,12 @@ def race_prep():
   view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
   pyautogui.click(view_result_btn)
   time.sleep(0.5)
-  for i in range(3):
+  for i in range(2):
     pyautogui.tripleClick(interval=0.2)
     time.sleep(0.5)
+  #hits concert button sometimes
   pyautogui.click()
+  sleep(1.5)
   next_button = pyautogui.locateCenterOnScreen("assets/buttons/next_btn.png", confidence=0.9, minSearchTime=2, region=SCREEN_BOTTOM_REGION)
   if not next_button:
     print(f"Wouldn't be able to move onto the after race since there's no next button.")
@@ -297,7 +299,7 @@ def career_lobby():
     matches = multi_match_templates(templates, screen=screen)
 
     #energy_level = check_energy_level()
-    
+
     if click(boxes=matches["event"], text="[INFO] Event found, selecting top choice."):
       continue
     if click(boxes=matches["inspiration"], text="[INFO] Inspiration found."):

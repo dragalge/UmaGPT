@@ -42,6 +42,7 @@ def reload_config():
   PRIORITY_EFFECTS_LIST = config["priority_weights"]
   SKIP_TRAINING_ENERGY = config["skip_training_energy"]
   NEVER_REST_ENERGY = config["never_rest_energy"]
+  NEVER_GO_TO_INFIRMARY_ENERGY = config["never_go_to_infirmary_energy"]
 
 # Get Stat
 def stat_state():

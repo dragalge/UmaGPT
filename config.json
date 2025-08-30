@@ -15,6 +15,7 @@
   ],
   "skip_training_energy": 30,
   "never_rest_energy": 75,
+  "never_go_to_infirmary_energy": 80,
   "minimum_mood": "GOOD",
   "priority_weight": "LIGHT",
   "minimum_mood_junior_year": "NORMAL",

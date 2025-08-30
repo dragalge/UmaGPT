@@ -49,16 +49,12 @@ def most_support_card(results):
 
   priority_weight = PRIORITY_WEIGHTS_LIST[state.PRIORITY_WEIGHT]
 
-  # convert string keys into integers
-  PRIORITY_EFFECTS_LIST = {i: v for i, v in enumerate(state)}
-
-
   # this is the weight adder used for skewing results of training decisions PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * PRIORITY_WEIGHTS_LIST[priority_weight]
   # Best training
   best_training = max(
     filtered_results.items(),
     key=lambda x: (
-      x[1]["total_supports"] * (1 + PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * priority_weight),
+      x[1]["total_supports"] * (1 + state.PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * priority_weight),
       -get_stat_priority(x[0])  # priority decides when supports are equal
     )
   )
@@ -136,7 +132,11 @@ def filter_by_stat_caps(results, current_stats):
     stat: data for stat, data in results.items()
     if current_stats.get(stat, 0) < state.STAT_CAPS.get(stat, 1200)
   }
-  
+
+def all_values_equal(dictionary):
+    values = list(dictionary.values())
+    return all(value == values[0] for value in values[1:])
+
 # Decide training
 def do_something(results):
   year = check_current_year()

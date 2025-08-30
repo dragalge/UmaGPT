@@ -41,7 +41,7 @@ def reload_config():
   IS_AUTO_BUY_SKILL = config["skill"]["is_auto_buy_skill"]
   SKILL_PTS_CHECK = config["skill"]["skill_pts_check"]
   SKILL_LIST = config["skill"]["skill_list"]
-  PRIORITY_EFFECTS_LIST = config["priority_weights"]
+  PRIORITY_EFFECTS_LIST = {i: v for i, v in enumerate(config["priority_weights"])}
   SKIP_TRAINING_ENERGY = config["skip_training_energy"]
   NEVER_REST_ENERGY = config["never_rest_energy"]
   NEVER_GO_TO_INFIRMARY_ENERGY = config["never_go_to_infirmary_energy"]

@@ -13,6 +13,8 @@
     0,
     -1
   ],
+  "skip_training_energy": 30,
+  "never_rest_energy": 75,
   "minimum_mood": "GOOD",
   "priority_weight": "LIGHT",
   "minimum_mood_junior_year": "NORMAL",

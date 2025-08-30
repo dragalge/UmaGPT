@@ -23,9 +23,10 @@ def most_support_card(results):
 
   # Check if train is bad
   all_others_bad = len(non_wit_results) == 0
-  energy_level = check_energy_level()
+  energy_level, max_energy = check_energy_level()
+
   if all_others_bad and wit_data and int(wit_data["failure"]) <= state.MAX_FAILURE and wit_data["total_supports"] >= 2:
-    if energy_level < 30:
+    if energy_level < state.SKIP_TRAINING_ENERGY:
       print("\n[INFO] All trainings are unsafe and WIT training won't help go back up to safe levels, resting instead.")
       return None
     print("\n[INFO] All trainings are unsafe, but WIT is safe and has enough support cards.")
@@ -68,7 +69,7 @@ def most_support_card(results):
     if int(best_data["failure"]) == 0:
       # WIT must be at least 2 support cards
       if best_key == "wit":
-        if energy_level > 75:
+        if energy_level > state.NEVER_REST_ENERGY:
           print(f"\n[INFO] Only 1 support and it's WIT but energy is too high for resting to be worth it. Still training.")
           return "wit"
         else:

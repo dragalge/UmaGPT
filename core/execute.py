@@ -5,7 +5,7 @@ from PIL import ImageGrab
 pyautogui.useImageNotFoundException(False)
 
 import core.state as state
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level
 from core.logic import do_something
 from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SCREEN_MIDDLE_REGION, SKIP_BTN_BIG_REGION
 from core.recognizer import is_btn_active, match_template, multi_match_templates
@@ -118,7 +118,10 @@ def do_train(train):
   if train_btn:
     pyautogui.tripleClick(train_btn, interval=0.1, duration=0.2)
 
-def do_rest():
+def do_rest(energy_level):
+  if state.NEVER_REST_ENERGY > 0 and energy_level > state.NEVER_REST_ENERGY:
+    print(f"[INFO] Wanted to rest when energy was above {state.NEVER_REST_ENERGY}, retrying from beginning.")
+    return
   rest_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
   rest_summber_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=SCREEN_BOTTOM_REGION)
 
@@ -301,8 +304,6 @@ def career_lobby():
     screen = ImageGrab.grab()
     matches = multi_match_templates(templates, screen=screen)
 
-    #energy_level = check_energy_level()
-
     if click(boxes=matches["event"], text="[INFO] Event found, selecting top choice."):
       continue
     if click(boxes=matches["inspiration"], text="[INFO] Inspiration found."):
@@ -319,10 +320,14 @@ def career_lobby():
       print(".", end="")
       continue
 
-    if matches["infirmary"]:
-      if is_btn_active(matches["infirmary"][0]):
-        click(boxes=matches["infirmary"][0], text="[INFO] Character debuffed, going to infirmary.")
-        continue
+    energy_level, max_energy = check_energy_level()
+
+    # infirmary always gives 20 energy, it's better to spend energy before going to the infirmary 99% of the time.
+    if (max_energy - energy_level) > 20:
+      if matches["infirmary"]:
+        if is_btn_active(matches["infirmary"][0]):
+          click(boxes=matches["infirmary"][0], text="[INFO] Character debuffed, going to infirmary.")
+          continue
 
     mood = check_mood()
     mood_index = MOOD_LIST.index(mood)
@@ -408,5 +413,5 @@ def career_lobby():
       time.sleep(0.5)
       do_train(best_training)
     else:
-      do_rest()
+      do_rest(energy_level)
     time.sleep(1)

@@ -40,6 +40,8 @@ def reload_config():
   SKILL_PTS_CHECK = config["skill"]["skill_pts_check"]
   SKILL_LIST = config["skill"]["skill_list"]
   PRIORITY_EFFECTS_LIST = config["priority_weights"]
+  SKIP_TRAINING_ENERGY = config["skip_training_energy"]
+  NEVER_REST_ENERGY = config["never_rest_energy"]
 
 # Get Stat
 def stat_state():
@@ -223,7 +225,8 @@ def check_energy_level(threshold=0.85):
     energy_level = ((total_energy_length - empty_energy_pixel_count) / hundred_energy_pixel_constant) * 100
     print(f"Total energy bar length = {total_energy_length}, Empty energy pixel count = {empty_energy_pixel_count}, Diff = {(total_energy_length - empty_energy_pixel_count)}")
     print(f"Remaining energy guestimate = {energy_level:.2f}")
-    return energy_level
+    max_energy = total_energy_length / hundred_energy_pixel_constant * 100
+    return energy_level, max_energy
   else:
     print(f"Couldn't find energy bar, returning -1")
-    return -1
+    return -1, -1

@@ -48,14 +48,9 @@ def most_support_card(results):
 
   priority_weight = PRIORITY_WEIGHTS_LIST[state.PRIORITY_WEIGHT]
 
-  # priority adjuster, will be better with a config in the web
-  PRIORITY_EFFECTS_LIST = {
-    0: 1,   # first
-    1: 1,   # second
-    2: 0,   # third
-    3: 0,  # fourth
-    4: -1   # last
-  }
+  # convert string keys into integers
+  PRIORITY_EFFECTS_LIST = {i: v for i, v in enumerate(state)}
+
 
   # this is the weight adder used for skewing results of training decisions PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * PRIORITY_WEIGHTS_LIST[priority_weight]
   # Best training
@@ -74,7 +69,7 @@ def most_support_card(results):
       # WIT must be at least 2 support cards
       if best_key == "wit":
         if energy_level > 75:
-          print(f"\n[INFO] Only 1 support and it's WIT but energy is too high for rest to be worth it. Still training.")
+          print(f"\n[INFO] Only 1 support and it's WIT but energy is too high for resting to be worth it. Still training.")
           return "wit"
         else:
           print(f"\n[INFO] Only 1 support and it's WIT. Skipping.")
@@ -90,23 +85,31 @@ def most_support_card(results):
 
 # Do rainbow training
 def rainbow_training(results):
-  # Get rainbow training
-  rainbow_candidates = {
-    stat: data for stat, data in results.items()
-    if int(data["failure"]) <= state.MAX_FAILURE and data[stat]["friendship_levels"]["yellow"] + data[stat]["friendship_levels"]["max"] > 0
-  }
-
-  if not rainbow_candidates:
-    print("\n[INFO] No rainbow training found under failure threshold.")
-    return None
-
   # 2 points for rainbow supports, 1 point for normal supports, stat priority tie breaker
+  rainbow_candidates = results
+
   for stat_name in rainbow_candidates:
     data = rainbow_candidates[stat_name]
     total_rainbow_friends = data[stat_name]["friendship_levels"]["yellow"] + data[stat_name]["friendship_levels"]["max"]
     #adding total rainbow friends on top of total supports for two times value nudging the formula towards more rainbows
     rainbow_points = total_rainbow_friends + data["total_supports"]
+    if total_rainbow_friends > 0:
+      rainbow_points = rainbow_points + 0.5
     rainbow_candidates[stat_name]["rainbow_points"] = rainbow_points
+    rainbow_candidates[stat_name]["total_rainbow_friends"] = total_rainbow_friends
+
+  # Get rainbow training
+  rainbow_candidates = {
+    stat: data for stat, data in results.items()
+    if int(data["failure"]) <= state.MAX_FAILURE
+       and data["rainbow_points"] >= 2
+       and not (stat == "wit" and data["total_rainbow_friends"] < 1)
+     # and data[stat]["friendship_levels"]["yellow"] + data[stat]["friendship_levels"]["max"] > 0
+  }
+
+  if not rainbow_candidates:
+    print("\n[INFO] No rainbow training found under failure threshold.")
+    return None
 
   # Find support card rainbow in training
   best_rainbow = max(
@@ -118,6 +121,12 @@ def rainbow_training(results):
   )
 
   best_key, best_data = best_rainbow
+  if best_key == "wit":
+    #if we get to wit, we must have at least 1 rainbow friend
+    if data["total_rainbow_friends"] >= 1:
+      print(f"[INFO] Wit training has most rainbow points but it doesn't have any rainbow friends, skipping.")
+      return None
+
   print(f"\n[INFO] Rainbow training selected: {best_key.upper()} with {best_data['rainbow_points']} rainbow points and {best_data['failure']}% fail chance")
   return best_key
 

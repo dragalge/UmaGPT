@@ -6,6 +6,13 @@
     "wit",
     "guts"
   ],
+  "priority_weights": [
+    1,
+    1,
+    0.5,
+    0,
+    -1
+  ],
   "minimum_mood": "GOOD",
   "priority_weight": "LIGHT",
   "minimum_mood_junior_year": "NORMAL",
@@ -13,15 +20,15 @@
   "prioritize_g1_race": false,
   "cancel_consecutive_race": true,
   "stat_caps": {
-    "spd": 1130,
-    "sta": 1130,
-    "pwr": 850,
-    "guts": 400,
-    "wit": 600
+    "spd": 900,
+    "sta": 1050,
+    "pwr": 750,
+    "guts": 200,
+    "wit": 200
   },
   "skill": {
     "is_auto_buy_skill": true,
-    "skill_pts_check": 450,
+    "skill_pts_check": 375,
     "skill_list": [
       "Homestretch Haste",
       "Go with the Flow",

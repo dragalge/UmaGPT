@@ -39,6 +39,7 @@ def reload_config():
   IS_AUTO_BUY_SKILL = config["skill"]["is_auto_buy_skill"]
   SKILL_PTS_CHECK = config["skill"]["skill_pts_check"]
   SKILL_LIST = config["skill"]["skill_list"]
+  PRIORITY_EFFECTS_LIST = config["priority_weights"]
 
 # Get Stat
 def stat_state():

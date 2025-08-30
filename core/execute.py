@@ -7,7 +7,7 @@ pyautogui.useImageNotFoundException(False)
 import core.state as state
 from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts
 from core.logic import do_something
-from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SKIP_BTN_BIG_REGION
+from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SCREEN_MIDDLE_REGION, SKIP_BTN_BIG_REGION
 from core.recognizer import is_btn_active, match_template, multi_match_templates
 from utils.scenario import ura
 from core.skill import buy_skill
@@ -22,7 +22,7 @@ templates = {
   "retry": "assets/buttons/retry_btn.png"
 }
 
-def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = "", boxes = None):
+def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = "", boxes = None, region=None):
   if not state.is_bot_running:
     return False
 
@@ -45,7 +45,10 @@ def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: 
   if img is None:
     return False
 
-  btn = pyautogui.locateCenterOnScreen(img, confidence=confidence, minSearchTime=minSearch)
+  if region:
+    btn = pyautogui.locateCenterOnScreen(img, confidence=confidence, minSearchTime=minSearch, region=region)
+  else:
+    btn = pyautogui.locateCenterOnScreen(img, confidence=confidence, minSearchTime=minSearch)
   if btn:
     if text:
       print(text)
@@ -280,10 +283,12 @@ def auto_buy_skill():
   time.sleep(0.5)
 
   if buy_skill():
-    click(img="assets/buttons/confirm_btn.png", minSearch=0.5)
-    click(img="assets/buttons/learn_btn.png", minSearch=0.5)
+    pyautogui.locateCenterOnScreen("assets/buttons/confirm_btn.png")
+    click(img="assets/buttons/confirm_btn.png", minSearch=1, region=SCREEN_BOTTOM_REGION)
     time.sleep(0.5)
-    click(img="assets/buttons/close_btn.png", minSearch=2)
+    click(img="assets/buttons/learn_btn.png", minSearch=1, region=SCREEN_BOTTOM_REGION)
+    time.sleep(0.5)
+    click(img="assets/buttons/close_btn.png", minSearch=2, region=SCREEN_MIDDLE_REGION)
     time.sleep(0.5)
     click(img="assets/buttons/back_btn.png")
   else:
@@ -342,7 +347,7 @@ def career_lobby():
       for i in range(2):
         if click(img="assets/buttons/race_btn.png", minSearch=2):
           time.sleep(0.5)
-      
+
       race_prep()
       time.sleep(1)
       after_race()

@@ -2,25 +2,41 @@
   "priority_stat": [
     "spd",
     "sta",
-    "wit",
     "pwr",
+    "wit",
     "guts"
   ],
-  "minimum_mood": "NORMAL",
-  "maximum_failure": 15,
+  "priority_weights": [
+    1,
+    1,
+    0.5,
+    0,
+    -1
+  ],
+  "skip_training_energy": 30,
+  "never_rest_energy": 75,
+  "never_go_to_infirmary_energy": 80,
+  "minimum_mood": "GOOD",
+  "priority_weight": "LIGHT",
+  "minimum_mood_junior_year": "NORMAL",
+  "maximum_failure": 10,
   "prioritize_g1_race": false,
   "cancel_consecutive_race": true,
   "stat_caps": {
-    "spd": 1100,
-    "sta": 1000,
-    "pwr": 1000,
-    "guts": 500,
-    "wit": 1000
+    "spd": 900,
+    "sta": 1050,
+    "pwr": 750,
+    "guts": 200,
+    "wit": 200
   },
   "skill": {
     "is_auto_buy_skill": true,
-    "skill_pts_check": 400,
+    "skill_pts_check": 375,
     "skill_list": [
+      "Homestretch Haste",
+      "Go with the Flow",
+      "Focus",
+      "Iron Will",
       "Concentration",
       "Red Shift/LP1211-M",
       "U=ma2",

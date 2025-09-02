@@ -62,3 +62,37 @@ def is_btn_active(region, treshold = 150):
 
   # Treshold btn
   return avg_brightness > treshold
+
+def count_pixels_of_color(color_rgb=[118,117,118], region=None):
+  #[118,117,118] is gray for missing energy
+  if region:
+    screen = np.array(ImageGrab.grab(bbox=region))  # (left, top, right, bottom)
+  else:
+    return -1
+
+  color = np.array(color_rgb, np.uint8)
+  dst = cv2.inRange(screen, color, color)
+  pixel_count = cv2.countNonZero(dst)
+  return pixel_count
+
+def find_color_of_pixel(region=None):
+  #[118,117,118] is gray for missing energy
+  if region:
+    #we can only return one pixel's color here, so we take the x, y and add 1 to them
+    region = (region[0], region[1], region[0]+1, region[1]+1)
+    screen = np.array(ImageGrab.grab(bbox=region))  # (left, top, right, bottom)
+    return screen[0]
+  else:
+    return -1
+
+def closest_color(color_dict, target_color):
+    closest_name = None
+    min_dist = float('inf')
+    target_color = np.array(target_color)
+    for name, col in color_dict.items():
+        col = np.array(col)
+        dist = np.linalg.norm(target_color - col)  # Euclidean distance
+        if dist < min_dist:
+            min_dist = dist
+            closest_name = name
+    return closest_name

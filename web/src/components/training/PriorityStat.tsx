@@ -1,6 +1,6 @@
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, type DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import Sortable from "./Sortable";
+import Sortable from "../Sortable";
 
 type Props = {
   priorityStat: string[];

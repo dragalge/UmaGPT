@@ -14,7 +14,13 @@ export type Skill = {
 
 export type Config = {
   priority_stat: string[];
+  priority_weights: number[];
+  skip_training_energy: number;
+  never_rest_energy: number;
+  never_go_to_infirmary_energy: number;
+  priority_weight: string;
   minimum_mood: string;
+  minimum_mood_junior_year: string;
   maximum_failure: number;
   prioritize_g1_race: boolean;
   cancel_consecutive_race: boolean;

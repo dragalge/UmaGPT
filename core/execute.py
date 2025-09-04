@@ -252,8 +252,6 @@ def race_prep():
     click(img="assets/buttons/confirm_btn.png", minSearch=2, region=SCREEN_MIDDLE_REGION)
     PREFERRED_POSITION_SET=True
 
-  exit()
-
   view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
   pyautogui.click(view_result_btn)
   time.sleep(0.5)
@@ -340,8 +338,6 @@ def career_lobby():
       continue
     if click(boxes=matches["retry"]):
       continue
-
-    race_prep()
 
     if not matches["tazuna"]:
       #print("[INFO] Should be in career lobby.")

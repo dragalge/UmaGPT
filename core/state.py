@@ -6,7 +6,7 @@ from utils.screenshot import capture_region, enhanced_screenshot
 from core.ocr import extract_text, extract_number
 from core.recognizer import match_template, count_pixels_of_color, find_color_of_pixel, closest_color
 
-from utils.constants import SUPPORT_CARD_ICON_REGION, MOOD_REGION, TURN_REGION, FAILURE_REGION, YEAR_REGION, MOOD_LIST, CRITERIA_REGION, SKILL_PTS_REGION, ENERGY_REGION
+from utils.constants import SUPPORT_CARD_ICON_REGION, MOOD_REGION, TURN_REGION, FAILURE_REGION, YEAR_REGION, MOOD_LIST, CRITERIA_REGION, SKILL_PTS_REGION, ENERGY_REGION, RACE_INFO_TEXT_REGION
 
 is_bot_running = False
 
@@ -27,7 +27,8 @@ def load_config():
 def reload_config():
   global PRIORITY_STAT, PRIORITY_WEIGHT, MINIMUM_MOOD, MINIMUM_MOOD_JUNIOR_YEAR, MAX_FAILURE
   global PRIORITIZE_G1_RACE, CANCEL_CONSECUTIVE_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
-  global PRIORITY_EFFECTS_LIST, SKIP_TRAINING_ENERGY, NEVER_REST_ENERGY, NEVER_GO_TO_INFIRMARY_ENERGY
+  global PRIORITY_EFFECTS_LIST, SKIP_TRAINING_ENERGY, NEVER_REST_ENERGY, NEVER_GO_TO_INFIRMARY_ENERGY, PREFERRED_POSITION
+  global ENABLE_POSITONS_BY_RACE, POSITIONS_BY_RACE
   config = load_config()
 
   PRIORITY_STAT = config["priority_stat"]
@@ -45,6 +46,9 @@ def reload_config():
   SKIP_TRAINING_ENERGY = config["skip_training_energy"]
   NEVER_REST_ENERGY = config["never_rest_energy"]
   NEVER_GO_TO_INFIRMARY_ENERGY = config["never_go_to_infirmary_energy"]
+  PREFERRED_POSITION = config["preferred_position"]
+  ENABLE_POSITONS_BY_RACE = config["enable_positions_by_race"]
+  POSITIONS_BY_RACE = config["positions_by_race"]
 
 # Get Stat
 def stat_state():
@@ -233,3 +237,9 @@ def check_energy_level(threshold=0.85):
   else:
     print(f"Couldn't find energy bar, returning -1")
     return -1, -1
+
+def get_race_type():
+  race_info_screen = enhanced_screenshot(RACE_INFO_TEXT_REGION)
+  race_info_text = extract_text(race_info_screen)
+  print(f"race info text: {race_info_text}")
+  return race_info_text

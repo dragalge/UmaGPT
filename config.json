@@ -7,27 +7,36 @@
     "guts"
   ],
   "priority_weights": [
+    1.5,
     1,
-    1,
-    0.5,
+    0,
     0,
     -1
   ],
-  "skip_training_energy": 30,
-  "never_rest_energy": 75,
+  "skip_training_energy": 25,
+  "never_rest_energy": 60,
+  "skip_infirmary_unless_missing_energy": 20,
   "never_go_to_infirmary_energy": 20,
   "minimum_mood": "GOOD",
   "priority_weight": "LIGHT",
   "minimum_mood_junior_year": "NORMAL",
-  "maximum_failure": 10,
+  "maximum_failure": 8,
   "prioritize_g1_race": false,
   "cancel_consecutive_race": true,
+  "preferred_position": "end",
+  "enable_positions_by_race": true,
+  "positions_by_race": {
+    "sprint": "front",
+    "mile": "pace",
+    "medium": "late",
+    "long": "end"
+  },
   "stat_caps": {
     "spd": 900,
-    "sta": 1050,
+    "sta": 1150,
     "pwr": 750,
-    "guts": 200,
-    "wit": 200
+    "guts": 900,
+    "wit": 900
   },
   "skill": {
     "is_auto_buy_skill": true,

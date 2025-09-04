@@ -6,10 +6,10 @@ pyautogui.useImageNotFoundException(False)
 
 import re
 import core.state as state
-
 from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type
 from core.logic import do_something
 from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SCREEN_MIDDLE_REGION, SKIP_BTN_BIG_REGION, SCREEN_TOP_REGION
+
 from core.recognizer import is_btn_active, match_template, multi_match_templates
 from utils.scenario import ura
 from core.skill import buy_skill

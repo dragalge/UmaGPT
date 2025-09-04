@@ -39,7 +39,7 @@ function App() {
     priority_weights,
     skip_training_energy,
     never_rest_energy,
-    never_go_to_infirmary_energy,
+    skip_infirmary_unless_missing_energy,
     minimum_mood,
     priority_weight,
     minimum_mood_junior_year,
@@ -122,9 +122,9 @@ function App() {
                 Never Rest Energy
               </EnergyInput>
 
-              {/* NEVER GO TO INFIRMARY ENERGY */}
-              <EnergyInput name="never-go-to-infirmary-energy" value={never_go_to_infirmary_energy} setValue={(val) => updateConfig("never_go_to_infirmary_energy", val)}>
-                Never Go To Infirmary Energy
+              {/* SKIP INFIRMARY UNLESS MISSING ENERGY */}
+              <EnergyInput name="skip-infirmary-unless_missing-energy" value={skip_infirmary_unless_missing_energy} setValue={(val) => updateConfig("skip_infirmary_unless_missing_energy", val)}>
+                Skip Infirmary Unless Missing Energy
               </EnergyInput>
             </div>
 

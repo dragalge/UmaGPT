@@ -23,8 +23,8 @@
   "maximum_failure": 8,
   "prioritize_g1_race": false,
   "cancel_consecutive_race": true,
-  "preferred_position": "end",
-  "enable_positions_by_race": true,
+  "preferred_position": "front",
+  "enable_positions_by_race": false,
   "positions_by_race": {
     "sprint": "front",
     "mile": "pace",

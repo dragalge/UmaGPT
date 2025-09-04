@@ -17,7 +17,7 @@ export type Config = {
   priority_weights: number[];
   skip_training_energy: number;
   never_rest_energy: number;
-  never_go_to_infirmary_energy: number;
+  skip_infirmary_unless_missing_energy: number;
   priority_weight: string;
   minimum_mood: string;
   minimum_mood_junior_year: string;

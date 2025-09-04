@@ -28,7 +28,7 @@ def reload_config():
   global PRIORITY_STAT, PRIORITY_WEIGHT, MINIMUM_MOOD, MINIMUM_MOOD_JUNIOR_YEAR, MAX_FAILURE
   global PRIORITIZE_G1_RACE, CANCEL_CONSECUTIVE_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
   global PRIORITY_EFFECTS_LIST, SKIP_TRAINING_ENERGY, NEVER_REST_ENERGY, NEVER_GO_TO_INFIRMARY_ENERGY, PREFERRED_POSITION
-  global ENABLE_POSITONS_BY_RACE, POSITIONS_BY_RACE
+  global ENABLE_POSITIONS_BY_RACE, POSITIONS_BY_RACE, POSITION_SELECTION_ENABLED
   config = load_config()
 
   PRIORITY_STAT = config["priority_stat"]
@@ -47,8 +47,9 @@ def reload_config():
   NEVER_REST_ENERGY = config["never_rest_energy"]
   NEVER_GO_TO_INFIRMARY_ENERGY = config["never_go_to_infirmary_energy"]
   PREFERRED_POSITION = config["preferred_position"]
-  ENABLE_POSITONS_BY_RACE = config["enable_positions_by_race"]
+  ENABLE_POSITIONS_BY_RACE = config["enable_positions_by_race"]
   POSITIONS_BY_RACE = config["positions_by_race"]
+  POSITION_SELECTION_ENABLED = config["position_selection_enabled"]
 
 # Get Stat
 def stat_state():

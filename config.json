@@ -7,7 +7,7 @@
     "guts"
   ],
   "priority_weights": [
-    1.5,
+    1,
     1,
     0,
     0,
@@ -23,8 +23,9 @@
   "maximum_failure": 8,
   "prioritize_g1_race": false,
   "cancel_consecutive_race": true,
-  "preferred_position": "front",
+  "position_selection_enabled": true,
   "enable_positions_by_race": false,
+  "preferred_position": "front",
   "positions_by_race": {
     "sprint": "front",
     "mile": "pace",

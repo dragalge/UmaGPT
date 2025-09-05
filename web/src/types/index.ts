@@ -24,6 +24,15 @@ export type Config = {
   maximum_failure: number;
   prioritize_g1_race: boolean;
   cancel_consecutive_race: boolean;
+  position_selection_enabled: boolean;
+  enable_positions_by_race: boolean;
+  preferred_position: string;
+  positions_by_race: {
+    sprint: string;
+    mile: string;
+    medium: string;
+    long: string;
+  };
   stat_caps: Stat;
   skill: Skill;
 };

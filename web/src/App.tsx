@@ -17,6 +17,10 @@ import PriorityWeights from "./components/training/PriorityWeights";
 import EnergyInput from "./components/energy/EnergyInput";
 import IsAutoBuy from "./components/skill/IsAutoBuy";
 import SkillPtsCheck from "./components/skill/SkillPtsCheck";
+import IsPositionSelectionEnabled from "./components/race/IsPositionSelectionEnabled";
+import PreferredPosition from "./components/race/PreferredPosition";
+import IsPositionByRace from "./components/race/IsPositionByRace";
+import PositionByRace from "./components/race/PositionByRace";
 
 function App() {
   const defaultConfig = rawConfig as Config;
@@ -46,6 +50,10 @@ function App() {
     maximum_failure,
     prioritize_g1_race,
     cancel_consecutive_race,
+    position_selection_enabled,
+    enable_positions_by_race,
+    preferred_position,
+    positions_by_race,
     stat_caps,
     skill,
   } = config;
@@ -92,6 +100,9 @@ function App() {
 
               {/* STAT CAPS */}
               <StatCaps statCaps={stat_caps} setStatCaps={(key, val) => updateConfig("stat_caps", { ...stat_caps, [key]: isNaN(val) ? 0 : val })} />
+
+              {/* MAX FAIL CHANCE */}
+              <FailChance maximumFailure={maximum_failure} setFail={(val) => updateConfig("maximum_failure", isNaN(val) ? 0 : val)} />
             </div>
           </div>
 
@@ -132,14 +143,37 @@ function App() {
             <Mood minimumMood={minimum_mood} setMood={(val) => updateConfig("minimum_mood", val)} minimumMoodJunior={minimum_mood_junior_year} setMoodJunior={(val) => updateConfig("minimum_mood_junior_year", val)} />
           </div>
 
-          {/* MAX FAIL CHANCE */}
-          <FailChance maximumFailure={maximum_failure} setFail={(val) => updateConfig("maximum_failure", isNaN(val) ? 0 : val)} />
+          <p className="text-2xl font-semibold">Race</p>
+          <div className="flex gap-4">
+            <div className="flex flex-col gap-2">
+              {/* PRIORITIZE G1 */}
+              <PrioritizeG1 prioritizeG1Race={prioritize_g1_race} setPrioritizeG1={(val) => updateConfig("prioritize_g1_race", val)} />
 
-          {/* PRIORITIZE G1 */}
-          <PrioritizeG1 prioritizeG1Race={prioritize_g1_race} setPrioritizeG1={(val) => updateConfig("prioritize_g1_race", val)} />
+              {/* CANCEL CONSECUTIVE RACE */}
+              <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={(val) => updateConfig("cancel_consecutive_race", val)} />
+            </div>
 
-          {/* CANCEL CONSECUTIVE RACE */}
-          <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={(val) => updateConfig("cancel_consecutive_race", val)} />
+            <div className="flex flex-col gap-2 ml-8">
+              {/* ENABLE POSITIONS BY RACE */}
+              <IsPositionSelectionEnabled positionSelectionEnabled={position_selection_enabled} setPositionSelectionEnabled={(val) => updateConfig("position_selection_enabled", val)} />
+
+              {/* PREFERRED POSITION */}
+              <PreferredPosition
+                preferredPosition={preferred_position}
+                setPreferredPosition={(val) => updateConfig("preferred_position", val)}
+                enablePositionsByRace={enable_positions_by_race}
+                positionSelectionEnabled={position_selection_enabled}
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {/* IS POSITION BY RACE ENABLED */}
+              <IsPositionByRace enablePositionsByRace={enable_positions_by_race} setPositionByRace={(val) => updateConfig("enable_positions_by_race", val)} positionSelectionEnabled={position_selection_enabled} />
+
+              {/* POSITION BY RACE */}
+              <PositionByRace positionByRace={positions_by_race} setPositionByRace={(key, val) => updateConfig("positions_by_race", { ...positions_by_race, [key]: val })} enablePositionsByRace={enable_positions_by_race} />
+            </div>
+          </div>
         </div>
         <p className="mt-4">
           Press <span className="font-bold">f1</span> to start/stop the bot.

@@ -15,6 +15,20 @@ type PresetStorage = {
   presets: Preset[];
 };
 
+const deepMerge = <T extends object>(target: T, source: T): T => {
+  const output = {} as T;
+
+  for (const key in source) {
+    if (source[key] && typeof source[key] === "object" && !Array.isArray(source[key])) {
+      output[key] = deepMerge((target[key] as object) ?? {}, source[key] as object) as T[Extract<keyof T, string>];
+    } else {
+      output[key] = target[key] !== undefined ? target[key] : source[key];
+    }
+  }
+
+  return output;
+};
+
 export function useConfigPreset() {
   const [presetStorage, setPresetStorage] = useState<PresetStorage>({
     index: 0,
@@ -27,8 +41,17 @@ export function useConfigPreset() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed: PresetStorage = JSON.parse(saved);
-      setPresetStorage(parsed);
+
+      const upgradedPresets = parsed.presets.map((preset) => ({
+        ...preset,
+        config: deepMerge(preset.config, defaultConfig),
+      }));
+
+      const upgraded = { ...parsed, presets: upgradedPresets };
+      setPresetStorage(upgraded);
       setActiveIndex(parsed.index);
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(upgraded));
     } else {
       const defaultPresets = Array.from({ length: MAX_PRESET }, (_, i) => ({
         name: `Preset ${i + 1}`,

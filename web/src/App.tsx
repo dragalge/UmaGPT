@@ -1,19 +1,29 @@
-import defaultConfig from "../../config.json";
+import { useEffect, useState } from "react";
+import rawConfig from "../../config.json";
+import { useConfigPreset } from "./hooks/useConfigPreset";
+import { useConfig } from "./hooks/useConfig";
+import type { Config } from "./types";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
-import { Checkbox } from "./components/ui/checkbox";
-import { useConfig } from "./hooks/useConfig";
-import SkillList from "./components/SkillList";
-import PriorityStat from "./components/PriorityStat";
-import StatCaps from "./components/StatCaps";
+import SkillList from "./components/skill/SkillList";
+import PriorityStat from "./components/training/PriorityStat";
+import StatCaps from "./components/training/StatCaps";
 import Mood from "./components/Mood";
 import FailChance from "./components/FailChance";
-import PrioritizeG1 from "./components/PrioritizeG1";
-import CancelConsecutive from "./components/CancelConsecutive";
-import { useConfigPreset } from "./hooks/useConfigPreset";
-import { useEffect, useState } from "react";
+import PrioritizeG1 from "./components/race/PrioritizeG1";
+import CancelConsecutive from "./components/race/CancelConsecutive";
+import PriorityWeight from "./components/training/PriorityWeight";
+import PriorityWeights from "./components/training/PriorityWeights";
+import EnergyInput from "./components/energy/EnergyInput";
+import IsAutoBuy from "./components/skill/IsAutoBuy";
+import SkillPtsCheck from "./components/skill/SkillPtsCheck";
+import IsPositionSelectionEnabled from "./components/race/IsPositionSelectionEnabled";
+import PreferredPosition from "./components/race/PreferredPosition";
+import IsPositionByRace from "./components/race/IsPositionByRace";
+import PositionByRace from "./components/race/PositionByRace";
 
 function App() {
+  const defaultConfig = rawConfig as Config;
   const { activeIndex, activeConfig, presets, setActiveIndex, setNamePreset, savePreset } = useConfigPreset();
   const { config, setConfig, saveConfig } = useConfig(activeConfig ?? defaultConfig);
   const [presetName, setPresetName] = useState<string>("");
@@ -28,52 +38,34 @@ function App() {
     }
   }, [activeIndex, presets, setConfig]);
 
-  const { priority_stat, minimum_mood, maximum_failure, prioritize_g1_race, cancel_consecutive_race, stat_caps, skill } = config;
+  const {
+    priority_stat,
+    priority_weights,
+    skip_training_energy,
+    never_rest_energy,
+    skip_infirmary_unless_missing_energy,
+    minimum_mood,
+    priority_weight,
+    minimum_mood_junior_year,
+    maximum_failure,
+    prioritize_g1_race,
+    cancel_consecutive_race,
+    position_selection_enabled,
+    enable_positions_by_race,
+    preferred_position,
+    positions_by_race,
+    stat_caps,
+    skill,
+  } = config;
   const { is_auto_buy_skill, skill_pts_check, skill_list } = skill;
 
-  const setPriorityStat = (newList: string[]) => {
-    setConfig((prev) => ({ ...prev, priority_stat: newList }));
-  };
-
-  const setMood = (newMood: string) => {
-    setConfig((prev) => ({ ...prev, minimum_mood: newMood }));
-  };
-
-  const setFail = (newFail: number) => {
-    setConfig((prev) => ({ ...prev, maximum_failure: isNaN(newFail) ? 0 : newFail }));
-  };
-
-  const setPrioritizeG1 = (newState: boolean) => {
-    setConfig((prev) => ({ ...prev, prioritize_g1_race: newState }));
-  };
-
-  const setCancelConsecutive = (newState: boolean) => {
-    setConfig((prev) => ({ ...prev, cancel_consecutive_race: newState }));
-  };
-
-  const setStatCaps = (keys: string, value: number) => {
-    setConfig((prev) => ({ ...prev, stat_caps: { ...prev.stat_caps, [keys]: isNaN(value) ? 0 : value } }));
-  };
-
-  const setAutoBuySkill = (newState: boolean) => {
-    setConfig((prev) => ({ ...prev, skill: { is_auto_buy_skill: newState, skill_pts_check, skill_list } }));
-  };
-
-  const setSkillPtsCheck = (newPts: number) => {
-    setConfig((prev) => ({ ...prev, skill: { is_auto_buy_skill, skill_pts_check: isNaN(newPts) ? 0 : newPts, skill_list } }));
-  };
-
-  const addSkillList = (newList: string) => {
-    setConfig((prev) => ({ ...prev, skill: { is_auto_buy_skill, skill_pts_check, skill_list: [newList, ...skill_list] } }));
-  };
-
-  const deleteSkillList = (newList: string) => {
-    setConfig((prev) => ({ ...prev, skill: { is_auto_buy_skill, skill_pts_check, skill_list: skill_list.filter((s) => s !== newList) } }));
+  const updateConfig = <K extends keyof typeof config>(key: K, value: (typeof config)[K]) => {
+    setConfig((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
     <div className="w-full flex justify-center">
-      <div className="mt-24 w-3/4">
+      <div className="my-12 w-3/4">
         <h1 className="text-4xl font-bold">Uma Auto Train</h1>
         <div className="flex flex-col gap-2 mt-4">
           <div className="flex gap-2">
@@ -85,43 +77,108 @@ function App() {
           </div>
           <Input className="mt-2 w-52" value={presetName} onChange={(e) => setPresetName(e.target.value)} />
         </div>
+        <div className="flex flex-col gap-2 w-fit px-4">
+          {/* TRAINING */}
+          <div className="flex flex-col mt-2 gap-2">
+            <p className="text-2xl font-semibold">Training</p>
+            <div className="flex divide-x-2">
+              {/* PRIORITY STAT */}
+              <PriorityStat priorityStat={priority_stat} setPriorityStat={(val) => updateConfig("priority_stat", val)} />
 
-        <div className="flex flex-col mt-2 gap-4">
-          <div className="flex divide-x-2">
-            {/* PRIORITY STAT */}
-            <PriorityStat priorityStat={priority_stat} setPriorityStat={setPriorityStat} />
+              {/* PRIORITY WEIGHTS */}
+              <PriorityWeights
+                priorityWeights={priority_weights}
+                setPriorityWeights={(val, i) => {
+                  const newWeights = [...config.priority_weights];
+                  newWeights[i] = isNaN(val) ? 0 : val;
+                  updateConfig("priority_weights", newWeights);
+                }}
+              />
 
-            {/* STAT CAPS */}
-            <StatCaps statCaps={stat_caps} setStatCaps={setStatCaps} />
+              {/* PRIORITY WEIGHT */}
+              <PriorityWeight priorityWeight={priority_weight} setPriorityWeight={(val) => updateConfig("priority_weight", val)} />
 
-            {/* SKILL */}
-            <div className="flex flex-col gap-2 w-fit px-4">
-              <p className="text-xl">Skill</p>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="buy-auto-skill" className="flex gap-2 items-center">
-                  <span className="text-xl shrink-0">Auto Buy Skill? </span>
-                  <Checkbox id="buy-auto-skill" checked={is_auto_buy_skill} onCheckedChange={() => setAutoBuySkill(!is_auto_buy_skill)} />
-                </label>
-                <label className="flex items-center gap-4">
-                  <span className="text-xl shrink-0">Skill Pts Check</span>
-                  <Input type="number" min={0} value={skill_pts_check} onChange={(e) => setSkillPtsCheck(e.target.valueAsNumber)} />
-                </label>
-                <SkillList list={skill_list} addSkillList={addSkillList} deleteSkillList={deleteSkillList} />
-              </div>
+              {/* STAT CAPS */}
+              <StatCaps statCaps={stat_caps} setStatCaps={(key, val) => updateConfig("stat_caps", { ...stat_caps, [key]: isNaN(val) ? 0 : val })} />
+
+              {/* MAX FAIL CHANCE */}
+              <FailChance maximumFailure={maximum_failure} setFail={(val) => updateConfig("maximum_failure", isNaN(val) ? 0 : val)} />
             </div>
           </div>
 
-          {/* MINIMUM MOOD */}
-          <Mood minimumMood={minimum_mood} setMood={setMood} />
+          <div className="flex divide-x-2 my-4">
+            {/* SKILL */}
+            <div className="flex flex-col gap-2 px-4">
+              <p className="text-2xl font-semibold">Skill</p>
+              <IsAutoBuy isAutoBuySkill={is_auto_buy_skill} setAutoBuySkill={(val) => updateConfig("skill", { ...skill, is_auto_buy_skill: val })} />
+              <SkillPtsCheck skillPtsCheck={skill_pts_check} setSkillPtsCheck={(val) => updateConfig("skill", { ...skill, skill_pts_check: val })} />
+              <SkillList
+                list={skill_list}
+                addSkillList={(val) => updateConfig("skill", { ...skill, skill_list: [val, ...skill_list] })}
+                deleteSkillList={(val) => updateConfig("skill", { ...skill, skill_list: skill_list.filter((s) => s !== val) })}
+              />
+            </div>
 
-          {/* MAX FAIL CHANCE */}
-          <FailChance maximumFailure={maximum_failure} setFail={setFail} />
+            {/* ENERGY */}
+            <div className="flex flex-col gap-2 px-4">
+              <p className="text-2xl font-semibold">Energy</p>
 
-          {/* PRIORITIZE G1 */}
-          <PrioritizeG1 prioritizeG1Race={prioritize_g1_race} setPrioritizeG1={setPrioritizeG1} />
+              {/* SKIP TRAINING ENERGY */}
+              <EnergyInput name="skip-training-energy" value={skip_training_energy} setValue={(val) => updateConfig("skip_training_energy", val)}>
+                Skip Training Energy
+              </EnergyInput>
 
-          {/* CANCEL CONSECUTIVE RACE */}
-          <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={setCancelConsecutive} />
+              {/* NEVER REST ENERGY */}
+              <EnergyInput name="never-rest-energy" value={never_rest_energy} setValue={(val) => updateConfig("never_rest_energy", val)}>
+                Never Rest Energy
+              </EnergyInput>
+
+              {/* SKIP INFIRMARY UNLESS MISSING ENERGY */}
+              <EnergyInput name="skip-infirmary-unless_missing-energy" value={skip_infirmary_unless_missing_energy} setValue={(val) => updateConfig("skip_infirmary_unless_missing_energy", val)}>
+                Skip Infirmary Unless Missing Energy
+              </EnergyInput>
+            </div>
+
+            {/* MINIMUM MOOD */}
+            <Mood minimumMood={minimum_mood} setMood={(val) => updateConfig("minimum_mood", val)} minimumMoodJunior={minimum_mood_junior_year} setMoodJunior={(val) => updateConfig("minimum_mood_junior_year", val)} />
+          </div>
+
+          <p className="text-2xl font-semibold">Race</p>
+          <div className="flex gap-4">
+            <div className="flex flex-col gap-2">
+              {/* PRIORITIZE G1 */}
+              <PrioritizeG1 prioritizeG1Race={prioritize_g1_race} setPrioritizeG1={(val) => updateConfig("prioritize_g1_race", val)} />
+
+              {/* CANCEL CONSECUTIVE RACE */}
+              <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={(val) => updateConfig("cancel_consecutive_race", val)} />
+            </div>
+
+            <div className="flex flex-col gap-2 ml-8">
+              {/* ENABLE POSITIONS BY RACE */}
+              <IsPositionSelectionEnabled positionSelectionEnabled={position_selection_enabled} setPositionSelectionEnabled={(val) => updateConfig("position_selection_enabled", val)} />
+
+              {/* PREFERRED POSITION */}
+              <PreferredPosition
+                preferredPosition={preferred_position}
+                setPreferredPosition={(val) => updateConfig("preferred_position", val)}
+                enablePositionsByRace={enable_positions_by_race}
+                positionSelectionEnabled={position_selection_enabled}
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {/* IS POSITION BY RACE ENABLED */}
+              <IsPositionByRace enablePositionsByRace={enable_positions_by_race} setPositionByRace={(val) => updateConfig("enable_positions_by_race", val)} positionSelectionEnabled={position_selection_enabled} />
+
+              {/* POSITION BY RACE */}
+              <PositionByRace
+                positionByRace={positions_by_race}
+                setPositionByRace={(key, val) => updateConfig("positions_by_race", { ...positions_by_race, [key]: val })}
+                enablePositionsByRace={enable_positions_by_race}
+                positionSelectionEnabled={position_selection_enabled}
+              />
+            </div>
+          </div>
         </div>
         <p className="mt-4">
           Press <span className="font-bold">f1</span> to start/stop the bot.

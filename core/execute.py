@@ -4,10 +4,12 @@ from PIL import ImageGrab
 
 pyautogui.useImageNotFoundException(False)
 
+import re
 import core.state as state
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level
-from core.logic import do_something, all_values_equal
-from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SCREEN_MIDDLE_REGION, SKIP_BTN_BIG_REGION
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type
+from core.logic import do_something
+from utils.constants import MOOD_LIST, SCREEN_BOTTOM_REGION, SCREEN_MIDDLE_REGION, SKIP_BTN_BIG_REGION, SCREEN_TOP_REGION
+
 from core.recognizer import is_btn_active, match_template, multi_match_templates
 from utils.scenario import ura
 from core.skill import buy_skill
@@ -226,9 +228,32 @@ def race_select(prioritize_g1 = False):
     return False
 
 def race_prep():
-#  lock_icon = pyautogui.locateCenterOnScreen("assets/ui/lock_icon.png", confidence=0.9, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
-#  if not lock_icon:
-#    print(f"lock icon not found trying to find view results")
+
+  global PREFERRED_POSITION_SET
+
+  if state.POSITION_SELECTION_ENABLED:
+    # these two are mutually exclusive, so we only use preferred position if positions by race is not enabled.
+    if state.ENABLE_POSITIONS_BY_RACE:
+      click(img="assets/buttons/info_btn.png", minSearch=5, region=SCREEN_TOP_REGION)
+      time.sleep(0.5)
+      #find race text, get part inside parentheses using regex, strip whitespaces and make it lowercase for our usage
+      race_info_text = get_race_type()
+      match_race_type = re.search(r"\(([^)]+)\)", race_info_text)
+      race_type = match_race_type.group(1).strip().lower() if match_race_type else None
+      click(img="assets/buttons/close_btn.png", minSearch=2, region=SCREEN_BOTTOM_REGION)
+
+      if race_type != None:
+        position_for_race = state.POSITIONS_BY_RACE[race_type]
+        print(f"Selecting position {position_for_race} based on race type {race_type}")
+        click(img="assets/buttons/change_btn.png", minSearch=4, region=SCREEN_MIDDLE_REGION)
+        click(img=f"assets/buttons/positions/{position_for_race}_position_btn.png", minSearch=2, region=SCREEN_MIDDLE_REGION)
+        click(img="assets/buttons/confirm_btn.png", minSearch=2, region=SCREEN_MIDDLE_REGION)
+    elif not PREFERRED_POSITION_SET:
+      click(img="assets/buttons/change_btn.png", minSearch=6, region=SCREEN_MIDDLE_REGION)
+      click(img=f"assets/buttons/positions/{state.PREFERRED_POSITION}_position_btn.png", minSearch=2, region=SCREEN_MIDDLE_REGION)
+      click(img="assets/buttons/confirm_btn.png", minSearch=2, region=SCREEN_MIDDLE_REGION)
+      PREFERRED_POSITION_SET = True
+
   view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=10, region=SCREEN_BOTTOM_REGION)
   pyautogui.click(view_result_btn)
   time.sleep(0.5)
@@ -299,8 +324,11 @@ def auto_buy_skill():
     print("[INFO] No matching skills found. Going back.")
     click(img="assets/buttons/back_btn.png")
 
+PREFERRED_POSITION_SET = False
 def career_lobby():
   # Program start
+  global PREFERRED_POSITION_SET
+  PREFERRED_POSITION_SET = False
   while state.is_bot_running:
     screen = ImageGrab.grab()
     matches = multi_match_templates(templates, screen=screen)

@@ -12,9 +12,10 @@ type Props = {
   positionByRace: PositionByRace;
   setPositionByRace: (key: string, val: string) => void;
   enablePositionsByRace: boolean;
+  positionSelectionEnabled: boolean;
 };
 
-export default function PositionByRace({ positionByRace, setPositionByRace, enablePositionsByRace }: Props) {
+export default function PositionByRace({ positionByRace, setPositionByRace, enablePositionsByRace, positionSelectionEnabled }: Props) {
   return (
     <div className="flex gap-4">
       <p className="text-xl">Position By Race:</p>
@@ -22,7 +23,7 @@ export default function PositionByRace({ positionByRace, setPositionByRace, enab
         {Object.entries(positionByRace).map(([key, val]) => (
           <label htmlFor={key} className="flex gap-2 items-center w-44 justify-between">
             <span>{key.toUpperCase()}</span>
-            <Select disabled={!enablePositionsByRace} value={val} onValueChange={(val) => setPositionByRace(key, val)}>
+            <Select disabled={!(enablePositionsByRace && positionSelectionEnabled)} value={val} onValueChange={(val) => setPositionByRace(key, val)}>
               <SelectTrigger className="w-24">
                 <SelectValue placeholder="Position" />
               </SelectTrigger>

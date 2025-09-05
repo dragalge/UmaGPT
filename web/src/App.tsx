@@ -171,7 +171,12 @@ function App() {
               <IsPositionByRace enablePositionsByRace={enable_positions_by_race} setPositionByRace={(val) => updateConfig("enable_positions_by_race", val)} positionSelectionEnabled={position_selection_enabled} />
 
               {/* POSITION BY RACE */}
-              <PositionByRace positionByRace={positions_by_race} setPositionByRace={(key, val) => updateConfig("positions_by_race", { ...positions_by_race, [key]: val })} enablePositionsByRace={enable_positions_by_race} />
+              <PositionByRace
+                positionByRace={positions_by_race}
+                setPositionByRace={(key, val) => updateConfig("positions_by_race", { ...positions_by_race, [key]: val })}
+                enablePositionsByRace={enable_positions_by_race}
+                positionSelectionEnabled={position_selection_enabled}
+              />
             </div>
           </div>
         </div>

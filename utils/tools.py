@@ -2,6 +2,7 @@
 import pyautogui
 import time
 import core.state as state
+from .log import error
 
 def sleep(seconds=1):
   time.sleep(seconds * state.SLEEP_TIME_MULTIPLIER)

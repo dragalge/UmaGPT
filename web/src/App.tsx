@@ -21,6 +21,8 @@ import IsPositionSelectionEnabled from "./components/race/IsPositionSelectionEna
 import PreferredPosition from "./components/race/PreferredPosition";
 import IsPositionByRace from "./components/race/IsPositionByRace";
 import PositionByRace from "./components/race/PositionByRace";
+import WindowName from "./components/WindowName";
+import SleepMultiplier from "./components/SleepMultiplier";
 
 function App() {
   const defaultConfig = rawConfig as Config;
@@ -41,6 +43,7 @@ function App() {
   const {
     priority_stat,
     priority_weights,
+    sleep_time_multiplier,
     skip_training_energy,
     never_rest_energy,
     skip_infirmary_unless_missing_energy,
@@ -56,6 +59,7 @@ function App() {
     positions_by_race,
     stat_caps,
     skill,
+    window_name,
   } = config;
   const { is_auto_buy_skill, skill_pts_check, skill_list } = skill;
 
@@ -78,6 +82,8 @@ function App() {
           <Input className="mt-2 w-52" value={presetName} onChange={(e) => setPresetName(e.target.value)} />
         </div>
         <div className="flex flex-col gap-2 w-fit px-4">
+          <WindowName windowName={window_name} setWindowName={(val) => updateConfig("window_name", val)} />
+
           {/* TRAINING */}
           <div className="flex flex-col mt-2 gap-2">
             <p className="text-2xl font-semibold">Training</p>
@@ -179,6 +185,8 @@ function App() {
               />
             </div>
           </div>
+
+          <SleepMultiplier sleepMultiplier={sleep_time_multiplier} setSleepMultiplier={(val) => updateConfig("sleep_time_multiplier", val)} />
         </div>
         <p className="mt-4">
           Press <span className="font-bold">f1</span> to start/stop the bot.

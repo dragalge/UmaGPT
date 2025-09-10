@@ -19,7 +19,6 @@ def focus_umamusume():
   try:
     win = gw.getWindowsWithTitle("Umamusume")
     target_window = next((w for w in win if w.title.strip() == "Umamusume"), None)
-    target_window = None
     if not target_window:
       if not state.WINDOW_NAME:
         error("Window name cannot be empty! Please set window name in the config.")

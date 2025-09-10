@@ -57,6 +57,11 @@ Make sure these conditions are met:
 - Turn off all confirmation pop-ups in game settings
 - The game must be in the career lobby screen (the one with the Tazuna hint icon)
 
+### Bluestacks Settings
+
+1. Set custom display size of 800x1080 and DPI to 160.
+2. Make sure to set the window name in the config to match your emulator’s window title exactly. (case-sensitive)
+
 ### Start
 
 Run:
@@ -82,11 +87,6 @@ There are 2 training logics used:
 During the first year, the bot will prioritize the first logic to quickly unlock rainbow training.
 
 Starting from the second year, it switches to the second logic. If there’s no rainbow training and the failure chance is still below the threshold, it falls back to the first one.
-
-### Bluestacks Settings
-
-1. Set custom display size of 800x1080 and DPI to 160.
-2. Make sure to set the window name in the config to match your emulator’s window title exactly. (case-sensitive)
 
 ### Known Issue
 

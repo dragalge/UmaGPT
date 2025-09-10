@@ -15,6 +15,7 @@ export type Skill = {
 export type Config = {
   priority_stat: string[];
   priority_weights: number[];
+  sleep_time_multiplier: number;
   skip_training_energy: number;
   never_rest_energy: number;
   skip_infirmary_unless_missing_energy: number;
@@ -35,4 +36,5 @@ export type Config = {
   };
   stat_caps: Stat;
   skill: Skill;
+  window_name: string;
 };

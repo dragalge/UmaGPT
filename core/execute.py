@@ -216,7 +216,13 @@ def race_select(prioritize_g1 = False):
   else:
     info("Looking for race.")
     for i in range(4):
-      match_aptitude = pyautogui.locateCenterOnScreen("assets/ui/match_track.png", confidence=0.8, minSearchTime=get_secs(0.7))
+      match_aptitude = pyautogui.locateOnScreen("assets/ui/match_track.png", confidence=0.8, minSearchTime=get_secs(0.7))
+
+      # locked avg brightness = 163
+      # unlocked avg brightness = 230
+      if not is_btn_active(match_aptitude, treshold=200):
+        return False
+
       if match_aptitude:
         info("Race found.")
         pyautogui.moveTo(match_aptitude, duration=0.2)
@@ -228,7 +234,6 @@ def race_select(prioritize_g1 = False):
           sleep(0.5)
         return True
       drag_scroll(constants.RACE_SCROLL_BOTTOM_MOUSE_POS, -270)
-
 
     return False
 

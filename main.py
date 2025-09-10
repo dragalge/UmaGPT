@@ -12,6 +12,7 @@ from utils.log import info, warning, error, debug
 from core.execute import career_lobby
 import core.state as state
 from server.main import app
+from update_config import update_config
 
 hotkey = "f1"
 
@@ -93,5 +94,6 @@ def start_server():
   server.run()
 
 if __name__ == "__main__":
+  update_config()
   threading.Thread(target=hotkey_listener, daemon=True).start()
   start_server()

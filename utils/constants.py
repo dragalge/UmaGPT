@@ -26,8 +26,6 @@ SUPPORT_CARD_ICON_BBOX=(845, 155, 945, 700)
 ENERGY_BBOX=(440, 120, 800, 160)
 RACE_BUTTON_IN_RACE_BBOX_LANDSCAPE=(800, 950, 1150, 1050)
 
-DEFAULT_WINDOW_NAME_LIST = ["Umamusume", "Bluestacks Umamusume", "BlueStacks App Player", "LDPlayer"]
-
 OFFSET_APPLIED = False
 def adjust_constants_x_coords(offset=405):
     """Shift all region tuples' x-coordinates by `offset`."""

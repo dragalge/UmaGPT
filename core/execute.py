@@ -148,7 +148,7 @@ def do_recreation():
     pyautogui.moveTo(recreation_summer_btn, duration=0.15)
     pyautogui.click(recreation_summer_btn)
 
-def do_race(prioritize_g1 = False):
+def do_race(prioritize_g1 = False, img = None):
   click(img="assets/buttons/races_btn.png", minSearch=get_secs(10))
 
   consecutive_cancel_btn = pyautogui.locateCenterOnScreen("assets/buttons/cancel_btn.png", minSearchTime=get_secs(0.7), confidence=0.8)
@@ -159,9 +159,9 @@ def do_race(prioritize_g1 = False):
     click(img="assets/buttons/ok_btn.png", minSearch=get_secs(0.7))
 
   sleep(0.7)
-  found = race_select(prioritize_g1=prioritize_g1)
+  found = race_select(prioritize_g1=prioritize_g1, img=img)
   if not found:
-    info("No race found.")
+    info(f"{img} not found.")
     return False
 
   race_prep()
@@ -187,29 +187,20 @@ def race_day():
   sleep(1)
   after_race()
 
-def race_select(prioritize_g1 = False):
+def race_select(prioritize_g1 = False, img = None):
   pyautogui.moveTo(constants.SCROLLING_SELECTION_MOUSE_POS)
 
-  sleep(0.2)
+  sleep(0.3)
 
   if prioritize_g1:
-    info("Looking for G1 race.")
+    info(f"Looking for {img}.")
     for i in range(2):
-      race_card = match_template("assets/ui/g1_race.png", threshold=0.9)
-
-      if race_card:
-        for x, y, w, h in race_card:
-          region = (x, y, 310, 90)
-          match_aptitude = pyautogui.locateCenterOnScreen("assets/ui/match_track.png", confidence=0.8, minSearchTime=get_secs(0.7), region=region)
-          if match_aptitude:
-            info("G1 race found.")
-            pyautogui.moveTo(match_aptitude, duration=0.2)
-            pyautogui.click()
-            for i in range(2):
-              if not click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
-                click(img="assets/buttons/bluestacks/race_btn.png", minSearch=get_secs(2))
-              sleep(0.5)
-            return True
+      if click(img=f"assets/races/{img}.png", minSearch=get_secs(0.7), text=f"{img} found."):
+        for i in range(2):
+          if not click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
+            click(img="assets/buttons/bluestacks/race_btn.png", minSearch=get_secs(2))
+          sleep(0.5)
+        return True
       drag_scroll(constants.RACE_SCROLL_BOTTOM_MOUSE_POS, -270)
 
     return False
@@ -445,14 +436,16 @@ def career_lobby():
         sleep(0.5)
 
     # If Prioritize G1 Race is true, check G1 race every turn
-    if state.PRIORITIZE_G1_RACE and year_parts[0] != "Junior" and len(year_parts) > 3 and year_parts[3] not in ["Jul", "Aug"]:
-      g1_race_found = do_race(state.PRIORITIZE_G1_RACE)
-      if g1_race_found:
-        continue
-      else:
-        # If there is no G1 race, go back and do training
-        click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text="[INFO] G1 race not found. Proceeding to training.")
-        sleep(0.5)
+    if state.PRIORITIZE_G1_RACE and "Pre-Debut" not in year and len(year_parts) > 3 and year_parts[3] not in ["Jul", "Aug"]:
+      for race_list in state.RACE_SCHEDULE:
+        if len(race_list):
+          if race_list['year'] in year and race_list['date'] in year:
+            debug(f"Race now, {race_list['name']}, {race_list['year']} {race_list['date']}")
+            if do_race(state.PRIORITIZE_G1_RACE, img=race_list['name']):
+              continue
+            else:
+              click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text=f"{race_list['name']} race not found. Proceeding to training.")
+              sleep(0.5)
 
     # Check training button
     if not go_to_training():

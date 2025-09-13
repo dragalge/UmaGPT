@@ -161,7 +161,10 @@ def do_race(prioritize_g1 = False, img = None):
   sleep(0.7)
   found = race_select(prioritize_g1=prioritize_g1, img=img)
   if not found:
-    info(f"{img} not found.")
+    if img is not None:
+      info(f"{img} not found.")
+    else:
+      info("Race not found.")
     return False
 
   race_prep()
@@ -209,12 +212,12 @@ def race_select(prioritize_g1 = False, img = None):
     for i in range(4):
       match_aptitude = pyautogui.locateOnScreen("assets/ui/match_track.png", confidence=0.8, minSearchTime=get_secs(0.7))
 
-      # locked avg brightness = 163
-      # unlocked avg brightness = 230
-      if not is_btn_active(match_aptitude, treshold=200):
-        return False
-
       if match_aptitude:
+        # locked avg brightness = 163
+        # unlocked avg brightness = 230
+        if not is_btn_active(match_aptitude, treshold=200):
+          info("Race found, but it's locked.")
+          return False
         info("Race found.")
         pyautogui.moveTo(match_aptitude, duration=0.2)
         pyautogui.click(match_aptitude)
@@ -336,9 +339,9 @@ def career_lobby():
     screen = ImageGrab.grab()
     matches = multi_match_templates(templates, screen=screen)
 
-    if click(boxes=matches["event"], text="[INFO] Event found, selecting top choice."):
+    if click(boxes=matches["event"], text="Event found, selecting top choice."):
       continue
-    if click(boxes=matches["inspiration"], text="[INFO] Inspiration found."):
+    if click(boxes=matches["inspiration"], text="Inspiration found."):
       continue
     if click(boxes=matches["next"]):
       continue
@@ -358,7 +361,7 @@ def career_lobby():
     if matches["infirmary"] and is_btn_active(matches["infirmary"][0]):
       # infirmary always gives 20 energy, it's better to spend energy before going to the infirmary 99% of the time.
       if max(0, (max_energy - energy_level)) >= state.SKIP_INFIRMARY_UNLESS_MISSING_ENERGY:
-        click(boxes=matches["infirmary"][0], text="[INFO] Character debuffed, going to infirmary.")
+        click(boxes=matches["infirmary"][0], text="Character debuffed, going to infirmary.")
         continue
       else:
         info("Skipping infirmary because of high energy.")
@@ -425,16 +428,6 @@ def career_lobby():
         do_recreation()
         continue
 
-    # Check if goals is not met criteria AND it is not Pre-Debut AND turn is less than 10 AND Goal is already achieved
-    if criteria.split(" ")[0] != "criteria" and year != "Junior Year Pre-Debut" and turn < 10 and criteria != "Goal Achievedl":
-      race_found = do_race()
-      if race_found:
-        continue
-      else:
-        # If there is no race matching to aptitude, go back and do training instead
-        click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text="[INFO] Race not found. Proceeding to training.")
-        sleep(0.5)
-
     # If Prioritize G1 Race is true, check G1 race every turn
     if state.PRIORITIZE_G1_RACE and "Pre-Debut" not in year and len(year_parts) > 3 and year_parts[3] not in ["Jul", "Aug"]:
       for race_list in state.RACE_SCHEDULE:
@@ -447,9 +440,19 @@ def career_lobby():
               click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text=f"{race_list['name']} race not found. Proceeding to training.")
               sleep(0.5)
 
+    # Check if goals is not met criteria AND it is not Pre-Debut AND turn is less than 10 AND Goal is already achieved
+    if criteria.split(" ")[0] != "criteria" and year != "Junior Year Pre-Debut" and turn < 10 and criteria != "Goal Achievedl":
+      race_found = do_race()
+      if race_found:
+        continue
+      else:
+        # If there is no race matching to aptitude, go back and do training instead
+        click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text="Proceeding to training.")
+        sleep(0.5)
+
     # Check training button
     if not go_to_training():
-      info("Training button is not found.")
+      debug("Training button is not found.")
       continue
 
     # Last, do training

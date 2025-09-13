@@ -13,7 +13,7 @@ warning = logging.warning
 error = logging.error
 debug = logging.debug
 
-log_dir = os.path.join("..", "logs")
+log_dir = os.path.join(os.getcwd(), "logs")
 os.makedirs(log_dir, exist_ok=True)
 
 handler = RotatingFileHandler(

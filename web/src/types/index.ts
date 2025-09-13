@@ -12,6 +12,12 @@ export type Skill = {
   skill_list: string[];
 };
 
+export type RaceScheduleType = {
+  name: string;
+  year: string;
+  date: string;
+};
+
 export type Config = {
   priority_stat: string[];
   priority_weights: number[];
@@ -34,6 +40,7 @@ export type Config = {
     medium: string;
     long: string;
   };
+  race_schedule: RaceScheduleType[];
   stat_caps: Stat;
   skill: Skill;
   window_name: string;

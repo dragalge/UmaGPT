@@ -23,6 +23,7 @@ import IsPositionByRace from "./components/race/IsPositionByRace";
 import PositionByRace from "./components/race/PositionByRace";
 import WindowName from "./components/WindowName";
 import SleepMultiplier from "./components/SleepMultiplier";
+import RaceSchedule from "./components/race/RaceSchedule";
 
 function App() {
   const defaultConfig = rawConfig as Config;
@@ -57,6 +58,7 @@ function App() {
     enable_positions_by_race,
     preferred_position,
     positions_by_race,
+    race_schedule,
     stat_caps,
     skill,
     window_name,
@@ -157,6 +159,18 @@ function App() {
 
               {/* CANCEL CONSECUTIVE RACE */}
               <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={(val) => updateConfig("cancel_consecutive_race", val)} />
+
+              <RaceSchedule
+                raceSchedule={race_schedule}
+                addRaceSchedule={(val) => updateConfig("race_schedule", [...race_schedule, val])}
+                deleteRaceSchedule={(name, year) =>
+                  updateConfig(
+                    "race_schedule",
+                    race_schedule.filter((race) => race.name !== name || race.year !== year)
+                  )
+                }
+                clearRaceSchedule={() => updateConfig("race_schedule", [])}
+              />
             </div>
 
             <div className="flex flex-col gap-2 ml-8">

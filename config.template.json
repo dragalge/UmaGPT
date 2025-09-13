@@ -32,6 +32,23 @@
     "medium": "late",
     "long": "end"
   },
+  "race_schedule": [
+    {
+      "name": "Satsuki Sho",
+      "year": "Classic Year",
+      "date": "Early Apr"
+    },
+    {
+      "name": "Tokyo Yushun Japanese Derby",
+      "year": "Classic Year",
+      "date": "Late May"
+    },
+    {
+      "name": "Kikuka Sho",
+      "year": "Classic Year",
+      "date": "Late Oct"
+    }
+  ],
   "stat_caps": {
     "spd": 1100,
     "sta": 1100,

@@ -63,6 +63,7 @@ def main():
   print("Uma Auto!")
   state.reload_config()
   if focus_umamusume():
+    info(f"Config: {state.CONFIG_NAME}")
     career_lobby()
   else:
     error("Failed to focus Umamusume window")

@@ -440,7 +440,7 @@ def career_lobby():
               sleep(0.5)
 
     # Check if goals is not met criteria AND it is not Pre-Debut AND turn is less than 10 AND Goal is already achieved
-    if year != "Junior Year Pre-Debut" and turn < 10 and "fan" in criteria and year_parts[3] not in ["Jul", "Aug"]:
+    if year != "Junior Year Pre-Debut" and turn < 10 and ("fan" in criteria or "Maiden" in criteria):
       race_found = do_race()
       if race_found:
         continue

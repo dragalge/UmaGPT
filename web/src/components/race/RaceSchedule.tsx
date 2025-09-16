@@ -48,8 +48,6 @@ export default function RaceSchedule({ raceSchedule, addRaceSchedule, deleteRace
     getRaceData();
   }, []);
 
-  console.log(data);
-
   return (
     <div>
       <p className="text-xl">Select race</p>

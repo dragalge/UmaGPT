@@ -1,4 +1,5 @@
 {
+  "config_name": "Preset",
   "priority_stat": [
     "spd",
     "sta",

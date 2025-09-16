@@ -19,6 +19,7 @@ export type RaceScheduleType = {
 };
 
 export type Config = {
+  config_name: string;
   priority_stat: string[];
   priority_weights: number[];
   sleep_time_multiplier: number;

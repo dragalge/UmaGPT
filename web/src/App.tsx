@@ -81,7 +81,15 @@ function App() {
               </Button>
             ))}
           </div>
-          <Input className="mt-2 w-52" value={presetName} onChange={(e) => setPresetName(e.target.value)} />
+          <Input
+            className="mt-2 w-52"
+            value={presetName}
+            onChange={(e) => {
+              const val = e.target.value;
+              setPresetName(val);
+              updateConfig("config_name", val);
+            }}
+          />
         </div>
         <div className="flex flex-col gap-2 w-fit px-4">
           <WindowName windowName={window_name} setWindowName={(val) => updateConfig("window_name", val)} />

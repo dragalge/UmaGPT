@@ -258,7 +258,7 @@ def race_prep():
       PREFERRED_POSITION_SET = True
 
   view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=get_secs(10), region=constants.SCREEN_BOTTOM_REGION)
-  pyautogui.click(view_result_btn)
+  click("assets/buttons/view_results.png", click=3)
   sleep(0.5)
   for i in range(2):
     pyautogui.tripleClick(interval=0.2)
@@ -301,7 +301,6 @@ def race_prep():
       close_btn = pyautogui.locateCenterOnScreen("assets/buttons/close_btn.png", confidence=0.8, minSearchTime=get_secs(5))
       pyautogui.tripleClick(close_btn, interval=0.2, duration=0.4)
       info("Finished race skipping job.")
-
 
 def after_race():
   click(img="assets/buttons/next_btn.png", minSearch=get_secs(5))
@@ -441,7 +440,7 @@ def career_lobby():
               sleep(0.5)
 
     # Check if goals is not met criteria AND it is not Pre-Debut AND turn is less than 10 AND Goal is already achieved
-    if criteria.split(" ")[0] != "criteria" and year != "Junior Year Pre-Debut" and turn < 10 and criteria != "Goal Achievedl":
+    if year != "Junior Year Pre-Debut" and turn < 10 and "fan" in criteria and year_parts[3] not in ["Jul", "Aug"]:
       race_found = do_race()
       if race_found:
         continue

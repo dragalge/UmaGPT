@@ -198,7 +198,7 @@ def race_select(prioritize_g1 = False, img = None):
   if prioritize_g1:
     info(f"Looking for {img}.")
     for i in range(2):
-      if click(img=f"assets/races/{img}.png", minSearch=get_secs(0.7), text=f"{img} found."):
+      if click(img=f"assets/races/{img}.png", minSearch=get_secs(0.7), text=f"{img} found.", region=constants.RACE_LIST_BOX_REGION):
         for i in range(2):
           if not click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
             click(img="assets/buttons/bluestacks/race_btn.png", minSearch=get_secs(2))

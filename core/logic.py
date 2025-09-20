@@ -130,7 +130,7 @@ def rainbow_training(results):
   best_key, best_data = best_rainbow
   if best_key == "wit":
     #if we get to wit, we must have at least 1 rainbow friend
-    if data["total_rainbow_friends"] >= 1:
+    if data["total_rainbow_friends"] < 1:
       info(f"Wit training has most rainbow points but it doesn't have any rainbow friends, skipping.")
       return None
 

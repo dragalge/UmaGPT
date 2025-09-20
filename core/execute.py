@@ -20,6 +20,7 @@ templates = {
   "event": "assets/icons/event_choice_1.png",
   "inspiration": "assets/buttons/inspiration_btn.png",
   "next": "assets/buttons/next_btn.png",
+  "next2": "assets/buttons/next2_btn.png",
   "cancel": "assets/buttons/cancel_btn.png",
   "tazuna": "assets/ui/tazuna_hint.png",
   "infirmary": "assets/buttons/infirmary_btn.png",
@@ -376,6 +377,8 @@ def career_lobby():
     if click(boxes=matches["inspiration"], text="Inspiration found."):
       continue
     if click(boxes=matches["next"]):
+      continue
+    if click(boxes=matches["next2"]):
       continue
     if click(boxes=matches["cancel"]):
       continue

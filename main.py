@@ -61,24 +61,44 @@ def focus_umamusume():
 
 def main():
   print("Uma Auto!")
-  state.reload_config()
-  if focus_umamusume():
-    info(f"Config: {state.CONFIG_NAME}")
-    career_lobby()
-  else:
-    error("Failed to focus Umamusume window")
+  try:
+    state.reload_config()
+    state.stop_event.clear()
+
+    if focus_umamusume():
+      info(f"Config: {state.CONFIG_NAME}")
+      career_lobby()
+    else:
+      error("Failed to focus Umamusume window")
+  except Exception as e:
+    error(f"Error in main thread: {e}")
+  finally:
+    debug("[BOT] Stopped.")
 
 def hotkey_listener():
   while True:
     keyboard.wait(hotkey)
-    if not state.is_bot_running:
-      print("[BOT] Starting...")
-      state.is_bot_running = True
-      t = threading.Thread(target=main, daemon=True)
-      t.start()
-    else:
-      print("[BOT] Stopping...")
-      state.is_bot_running = False
+    with state.bot_lock:
+      if state.is_bot_running:
+        debug("[BOT] Stopping...")
+        state.stop_event.set()
+        state.is_bot_running = False
+
+        if state.bot_thread and state.bot_thread.is_alive():
+          debug("[BOT] Waiting for bot to stop...")
+          state.bot_thread.join(timeout=3)
+
+          if state.bot_thread.is_alive():
+            debug("[BOT] Bot still running, please wait...")
+          else:
+            debug("[BOT] Bot stopped completely")
+
+        state.bot_thread = None
+      else:
+        debug("[BOT] Starting...")
+        state.is_bot_running = True
+        state.bot_thread = threading.Thread(target=main, daemon=True)
+        state.bot_thread.start()
     sleep(0.5)
 
 def start_server():

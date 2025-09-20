@@ -12,6 +12,8 @@ def get_secs(seconds=1):
 
 def drag_scroll(mousePos, to):
   '''to: negative to scroll down, positive to scroll up'''
+  if not state.stop_event:
+    return
   if not to or not mousePos:
     error("drag_scroll correct variables not supplied.")
   pyautogui.moveTo(mousePos, duration=0.1)

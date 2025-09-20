@@ -15,6 +15,8 @@ def buy_skill():
   found = False
 
   for i in range(10):
+    if state.stop_event.is_set():
+      return
     if i > 8:
       sleep(0.5)
     buy_skill_icon = match_template("assets/icons/buy_skill.png", threshold=0.9)

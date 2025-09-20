@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import re
 import json
+import threading
 from math import floor
 
 from utils.log import info, warning, error, debug
@@ -12,7 +13,10 @@ from core.recognizer import match_template, count_pixels_of_color, find_color_of
 
 import utils.constants as constants
 
+stop_event = threading.Event()
 is_bot_running = False
+bot_thread = None
+bot_lock = threading.Lock()
 
 MINIMUM_MOOD = None
 PRIORITIZE_G1_RACE = None

@@ -35,6 +35,8 @@ training_types = {
 }
 
 def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = "", boxes = None, region=None):
+  if state.stop_event.is_set():
+    return False
   if not state.is_bot_running:
     return False
 
@@ -51,7 +53,7 @@ def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: 
     x, y, w, h = box
     center = (x + w // 2, y + h // 2)
     pyautogui.moveTo(center[0], center[1], duration=0.225)
-    pyautogui.click(clicks=click)
+    pyautogui.click(clicks=click, interval=0.15)
     return True
 
   if img is None:
@@ -65,7 +67,7 @@ def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: 
     if text:
       debug(text)
     pyautogui.moveTo(btn, duration=0.225)
-    pyautogui.click(clicks=click)
+    pyautogui.click(clicks=click, interval=0.15)
     return True
 
   return False
@@ -74,13 +76,18 @@ def go_to_training():
   return click("assets/buttons/training_btn.png")
 
 def check_training():
+  if state.stop_event.is_set():
+    return {}
+
   results = {}
 
-  fail_check_states="train","no_train","check_all"
-
+  # failcheck enum "train","no_train","check_all"
   failcheck="check_all"
   margin=5
   for key, icon_path in training_types.items():
+    if state.stop_event.is_set():
+      return {}
+
     pos = pyautogui.locateCenterOnScreen(icon_path, confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
     if pos:
       pyautogui.moveTo(pos, duration=0.1)
@@ -119,36 +126,40 @@ def check_training():
   return results
 
 def do_train(train):
-  train_btn = pyautogui.locateCenterOnScreen(f"assets/icons/train_{train}.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
+  if state.stop_event.is_set():
+    return
+  train_btn = pyautogui.locateOnScreen(f"assets/icons/train_{train}.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
   if train_btn:
-    pyautogui.tripleClick(train_btn, interval=0.1, duration=0.2)
+    click(boxes=train_btn, click=3)
 
 def do_rest(energy_level):
+  if state.stop_event.is_set():
+    return
   if state.NEVER_REST_ENERGY > 0 and energy_level > state.NEVER_REST_ENERGY:
     info(f"Wanted to rest when energy was above {state.NEVER_REST_ENERGY}, retrying from beginning.")
     return
-  rest_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
-  rest_summber_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
+  rest_btn = pyautogui.locateOnScreen("assets/buttons/rest_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
+  rest_summber_btn = pyautogui.locateOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
 
   if rest_btn:
-    pyautogui.moveTo(rest_btn, duration=0.15)
-    pyautogui.click(rest_btn)
+    click(boxes=rest_btn)
   elif rest_summber_btn:
-    pyautogui.moveTo(rest_summber_btn, duration=0.15)
-    pyautogui.click(rest_summber_btn)
+    click(boxes=rest_summber_btn)
 
 def do_recreation():
-  recreation_btn = pyautogui.locateCenterOnScreen("assets/buttons/recreation_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
-  recreation_summer_btn = pyautogui.locateCenterOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
+  if state.stop_event.is_set():
+    return
+  recreation_btn = pyautogui.locateOnScreen("assets/buttons/recreation_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
+  recreation_summer_btn = pyautogui.locateOnScreen("assets/buttons/rest_summer_btn.png", confidence=0.8, region=constants.SCREEN_BOTTOM_REGION)
 
   if recreation_btn:
-    pyautogui.moveTo(recreation_btn, duration=0.15)
-    pyautogui.click(recreation_btn)
+    click(boxes=recreation_btn)
   elif recreation_summer_btn:
-    pyautogui.moveTo(recreation_summer_btn, duration=0.15)
-    pyautogui.click(recreation_summer_btn)
+    click(boxes=recreation_summer_btn)
 
 def do_race(prioritize_g1 = False, img = None):
+  if state.stop_event.is_set():
+    return False
   click(img="assets/buttons/races_btn.png", minSearch=get_secs(10))
 
   consecutive_cancel_btn = pyautogui.locateCenterOnScreen("assets/buttons/cancel_btn.png", minSearchTime=get_secs(0.7), confidence=0.8)
@@ -173,6 +184,8 @@ def do_race(prioritize_g1 = False, img = None):
   return True
 
 def race_day():
+  if state.stop_event.is_set():
+    return
   click(img="assets/buttons/race_day_btn.png", minSearch=get_secs(10), region=constants.SCREEN_BOTTOM_REGION)
 
   click(img="assets/buttons/ok_btn.png")
@@ -182,6 +195,8 @@ def race_day():
 #  pyautogui.moveTo(x=400, y=400)
 
   for i in range(2):
+    if state.stop_event.is_set():
+      return
     if not click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
       click(img="assets/buttons/bluestacks/race_btn.png", minSearch=get_secs(2))
     sleep(0.5)
@@ -191,6 +206,8 @@ def race_day():
   after_race()
 
 def race_select(prioritize_g1 = False, img = None):
+  if state.stop_event.is_set():
+    return False
   pyautogui.moveTo(constants.SCROLLING_SELECTION_MOUSE_POS)
 
   sleep(0.3)
@@ -198,8 +215,12 @@ def race_select(prioritize_g1 = False, img = None):
   if prioritize_g1:
     info(f"Looking for {img}.")
     for i in range(2):
+      if state.stop_event.is_set():
+        return False
       if click(img=f"assets/races/{img}.png", minSearch=get_secs(0.7), text=f"{img} found.", region=constants.RACE_LIST_BOX_REGION):
         for i in range(2):
+          if state.stop_event.is_set():
+            return False
           if not click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
             click(img="assets/buttons/bluestacks/race_btn.png", minSearch=get_secs(2))
           sleep(0.5)
@@ -210,6 +231,8 @@ def race_select(prioritize_g1 = False, img = None):
   else:
     info("Looking for race.")
     for i in range(4):
+      if state.stop_event.is_set():
+        return False
       match_aptitude = pyautogui.locateOnScreen("assets/ui/match_track.png", confidence=0.8, minSearchTime=get_secs(0.7))
 
       if match_aptitude:
@@ -219,10 +242,11 @@ def race_select(prioritize_g1 = False, img = None):
           info("Race found, but it's locked.")
           return False
         info("Race found.")
-        pyautogui.moveTo(match_aptitude, duration=0.2)
-        pyautogui.click(match_aptitude)
+        click(boxes=match_aptitude)
 
         for i in range(2):
+          if state.stop_event.is_set():
+            return False
           if not click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
             click(img="assets/buttons/bluestacks/race_btn.png", minSearch=get_secs(2))
           sleep(0.5)
@@ -233,6 +257,9 @@ def race_select(prioritize_g1 = False, img = None):
 
 def race_prep():
   global PREFERRED_POSITION_SET
+
+  if state.stop_event.is_set():
+    return
 
   if state.POSITION_SELECTION_ENABLED:
     # these two are mutually exclusive, so we only use preferred position if positions by race is not enabled.
@@ -261,6 +288,8 @@ def race_prep():
   click("assets/buttons/view_results.png", click=3)
   sleep(0.5)
   for i in range(2):
+    if state.stop_event.is_set():
+      return
     pyautogui.tripleClick(interval=0.2)
     sleep(0.5)
   pyautogui.click()
@@ -274,41 +303,45 @@ def race_prep():
         info("Couldn't find \"Race!\" button, looking for alternative version.")
         click("assets/buttons/race_exclamation_btn_portrait.png", confidence=0.8, minSearch=get_secs(10))
       sleep(0.5)
-      skip_btn = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=get_secs(2), region=constants.SCREEN_BOTTOM_REGION)
-      skip_btn_big = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn_big.png", confidence=0.8, minSearchTime=get_secs(2), region=constants.SKIP_BTN_BIG_REGION_LANDSCAPE)
+      skip_btn = pyautogui.locateOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=get_secs(2), region=constants.SCREEN_BOTTOM_REGION)
+      skip_btn_big = pyautogui.locateOnScreen("assets/buttons/skip_btn_big.png", confidence=0.8, minSearchTime=get_secs(2), region=constants.SKIP_BTN_BIG_REGION_LANDSCAPE)
       if not skip_btn_big and not skip_btn:
         warning("Coulnd't find skip buttons at first search.")
-        skip_btn = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=get_secs(10), region=constants.SCREEN_BOTTOM_REGION)
-        skip_btn_big = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn_big.png", confidence=0.8, minSearchTime=get_secs(10), region=constants.SKIP_BTN_BIG_REGION_LANDSCAPE)
+        skip_btn = pyautogui.locateOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=get_secs(10), region=constants.SCREEN_BOTTOM_REGION)
+        skip_btn_big = pyautogui.locateOnScreen("assets/buttons/skip_btn_big.png", confidence=0.8, minSearchTime=get_secs(10), region=constants.SKIP_BTN_BIG_REGION_LANDSCAPE)
       if skip_btn:
-        pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+        click(boxes=skip_btn, click=3)
       if skip_btn_big:
-        pyautogui.tripleClick(skip_btn_big, interval=0.2, duration=0.4)
+        click(boxes=skip_btn_big, click=3)
       sleep(3)
       if skip_btn:
-        pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+        click(boxes=skip_btn, click=3)
       if skip_btn_big:
-        pyautogui.tripleClick(skip_btn_big, interval=0.2, duration=0.4)
+        click(boxes=skip_btn_big, click=3)
       sleep(0.5)
       if skip_btn:
-        pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+        click(boxes=skip_btn, click=3)
       if skip_btn_big:
-        pyautogui.tripleClick(skip_btn_big, interval=0.2, duration=0.4)
+        click(boxes=skip_btn_big, click=3)
       sleep(3)
-      skip_btn = pyautogui.locateCenterOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=get_secs(5), region=constants.SCREEN_BOTTOM_REGION)
-      pyautogui.tripleClick(skip_btn, interval=0.2, duration=0.4)
+      skip_btn = pyautogui.locateOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=get_secs(5), region=constants.SCREEN_BOTTOM_REGION)
+      click(boxes=skip_btn, click=3)
       #since we didn't get the trophy before, if we get it we close the trophy
-      close_btn = pyautogui.locateCenterOnScreen("assets/buttons/close_btn.png", confidence=0.8, minSearchTime=get_secs(5))
-      pyautogui.tripleClick(close_btn, interval=0.2, duration=0.4)
+      close_btn = pyautogui.locateOnScreen("assets/buttons/close_btn.png", confidence=0.8, minSearchTime=get_secs(5))
+      click(boxes=close_btn, click=3)
       info("Finished race skipping job.")
 
 def after_race():
+  if state.stop_event.is_set():
+    return
   click(img="assets/buttons/next_btn.png", minSearch=get_secs(5))
   sleep(0.3)
   pyautogui.click()
   click(img="assets/buttons/next2_btn.png", minSearch=get_secs(5))
 
 def auto_buy_skill():
+  if state.stop_event.is_set():
+    return
   if check_skill_pts() < state.SKILL_PTS_CHECK:
     return
 
@@ -334,7 +367,7 @@ def career_lobby():
   # Program start
   global PREFERRED_POSITION_SET
   PREFERRED_POSITION_SET = False
-  while state.is_bot_running:
+  while state.is_bot_running and not state.stop_event.is_set():
     screen = ImageGrab.grab()
     matches = multi_match_templates(templates, screen=screen)
 
@@ -432,6 +465,8 @@ def career_lobby():
     if state.PRIORITIZE_G1_RACE and "Pre-Debut" not in year and len(year_parts) > 3 and year_parts[3] not in ["Jul", "Aug"]:
       race_done = False
       for race_list in state.RACE_SCHEDULE:
+        if state.stop_event.is_set():
+          break
         if len(race_list):
           if race_list['year'] in year and race_list['date'] in year:
             debug(f"Race now, {race_list['name']}, {race_list['year']} {race_list['date']}")

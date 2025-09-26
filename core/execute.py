@@ -428,8 +428,9 @@ def career_lobby():
         auto_buy_skill()
       ura()
       for i in range(2):
-        if click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
-          sleep(0.5)
+        if not click(img="assets/buttons/race_btn.png", minSearch=get_secs(2)):
+          click(img="assets/buttons/bluestacks/race_btn.png", minSearch=get_secs(2))
+        sleep(0.5)
 
       race_prep()
       sleep(1)

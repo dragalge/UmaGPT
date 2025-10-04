@@ -5,6 +5,7 @@ import uvicorn
 import keyboard
 import pyautogui
 import time
+import traceback
 
 import utils.constants as constants
 from utils.log import info, warning, error, debug
@@ -71,7 +72,8 @@ def main():
     else:
       error("Failed to focus Umamusume window")
   except Exception as e:
-    error(f"Error in main thread: {e}")
+    error_message = traceback.format_exc()
+    error(f"Error in main thread: {error_message}")
   finally:
     debug("[BOT] Stopped.")
 

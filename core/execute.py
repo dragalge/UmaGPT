@@ -6,8 +6,8 @@ pyautogui.useImageNotFoundException(False)
 
 import re
 import core.state as state
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type, check_status_effects
-from core.logic import do_something
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type, check_status_effects, check_aptitudes
+from core.logic import do_something, decide_race_for_goal
 
 from utils.log import info, warning, error, debug
 import utils.constants as constants
@@ -486,15 +486,29 @@ def career_lobby():
       if race_done:
         continue
 
-    # Check if goals is not met criteria AND it is not Pre-Debut AND turn is less than 10 AND Goal is already achieved
-    if year != "Junior Year Pre-Debut" and turn < 10 and ("fan" in criteria or "Maiden" in criteria):
-      race_found = do_race()
-      if race_found:
-        continue
-      else:
-        # If there is no race matching to aptitude, go back and do training instead
-        click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text="Proceeding to training.")
-        sleep(0.5)
+    # Check if we need to race for goal
+    if not "Achieved" in criteria:
+      if state.APTITUDES == {}:
+        sleep(0.1)
+        if click(img="assets/buttons/full_stats.png", minSearch=get_secs(1)):
+          sleep(0.5)
+          check_aptitudes()
+          click(img="assets/buttons/close_btn.png", minSearch=get_secs(1))
+      keywords = ("fan", "Maiden", "Progress")
+
+      prioritize_g1, race_name = decide_race_for_goal(year, turn, criteria, keywords)
+      info(f"prioritize_g1: {prioritize_g1}, race_name: {race_name}")
+      if race_name:
+        if race_name == "any":
+          race_found = do_race(prioritize_g1, img=None)
+        else:
+          race_found = do_race(prioritize_g1, img=race_name)
+        if race_found:
+          continue
+        else:
+          # If there is no race matching to aptitude, go back and do training instead
+          click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text="Proceeding to training.")
+          sleep(0.5)
 
     # Check training button
     if not go_to_training():

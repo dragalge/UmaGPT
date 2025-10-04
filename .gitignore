@@ -1,8 +1,8 @@
 venv
-venv_test
 __pycache__
-test.py
 config.json
+debug
+*test*
 
 # Logs
 logs

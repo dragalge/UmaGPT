@@ -1,3 +1,5 @@
+import type { Event } from "./eventType";
+
 export type Stat = {
   spd: number;
   sta: number;
@@ -44,5 +46,8 @@ export type Config = {
   race_schedule: RaceScheduleType[];
   stat_caps: Stat;
   skill: Skill;
+  event: Event;
   window_name: string;
 };
+
+export type UpdateConfigType = <K extends keyof Config>(key: K, value: Config[K]) => void;

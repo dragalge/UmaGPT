@@ -25,6 +25,7 @@ import WindowName from "./components/WindowName";
 import SleepMultiplier from "./components/SleepMultiplier";
 import RaceSchedule from "./components/race/RaceSchedule";
 import { BarChart3, BrainCircuit, ChevronsRight, Cog, Trophy } from "lucide-react";
+import EventSection from "./components/event/EventSection";
 
 function App() {
   const defaultConfig = rawConfig as Config;
@@ -62,6 +63,7 @@ function App() {
     race_schedule,
     stat_caps,
     skill,
+    event,
     window_name,
   } = config;
   const { is_auto_buy_skill, skill_pts_check, skill_list } = skill;
@@ -73,7 +75,7 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-background text-foreground p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-10 flex items-center justify-between">
+        <header className="p-5 flex items-center justify-between sticky top-0 bg-background z-10">
           <div>
             <h1 className="text-5xl font-bold text-primary tracking-tight">Uma Auto Train</h1>
             <p className="text-muted-foreground mt-2 text-lg">Configure your auto-training settings below.</p>
@@ -117,10 +119,13 @@ function App() {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mx-2">
           <div className="lg:col-span-2 flex flex-col gap-8">
             <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
-              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3"><BarChart3 className="text-primary"/>Training</h2>
+              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
+                <BarChart3 className="text-primary" />
+                Training
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <PriorityStat priorityStat={priority_stat} setPriorityStat={(val) => updateConfig("priority_stat", val)} />
                 <PriorityWeights
@@ -140,7 +145,10 @@ function App() {
             </div>
 
             <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
-              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3"><Cog className="text-primary"/>General</h2>
+              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
+                <Cog className="text-primary" />
+                General
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <WindowName windowName={window_name} setWindowName={(val) => updateConfig("window_name", val)} />
                 <Mood minimumMood={minimum_mood} setMood={(val) => updateConfig("minimum_mood", val)} minimumMoodJunior={minimum_mood_junior_year} setMoodJunior={(val) => updateConfig("minimum_mood_junior_year", val)} />
@@ -160,37 +168,39 @@ function App() {
             </div>
 
             <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
-              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3"><Trophy className="text-primary"/>Race</h2>
+              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
+                <Trophy className="text-primary" />
+                Race Style
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="flex flex-col gap-6">
-                  <PrioritizeG1 prioritizeG1Race={prioritize_g1_race} setPrioritizeG1={(val) => updateConfig("prioritize_g1_race", val)} />
-                  <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={(val) => updateConfig("cancel_consecutive_race", val)} />
                   <IsPositionSelectionEnabled positionSelectionEnabled={position_selection_enabled} setPositionSelectionEnabled={(val) => updateConfig("position_selection_enabled", val)} />
-                </div>
-                <div className="flex flex-col gap-6">
                   <PreferredPosition
                     preferredPosition={preferred_position}
                     setPreferredPosition={(val) => updateConfig("preferred_position", val)}
                     enablePositionsByRace={enable_positions_by_race}
                     positionSelectionEnabled={position_selection_enabled}
                   />
-                  <IsPositionByRace enablePositionsByRace={enable_positions_by_race} setPositionByRace={(val) => updateConfig("enable_positions_by_race", val)} positionSelectionEnabled={position_selection_enabled} />
                 </div>
-              </div>
-              <div className="mt-8">
-                <PositionByRace
-                  positionByRace={positions_by_race}
-                  setPositionByRace={(key, val) => updateConfig("positions_by_race", { ...positions_by_race, [key]: val })}
-                  enablePositionsByRace={enable_positions_by_race}
-                  positionSelectionEnabled={position_selection_enabled}
-                />
+                <div className="flex flex-col gap-6">
+                  <IsPositionByRace enablePositionsByRace={enable_positions_by_race} setPositionByRace={(val) => updateConfig("enable_positions_by_race", val)} positionSelectionEnabled={position_selection_enabled} />
+                  <PositionByRace
+                    positionByRace={positions_by_race}
+                    setPositionByRace={(key, val) => updateConfig("positions_by_race", { ...positions_by_race, [key]: val })}
+                    enablePositionsByRace={enable_positions_by_race}
+                    positionSelectionEnabled={position_selection_enabled}
+                  />
+                </div>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col gap-8">
             <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
-              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3"><BrainCircuit className="text-primary"/>Skill</h2>
+              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
+                <BrainCircuit className="text-primary" />
+                Skill
+              </h2>
               <div className="flex flex-col gap-6">
                 <IsAutoBuy isAutoBuySkill={is_auto_buy_skill} setAutoBuySkill={(val) => updateConfig("skill", { ...skill, is_auto_buy_skill: val })} />
                 <SkillPtsCheck skillPtsCheck={skill_pts_check} setSkillPtsCheck={(val) => updateConfig("skill", { ...skill, skill_pts_check: val })} />
@@ -202,19 +212,27 @@ function App() {
               </div>
             </div>
             <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
-              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3"><ChevronsRight className="text-primary"/>Race Schedule</h2>
-              <RaceSchedule
-                raceSchedule={race_schedule}
-                addRaceSchedule={(val) => updateConfig("race_schedule", [...race_schedule, val])}
-                deleteRaceSchedule={(name, year) =>
-                  updateConfig(
-                    "race_schedule",
-                    race_schedule.filter((race) => race.name !== name || race.year !== year)
-                  )
-                }
-                clearRaceSchedule={() => updateConfig("race_schedule", [])}
-              />
+              <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
+                <ChevronsRight className="text-primary" />
+                Race Schedule
+              </h2>
+              <div className="flex flex-col gap-4">
+                <PrioritizeG1 prioritizeG1Race={prioritize_g1_race} setPrioritizeG1={(val) => updateConfig("prioritize_g1_race", val)} />
+                <CancelConsecutive cancelConsecutive={cancel_consecutive_race} setCancelConsecutive={(val) => updateConfig("cancel_consecutive_race", val)} />
+                <RaceSchedule
+                  raceSchedule={race_schedule}
+                  addRaceSchedule={(val) => updateConfig("race_schedule", [...race_schedule, val])}
+                  deleteRaceSchedule={(name, year) =>
+                    updateConfig(
+                      "race_schedule",
+                      race_schedule.filter((race) => race.name !== name || race.year !== year)
+                    )
+                  }
+                  clearRaceSchedule={() => updateConfig("race_schedule", [])}
+                />
+              </div>
             </div>
+            <EventSection event={event} updateConfig={updateConfig} />
           </div>
         </div>
       </div>

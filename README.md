@@ -4,9 +4,16 @@ Like the title says, this is a simple auto training for Umamusume.
 
 This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
 
+Join our [discord server](https://discord.gg/vKKmYUNZuk)
+
 [Demo video](https://youtu.be/CXSYVD-iMJk)
 
 ![Screenshot](screenshot.png)
+
+# ⚠️ USE IT AT YOUR OWN RISK ⚠️
+
+I am not responsible for any issues, account bans, or losses that may occur from using it.
+Use responsibly and at your own discretion.
 
 ## Features
 
@@ -15,7 +22,11 @@ This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/s
 - Checks mood
 - Handle debuffs
 - Rest
-- Prioritizes G1 races if available for fan farming
+- Selectable G1 races in the race schedule
+- Stat target feature, if a stat already hits the target, skip training that one
+- Auto-purchase skill
+- Web Interface for easier configuration
+- Select running style position
 
 ## Getting Started
 
@@ -29,6 +40,7 @@ This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/s
 
 ```
 git clone https://github.com/samsulpanjul/umamusume-auto-train.git
+cd umamusume-auto-train
 ```
 
 #### Install dependencies
@@ -47,50 +59,25 @@ Make sure these conditions are met:
 - Turn off all confirmation pop-ups in game settings
 - The game must be in the career lobby screen (the one with the Tazuna hint icon)
 
-### Configuration
+### Bluestacks Settings
 
-You can edit your configuration in `config.json`
-
-```
-{
-  "priority_stat": ["spd", "sta", "wit", "pwr", "guts"],
-  "minimum_mood": "NORMAL",
-  "maximum_failure": 10,
-  "prioritize_g1_race": false
-}
-```
-
-`priority_stat` (array of strings)
-
-Determines the training stat priority. The bot will focus on these stats in the given order of importance.
-Accepted values: `"spd"`, `"sta"`, `"pwr"`, `"guts"`, `"wit"`
-
-`minimum_mood` (string)
-
-The lowest acceptable mood the bot will tolerate when deciding to train.
-Accepted values (case-sensitive): `"GREAT"`, `"GOOD"`, `"NORMAL"`, `"BAD"`, `"AWFUL"`
-
-**Example**: If set to `"NORMAL"`, the bot will train as long as the mood is `"NORMAL"` or better. If the mood drops below that, it’ll go for recreation instead.
-
-`maximum_failure` (integer)
-
-Sets the maximum acceptable failure chance (in percent) before skipping a training option.
-Example: 10 means the bot will avoid training with more than 10% failure risk.
-
-`prioritize_g1_race` (boolean)
-
-If `true`, the bot will prioritize G1 races except during July and August (summer).
-Useful for fan farming.
-
-Make sure the values match exactly as expected, typos might cause errors.
+1. Set custom display size of 800x1080 and DPI to 160.
+2. Make sure to set the window name in the config to match your emulator’s window title exactly. (case-sensitive)
 
 ### Start
+
+Run:
 
 ```
 python main.py
 ```
 
-To stop the bot, just press `Ctrl + C` in your terminal, or move your mouse to the top-left corner of the screen.
+Start:
+press `f1` to start/stop the bot.
+
+### Configuration
+
+Open your browser and go to: `http://127.0.0.1:8000/` to easily edit the bot's configuration.
 
 ### Training Logic
 
@@ -105,21 +92,12 @@ Starting from the second year, it switches to the second logic. If there’s no 
 
 ### Known Issue
 
-- Some Uma that has special event/target goals (like Restricted Train Goldship or 2 G1 Race Oguri Cap) may not working.
+- Some Uma that has special event/target goals (like Restricted Train Goldship or ~~2 G1 Race Oguri Cap~~) may not working. For Oguri Cap G1 race event goal, you need to set the races in the race schedule that match the dates of her G1 goal events.
 - OCR might misread failure chance (e.g., reads 33% as 3%) and proceeds with training anyway.
-- Sometimes it misdetects debuffs and clicks the infirmary unnecessarily (not a big deal).
 - Automatically picks the top option during chain events. Be careful with Acupuncture event, it always picks the top option.
 - If you bring a friend support card (like Tazuna/Aoi Kiryuin) and do recreation, the bot can't decide whether to date with the friend support card or the Uma.
-- When `prioritize_g1_race` is set to `true`, the bot will always prioritize racing, even if your energy is low or you've already done 3 or more consecutive races.
-
-### TODO
-
-- ~~Prioritize G1 races for farm fans~~
-- Auto-purchase skills
-- Automate Claw Machine event
-- Add stat target feature, if a stat already hits the target, skip training that one
 
 ### Contribute
 
 If you run into any issues or something doesn’t work as expected, feel free to open an issue.
-Contributions are also very welcome, I would truly appreciate any support to help improve this project further.
+Contributions are very welcome! If you want to contribute, please check out the [dev](https://github.com/samsulpanjul/umamusume-auto-train/tree/dev) branch, which is used for testing new features. I truly appreciate any support to help improve this project further.

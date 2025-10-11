@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type ChoiceType = {
   id: string;
   event_name: string;
@@ -54,13 +56,16 @@ export interface EventType {
   }[];
 }
 
-export interface EventChoicesType {
-  character_name: string;
-  event_name: string;
-  chosen: number;
-}
+export const EventChoicesSchema = z.object({
+  character_name: z.string(),
+  event_name: z.string(),
+  chosen: z.number(),
+});
 
-export type Event = {
-  use_optimal_event_choice: boolean;
-  event_choices: EventChoicesType[];
-};
+export const EventSchema = z.object({
+  use_optimal_event_choice: z.boolean(),
+  event_choices: z.array(EventChoicesSchema),
+});
+
+export type EventChoicesType = z.infer<typeof EventChoicesSchema>;
+export type Event = z.infer<typeof EventSchema>;

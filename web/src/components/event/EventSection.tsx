@@ -2,23 +2,26 @@ import { TicketsIcon } from "lucide-react";
 import IsOptimalEvent from "./IsOptimalEvent";
 import EventList from "./EventList";
 import SelectedEventList from "./SelectedEventList";
-import type { Event, EventChoicesType, EventData } from "@/types/eventType";
-import type { UpdateConfigType } from "@/types";
+import type { EventChoicesType, EventData } from "@/types/eventType";
+import type { Config, UpdateConfigType } from "@/types";
 import { useEffect, useMemo, useState } from "react";
 
 type Props = {
-  event: Event;
+  config: Config;
   updateConfig: UpdateConfigType;
 };
 
-export default function EventSection({ event, updateConfig }: Props) {
+export default function EventSection({ config, updateConfig }: Props) {
+  const { event } = config;
   const { use_optimal_event_choice, event_choices } = event;
   const [data, setData] = useState<EventData | null>(null);
 
   useEffect(() => {
     const getEventData = async () => {
       try {
-        const res = await fetch("https://raw.githubusercontent.com/samsulpanjul/umamusume-auto-train/refs/heads/emulator/data/events.json");
+        const res = await fetch(
+          "https://raw.githubusercontent.com/samsulpanjul/umamusume-auto-train/refs/heads/emulator/data/events.json"
+        );
         const events = await res.json();
         setData(events);
       } catch (error) {
@@ -29,14 +32,25 @@ export default function EventSection({ event, updateConfig }: Props) {
   }, []);
 
   const handleAddEventList = (val: EventChoicesType) => {
-    const existingIndex = event_choices.findIndex((ev) => ev.event_name === val.event_name);
+    const existingIndex = event_choices.findIndex(
+      (ev) => ev.event_name === val.event_name
+    );
 
-    const newEventChoices = existingIndex !== -1 ? event_choices.map((ev, i) => (i === existingIndex ? { ...ev, chosen: val.chosen } : ev)) : [...event_choices, val];
+    const newEventChoices =
+      existingIndex !== -1
+        ? event_choices.map((ev, i) =>
+            i === existingIndex ? { ...ev, chosen: val.chosen } : ev
+          )
+        : [...event_choices, val];
 
     updateConfig("event", { ...event, event_choices: newEventChoices });
   };
 
-  const deleteEventList = (val: string) => updateConfig("event", { ...event, event_choices: event_choices.filter((e) => e.event_name !== val) });
+  const deleteEventList = (val: string) =>
+    updateConfig("event", {
+      ...event,
+      event_choices: event_choices.filter((e) => e.event_name !== val),
+    });
 
   const groupedChoices = useMemo(() => {
     const choices = data?.choiceArraySchema?.choices ?? [];
@@ -53,7 +67,9 @@ export default function EventSection({ event, updateConfig }: Props) {
           }
 
           const eventGroup = acc[choice.event_name];
-          let existingChoice = eventGroup.choices.find((c) => c.choice_number === choice.choice_number);
+          let existingChoice = eventGroup.choices.find(
+            (c) => c.choice_number === choice.choice_number
+          );
 
           if (!existingChoice) {
             existingChoice = {
@@ -92,16 +108,29 @@ export default function EventSection({ event, updateConfig }: Props) {
       <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
         <TicketsIcon className="text-primary" /> Event
       </h2>
-      <IsOptimalEvent isUseOptimalEventChoice={use_optimal_event_choice} setIsUseOptimalEventChoice={(val) => updateConfig("event", { ...event, use_optimal_event_choice: val })} />
+      <IsOptimalEvent
+        isUseOptimalEventChoice={use_optimal_event_choice}
+        setIsUseOptimalEventChoice={(val) =>
+          updateConfig("event", { ...event, use_optimal_event_choice: val })
+        }
+      />
       <div className="flex gap-6 mt-6">
-        <EventList eventChoicesConfig={event_choices} addEventList={handleAddEventList} deleteEventList={deleteEventList} data={data} groupedChoices={groupedChoices} />
+        <EventList
+          eventChoicesConfig={event_choices}
+          addEventList={handleAddEventList}
+          deleteEventList={deleteEventList}
+          data={data}
+          groupedChoices={groupedChoices}
+        />
         <SelectedEventList
           data={data}
           groupedChoices={groupedChoices}
           eventChoicesConfig={event_choices}
           addEventList={handleAddEventList}
           deleteEventList={deleteEventList}
-          clearEventList={() => updateConfig("event", { ...event, event_choices: [] })}
+          clearEventList={() =>
+            updateConfig("event", { ...event, event_choices: [] })
+          }
         />
       </div>
     </div>

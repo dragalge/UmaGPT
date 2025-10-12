@@ -198,7 +198,6 @@ def check_mood():
 def check_turn():
     turn = enhanced_screenshot(constants.TURN_REGION)
     turn_text = extract_text(turn)
-    debug(f"Check turn text: {turn_text}")
     if "Race Day" in turn_text:
         return "Race Day"
 

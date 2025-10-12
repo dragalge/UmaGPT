@@ -214,7 +214,9 @@ def select_event():
     return True
 
   event_name = get_event_name()
+
   chosen = event_choice(event_name)
+
   if chosen == 0:
     click(boxes=event_choices_icon, text="Event found, selecting top choice.")
     return True

@@ -198,7 +198,7 @@ def check_mood():
 def check_turn():
     turn = enhanced_screenshot(constants.TURN_REGION)
     turn_text = extract_text(turn)
-
+    debug(f"Check turn text: {turn_text}")
     if "Race Day" in turn_text:
         return "Race Day"
 
@@ -238,6 +238,12 @@ def check_criteria_detail():
 def check_skill_pts():
   img = enhanced_screenshot(constants.SKILL_PTS_REGION)
   text = extract_number(img)
+  return text
+
+# Get credit from claw event
+def check_credit():
+  img = enhanced_screenshot(constants.CLAW_EVENT_REGION)
+  text = extract_text(img)
   return text
 
 previous_right_bar_match=""

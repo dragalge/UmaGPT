@@ -1,4 +1,5 @@
 import pyautogui
+import time
 from utils.tools import sleep, get_secs, drag_scroll
 from PIL import ImageGrab
 
@@ -6,7 +7,7 @@ pyautogui.useImageNotFoundException(False)
 
 import re
 import core.state as state
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type, check_status_effects, check_aptitudes
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type, check_status_effects, check_aptitudes, check_credit
 from core.logic import do_something, decide_race_for_goal
 
 from utils.log import info, warning, error, debug
@@ -25,7 +26,9 @@ templates = {
   "cancel": "assets/buttons/cancel_btn.png",
   "tazuna": "assets/ui/tazuna_hint.png",
   "infirmary": "assets/buttons/infirmary_btn.png",
-  "retry": "assets/buttons/retry_btn.png"
+  "retry": "assets/buttons/retry_btn.png",
+  "claw_credit": "assets/buttons/claw_credit.png",
+  "claw_result": "assets/buttons/claw_result.png"
 }
 
 training_types = {
@@ -35,6 +38,20 @@ training_types = {
   "guts": "assets/icons/train_guts.png",
   "wit": "assets/icons/train_wit.png"
 }
+
+def click_and_hold(img: str = None, confidence: float = 0.8, minSearch:float = 2, text: str = "", duration_ms = 1000):
+  # Click and hold for duration in milliseconds.
+  if img is None:
+    return False
+
+  btn = pyautogui.locateCenterOnScreen(img, confidence=confidence, minSearchTime=minSearch)
+  if btn:
+    if text:
+      debug(text)
+    pyautogui.moveTo(btn, duration=0.225)
+    pyautogui.mouseDown(btn)
+    time.sleep(duration_ms / 1000)
+    pyautogui.mouseUp(btn)
 
 def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = "", boxes = None, region=None):
   if state.stop_event.is_set():
@@ -197,17 +214,17 @@ def select_event():
     return True
 
   event_name = get_event_name()
-
   chosen = event_choice(event_name)
   if chosen == 0:
     click(boxes=event_choices_icon, text="Event found, selecting top choice.")
     return True
-
   x = event_choices_icon[0]
   y = event_choices_icon[1] + ((chosen - 1) * choice_vertical_gap)
   debug(f"Event choices coordinates: {event_choices_icon}")
   debug(f"Clicking: {x}, {y}")
   click(boxes=(x, y, 1, 1), text=f"Selecting optimal choice: {event_name}")
+  if "Acupuncturist" in event_name:
+    click(boxes=event_choices_icon, text="Event found, selecting top choice.")
   return True
 
 def race_day():
@@ -412,6 +429,23 @@ def career_lobby():
     if click(boxes=matches["cancel"]):
       continue
     if click(boxes=matches["retry"]):
+      continue
+    if matches["claw_credit"]:
+      credits = check_credit()
+      if credits == "CREDIT 3":
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 1 found.", duration_ms=1350)
+        sleep(5)
+        continue
+      if credits == "CREDIT 2":
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 2 found.", duration_ms=900)
+        sleep(5)
+        continue
+      if credits == "CREDIT 1":
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 3 found.", duration_ms=480)
+        sleep(5)
+        continue
+    if matches["claw_result"]:
+      click(img="assets/buttons/ok_2_btn.png", minSearch=get_secs(0.7))
       continue
 
     if not matches["tazuna"]:

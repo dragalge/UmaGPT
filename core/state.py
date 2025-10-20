@@ -38,7 +38,7 @@ def reload_config():
   global PRIORITIZE_G1_RACE, CANCEL_CONSECUTIVE_RACE, STAT_CAPS, IS_AUTO_BUY_SKILL, SKILL_PTS_CHECK, SKILL_LIST
   global PRIORITY_EFFECTS_LIST, SKIP_TRAINING_ENERGY, NEVER_REST_ENERGY, SKIP_INFIRMARY_UNLESS_MISSING_ENERGY, PREFERRED_POSITION
   global ENABLE_POSITIONS_BY_RACE, POSITIONS_BY_RACE, POSITION_SELECTION_ENABLED, SLEEP_TIME_MULTIPLIER
-  global WINDOW_NAME, RACE_SCHEDULE, CONFIG_NAME, USE_OPTIMAL_EVENT_CHOICE, EVENT_CHOICES
+  global WINDOW_NAME, RACE_SCHEDULE, CONFIG_NAME, USE_OPTIMAL_EVENT_CHOICE, EVENT_CHOICES, USE_CLAW_MACHINE, CLAW_1_TIMER, CLAW_2_TIMER, CLAW_3_TIMER
 
   config = load_config()
 
@@ -67,6 +67,11 @@ def reload_config():
   CONFIG_NAME = config["config_name"]
   USE_OPTIMAL_EVENT_CHOICE = config["event"]["use_optimal_event_choice"]
   EVENT_CHOICES = config["event"]["event_choices"]
+  USE_CLAW_MACHINE = config["claw_machine"]["use_claw_machine"]
+  CLAW_1_TIMER = config["claw_machine"]["claw_1_timer"]
+  CLAW_2_TIMER = config["claw_machine"]["claw_2_timer"]
+  CLAW_3_TIMER = config["claw_machine"]["claw_3_timer"]
+
 
 # Get Stat
 def stat_state():

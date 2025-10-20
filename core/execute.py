@@ -1,6 +1,5 @@
 import pyautogui
-import time
-from utils.tools import sleep, get_secs, drag_scroll
+from utils.tools import sleep, get_secs, drag_scroll, click_and_hold
 from PIL import ImageGrab
 
 pyautogui.useImageNotFoundException(False)
@@ -38,20 +37,6 @@ training_types = {
   "guts": "assets/icons/train_guts.png",
   "wit": "assets/icons/train_wit.png"
 }
-
-def click_and_hold(img: str = None, confidence: float = 0.8, minSearch:float = 2, text: str = "", duration_ms = 1000):
-  # Click and hold for duration in milliseconds.
-  if img is None:
-    return False
-
-  btn = pyautogui.locateCenterOnScreen(img, confidence=confidence, minSearchTime=minSearch)
-  if btn:
-    if text:
-      debug(text)
-    pyautogui.moveTo(btn, duration=0.225)
-    pyautogui.mouseDown(btn)
-    time.sleep(duration_ms / 1000)
-    pyautogui.mouseUp(btn)
 
 def click(img: str = None, confidence: float = 0.8, minSearch:float = 2, click: int = 1, text: str = "", boxes = None, region=None):
   if state.stop_event.is_set():
@@ -216,15 +201,17 @@ def select_event():
   event_name = get_event_name()
 
   chosen = event_choice(event_name)
-
   if chosen == 0:
     click(boxes=event_choices_icon, text="Event found, selecting top choice.")
     return True
+
   x = event_choices_icon[0]
   y = event_choices_icon[1] + ((chosen - 1) * choice_vertical_gap)
   debug(f"Event choices coordinates: {event_choices_icon}")
   debug(f"Clicking: {x}, {y}")
   click(boxes=(x, y, 1, 1), text=f"Selecting optimal choice: {event_name}")
+  # to avoid getting stuck at acpuncturist event
+  # adding this to check the event_name has Acupuncturist then select top choice
   if "Acupuncturist" in event_name:
     click(boxes=event_choices_icon, text="Event found, selecting top choice.")
   return True
@@ -433,17 +420,23 @@ def career_lobby():
     if click(boxes=matches["retry"]):
       continue
     if matches["claw_credit"]:
+      if not state.USE_CLAW_MACHINE:
+        # DO NOTHING
+        return True
+
+      # This will pick the nearest plushie to avoid getting stuck
+      # adjust the timer for your preference. duration in milliseconds
       credits = check_credit()
       if credits == "CREDIT 3":
-        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 1 found.", duration_ms=1350)
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 1 found.", duration_ms=state.CLAW_1_TIMER)
         sleep(5)
         continue
       if credits == "CREDIT 2":
-        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 2 found.", duration_ms=900)
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 2 found.", duration_ms=state.CLAW_2_TIMER)
         sleep(5)
         continue
       if credits == "CREDIT 1":
-        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 3 found.", duration_ms=480)
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 3 found.", duration_ms=state.CLAW_3_TIMER)
         sleep(5)
         continue
     if matches["claw_result"]:

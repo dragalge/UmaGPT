@@ -158,6 +158,16 @@ def do_recreation():
 
   if recreation_btn:
     click(boxes=recreation_btn)
+    sleep(1)
+
+    aoi_event = pyautogui.locateCenterOnScreen("assets/ui/aoi_event.png", confidence=0.8)
+    tazuna_event = pyautogui.locateCenterOnScreen("assets/ui/tazuna_event.png", confidence=0.8)
+    if tazuna_event:
+      pyautogui.moveTo(tazuna_event, duration=0.15)
+      pyautogui.click(tazuna_event)
+    elif aoi_event:
+      pyautogui.moveTo(aoi_event, duration=0.15)
+      pyautogui.click(aoi_event)
   elif recreation_summer_btn:
     click(boxes=recreation_summer_btn)
 
@@ -212,6 +222,7 @@ def select_event():
   click(boxes=(x, y, 1, 1), text=f"Selecting optimal choice: {event_name}")
   # to avoid getting stuck at acpuncturist event
   # adding this to check the event_name has Acupuncturist then select top choice
+
   if "Acupuncturist" in event_name:
     click(boxes=event_choices_icon, text="Event found, selecting top choice.")
   return True
@@ -426,18 +437,21 @@ def career_lobby():
 
       # This will pick the nearest plushie to avoid getting stuck
       # adjust the timer for your preference. duration in milliseconds
+
+      sleep(7)
       credits = check_credit()
       if credits == "CREDIT 3":
+        info("Doing claw machine event!")
         click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 1 found.", duration_ms=state.CLAW_1_TIMER)
-        sleep(5)
+        sleep(7)
         continue
       if credits == "CREDIT 2":
         click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 2 found.", duration_ms=state.CLAW_2_TIMER)
-        sleep(5)
+        sleep(7)
         continue
       if credits == "CREDIT 1":
         click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 3 found.", duration_ms=state.CLAW_3_TIMER)
-        sleep(5)
+        sleep(7)
         continue
     if matches["claw_result"]:
       click(img="assets/buttons/ok_2_btn.png", minSearch=get_secs(0.7))
@@ -580,5 +594,10 @@ def career_lobby():
       sleep(0.5)
       do_train(best_training)
     else:
-      do_rest(energy_level)
+      info(f"Check recreation with Tazuna or Aoi")
+      tazuna_event = pyautogui.locateCenterOnScreen("assets/ui/recreation_with.png", confidence=0.8)
+      if tazuna_event:
+        do_recreation()
+      else : 
+        do_rest(energy_level)
     sleep(1)

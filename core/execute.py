@@ -160,12 +160,17 @@ def do_recreation():
 
     aoi_event = pyautogui.locateCenterOnScreen("assets/ui/aoi_event.png", confidence=0.8)
     tazuna_event = pyautogui.locateCenterOnScreen("assets/ui/tazuna_event.png", confidence=0.8)
-    if tazuna_event:
-      pyautogui.moveTo(tazuna_event, duration=0.15)
-      pyautogui.click(tazuna_event)
+    date_complete = pyautogui.locateCenterOnScreen("assets/ui/date_complete.png", confidence=0.8)
+
+    if date_complete:
+      pyautogui.moveTo(410, 500, duration=0.15)
+      pyautogui.click()
     elif aoi_event:
       pyautogui.moveTo(aoi_event, duration=0.15)
       pyautogui.click(aoi_event)
+    elif tazuna_event:
+      pyautogui.moveTo(tazuna_event, duration=0.15)
+      pyautogui.click(tazuna_event)
   elif recreation_summer_btn:
     click(boxes=recreation_summer_btn)
 

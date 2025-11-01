@@ -6,8 +6,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
 import type { RaceScheduleType } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
 type RaceType = {
   date: string;
@@ -43,23 +43,21 @@ export default function RaceSchedule({
   deleteRaceSchedule,
   clearRaceSchedule,
 }: Props) {
-  const [data, setData] = useState<RaceScheduleDataType | null>(null);
-
-  useEffect(() => {
-    const getRaceData = async () => {
-      try {
-        const res = await fetch(
-          "https://raw.githubusercontent.com/samsulpanjul/umamusume-auto-train/refs/heads/dev/data/races.json"
-        );
-        const races: RaceScheduleDataType = await res.json();
-        setData(races);
-      } catch (error) {
-        console.error("Failed to fetch races:", error);
-      }
-    };
-
-    getRaceData();
-  }, []);
+  const getRaceData = async () => {
+    try {
+      const res = await fetch(
+        "https://raw.githubusercontent.com/samsulpanjul/umamusume-auto-train/refs/heads/emulator/data/races.json"
+      );
+      if (!res.ok) throw new Error("Failed to fetch races");
+      return res.json();
+    } catch (error) {
+      console.error("Failed to fetch races:", error);
+    }
+  };
+  const { data } = useQuery<RaceScheduleDataType>({
+    queryKey: ["races"],
+    queryFn: getRaceData,
+  });
 
   return (
     <div>

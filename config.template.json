@@ -96,11 +96,5 @@
       }
     ]
   },
-  "claw_machine": {
-    "use_claw_machine": false,
-    "claw_1_timer": 1599,
-    "claw_2_timer": 900,
-    "claw_3_timer": 599
-  },
   "window_name": "LDPlayer"
 }

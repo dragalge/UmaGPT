@@ -1,12 +1,12 @@
 import pyautogui
-from utils.tools import sleep, get_secs, drag_scroll
+from utils.tools import sleep, get_secs, drag_scroll, click_and_hold
 from PIL import ImageGrab
 
 pyautogui.useImageNotFoundException(False)
 
 import re
 import core.state as state
-from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type, check_status_effects, check_aptitudes
+from core.state import check_support_card, check_failure, check_turn, check_mood, check_current_year, check_criteria, check_skill_pts, check_energy_level, get_race_type, check_status_effects, check_aptitudes, check_credit
 from core.logic import do_something, decide_race_for_goal
 
 from utils.log import info, warning, error, debug
@@ -25,7 +25,9 @@ templates = {
   "cancel": "assets/buttons/cancel_btn.png",
   "tazuna": "assets/ui/tazuna_hint.png",
   "infirmary": "assets/buttons/infirmary_btn.png",
-  "retry": "assets/buttons/retry_btn.png"
+  "retry": "assets/buttons/retry_btn.png",
+  "claw_credit": "assets/buttons/claw_credit.png",
+  "claw_result": "assets/buttons/claw_result.png"
 }
 
 training_types = {
@@ -208,6 +210,10 @@ def select_event():
   debug(f"Event choices coordinates: {event_choices_icon}")
   debug(f"Clicking: {x}, {y}")
   click(boxes=(x, y, 1, 1), text=f"Selecting optimal choice: {event_name}")
+  # to avoid getting stuck at acpuncturist event
+  # adding this to check the event_name has Acupuncturist then select top choice
+  if "Acupuncturist" in event_name:
+    click(boxes=event_choices_icon, text="Event found, selecting top choice.")
   return True
 
 def race_day():
@@ -412,6 +418,29 @@ def career_lobby():
     if click(boxes=matches["cancel"]):
       continue
     if click(boxes=matches["retry"]):
+      continue
+    if matches["claw_credit"]:
+      if not state.USE_CLAW_MACHINE:
+        # DO NOTHING
+        return True
+
+      # This will pick the nearest plushie to avoid getting stuck
+      # adjust the timer for your preference. duration in milliseconds
+      credits = check_credit()
+      if credits == "CREDIT 3":
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 1 found.", duration_ms=state.CLAW_1_TIMER)
+        sleep(5)
+        continue
+      if credits == "CREDIT 2":
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 2 found.", duration_ms=state.CLAW_2_TIMER)
+        sleep(5)
+        continue
+      if credits == "CREDIT 1":
+        click_and_hold(img="assets/buttons/claw_btn.png", text="Claw 3 found.", duration_ms=state.CLAW_3_TIMER)
+        sleep(5)
+        continue
+    if matches["claw_result"]:
+      click(img="assets/buttons/ok_2_btn.png", minSearch=get_secs(0.7))
       continue
 
     if not matches["tazuna"]:

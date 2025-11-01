@@ -210,10 +210,10 @@ def select_event():
   debug(f"Event choices coordinates: {event_choices_icon}")
   debug(f"Clicking: {x}, {y}")
   click(boxes=(x, y, 1, 1), text=f"Selecting optimal choice: {event_name}")
-  # to avoid getting stuck at acpuncturist event
-  # adding this to check the event_name has Acupuncturist then select top choice
+  sleep(0.5)
   if "Acupuncturist" in event_name:
-    click(boxes=event_choices_icon, text="Event found, selecting top choice.")
+    confirm_acupuncturist_y = event_choices_icon[1] + ((4 - 1) * choice_vertical_gap)
+    click(boxes=(x, confirm_acupuncturist_y, 1, 1), text="Confirm acupuncturist.")
   return True
 
 def race_day():

@@ -68,6 +68,7 @@ def reload_config():
   USE_OPTIMAL_EVENT_CHOICE = config["event"]["use_optimal_event_choice"]
   EVENT_CHOICES = config["event"]["event_choices"]
 
+
 # Get Stat
 def stat_state():
   stat_regions = {

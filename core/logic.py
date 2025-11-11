@@ -83,9 +83,9 @@ def training_score(x):
   global PRIORITY_WEIGHTS_LIST
   priority_weight = PRIORITY_WEIGHTS_LIST[state.PRIORITY_WEIGHT]
   base = x[1]["total_supports"]
-  non_max_friends= data["total_friendship_levels"]["gray"] + \
-                   data["total_friendship_levels"]["blue"] + \
-                   data["total_friendship_levels"]["green"]
+  non_max_friends = x[1]["total_friendship_levels"]["gray"] + \
+                    x[1]["total_friendship_levels"]["blue"] + \
+                    x[1]["total_friendship_levels"]["green"]
   base += non_max_friends * 0.5
   if x[1]["total_hints"] > 0:
       base += 0.5

@@ -77,15 +77,16 @@ PRIORITY_WEIGHTS_LIST={
   "LIGHT": 0.25,
   "NONE": 0
 }
-TRAINING_KEY_LIST = ["spd", "sta", "pwr", "guts", "wit"]
+#TRAINING_KEY_LIST = ["spd", "sta", "pwr", "guts", "wit"]
 
 def training_score(x):
   global PRIORITY_WEIGHTS_LIST
   priority_weight = PRIORITY_WEIGHTS_LIST[state.PRIORITY_WEIGHT]
   base = x[1]["total_supports"]
-  for key in TRAINING_KEY_LIST:
-    non_max_friends = x[1][key]["friendship_levels"]["blue"] + x[1][key]["friendship_levels"]["green"] + x[1][key]["friendship_levels"]["gray"]
-    base += non_max_friends * 0.5
+  non_max_friends = x[1]["total_friendship_levels"]["gray"] + \
+                    x[1]["total_friendship_levels"]["blue"] + \
+                    x[1]["total_friendship_levels"]["green"]
+  base += non_max_friends * 0.5
   if x[1]["total_hints"] > 0:
       base += 0.5
   multiplier = 1 + state.PRIORITY_EFFECTS_LIST[get_stat_priority(x[0])] * priority_weight
@@ -140,8 +141,9 @@ def rainbow_training(results):
     multiplier = 1 + state.PRIORITY_EFFECTS_LIST[get_stat_priority(stat_name)] * priority_weight
     data = rainbow_candidates[stat_name]
     total_rainbow_friends = data[stat_name]["friendship_levels"]["yellow"] + data[stat_name]["friendship_levels"]["max"]
-    for key in TRAINING_KEY_LIST:
-      non_max_friends = data[key]["friendship_levels"]["gray"] + data[key]["friendship_levels"]["blue"] + data[key]["friendship_levels"]["green"]
+    non_max_friends= data["total_friendship_levels"]["gray"] + \
+                     data["total_friendship_levels"]["blue"] + \
+                     data["total_friendship_levels"]["green"]
     #adding total rainbow friends on top of total supports for two times value nudging the formula towards more rainbows
     rainbow_points = total_rainbow_friends + data["total_supports"]
     if data["total_hints"] > 0:

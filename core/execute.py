@@ -1,5 +1,5 @@
 import pyautogui
-from utils.tools import sleep, get_secs, drag_scroll
+from utils.tools import sleep, get_secs, drag_scroll, click_and_hold
 from PIL import ImageGrab
 
 pyautogui.useImageNotFoundException(False)
@@ -25,7 +25,9 @@ templates = {
   "cancel": "assets/buttons/cancel_btn.png",
   "tazuna": "assets/ui/tazuna_hint.png",
   "infirmary": "assets/buttons/infirmary_btn.png",
-  "retry": "assets/buttons/retry_btn.png"
+  "retry": "assets/buttons/retry_btn.png",
+  "claw_btn": "assets/buttons/claw_btn.png",
+  "ok_2_btn": "assets/buttons/ok_2_btn.png"
 }
 
 training_types = {
@@ -156,6 +158,21 @@ def do_recreation():
 
   if recreation_btn:
     click(boxes=recreation_btn)
+    sleep(1)
+
+    aoi_event = pyautogui.locateCenterOnScreen("assets/ui/aoi_event.png", confidence=0.8)
+    tazuna_event = pyautogui.locateCenterOnScreen("assets/ui/tazuna_event.png", confidence=0.8)
+    date_complete = pyautogui.locateCenterOnScreen("assets/ui/date_complete.png", confidence=0.8)
+
+    if date_complete:
+      pyautogui.moveTo(410, 500, duration=0.15)
+      pyautogui.click()
+    elif aoi_event:
+      pyautogui.moveTo(aoi_event, duration=0.15)
+      pyautogui.click(aoi_event)
+    elif tazuna_event:
+      pyautogui.moveTo(tazuna_event, duration=0.15)
+      pyautogui.click(tazuna_event)
   elif recreation_summer_btn:
     click(boxes=recreation_summer_btn)
 
@@ -208,6 +225,10 @@ def select_event():
   debug(f"Event choices coordinates: {event_choices_icon}")
   debug(f"Clicking: {x}, {y}")
   click(boxes=(x, y, 1, 1), text=f"Selecting optimal choice: {event_name}")
+  sleep(0.5)
+  if "Acupuncturist" in event_name:
+    confirm_acupuncturist_y = event_choices_icon[1] + ((4 - 1) * choice_vertical_gap)
+    click(boxes=(x, confirm_acupuncturist_y, 1, 1), text="Confirm acupuncturist.")
   return True
 
 def race_day():
@@ -413,6 +434,12 @@ def career_lobby():
       continue
     if click(boxes=matches["retry"]):
       continue
+    if matches["claw_btn"]:
+      click_and_hold(img="assets/buttons/claw_btn.png", text="Claw button found.", duration_ms=1000)
+      sleep(5)
+      continue
+    if click(boxes=matches["ok_2_btn"]):
+      continue
 
     if not matches["tazuna"]:
       #info("Should be in career lobby.")
@@ -551,5 +578,10 @@ def career_lobby():
       sleep(0.5)
       do_train(best_training)
     else:
-      do_rest(energy_level)
+      info(f"Check recreation with Tazuna or Aoi support card")
+      date_event = pyautogui.locateCenterOnScreen("assets/ui/recreation_with.png", confidence=0.8)
+      if date_event:
+        do_recreation()
+      else:
+        do_rest(energy_level)
     sleep(1)

@@ -475,7 +475,7 @@ def career_lobby():
     print("\n=======================================================================================\n")
 
     # URA SCENARIO
-    if year == "Finale Season" and turn == "Race Day":
+    if "Finale" in year and turn == "Race Day":
       info("URA Finale")
       if state.IS_AUTO_BUY_SKILL:
         auto_buy_skill()

@@ -12,7 +12,7 @@ from core.logic import do_something, decide_race_for_goal
 from utils.log import info, warning, error, debug
 import utils.constants as constants
 
-from core.recognizer import is_btn_active, multi_match_templates
+from core.recognizer import is_btn_active, multi_match_templates, match_template
 from utils.scenario import ura
 from core.skill import buy_skill
 from core.events import event_choice, get_event_name

@@ -151,7 +151,7 @@ def rainbow_training(results):
     if non_max_friends > 0:
       rainbow_points = rainbow_points + 0.5
     if total_rainbow_friends > 0:
-      rainbow_points = rainbow_points + 0.5
+      rainbow_points = rainbow_points + 0.51
     rainbow_points = rainbow_points * multiplier
     rainbow_candidates[stat_name]["rainbow_points"] = rainbow_points
     rainbow_candidates[stat_name]["total_rainbow_friends"] = total_rainbow_friends
@@ -161,7 +161,7 @@ def rainbow_training(results):
     stat: data for stat, data in results.items()
     if int(data["failure"]) <= state.MAX_FAILURE
        and data["rainbow_points"] >= 2
-       and not (stat == "wit" and data["total_rainbow_friends"] < 1)
+       and not (stat == "wit" and data["rainbow_points"] <= 2.5)
   }
 
   if not rainbow_candidates:
@@ -178,11 +178,6 @@ def rainbow_training(results):
   )
 
   best_key, best_data = best_rainbow
-  if best_key == "wit":
-    #if we get to wit, we must have at least 1 rainbow friend
-    if data["total_rainbow_friends"] < 2.5:
-      info(f"Wit training has most rainbow points but it doesn't have any rainbow friends, skipping.")
-      return None
 
   info(f"Rainbow training selected: {best_key.upper()} with {best_data['rainbow_points']} rainbow points and {best_data['failure']}% fail chance")
   return best_key

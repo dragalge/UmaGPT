@@ -332,7 +332,6 @@ def race_prep():
       click(img="assets/buttons/confirm_btn.png", minSearch=get_secs(2), region=constants.SCREEN_MIDDLE_REGION)
       PREFERRED_POSITION_SET = True
 
-  view_result_btn = pyautogui.locateCenterOnScreen("assets/buttons/view_results.png", confidence=0.8, minSearchTime=get_secs(10), region=constants.SCREEN_BOTTOM_REGION)
   if not click("assets/buttons/view_results.png", click=3):
     debug("View results not found")
   sleep(0.5)
@@ -353,7 +352,9 @@ def race_prep():
       sleep(10)
       if not click("assets/buttons/race_exclamation_btn.png", confidence=0.8, minSearch=get_secs(10)):
         info("Couldn't find \"Race!\" button, looking for alternative version.")
-        click("assets/buttons/race_exclamation_btn_portrait.png", confidence=0.8, minSearch=get_secs(10))
+        if not click("assets/buttons/race_exclamation_btn_portrait.png", confidence=0.8, minSearch=get_secs(10)):
+          info("Still no Race button, returning")
+          return
       sleep(0.5)
       skip_btn = pyautogui.locateOnScreen("assets/buttons/skip_btn.png", confidence=0.8, minSearchTime=get_secs(2), region=constants.SCREEN_BOTTOM_REGION)
       skip_btn_big = pyautogui.locateOnScreen("assets/buttons/skip_btn_big.png", confidence=0.8, minSearchTime=get_secs(2), region=constants.SKIP_BTN_BIG_REGION_LANDSCAPE)

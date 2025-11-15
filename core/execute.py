@@ -233,7 +233,7 @@ def select_event():
 def race_day(is_ura = False):
   if state.stop_event.is_set():
     return
-  race_day_btn = f"assets/buttons/{"ura_race_btn" if is_ura else "race_day_btn"}.png"
+  race_day_btn = f"assets/buttons/{'ura_race_btn' if is_ura else 'race_day_btn'}.png"
   click(img=race_day_btn, minSearch=get_secs(10), region=constants.SCREEN_BOTTOM_REGION)
 
   click(img="assets/buttons/ok_btn.png")

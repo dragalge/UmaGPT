@@ -332,7 +332,7 @@ def race_prep():
       click(img="assets/buttons/confirm_btn.png", minSearch=get_secs(2), region=constants.SCREEN_MIDDLE_REGION)
       PREFERRED_POSITION_SET = True
 
-  if not click("assets/buttons/view_results.png", click=3):
+  if not click("assets/buttons/view_results.png", click=3, text="View results clicked"):
     debug("View results not found")
   sleep(0.5)
   pyautogui.click()

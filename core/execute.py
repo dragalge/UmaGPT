@@ -457,17 +457,6 @@ def career_lobby():
       continue
 
     energy_level, max_energy = check_energy_level()
-
-    skipped_infirmary=False
-    if matches["infirmary"] and is_btn_active(matches["infirmary"][0]):
-      # infirmary always gives 20 energy, it's better to spend energy before going to the infirmary 99% of the time.
-      if max(0, (max_energy - energy_level)) >= state.SKIP_INFIRMARY_UNLESS_MISSING_ENERGY:
-        click(boxes=matches["infirmary"][0], text="Character debuffed, going to infirmary.")
-        continue
-      else:
-        info("Skipping infirmary because of high energy.")
-        skipped_infirmary=True
-
     mood = check_mood()
     mood_index = constants.MOOD_LIST.index(mood)
     minimum_mood = constants.MOOD_LIST.index(state.MINIMUM_MOOD)
@@ -495,31 +484,7 @@ def career_lobby():
       else:
         info("Race Day!")
         race_day(is_ura=False)
-
       continue
-
-    # Mood check
-    if year_parts[0] == "Junior":
-      mood_check = minimum_mood_junior_year
-    else:
-      mood_check = minimum_mood
-    if mood_index < mood_check:
-      if skipped_infirmary:
-        info("Since we skipped infirmary due to energy, check full stats for statuses.")
-        if click(img="assets/buttons/full_stats.png", minSearch=get_secs(1)):
-          sleep(0.5)
-          conditions, total_severity = check_status_effects()
-          click(img="assets/buttons/close_btn.png", minSearch=get_secs(1))
-          if total_severity > 1:
-            info("Severe condition found, visiting infirmary even though we will waste some energy.")
-            click(boxes=matches["infirmary"][0])
-            continue
-        else:
-          warning("Coulnd't find full stats button.")
-      else:
-        info("Mood is low, trying recreation to increase mood")
-        do_recreation()
-        continue
 
     # If Prioritize G1 Race is true, check G1 race every turn
     if state.PRIORITIZE_G1_RACE and "Pre-Debut" not in year and len(year_parts) > 3 and year_parts[3] not in ["Jul", "Aug"]:
@@ -562,6 +527,39 @@ def career_lobby():
           # If there is no race matching to aptitude, go back and do training instead
           click(img="assets/buttons/back_btn.png", minSearch=get_secs(1), text="Proceeding to training.")
           sleep(0.5)
+
+    skipped_infirmary=False
+    if matches["infirmary"] and is_btn_active(matches["infirmary"][0]):
+      # infirmary always gives 20 energy, it's better to spend energy before going to the infirmary 99% of the time.
+      if max(0, (max_energy - energy_level)) >= state.SKIP_INFIRMARY_UNLESS_MISSING_ENERGY:
+        click(boxes=matches["infirmary"][0], text="Character debuffed, going to infirmary.")
+        continue
+      else:
+        info("Skipping infirmary because of high energy.")
+        skipped_infirmary=True
+
+    # Mood check
+    if year_parts[0] == "Junior":
+      mood_check = minimum_mood_junior_year
+    else:
+      mood_check = minimum_mood
+    if mood_index < mood_check:
+      if skipped_infirmary:
+        info("Since we skipped infirmary due to energy, check full stats for statuses.")
+        if click(img="assets/buttons/full_stats.png", minSearch=get_secs(1)):
+          sleep(0.5)
+          conditions, total_severity = check_status_effects()
+          click(img="assets/buttons/close_btn.png", minSearch=get_secs(1))
+          if total_severity > 1:
+            info("Severe condition found, visiting infirmary even though we will waste some energy.")
+            click(boxes=matches["infirmary"][0])
+            continue
+        else:
+          warning("Coulnd't find full stats button.")
+      else:
+        info("Mood is low, trying recreation to increase mood")
+        do_recreation()
+        continue
 
     # Check training button
     if not go_to_training():

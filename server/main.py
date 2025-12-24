@@ -37,11 +37,14 @@ def get_event(text: str):
   # read events.json from the root directory
   with open("data/events.json", "r", encoding="utf-8") as f:
     events = json.load(f)
-  text = text.lower()
+  words = text.split(" ")
   results = []
   for choice in events["choiceArraySchema"]["choices"]:
     for value in choice.values():
-      if text in value.lower():
+      for word in words:
+        if word not in value.lower():
+          break
+      else:
         results.append(choice)
         break
 

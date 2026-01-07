@@ -54,7 +54,7 @@ def get_theme(name: str):
 @app.post("/theme/{name}")
 def update_theme(new_theme: dict, name: str):
   save_theme(new_theme, name)
-  return {"status": "success", "data": new_config, "name": name}
+  return {"status": "success", "data": new_theme, "name": name}
 
 @app.get("/config")
 def get_config():

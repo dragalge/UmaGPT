@@ -69,13 +69,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground p-4 sm:p-8">
+    <div className="min-h-screen w-full text-foreground p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="p-5 flex items-center justify-between sticky top-0 bg-background z-10">
+        <header className="p-5 pt-0 flex items-center justify-between top-0 z-10">
           <div>
             <h1 className="text-5xl font-bold text-primary tracking-tight">
               Uma Auto Train
-              <span className="text-lg text-muted-background">  v{appVersion}</span>
+              <span className="text-lg text-muted-background tracking-wide">  v{appVersion}</span>
             </h1>
             <p className="text-muted-foreground mt-2 text-lg">
               Configure your auto-training settings below.
@@ -86,6 +86,7 @@ function App() {
               <div>
                 <Button
                   onClick={openFileDialog}
+                  className="uma-bg font-semibold"
                   size={"lg"}
                   variant={"outline"}
                 >
@@ -101,7 +102,7 @@ function App() {
               </div>
               <Button
                 size={"lg"}
-                className="font-semibold text-lg shadow-lg shadow-primary/20"
+                className="uma-bg font-semibold text-lg"
                 onClick={() => {
                   savePreset(config);
                   saveConfig();

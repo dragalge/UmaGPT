@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import json
 
-from server.utils import load_config, save_config
+from server.utils import load_config, save_config, save_theme
 
 app = FastAPI()
 
@@ -15,6 +15,16 @@ app.add_middleware(
   allow_methods=["*"],
   allow_headers=["*"],
 )
+
+@app.get("/theme/{text}")
+def get_theme(text: str):
+  with open(f"themes/{text}.json", "r") as f:
+    return PlainTextResponse(f.read().strip())
+
+@app.post("/theme/{text}")
+def update_theme(new_theme: dict, name: str):
+  save_theme(new_theme, name)
+  return {"status": "success", "data": new_config, "name": name}
 
 @app.get("/config")
 def get_config():

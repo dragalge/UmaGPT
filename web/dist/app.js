@@ -12104,7 +12104,7 @@ const never_rest_energy = 75;
 const skip_infirmary_unless_missing_energy = 20;
 const hint_hunting_enabled = true;
 const hint_hunting_weights = { "spd": 0.5, "sta": 0.5, "pwr": 0.5, "guts": 0.5, "wit": 0.5 };
-const use_skip_claw_machine = false;
+const use_skip_claw_machine = true;
 const wit_training_score_ratio_threshold = 1.25;
 const rainbow_support_weight_addition = 1;
 const non_max_support_weight = 0.75;
@@ -12132,7 +12132,7 @@ const skill = { "is_auto_buy_skill": false, "skill_pts_check": 400, "skill_list"
 const event = { "use_optimal_event_choice": true, "event_choices": [{ "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Advice from an Older Student", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "As a Model Student...", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "At Summer Camp (Year 2) (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Can't Lose Sight of Number One!", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Dance Lesson (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Enjoying Number One", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Extra Training (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Get Well Soon! (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Her", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "How to Spend a Day Off", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Just a Little More (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Looking Good", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Resolutions (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Shrine Visit (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Rained On", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Recommended Restaurant", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Best Pose", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Weight of Racewear", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Under the Evening Star", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue)", "event_name": "Don't Over Do it! (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "At Summer Camp (Year 2) (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Better Than a Plushie", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Bottomless Pit", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Dance Lesson (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Field Workout", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "High-Level Rival", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Lost Umamusume", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Resolutions (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Shrine Visit (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Makes a Resolution", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Matures", "chosen": 3 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Perseveres", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri the Forest Guide?", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri's Gluttony Championship", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Pinned Hopes", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Running on Full", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Something Smells Good!", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat)", "event_name": "Extra Training (Oguri Cap)", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Friendship", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Home Sweet Home", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels)", "event_name": "Paying it Forward", "chosen": 1 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Be Considerate! ♪", "chosen": 2 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Help Out! ♪", "chosen": 1 }, { "character_name": "Sweep Tosho (It's All Mine!), Sweep Tosho (Lamplit Training of a Witch-to-Be), Sweep Tosho (Tracen Academy)", "event_name": "Miracle ☆ Escape!", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Premeditated Mischief", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Some Very Green Friends", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Reminiscent Clover", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Wonderful New Shoes", "chosen": 1 }, { "character_name": "Fine Motion (Wave of Gratitude)", "event_name": "Lovely Training Weather ♪", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Advise Me!", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Socialize With Me!", "chosen": 2 }, { "character_name": "Unity Cup", "event_name": "A Team at Last", "chosen": 5 }, { "character_name": "Unity Cup", "event_name": "Tutorial", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Just an Acupuncturist, No Worries! ☆", "chosen": 4 }, { "character_name": "All Umamusume", "event_name": "Victory! (G1)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Victory! (G2/G3)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Victory! (Pre/OP)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (G1)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (G2/G3)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (Pre/OP)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (G1)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (G2/G3)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (Pre/OP)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (G1)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (G2/G3)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (Pre/OP)", "chosen": 2 }, { "character_name": "URA Finale", "event_name": "Best Foot Forward!", "chosen": 2 }, { "character_name": "URA Finale", "event_name": "Exhilarating! What a Scoop!", "chosen": 1 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "(❯❯❯) Picture Their Joy", "chosen": 1 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "Unexpected Side\nDating starts", "chosen": 2 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "The Kashimoto Art of Tidying Up", "chosen": 1 }, { "character_name": "Manhattan Cafe (SR) (STA)", "event_name": "Solo Nighttime Run", "chosen": 2 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "Unexpected Side", "chosen": 2 }] };
 const training_strategy = { "name": "default", "timeline": { "Junior Year Pre-Debut": "max_out_friendships", "Finale Underway": "rainbow_training_3", "Classic Year Early Sep": "rainbow_training_2", "Senior Year Early Jul": "meta_training_3", "Senior Year Early Sep": "rainbow_training_3", "Classic Year Late May": "rainbow_training" }, "stat_weight_sets": { "set_1": { "spd": 1, "sta": 1, "pwr": 0.8, "guts": 0.5, "wit": 1, "sp": 0.6 } }, "risk_taking_sets": { "set_1": { "rainbow_increase": 5, "normal_increase": 2 } }, "action_sequence_sets": { "set_1": ["infirmary", "training", "race", "recreation"] }, "target_stat_sets": { "set_1": { "spd": 600, "sta": 400, "pwr": 400, "guts": 300, "wit": 300 }, "set_2": { "spd": 800, "sta": 660, "pwr": 600, "guts": 400, "wit": 400 }, "set_3": { "spd": 1200, "sta": 800, "pwr": 900, "guts": 400, "wit": 400 } }, "templates": { "do_most_cards": { "training_function": "most_support_cards", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_1", "stat_weight_set": "set_1" }, "max_out_friendships": { "training_function": "max_out_friendships", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_1", "stat_weight_set": "set_1" }, "most_stat_gain": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_1", "stat_weight_set": "set_1" }, "most_stat_gain_2": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_2", "stat_weight_set": "set_1" }, "most_stat_gain_3": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_3", "stat_weight_set": "set_1" }, "rainbow_training": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_1", "stat_weight_set": "set_1" }, "rainbow_training_2": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_2", "stat_weight_set": "set_1" }, "rainbow_training_3": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_3", "stat_weight_set": "set_1" }, "meta_training": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_1", "stat_weight_set": "set_1" }, "meta_training_2": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_2", "stat_weight_set": "set_1" }, "meta_training_3": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "target_stat_set": "set_3", "stat_weight_set": "set_1" } } };
 const window_name = "Android Device";
-const theme = "7";
+const theme = "11";
 const rawConfig = {
   config_name,
   priority_stat,
@@ -24778,17 +24778,6 @@ function SelectScrollUpButton({ className, ...props }) {
 function SelectScrollDownButton({ className, ...props }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(ScrollDownButton, { "data-slot": "select-scroll-down-button", className: cn("flex cursor-default items-center justify-center py-1", className), ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { className: "size-4" }) });
 }
-const Themes = [
-  { id: "default", label: "Default", primary: "#5ec00c", secondary: "#FF3376" },
-  { id: "1", label: "Special Week", primary: "#EE6DCB", secondary: "#FFDEF9" },
-  { id: "2", label: "Silence Suzuka", primary: "#29BD70", secondary: "#FFCE48" },
-  { id: "3", label: "Tokai Teio", primary: "#3376D2", secondary: "#FFCD00" },
-  { id: "4", label: "Maruzensky", primary: "#EA504A", secondary: "#FFCD00" },
-  { id: "5", label: "Fuji Kiseki", primary: "#444745", secondary: "#33B839" },
-  { id: "6", label: "Oguri Cap", primary: "#3A7AD2", secondary: "#ECE7E7" },
-  { id: "7", label: "Grass Wonder", primary: "#3A34AC", secondary: "#E3493F" },
-  { id: "8", label: "Agnes Tachyon", primary: "#35B2B6", secondary: "#E2E868" }
-];
 function useStateMachine(initialState, machine) {
   return reactExports.useReducer((state, event2) => {
     const nextState = machine[state][event2];
@@ -37451,6 +37440,7 @@ function Skeleton({ config: config2, updateConfig }) {
 }
 function App() {
   const [appVersion, setAppVersion] = reactExports.useState("");
+  const [themes, setThemes] = reactExports.useState([]);
   const [activeTab, setActiveTab] = reactExports.useState("general");
   reactExports.useEffect(() => {
     fetch("/version.txt", { cache: "no-store" }).then((r2) => {
@@ -37469,13 +37459,23 @@ function App() {
       setConfig(defaultConfig);
     }
   }, [activeIndex, presets, setConfig]);
+  const effectiveThemeId = config2.theme || (themes.length > 0 ? themes[0].id : "");
   reactExports.useEffect(() => {
-    const selectedTheme = Themes.find((t) => t.id === config2.theme) || Themes[0];
-    document.documentElement.style.setProperty("--primary", selectedTheme.primary);
-  }, [config2.theme]);
+    fetch("/themes").then((res) => res.json()).then((data) => setThemes(data)).catch((err) => console.error("Failed to load themes:", err));
+  }, []);
   const updateConfig = (key, value) => {
     setConfig((prev) => ({ ...prev, [key]: value }));
   };
+  reactExports.useEffect(() => {
+    if (themes.length === 0) return;
+    const activeTheme = themes.find((t) => t.id === effectiveThemeId) || themes[0];
+    if (activeTheme) {
+      document.documentElement.style.setProperty("--primary", activeTheme.primary);
+      if (config2.theme !== activeTheme.id) {
+        updateConfig("theme", activeTheme.id);
+      }
+    }
+  }, [themes, effectiveThemeId, config2.theme]);
   const renderContent = () => {
     const props = { config: config2, updateConfig };
     switch (activeTab) {
@@ -37507,7 +37507,7 @@ function App() {
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-thin text-muted-foreground ml-1", children: "Configuration Preset" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: activeIndex.toString(), onValueChange: (v) => setActiveIndex(parseInt(v)), children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-auto min-w-[180px] bg-card", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select Preset" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-auto min-w-[120px] bg-card", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select Preset" }) }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: presets.map((preset, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectItem, { value: i.toString(), children: [
                 preset.name || `Preset ${i + 1}`,
                 " "
@@ -37519,7 +37519,7 @@ function App() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               Input,
               {
-                className: "max-w-md min-w-[180px] bg-card border-2 border-primary/20 focus:border-primary/50",
+                className: "max-w-md min-w-[160px] bg-card border-2 border-primary/20 focus:border-primary/50",
                 placeholder: "Preset Name",
                 value: config2.config_name,
                 onChange: (e) => updateConfig("config_name", e.target.value)
@@ -37534,11 +37534,11 @@ function App() {
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               Select,
               {
-                value: config2.theme || "default",
+                value: effectiveThemeId,
                 onValueChange: (v) => updateConfig("theme", v),
                 children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-auto bg-card", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select Theme" }) }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: Themes.map((theme2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: theme2.id, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "min-w-[120px] bg-card", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Loading Themes..." }) }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: themes.filter((t) => t && t.id).map((theme2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: theme2.id, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
                     /* @__PURE__ */ jsxRuntimeExports.jsx(
                       "div",
                       {

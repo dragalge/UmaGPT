@@ -16,12 +16,42 @@ app.add_middleware(
   allow_headers=["*"],
 )
 
-@app.get("/theme/{text}")
-def get_theme(text: str):
-  with open(f"themes/{text}.json", "r") as f:
-    return PlainTextResponse(f.read().strip())
+@app.get("/themes")
+def list_all_themes():
+  themes_dir = "themes"
+  custom_themes = []
+  default_themes = []
+  if not os.path.exists(themes_dir):
+    return []
+  for filename in os.listdir(themes_dir):
+    file_path = os.path.join(themes_dir, filename)
+    if not filename.endswith(".json"):
+      continue
+    try:
+      with open(file_path, "r") as f:
+        content = f.read().strip()
+        if not content: continue # Skip empty files
+        data = json.loads(content)
+        if filename == "umas.json":
+          if isinstance(data, list):
+            # Filter out any null/empty entries in the list
+            default_themes.extend([t for t in data if t and "id" in t])
+        else:
+          if isinstance(data, dict) and "primary" in data:
+            if "id" not in data:
+              data["id"] = filename.replace(".json", "")
+            custom_themes.append(data)
+    except Exception as e:
+      print(f"Error loading {filename}: {e}")
+  default_themes.sort(key=lambda x: x.get("label", "").lower())
+  return custom_themes + default_themes
+  
+@app.get("/theme/{name}")
+def get_theme(name: str):
+  with open(f"themes/{name}.json", "r") as f:
+    return JSONResponse(content=json.load(f))
 
-@app.post("/theme/{text}")
+@app.post("/theme/{name}")
 def update_theme(new_theme: dict, name: str):
   save_theme(new_theme, name)
   return {"status": "success", "data": new_config, "name": name}

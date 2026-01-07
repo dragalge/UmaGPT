@@ -11,7 +11,6 @@ import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Sidebar } from "./components/ui/Sidebar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "./components/ui/select";
-import { Themes } from "./constants/themes";
 
 import SetUpSection from "./components/set-up/SetUpSection";
 import EventSection from "./components/event/EventSection";
@@ -22,8 +21,17 @@ import TrainingSection from "./components/training/TrainingSection";
 import GeneralSection from "./components/general/GeneralSection";
 import Skeleton from "./components/skeleton/Skeleton";
 
+interface Theme {
+  id: string;
+  label: string;
+  primary: string;
+  secondary: string;
+  dark: boolean;
+}
+
 function App() {
   const [appVersion, setAppVersion] = useState<string>("");
+  const [themes, setThemes] = useState<Theme[]>([]);
   const [activeTab, setActiveTab] = useState<string>("general");
 
   useEffect(() => {
@@ -49,15 +57,28 @@ function App() {
     }
   }, [activeIndex, presets, setConfig]);
 
+  const effectiveThemeId = config.theme || (themes.length > 0 ? themes[0].id : "");
   useEffect(() => {
-    const selectedTheme = Themes.find((t) => t.id === config.theme) || Themes[0];
-    document.documentElement.style.setProperty("--primary", selectedTheme.primary);
-    // document.documentElement.style.setProperty("--primary", `var(--${selectedTheme.id}-color)`);
-  }, [config.theme]);
-
+    fetch("/themes")
+      .then((res) => res.json())
+      .then((data) => setThemes(data))
+      .catch((err) => console.error("Failed to load themes:", err));
+  }, []);
+  
   const updateConfig = <K extends keyof typeof config>(key: K, value: (typeof config)[K]) => {
     setConfig((prev) => ({ ...prev, [key]: value }));
   };
+          
+  useEffect(() => {
+    if (themes.length === 0) return;
+    const activeTheme = themes.find((t) => t.id === effectiveThemeId) || themes[0];
+    if (activeTheme) {
+      document.documentElement.style.setProperty("--primary", activeTheme.primary);
+      if (config.theme !== activeTheme.id) {
+        updateConfig("theme", activeTheme.id); 
+      }
+    }
+  }, [themes, effectiveThemeId, config.theme]);
           
   const renderContent = () => {
     const props = { config, updateConfig };
@@ -85,7 +106,7 @@ function App() {
               <div className="space-y-1">
                 <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Preset</label>
                 <Select value={activeIndex.toString()} onValueChange={(v) => setActiveIndex(parseInt(v))}>
-                  <SelectTrigger className="w-auto min-w-[180px] bg-card">
+                  <SelectTrigger className="w-auto min-w-[120px] bg-card">
                     <SelectValue placeholder="Select Preset" />
                   </SelectTrigger>
                   <SelectContent>
@@ -101,7 +122,7 @@ function App() {
               <div className="space-y-1">
                 <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Name</label>
                 <Input
-                  className="max-w-md min-w-[180px] bg-card border-2 border-primary/20 focus:border-primary/50"
+                  className="max-w-md min-w-[160px] bg-card border-2 border-primary/20 focus:border-primary/50"
                   placeholder="Preset Name"
                   value={config.config_name}
                   onChange={(e) => updateConfig("config_name", e.target.value)}
@@ -111,14 +132,16 @@ function App() {
               <div className="space-y-1">
                 <label className="text-xs font-thin text-muted-foreground ml-1">Uma <span className="text-[10px] text-slate-800/40">(Theme)</span></label>
                 <Select 
-                  value={config.theme || "default"} 
-                  onValueChange={(v) => updateConfig("theme" as any, v)}
+                  value={effectiveThemeId} 
+                  onValueChange={(v) => updateConfig("theme", v)}
                 >
-                  <SelectTrigger className="w-auto bg-card">
-                    <SelectValue placeholder="Select Theme" />
+                  <SelectTrigger className="min-w-[120px] bg-card">
+                    {/* SelectValue will now always have a value because effectiveThemeId is never empty */}
+                    <SelectValue placeholder="Loading Themes..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {Themes.map((theme) => (
+                    {/* Filter out any accidental nulls to prevent empty rows */}
+                    {themes.filter(t => t && t.id).map((theme) => (
                       <SelectItem key={theme.id} value={theme.id}>
                         <div className="flex items-center gap-2">
                           <div 

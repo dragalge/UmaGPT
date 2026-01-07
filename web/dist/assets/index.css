@@ -481,6 +481,10 @@
     position: relative;
   }
 
+  .static {
+    position: static;
+  }
+
   .sticky {
     position: sticky;
   }
@@ -924,8 +928,16 @@
     width: calc(var(--spacing) * 80);
   }
 
+  .w-\[100px\] {
+    width: 100px;
+  }
+
   .w-\[110px\] {
     width: 110px;
+  }
+
+  .w-\[180px\] {
+    width: 180px;
   }
 
   .w-\[calc\(100vw-100px\)\] {
@@ -982,6 +994,18 @@
 
   .min-w-\[8rem\] {
     min-width: 8rem;
+  }
+
+  .min-w-\[100px\] {
+    min-width: 100px;
+  }
+
+  .min-w-\[120px\] {
+    min-width: 120px;
+  }
+
+  .min-w-\[160px\] {
+    min-width: 160px;
   }
 
   .min-w-\[180px\] {

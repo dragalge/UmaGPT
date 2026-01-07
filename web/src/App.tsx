@@ -9,7 +9,7 @@ import type { Config } from "./types";
 
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Sidebar } from "./components/ui/Sidebar";
 
 import EventSection from "./components/event/EventSection";
 import RaceScheduleSection from "./components/race-schedule/RaceScheduleSection";
@@ -22,7 +22,8 @@ import Skeleton from "./components/skeleton/Skeleton";
 
 
 function App() {
-  const [appVersion, setAppVersion] = useState<string>("")
+  const [appVersion, setAppVersion] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<string>("general");
 
   useEffect(() => {
     fetch("/version.txt", { cache: "no-store" })
@@ -32,7 +33,7 @@ function App() {
       })
       .then(v => setAppVersion(v.trim()))
       .catch(() => setAppVersion("unknown"))
-  }, [])
+  }, []);
   const defaultConfig = rawConfig as Config;
   const {
     activeIndex,
@@ -67,110 +68,74 @@ function App() {
   ) => {
     setConfig((prev) => ({ ...prev, [key]: value }));
   };
+          
+  const renderContent = () => {
+    const props = { config, updateConfig };
+    switch (activeTab) {
+      case "general": return <GeneralSection {...props} />;
+      case "training": return <TrainingSection {...props} />;
+      case "race-style": return <RaceStyleSection {...props} />;
+      case "skills": return <SkillSection {...props} />;
+      case "schedule": return <RaceScheduleSection {...props} />;
+      case "events": return <EventSection {...props} />;
+      case "skeleton": return <Skeleton {...props} />;
+      default: return <GeneralSection {...props} />;
+    }
+  };
 
   return (
-    <div className="min-h-screen w-full text-foreground p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto">
-        <header className="p-5 pt-0 flex items-center justify-between top-0 z-10">
+    <main className="flex min-h-screen w-full bg-triangles">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} appVersion={appVersion} />
+      
+      <div className="flex-1 overflow-y-auto">
+        <header className="p-8 border-b border-border  flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
           <div>
-            <h1 className="text-5xl font-bold text-primary tracking-tight">
-              Uma Auto Train
-              <span className="text-lg text-muted-background tracking-wide">  v{appVersion}</span>
-            </h1>
-            <p className="text-muted-foreground mt-2 text-lg">
-              Configure your auto-training settings below.
-            </p>
-          </div>
-          <div className="flex flex-col items-end gap-4">
-            <div className="flex items-center gap-4">
-              <div>
+            <div className="flex gap-2 mt-4">
+              {presets.map((_, i) => (
                 <Button
-                  onClick={openFileDialog}
-                  className="uma-bg font-semibold"
-                  size={"lg"}
-                  variant={"outline"}
+                  key={i}
+                  variant={i === activeIndex ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setActiveIndex(i)}
                 >
-                  Import Config
+                  Preset {i + 1}
                 </Button>
-                <input
-                  type="file"
-                  accept=".json,application/json"
-                  ref={fileInputRef}
-                  onChange={handleImport}
-                  className="hidden"
-                />
-              </div>
-              <Button
-                size={"lg"}
-                className="uma-bg font-semibold text-lg"
-                onClick={() => {
-                  savePreset(config);
-                  saveConfig();
-                }}
-              >
-                Save Configuration
+              ))}
+            </div>
+            <div className="mt-4">
+              <label className="text-sm font-medium text-muted-foreground mb-2 block">Configuration Name</label>
+              <Input
+                className="max-w-md bg-card border-2 border-primary/20 focus:border-primary/50"
+                placeholder="Preset Name"
+                value={config.config_name}
+                onChange={(e) => updateConfig("config_name", e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col items-end gap-3">
+            <div className="flex items-center gap-3">
+              <Button className="uma-bg" onClick={openFileDialog} variant="outline" >
+                Import
+              </Button>
+              <input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" />
+              <Button className="uma-bg" onClick={() => { savePreset(config); saveConfig(); }}>
+                Save Changes
               </Button>
             </div>
-            <p className="text-muted-foreground">
-              Press <span className="font-bold text-primary">F1</span> to
-              start/stop the bot.
+            <p className="text-sm text-muted-foreground">
+              Press <span className="font-bold text-primary">F1</span> to start/stop.
             </p>
           </div>
         </header>
 
-        <div className="flex flex-wrap gap-4 mb-8">
-          {presets.map((_, i) => (
-            <Button
-              key={_.name + i}
-              variant={i === activeIndex ? "default" : "outline"}
-              size="sm"
-              onClick={() => setActiveIndex(i)}
-            >
-              Preset {i + 1}
-            </Button>
-          ))}
+        <div className="max-w-4xl p-8">
+          <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+            {renderContent()}
+          </div>
         </div>
-
-        <div className="mb-8">
-          <Input
-            className="w-full sm:w-72 bg-card border-2 border-primary/20 focus:border-primary/50"
-            placeholder="Preset Name"
-            value={config_name}
-            onChange={(e) => updateConfig("config_name", e.target.value)}
-          />
-        </div>
-
-        <Tabs defaultValue="general">
-          <TabsList>
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="skeleton">Skeleton</TabsTrigger>
-          </TabsList>
-          <TabsContent value="general">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mx-2">
-              <div className="lg:col-span-2 flex flex-col gap-8">
-                <TrainingSection config={config} updateConfig={updateConfig} />
-
-                <GeneralSection config={config} updateConfig={updateConfig} />
-
-                <RaceStyleSection config={config} updateConfig={updateConfig} />
-              </div>
-
-              <div className="flex flex-col gap-8">
-                <SkillSection config={config} updateConfig={updateConfig} />
-                <RaceScheduleSection
-                  config={config}
-                  updateConfig={updateConfig}
-                />
-                <EventSection config={config} updateConfig={updateConfig} />
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="skeleton">
-            <Skeleton config={config} updateConfig={updateConfig} />
-          </TabsContent>
-        </Tabs>
       </div>
-    </div>
+    </main>
   );
 }
 

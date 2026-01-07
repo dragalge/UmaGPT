@@ -17,7 +17,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: #5ec00c;
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
+  --color-secondary: #FF3376;
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -120,7 +120,6 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-family: "Poppins", sans-serif;
-    background-image: url(assets/background.jpg)
   }
   .box {
     @apply bg-card p-6 rounded-xl shadow-lg border border-border/20;
@@ -131,18 +130,26 @@
   background-image: linear-gradient(#93d908,#6fc41a);
 }
 
+.bg-triangles {
+  background-image: url(assets/background.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+
 .uma-bg {
   position: relative;
   z-index: 10;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 3px 1px -1px #111c7c77;
-  border: 1px solid #635F78;
+  border-radius: calc(var(--radius) - 2px); /* Assuming it's .rounded-md, need a better solution */
+  border: 1px solid #635F7844;
 }
 
 .uma-bg.bg-primary {
   color: #fff;
-  border-color: #4A7F09;
+  border-color: #4A7F0944;
 }
 
 .uma-bg::after {
@@ -155,7 +162,7 @@
   z-index: -1;
   border-radius: calc(var(--radius) - 2px); /* Assuming it's .rounded-md, need a better solution */
   transition: all 0.3s ease;
-  box-shadow: inset 0 0 3px 1px #fff;
+  box-shadow: inset 0 0 9px 1px #fff;
   background-blend-mode: multiply;
   background-image: url(assets/bg_title.png);
 }

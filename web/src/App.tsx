@@ -49,8 +49,6 @@ function App() {
     }
   }, [activeIndex, presets, setConfig]);
 
-  const { config_name } = config;
-  
   useEffect(() => {
     const selectedTheme = Themes.find((t) => t.id === config.theme) || Themes[0];
     document.documentElement.style.setProperty("--primary", selectedTheme.primary);
@@ -77,7 +75,7 @@ function App() {
   };
 
   return (
-    <main className="flex min-h-screen w-full bg-triangles">
+    <main className="flex min-h-screen w-full bg-triangles overflow-hidden">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} appVersion={appVersion} />
       
       <div className="flex-1 flex flex-col overflow-y-auto">
@@ -152,10 +150,8 @@ function App() {
           </div>
         </header>
 
-        <div className="p-6 w-full self-center">
-          <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <div className="p-6 flex w-full min-h-[80vh] items-center animate-in fade-in slide-in-from-bottom-2 duration-300">
             {renderContent()}
-          </div>
         </div>
       </div>
     </main>

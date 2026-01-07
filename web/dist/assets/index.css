@@ -832,6 +832,10 @@
     max-height: 750px;
   }
 
+  .min-h-\[80vh\] {
+    min-height: 80vh;
+  }
+
   .min-h-\[300px\] {
     min-height: 300px;
   }
@@ -1243,10 +1247,6 @@
 
   .self-baseline {
     align-self: baseline;
-  }
-
-  .self-center {
-    align-self: center;
   }
 
   .self-start {
@@ -3158,7 +3158,7 @@
 }
 
 .text-primary {
-  transition: color .3s;
+  transition: color .2s;
 }
 
 .bg-primary {

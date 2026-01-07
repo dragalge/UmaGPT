@@ -13,7 +13,7 @@ export default function SkillSection({ config, updateConfig }: Props) {
   const { skill } = config;
 
   return (
-    <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
+    <div className="w-full bg-card p-6 rounded-xl shadow-lg border border-border/20">
       <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
         <BrainCircuit className="text-primary" />
         Skill

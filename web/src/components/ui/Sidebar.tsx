@@ -7,19 +7,20 @@ import {
   Unplug,
   Calendar, 
   Star, 
-  Zap 
+  Flag 
 } from "lucide-react"; // Using Lucide icons for a modern feel
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  appVersion: string;
 }
 
 const navItems = [
   { id: "set-up", label: "Set-Up", icon: Unplug },
   { id: "general", label: "General", icon: Settings },
   { id: "training", label: "Training", icon: Dumbbell },
-  { id: "race-style", label: "Race Style", icon: Zap },
+  { id: "race-style", label: "Races", icon: Flag },
   { id: "skills", label: "Skills", icon: Star },
   { id: "schedule", label: "Race Schedule", icon: Calendar },
   { id: "events", label: "Events", icon: Trophy },

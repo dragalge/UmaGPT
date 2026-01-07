@@ -14,13 +14,12 @@ export default function SetUpSection({ config, updateConfig }: Props) {
   const {
     window_name,
     sleep_time_multiplier,
-    minimum_condition_severity,
     use_adb,
     device_id,
   } = config;
 
   return (
-    <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
+    <div className="w-full bg-card p-6 rounded-xl shadow-lg border border-border/20">
       <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
         <Cog className="text-primary" />
         Set-Up

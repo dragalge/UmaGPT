@@ -3,7 +3,7 @@ import Mood from "./Mood";
 import EnergySection from "../energy/EnergySection";
 import type { Config, UpdateConfigType } from "@/types";
 import { Input } from "../ui/input";
-import { Checkbox } from "../ui/checkbox";
+//import { Checkbox } from "../ui/checkbox";
 
 type Props = {
   config: Config;
@@ -18,7 +18,7 @@ export default function GeneralSection({ config, updateConfig }: Props) {
   } = config;
 
   return (
-    <div className="bg-card p-6 rounded-xl shadow-lg border border-border/20">
+    <div className="w-full bg-card p-6 rounded-xl shadow-lg border border-border/20">
       <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
         <Cog className="text-primary" />
         General

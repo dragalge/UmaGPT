@@ -13,6 +13,7 @@ import { Sidebar } from "./components/ui/Sidebar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "./components/ui/select";
 import { Themes } from "./constants/themes";
 
+import SetUpSection from "./components/set-up/SetUpSection";
 import EventSection from "./components/event/EventSection";
 import RaceScheduleSection from "./components/race-schedule/RaceScheduleSection";
 import SkillSection from "./components/skill/SkillSection";
@@ -63,6 +64,7 @@ function App() {
   const renderContent = () => {
     const props = { config, updateConfig };
     switch (activeTab) {
+      case "set-up": return <SetUpSection {...props} />;
       case "general": return <GeneralSection {...props} />;
       case "training": return <TrainingSection {...props} />;
       case "race-style": return <RaceStyleSection {...props} />;
@@ -70,7 +72,7 @@ function App() {
       case "schedule": return <RaceScheduleSection {...props} />;
       case "events": return <EventSection {...props} />;
       case "skeleton": return <Skeleton {...props} />;
-      default: return <GeneralSection {...props} />;
+      default: return <SetUpSection {...props} />;
     }
   };
 
@@ -78,10 +80,10 @@ function App() {
     <main className="flex min-h-screen w-full bg-triangles">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} appVersion={appVersion} />
       
-      <div className="flex-1 overflow-y-auto">
-        <header className="p-6 py-4 border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md">
+      <div className="flex-1 flex flex-col overflow-y-auto">
+        <header className="p-6 w-full py-4 self-start border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md">
           <div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div className="space-y-1">
                 <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Preset</label>
                 <Select value={activeIndex.toString()} onValueChange={(v) => setActiveIndex(parseInt(v))}>
@@ -140,7 +142,7 @@ function App() {
             <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2">
               Press <span className="font-bold text-primary">F1</span> to start/stop training.
             </p>
-              <Button className="uma-bg" onClick={openFileDialog} variant="outline" >
+              <Button className="uma-bg ml-3" onClick={openFileDialog} variant="outline" >
                 Import
               </Button>
               <input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" />
@@ -150,7 +152,7 @@ function App() {
           </div>
         </header>
 
-        <div className="p-6">
+        <div className="p-6 w-full self-center">
           <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
             {renderContent()}
           </div>

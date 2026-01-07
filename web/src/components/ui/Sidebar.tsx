@@ -4,6 +4,7 @@ import {
   Dumbbell, 
   Trophy, 
   Layout, 
+  Unplug,
   Calendar, 
   Star, 
   Zap 
@@ -15,6 +16,7 @@ interface SidebarProps {
 }
 
 const navItems = [
+  { id: "set-up", label: "Set-Up", icon: Unplug },
   { id: "general", label: "General", icon: Settings },
   { id: "training", label: "Training", icon: Dumbbell },
   { id: "race-style", label: "Race Style", icon: Zap },
@@ -37,13 +39,13 @@ export function Sidebar({ activeTab, setActiveTab, appVersion }: SidebarProps) {
             key={item.id}
             onClick={() => setActiveTab(item.id)}
             className={cn(
-              "uma-bg w-full flex items-center gap-3 px-3 py-3 rounded-md transition-colors font-medium",
+              "uma-bg w-full grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-3 py-3 rounded-md transition-colors font-medium",
               activeTab === item.id
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer "
             )}
           >
-            <item.icon className="w-4 h-4" />
+            <item.icon className="w-4 h-4 justify-self-start" />
             {item.label}
           </button>
         ))}

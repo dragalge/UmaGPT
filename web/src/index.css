@@ -127,6 +127,7 @@
     @apply bg-card p-6 rounded-xl shadow-lg border border-border/20;
   }
 }
+.text-primary {transition: color 0.3s ease;}
 
 .bg-primary {
   background-image: linear-gradient(#93d908,#6fc41a);
@@ -179,5 +180,5 @@
 }
 
 .uma-bg:hover::after {
-  filter: brightness(1.06);
+  filter: brightness(1.1);
 }

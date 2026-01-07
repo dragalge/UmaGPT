@@ -10,6 +10,8 @@ import type { Config } from "./types";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Sidebar } from "./components/ui/Sidebar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "./components/ui/select";
+import { Themes } from "./constants/themes";
 
 import EventSection from "./components/event/EventSection";
 import RaceScheduleSection from "./components/race-schedule/RaceScheduleSection";
@@ -18,8 +20,6 @@ import RaceStyleSection from "./components/race-style/RaceStyleSection";
 import TrainingSection from "./components/training/TrainingSection";
 import GeneralSection from "./components/general/GeneralSection";
 import Skeleton from "./components/skeleton/Skeleton";
-
-
 
 function App() {
   const [appVersion, setAppVersion] = useState<string>("");
@@ -34,23 +34,11 @@ function App() {
       .then(v => setAppVersion(v.trim()))
       .catch(() => setAppVersion("unknown"))
   }, []);
+  
   const defaultConfig = rawConfig as Config;
-  const {
-    activeIndex,
-    activeConfig,
-    presets,
-    setActiveIndex,
-    savePreset,
-    updatePreset,
-  } = useConfigPreset();
-  const { config, setConfig, saveConfig } = useConfig(
-    activeConfig ?? defaultConfig
-  );
-  const { fileInputRef, openFileDialog, handleImport } = useImportConfig({
-    activeIndex,
-    updatePreset,
-    savePreset,
-  });
+  const {activeIndex, activeConfig, presets, setActiveIndex, savePreset, updatePreset} = useConfigPreset();
+  const {config, setConfig, saveConfig} = useConfig(activeConfig ?? defaultConfig);
+  const { fileInputRef, openFileDialog, handleImport } = useImportConfig({activeIndex, updatePreset, savePreset});
 
   useEffect(() => {
     if (presets[activeIndex]) {
@@ -61,11 +49,14 @@ function App() {
   }, [activeIndex, presets, setConfig]);
 
   const { config_name } = config;
+  
+  useEffect(() => {
+    const selectedTheme = Themes.find((t) => t.id === config.theme) || Themes[0];
+    document.documentElement.style.setProperty("--primary", selectedTheme.primary);
+    // document.documentElement.style.setProperty("--primary", `var(--${selectedTheme.id}-color)`);
+  }, [config.theme]);
 
-  const updateConfig = <K extends keyof typeof config>(
-    key: K,
-    value: (typeof config)[K]
-  ) => {
+  const updateConfig = <K extends keyof typeof config>(key: K, value: (typeof config)[K]) => {
     setConfig((prev) => ({ ...prev, [key]: value }));
   };
           
@@ -88,33 +79,67 @@ function App() {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} appVersion={appVersion} />
       
       <div className="flex-1 overflow-y-auto">
-        <header className="p-8 border-b border-border  flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
+        <header className="p-6 py-4 border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md">
           <div>
-            <div className="flex gap-2 mt-4">
-              {presets.map((_, i) => (
-                <Button
-                  key={i}
-                  variant={i === activeIndex ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setActiveIndex(i)}
+            <div className="flex items-center gap-4">
+              <div className="space-y-1">
+                <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Preset</label>
+                <Select value={activeIndex.toString()} onValueChange={(v) => setActiveIndex(parseInt(v))}>
+                  <SelectTrigger className="w-auto min-w-[180px] bg-card">
+                    <SelectValue placeholder="Select Preset" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {presets.map((preset, i) => (
+                      <SelectItem key={i} value={i.toString()}>
+                        {preset.name || `Preset ${i + 1}`} {/* */}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-1">
+                <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Name</label>
+                <Input
+                  className="max-w-md min-w-[180px] bg-card border-2 border-primary/20 focus:border-primary/50"
+                  placeholder="Preset Name"
+                  value={config.config_name}
+                  onChange={(e) => updateConfig("config_name", e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-thin text-muted-foreground ml-1">Uma <span className="text-[10px] text-slate-800/40">(Theme)</span></label>
+                <Select 
+                  value={config.theme || "default"} 
+                  onValueChange={(v) => updateConfig("theme" as any, v)}
                 >
-                  Preset {i + 1}
-                </Button>
-              ))}
+                  <SelectTrigger className="w-auto bg-card">
+                    <SelectValue placeholder="Select Theme" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Themes.map((theme) => (
+                      <SelectItem key={theme.id} value={theme.id}>
+                        <div className="flex items-center gap-2">
+                          <div 
+                            className="w-3 h-3 rounded-full" 
+                            style={{ backgroundColor: theme.primary }} 
+                          />
+                          {theme.label}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div className="mt-4">
-              <label className="text-sm font-medium text-muted-foreground mb-2 block">Configuration Name</label>
-              <Input
-                className="max-w-md bg-card border-2 border-primary/20 focus:border-primary/50"
-                placeholder="Preset Name"
-                value={config.config_name}
-                onChange={(e) => updateConfig("config_name", e.target.value)}
-              />
-            </div>
+ 
           </div>
 
-          <div className="flex flex-col items-end gap-3">
-            <div className="flex items-center gap-3">
+          <div className="flex relative items-end gap-3">
+            <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2">
+              Press <span className="font-bold text-primary">F1</span> to start/stop training.
+            </p>
               <Button className="uma-bg" onClick={openFileDialog} variant="outline" >
                 Import
               </Button>
@@ -122,14 +147,10 @@ function App() {
               <Button className="uma-bg" onClick={() => { savePreset(config); saveConfig(); }}>
                 Save Changes
               </Button>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Press <span className="font-bold text-primary">F1</span> to start/stop.
-            </p>
           </div>
         </header>
 
-        <div className="max-w-4xl p-8">
+        <div className="p-6">
           <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
             {renderContent()}
           </div>

@@ -8,6 +8,7 @@ import { TrainingStrategySchema } from "./training-strategy.type";
 
 export const ConfigSchema = z.object({
   config_name: z.string(),
+  theme: z.string().default("Default"),
   priority_stat: z.array(z.string()),
   priority_weights: z.array(z.number()),
   stat_caps: StatSchema,

@@ -4,13 +4,14 @@ import rawConfig from "../../config.json";
 import { useConfigPreset } from "./hooks/useConfigPreset";
 import { useConfig } from "./hooks/useConfig";
 import { useImportConfig } from "./hooks/useImportConfig";
+import { Pencil, CheckCircle2, AlertCircle } from "lucide-react";
 
 import type { Config } from "./types";
 
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Sidebar } from "./components/ui/Sidebar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "./components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
 
 import SetUpSection from "./components/set-up/SetUpSection";
 import EventSection from "./components/event/EventSection";
@@ -33,6 +34,7 @@ function App() {
   const [appVersion, setAppVersion] = useState<string>("");
   const [themes, setThemes] = useState<Theme[]>([]);
   const [activeTab, setActiveTab] = useState<string>("general");
+  const [isEditing, setIsEditing] = useState(false);;
 
   useEffect(() => {
     fetch("/version.txt", { cache: "no-store" })
@@ -43,11 +45,11 @@ function App() {
       .then(v => setAppVersion(v.trim()))
       .catch(() => setAppVersion("unknown"))
   }, []);
-  
+
   const defaultConfig = rawConfig as Config;
-  const {activeIndex, activeConfig, presets, setActiveIndex, savePreset, updatePreset} = useConfigPreset();
-  const {config, setConfig, saveConfig} = useConfig(activeConfig ?? defaultConfig);
-  const { fileInputRef, openFileDialog, handleImport } = useImportConfig({activeIndex, updatePreset, savePreset});
+  const { activeIndex, activeConfig, presets, setActiveIndex, savePreset, updatePreset } = useConfigPreset();
+  const { config, setConfig, saveConfig, toast } = useConfig(activeConfig ?? defaultConfig);
+  const { fileInputRef, openFileDialog, handleImport } = useImportConfig({ activeIndex, updatePreset, savePreset });
 
   useEffect(() => {
     if (presets[activeIndex]) {
@@ -64,22 +66,30 @@ function App() {
       .then((data) => setThemes(data))
       .catch((err) => console.error("Failed to load themes:", err));
   }, []);
-  
+
   const updateConfig = <K extends keyof typeof config>(key: K, value: (typeof config)[K]) => {
     setConfig((prev) => ({ ...prev, [key]: value }));
   };
-          
+
   useEffect(() => {
     if (themes.length === 0) return;
     const activeTheme = themes.find((t) => t.id === effectiveThemeId) || themes[0];
     if (activeTheme) {
       document.documentElement.style.setProperty("--primary", activeTheme.primary);
       if (config.theme !== activeTheme.id) {
-        updateConfig("theme", activeTheme.id); 
+        updateConfig("theme", activeTheme.id);
       }
     }
   }, [themes, effectiveThemeId, config.theme]);
-          
+
+  const handleSave = () => {
+    savePreset(config);
+    saveConfig();
+    setIsEditing(false); // Hide fields
+    setShowToast(true);  // Show toast
+    setTimeout(() => setShowToast(false), 3000); // Auto-hide toast
+  };
+
   const renderContent = () => {
     const props = { config, updateConfig };
     switch (activeTab) {
@@ -98,83 +108,118 @@ function App() {
   return (
     <main className="flex min-h-screen w-full bg-triangles overflow-hidden">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} appVersion={appVersion} />
-      
+
       <div className="flex-1 flex flex-col overflow-y-auto">
         <header className="p-6 w-full py-4 self-start border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md">
-          <div>
-            <div className="flex items-center gap-3">
+
+          {/* Toast Notification Layer */}
+          {toast.show && (
+            <div className={`absolute top-2 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1 rounded-full text-xs font-medium animate-in fade-in zoom-in duration-300 border ${toast.isError
+              ? "bg-destructive/10 border-destructive/20 text-destructive"
+              : "bg-primary/10 border-primary/20 text-primary"
+              }`}>
+              {toast.isError ? <AlertCircle size={14} /> : <CheckCircle2 size={14} />}
+              {toast.message}
+            </div>
+          )}
+
+          <div className="flex items-end justify-between w-full">
+            <div className="flex items-center gap-4">
               <div className="space-y-1">
                 <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Preset</label>
-                <Select value={activeIndex.toString()} onValueChange={(v) => setActiveIndex(parseInt(v))}>
-                  <SelectTrigger className="w-auto min-w-[120px] bg-card">
-                    <SelectValue placeholder="Select Preset" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {presets.map((preset, i) => (
-                      <SelectItem key={i} value={i.toString()}>
-                        {preset.name || `Preset ${i + 1}`} {/* */}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <div className="space-y-1">
-                <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Name</label>
-                <Input
-                  className="max-w-md min-w-[160px] bg-card border-2 border-primary/20 focus:border-primary/50"
-                  placeholder="Preset Name"
-                  value={config.config_name}
-                  onChange={(e) => updateConfig("config_name", e.target.value)}
-                />
+
+                <div className="flex items-stretch shadow-sm rounded-md">
+                  <Select
+                    value={activeIndex.toString()}
+                    onValueChange={(v) => {
+                      setActiveIndex(parseInt(v));
+                      setIsEditing(false); // Auto-close edit mode when switching presets
+                    }}
+                  >
+                    <SelectTrigger className="w-auto min-w-[140px] bg-card rounded-r-none shadow-none border-r-0 transition-colors hover:bg-accent focus:ring-0 cursor-pointer">
+                      <SelectValue placeholder="Select Preset" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {presets.map((preset, i) => (
+                        <SelectItem key={i} value={i.toString()}>
+                          {preset.name || `Preset ${i + 1}`}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className={`rounded-l-none border-l-[1px] bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none ${isEditing ? "text-primary" : "text-muted-foreground"
+                      }`}
+                    onClick={() => setIsEditing(!isEditing)}
+                  >
+                    <Pencil size={14} className={isEditing ? "fill-current" : ""} />
+                  </Button>
+                </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-xs font-thin text-muted-foreground ml-1">Uma <span className="text-[10px] text-slate-800/40">(Theme)</span></label>
-                <Select 
-                  value={effectiveThemeId} 
-                  onValueChange={(v) => updateConfig("theme", v)}
-                >
-                  <SelectTrigger className="min-w-[120px] bg-card">
-                    {/* SelectValue will now always have a value because effectiveThemeId is never empty */}
-                    <SelectValue placeholder="Loading Themes..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {/* Filter out any accidental nulls to prevent empty rows */}
-                    {themes.filter(t => t && t.id).map((theme) => (
-                      <SelectItem key={theme.id} value={theme.id}>
-                        <div className="flex items-center gap-2">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: theme.primary }} 
-                          />
-                          {theme.label}
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              {/* Transitioning Fields */}
+              <div className={`flex items-center gap-4 transition-all duration-300 ease-out overflow-x-hidden pb-2 -mb-2 items-end ${isEditing ? "max-w-[800px] opacity-100 translate-x-0" : "max-w-0 opacity-0 -translate-x-4 pointer-events-none"
+                }`}>
+                <div className="h-8 w-[1px] bg-border mb-1" />
+
+                <div className="space-y-1">
+                  <label className="text-xs font-thin text-muted-foreground ml-1">Name</label>
+                  <Input
+                    className="min-w-42 shadow-sm w-fit bg-card"
+                    value={config.config_name}
+                    onChange={(e) => updateConfig("config_name", e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-thin text-muted-foreground ml-1">Uma</label>
+                  <Select value={effectiveThemeId} onValueChange={(v) => updateConfig("theme", v)}>
+                    <SelectTrigger className="min-w-42 shadow-sm bg-card">
+                      <SelectValue placeholder="Theme" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {themes.map((theme) => (
+                        <SelectItem key={theme.id} value={theme.id}>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.primary }} />
+                            {theme.label}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
- 
-          </div>
 
-          <div className="flex relative items-end gap-3">
-            <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2">
+            <div className="flex relative gap-3 pl-3">
+              <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2">
               Press <span className="font-bold text-primary">F1</span> to start/stop training.
             </p>
-              <Button className="uma-bg ml-3" onClick={openFileDialog} variant="outline" >
+              <Button
+                variant="outline"
+                onClick={openFileDialog}
+              >
                 Import
               </Button>
-              <input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" />
-              <Button className="uma-bg" onClick={() => { savePreset(config); saveConfig(); }}>
+              <Button
+                className="uma-bg font-bold"
+                onClick={() => {
+                  savePreset(config);
+                  saveConfig();
+                  setIsEditing(false);
+                }}
+              >
                 Save Changes
               </Button>
+            </div>
           </div>
         </header>
 
-        <div className="p-6 flex w-full min-h-[80vh] items-center animate-in fade-in slide-in-from-bottom-2 duration-300">
-            {renderContent()}
+        <div className="p-6 flex w-full min-h-[80vh] items-center transition-all animate-in fade-in slide-in-from-bottom-2 duration-300">
+          {renderContent()}
         </div>
       </div>
     </main>

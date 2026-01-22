@@ -12,223 +12,42 @@ from core.recognizer import count_pixels_of_color, find_color_of_pixel, closest_
 from utils.tools import click, sleep, get_secs, check_race_suitability, get_aptitude_index
 import utils.device_action_wrapper as device_action
 
+from utils.shared import CleanDefaultDict
 import core.config as config
 import utils.constants as constants
 from collections import defaultdict
 from math import floor
-
-class CleanDefaultDict(dict):
-  """
-  A dict-like class that creates nested instances of itself on key access for chaining.
-  
-  Key Feature: An instance acts like the number 0 for arithmetic, comparison,
-  and numeric casting (int(), float()) operations if it is 'conceptually empty' 
-  (it or its entire subtree contains no numeric values).
-  
-  NOTE: The __repr__ method is customized to return "0" when conceptually empty
-  to fix cosmetic issues in debug logging (e.g., f'base={base}' displays 'base=0'
-  instead of 'base={}'.)
-  """
-  def __init__(self, *args, **kwargs):
-    super().__init__()
-    if args:
-      # convert mapping or iterable of pairs
-      self.update(args[0])
-    if kwargs:
-      self.update(kwargs)
-
-  def update(self, *args, **kwargs):
-    # behave like dict.update but convert nested dicts
-    for mapping in args:
-      if hasattr(mapping, "items"):
-        for k, v in mapping.items():
-          self.__setitem__(k, v)
-      else:
-        for k, v in mapping:
-          self.__setitem__(k, v)
-    for k, v in kwargs.items():
-      self.__setitem__(k, v)
-
-  def setdefault(self, key, default=None):
-    if key in self:
-      return self[key]
-    self.__setitem__(key, default if default is not None else self.__class__())
-    return self[key]
-
-  def __getitem__(self, key):
-    """
-    If a key is missing, this method creates a new CleanDefaultDict instance
-    for that key and returns it, allowing for nested chaining.
-    """
-    try:
-      return dict.__getitem__(self, key)
-    except KeyError:
-      node = self.__class__()
-      dict.__setitem__(self, key, node) # Key is created here for chaining
-      return node
-
-  def __setitem__(self, key, value):
-    if isinstance(value, dict) and not isinstance(value, CleanDefaultDict):
-      value = CleanDefaultDict(value)
-    dict.__setitem__(self, key, value)
-
-  def __repr__(self):
-    """
-    Custom representation: returns "0" if conceptually zero, otherwise standard dict repr.
-    """
-    if self.is_numeric_zero():
-      return "0"
-    return dict.__repr__(self)
-  
-  # --- Core Logic for Numeric/Comparison Behavior ---
-
-  def is_numeric_zero(self):
-    """
-    Recursively checks if the current instance is 'conceptually empty' (acts as 0).
-    A dict is conceptually zero if it is physically empty OR if all its
-    values are also CleanDefaultDict instances that are conceptually zero.
-    """
-    # 1. Physically empty dict is conceptually zero.
-    if not self:
-        return True
-    
-    # 2. Check all values. If any value is non-dict OR a non-zero dict, it's not zero.
-    for value in self.values():
-        if isinstance(value, CleanDefaultDict):
-            if not value.is_numeric_zero():
-                return False # Found a non-zero-like child
-        else:
-            # Contains a non-dict value (e.g., int, str) -> not conceptually zero
-            return False 
-    
-    # If we get here, the dict only contains zero-like sub-dicts.
-    return True
-
-  # --- Numeric Casting Methods (For explicit int()/float() calls) ---
-
-  def __int__(self):
-    if self.is_numeric_zero():
-        return 0
-    # Follow standard dict behavior for conversion failure if non-zero
-    raise TypeError(f"cannot convert non-zero 'CleanDefaultDict' object to int")
-
-  def __float__(self):
-    if self.is_numeric_zero():
-        return 0.0
-    # Follow standard dict behavior for conversion failure if non-zero
-    raise TypeError(f"cannot convert non-zero 'CleanDefaultDict' object to float")
-
-
-  def _handle_numeric_op(self, other, op, op_str, reverse=False):
-    """Handles standard and in-place arithmetic operations."""
-    # Handle CleanDefaultDict + CleanDefaultDict
-    if isinstance(other, CleanDefaultDict):
-      self_val = 0 if self.is_numeric_zero() else None
-      other_val = 0 if other.is_numeric_zero() else None
-      
-      if self_val is None or other_val is None:
-        raise TypeError(f"unsupported operand type(s) for {op_str}: non-zero 'CleanDefaultDict' and 'CleanDefaultDict'")
-      
-      return op(self_val, other_val)
-    
-    if not isinstance(other, (int, float)):
-      return NotImplemented
-    
-    # Use the new recursive check
-    if self.is_numeric_zero():
-      a, b = (other, 0) if reverse else (0, other)
-      return op(a, b)
-      
-    # Non-zero dict: numeric ops are not allowed
-    raise TypeError(f"unsupported operand type(s) for {op_str}: 'CleanDefaultDict' and '{type(other).__name__}'")
-
-  def _handle_comparison_op(self, other, op, op_str, reverse=False):
-    """Handles comparison operations."""
-    if not isinstance(other, (int, float)):
-      return NotImplemented
-      
-    # Use the new recursive check
-    if self.is_numeric_zero():
-      a, b = (other, 0) if reverse else (0, other)
-      return op(a, b)
-      
-    # Non-zero dict: comparison ops are not allowed
-    raise TypeError(f"unsupported operand type(s) for {op_str}: 'CleanDefaultDict' and '{type(other).__name__}'")
-
-  # --- Arithmetic Operations (Return numeric value if conceptually zero) ---
-  
-  def __add__(self, other): return self._handle_numeric_op(other, operator.add, '+')
-  def __radd__(self, other): return self._handle_numeric_op(other, operator.add, '+', reverse=True)
-  
-  def __sub__(self, other): return self._handle_numeric_op(other, operator.sub, '-')
-  def __rsub__(self, other): return self._handle_numeric_op(other, operator.sub, '-', reverse=True)
-  
-  def __mul__(self, other): return self._handle_numeric_op(other, operator.mul, '*')
-  def __rmul__(self, other): return self._handle_numeric_op(other, operator.mul, '*', reverse=True)
-
-  def __truediv__(self, other): return self._handle_numeric_op(other, operator.truediv, '/')
-  def __rtruediv__(self, other): return self._handle_numeric_op(other, operator.truediv, '/', reverse=True)
-
-  def __floordiv__(self, other): return self._handle_numeric_op(other, operator.floordiv, '//')
-  def __rfloordiv__(self, other): return self._handle_numeric_op(other, operator.floordiv, '//', reverse=True)
-
-  def __mod__(self, other): return self._handle_numeric_op(other, operator.mod, '%')
-  def __rmod__(self, other): return self._handle_numeric_op(other, operator.mod, '%', reverse=True)
-
-  def __pow__(self, other): return self._handle_numeric_op(other, operator.pow, '**')
-  def __rpow__(self, other): return self._handle_numeric_op(other, operator.pow, '**', reverse=True)
-
-  def __iadd__(self, other): return self._handle_numeric_op(other, operator.add, '+')
-  def __isub__(self, other): return self._handle_numeric_op(other, operator.sub, '-')
-  def __itruediv__(self, other): return self._handle_numeric_op(other, operator.truediv, '/')
-  def __ifloordiv__(self, other): return self._handle_numeric_op(other, operator.floordiv, '//')
-  def __imod__(self, other): return self._handle_numeric_op(other, operator.mod, '%')
-  def __ipow__(self, other): return self._handle_numeric_op(other, operator.pow, '**')
-
-  # --- Comparison Operations (Return boolean value if conceptually zero) ---
-  
-  def __lt__(self, other): return self._handle_comparison_op(other, operator.lt, '<')
-  def __le__(self, other): return self._handle_comparison_op(other, operator.le, '<=')
-  def __gt__(self, other): return self._handle_comparison_op(other, operator.gt, '>')
-  def __ge__(self, other): return self._handle_comparison_op(other, operator.ge, '>=')
-  
-  def __eq__(self, other): 
-    # Must handle equality separately because it is often called first
-    if isinstance(other, (int, float)) and self.is_numeric_zero():
-      return 0 == other
-    return dict.__eq__(self, other)
-
-  def __ne__(self, other):
-    result = self.__eq__(other)
-    if result is NotImplemented:
-      return NotImplemented
-    return not result
 
 aptitudes_cache = {}
 def clear_aptitudes_cache():
   global aptitudes_cache
   aptitudes_cache = {}
 
-def collect_state(config):
+def collect_main_state():
   global aptitudes_cache
   debug("Start state collection. Collecting stats.")
   #??? minimum_mood_junior_year = constants.MOOD_LIST.index(config.MINIMUM_MOOD_JUNIOR_YEAR)
 
   state_object = CleanDefaultDict()
   state_object["current_mood"] = get_mood()
+  debug("Mood collection done.")
   mood_index = constants.MOOD_LIST.index(state_object["current_mood"])
   minimum_mood_index = constants.MOOD_LIST.index(config.MINIMUM_MOOD)
   minimum_mood_junior_year_index = constants.MOOD_LIST.index(config.MINIMUM_MOOD_JUNIOR_YEAR)
   state_object["mood_difference"] = mood_index - minimum_mood_index
   state_object["mood_difference_junior_year"] = mood_index - minimum_mood_junior_year_index
+  debug("Before turn collection.")
   state_object["turn"] = get_turn()
+  debug("Before year collection.")
   state_object["year"] = get_current_year()
+  debug("Before criteria collection.")
   state_object["criteria"] = get_criteria()
+  debug("Before current stats collection.")
   state_object["current_stats"] = get_current_stats(state_object["turn"])
   energy_level, max_energy = get_energy_level()
   state_object["energy_level"] = energy_level
   state_object["max_energy"] = max_energy
-  
+
   #find a better way to do this
   if device_action.locate("assets/ui/recreation_with.png"):
     state_object["date_event_available"] = True
@@ -250,6 +69,13 @@ def collect_state(config):
       filter_race_list(state_object)
       filter_race_schedule(state_object)
       device_action.locate_and_click("assets/buttons/close_btn.png", min_search_time=get_secs(1), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+  debug(f"Main state collection done.")
+  return state_object
+
+def collect_training_state(state_object, training_function_name):
+  check_stat_gains = False
+  if training_function_name == "meta_training" or training_function_name == "most_stat_gain":
+    check_stat_gains = True
 
   if device_action.locate_and_click("assets/buttons/training_btn.png", min_search_time=get_secs(5), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
     training_results = CleanDefaultDict()
@@ -262,14 +88,14 @@ def collect_state(config):
         from utils.debug_tools import compare_training_samples
         test_results = []
         for i in range(10):
-          test_results.append(get_training_data(year=state_object["year"]))
+          test_results.append(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
           test_results.append(get_support_card_data())
         equal, info = compare_training_samples(test_results)
 
         if not equal:
           debug("Training samples diverged")
           debug(info)
-      training_results[name].update(get_training_data(year=state_object["year"]))
+      training_results[name].update(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
       training_results[name].update(get_support_card_data())
 
     debug(f"Training results: {training_results}")
@@ -283,14 +109,12 @@ def collect_state(config):
 
 def filter_training_lock(training_results):
   values = list(training_results.values())
-  key_sets = [set(v["stat_gains"]) for v in values]
+  fingerprints = [training_fingerprint(v) for v in values]
 
-  #if all key sets are the same, we're training locked.
-  training_locked = all(k == key_sets[0] for k in key_sets)
+  training_locked = all(fp == fingerprints[0] for fp in fingerprints)
 
   debug(f"Training locked: {training_locked}")
-  
-  #if we're training locked, remove incorrect training results
+
   if training_locked:
     for name, training in list(training_results.items()):
       if not is_valid_training(name, training):
@@ -299,6 +123,44 @@ def filter_training_lock(training_results):
     debug(f"Training results after removal: {training_results}")
 
   return training_results
+
+def training_fingerprint(training):
+  fp = []
+
+  # totals (sorted for determinism)
+  if "total_supports" in training:
+    fp.append(("total_supports", training["total_supports"]))
+
+  if "total_friendship_levels" in training:
+    tfl = training["total_friendship_levels"]
+    fp.append((
+      "total_friendship_levels",
+      tuple(sorted(tfl.items()))
+    ))
+
+  # per-stat entries
+  for stat, data in training.items():
+    if stat not in ("spd", "pwr", "sta", "guts", "wit"):
+      continue
+    if not isinstance(data, dict):
+      continue
+
+    entry = []
+
+    if "supports" in data:
+      entry.append(("supports", data["supports"]))
+
+    if "friendship_levels" in data:
+      entry.append((
+        "friendship_levels",
+        tuple(sorted(data["friendship_levels"].items()))
+      ))
+
+    if entry:
+      fp.append((stat, tuple(entry)))
+
+  # final canonical form
+  return tuple(sorted(fp))
 
 valid_training_dict={
   'spd': {'stat_gains': {'spd': 1, 'pwr': 1, 'sp': 1}},
@@ -373,20 +235,22 @@ def get_support_card_data(threshold=0.8):
 
   return count_result
 
-def get_training_data(year=None):
+def get_training_data(year=None, check_stat_gains = False):
   results = {}
 
   if constants.SCENARIO_NAME == "unity":
     results["failure"] = get_failure_chance(region_xywh=constants.UNITY_FAILURE_REGION)
-    stat_gains = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_REGION, scale_factor=1.5)
-    stat_gains2 = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_2_REGION, scale_factor=1.5, secondary_stat_gains=True)
-    for key, value in stat_gains.items():
-      if key in stat_gains2:
-        stat_gains[key] += stat_gains2[key]
-    results["stat_gains"] = stat_gains
+    if check_stat_gains:
+      stat_gains = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_REGION, scale_factor=1.5)
+      stat_gains2 = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_2_REGION, scale_factor=1.5, secondary_stat_gains=True)
+      for key, value in stat_gains.items():
+        if key in stat_gains2:
+          stat_gains[key] += stat_gains2[key]
+      results["stat_gains"] = stat_gains
   else:
     results["failure"] = get_failure_chance(region_xywh=constants.FAILURE_REGION)
-    results["stat_gains"] = get_stat_gains(year=year, region_xywh=constants.URA_STAT_GAINS_REGION)
+    if check_stat_gains:
+      results["stat_gains"] = get_stat_gains(year=year, region_xywh=constants.URA_STAT_GAINS_REGION)
 
   return results
 
@@ -546,8 +410,8 @@ def get_turn():
       digits_only = int(digits_only)
       debug(f"Unity cup race turns text: {race_turns_text}")
       if digits_only in [5, 10]:
-        info(f"Race turns left until unity cup: {digits_only}, waiting for 5 seconds to allow banner to pass.")
-        sleep(5)
+        info(f"Race turns left until unity cup: {digits_only}, waiting for 3 seconds to allow banner to pass.")
+        sleep(3)
 
   digits_only = re.sub(r"[^\d]", "", turn_text)
 
@@ -562,9 +426,16 @@ def get_current_year():
     region_xywh = constants.UNITY_YEAR_REGION
   else:
     region_xywh = constants.YEAR_REGION
-  year = enhanced_screenshot(region_xywh)
-  text = extract_text(year)
-  debug(f"Year text: {text}")
+  for i in range(10):
+    year = enhanced_screenshot(region_xywh)
+    text = extract_text(year, allowlist=constants.OCR_DATE_RECOGNITION_SET)
+    text = text.replace("Pre Debut", "Pre-Debut")
+    debug(f"Year text: {text}")
+    if text in constants.TIMELINE:
+      break
+    else:
+      device_action.flush_screenshot_cache()
+
   return text
 
 # Check criteria
@@ -706,38 +577,6 @@ def get_energy_level(threshold=0.85):
   else:
     warning(f"Couldn't find energy bar, returning -1")
     return -1, -1
-
-def get_race_type():
-  race_info_screen = enhanced_screenshot(constants.RACE_INFO_TEXT_REGION)
-  race_info_text = extract_text(race_info_screen)
-  debug(f"Race info text: {race_info_text}")
-  return race_info_text
-
-def check_status_effects():
-  if not device_action.locate_and_click("assets/buttons/full_stats.png", min_search_time=get_secs(1), region_ltrb=constants.SCREEN_MIDDLE_BBOX):
-    error("Couldn't click full stats button. Going back.")
-    return [], 0
-  sleep(0.5)
-  status_effects_screen = enhanced_screenshot(constants.FULL_STATS_STATUS_REGION)
-
-  screen = np.array(status_effects_screen)  # currently grayscale
-  screen = cv2.cvtColor(screen, cv2.COLOR_GRAY2BGR)  # convert to 3-channel BGR for display
-
-  status_effects_text = extract_text(status_effects_screen)
-  debug(f"Status effects text: {status_effects_text}")
-
-  normalized_text = status_effects_text.lower().replace(" ", "")
-
-  matches = [
-      k for k in constants.BAD_STATUS_EFFECTS
-      if k.lower().replace(" ", "") in normalized_text
-  ]
-
-  total_severity = sum(constants.BAD_STATUS_EFFECTS[k]["Severity"] for k in matches)
-
-  debug(f"Matches: {matches}, severity: {total_severity}")
-  device_action.locate_and_click("assets/buttons/close_btn.png", min_search_time=get_secs(1), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
-  return matches, total_severity
 
 def filter_race_list(state):
   debug(f"Races before filtering: {constants.ALL_RACES}")

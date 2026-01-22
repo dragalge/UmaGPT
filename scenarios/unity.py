@@ -1,7 +1,7 @@
 import utils.constants as constants
 import utils.device_action_wrapper as device_action
 import core.config as config
-from core.state import CleanDefaultDict
+from utils.shared import CleanDefaultDict
 from utils.log import error, info, warning, debug, debug_window
 from utils.tools import get_secs, sleep
 
@@ -49,12 +49,7 @@ def unity_cup_function():
   elif s_rank_opponent:
     sleep(1)
     device_action.click(target=(constants.SKILL_SCROLL_BOTTOM_MOUSE_POS))
-    sleep(1)
-    device_action.locate_and_click("assets/unity/start_unity_match.png", min_search_time=get_secs(2))
-    sleep(1)
-    device_action.locate_and_click("assets/unity/see_results.png", min_search_time=get_secs(15), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
-    sleep(2)
-    device_action.locate_and_click("assets/buttons/skip_btn.png", min_search_time=get_secs(5), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+    unity_race_start()
     return True
   if len(rank_matches) == 0:
     raise ValueError("Team rank not found, please report this.")
@@ -100,10 +95,13 @@ def unity_cup_function():
   best_match = find_best_match(matchups)
   device_action.click(target=(best_match["mouse_pos"][0], best_match["mouse_pos"][1]))
   device_action.click(select_opponent_mouse_pos)
-  sleep(0.5)
+  unity_race_start()
+  return True
+
+def unity_race_start():
+  sleep(1)
   device_action.locate_and_click("assets/unity/start_unity_match.png", min_search_time=get_secs(2))
   sleep(1)
-  device_action.locate_and_click("assets/unity/see_results.png", min_search_time=get_secs(15), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+  device_action.locate_and_click("assets/unity/see_results.png", min_search_time=get_secs(20), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
   sleep(2)
   device_action.locate_and_click("assets/buttons/skip_btn.png", min_search_time=get_secs(5), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
-  return True

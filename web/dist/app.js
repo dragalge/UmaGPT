@@ -37504,7 +37504,7 @@ function App() {
   const defaultConfig = rawConfig;
   const { activeIndex, activeConfig, presets, setActiveIndex, savePreset, updatePreset } = useConfigPreset();
   const { config: config2, setConfig, saveConfig, toast } = useConfig(activeConfig ?? defaultConfig);
-  const { openFileDialog } = useImportConfig({ activeIndex, updatePreset, savePreset });
+  const { fileInputRef, openFileDialog, handleImport } = useImportConfig({ activeIndex, updatePreset, savePreset });
   reactExports.useEffect(() => {
     if (presets[activeIndex]) {
       setConfig(presets[activeIndex].config ?? defaultConfig);
@@ -37555,96 +37555,91 @@ function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "flex min-h-screen w-full bg-triangles overflow-hidden", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, { activeTab, setActiveTab, appVersion }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col overflow-y-auto", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "p-6 w-full py-4 self-start border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md", children: [
-        toast.show && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `absolute top-2 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1 rounded-full text-xs font-medium animate-in fade-in zoom-in duration-300 border ${toast.isError ? "bg-destructive/10 border-destructive/20 text-destructive" : "bg-primary/10 border-primary/20 text-primary"}`, children: [
-          toast.isError ? /* @__PURE__ */ jsxRuntimeExports.jsx(CircleAlert, { size: 14 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, { size: 14 }),
-          toast.message
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end justify-between w-full", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-thin text-muted-foreground ml-1", children: "Configuration Preset" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-stretch shadow-sm rounded-md", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                  Select,
-                  {
-                    value: activeIndex.toString(),
-                    onValueChange: (v) => {
-                      setActiveIndex(parseInt(v));
-                      setIsEditing(false);
-                    },
-                    children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-auto min-w-[140px] bg-card rounded-r-none shadow-none border-r-0 transition-colors hover:bg-accent focus:ring-0 cursor-pointer", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select Preset" }) }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: presets.map((preset, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: i.toString(), children: preset.name || `Preset ${i + 1}` }, i)) })
-                    ]
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  Button,
-                  {
-                    variant: "outline",
-                    size: "icon",
-                    className: `rounded-l-none border-l-[1px] bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none ${isEditing ? "text-primary" : "text-muted-foreground"}`,
-                    onClick: () => setIsEditing(!isEditing),
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 14, className: isEditing ? "fill-current" : "" })
-                  }
-                )
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `flex items-center gap-4 transition-all duration-300 ease-out overflow-x-hidden pb-2 -mb-2 items-end ${isEditing ? "max-w-[800px] opacity-100 translate-x-0" : "max-w-0 opacity-0 -translate-x-4 pointer-events-none"}`, children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-8 w-[1px] bg-border mb-1" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-thin text-muted-foreground ml-1", children: "Name" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  Input,
-                  {
-                    className: "min-w-42 shadow-sm w-fit bg-card",
-                    value: config2.config_name,
-                    onChange: (e) => updateConfig("config_name", e.target.value)
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-thin text-muted-foreground ml-1", children: "Uma" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: effectiveThemeId, onValueChange: (v) => updateConfig("theme", v), children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "min-w-42 shadow-sm bg-card", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Theme" }) }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: themes.map((theme2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: theme2.id, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full", style: { backgroundColor: theme2.primary } }),
-                    theme2.label
-                  ] }) }, theme2.id)) })
-                ] })
-              ] })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("header", { className: "p-6 w-full py-4 self-start border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end justify-between w-full", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-thin text-muted-foreground ml-1", children: "Configuration Preset" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-stretch shadow-sm rounded-md", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Select,
+                {
+                  value: activeIndex.toString(),
+                  onValueChange: (v) => {
+                    setActiveIndex(parseInt(v));
+                    setIsEditing(false);
+                  },
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-auto min-w-[140px] bg-card rounded-r-none shadow-none border-r-0 transition-colors hover:bg-accent focus:ring-0 cursor-pointer", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select Preset" }) }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: presets.map((preset, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: i.toString(), children: preset.name || `Preset ${i + 1}` }, i)) })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Button,
+                {
+                  variant: "outline",
+                  size: "icon",
+                  className: `rounded-l-none border-l-[1px] bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none ${isEditing ? "text-primary" : "text-muted-foreground"}`,
+                  onClick: () => setIsEditing(!isEditing),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 14, className: isEditing ? "fill-current" : "" })
+                }
+              )
             ] })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex relative gap-3 pl-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2", children: [
-              "Press ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F1" }),
-              " to start/stop training."
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `flex items-center gap-4 transition-all duration-300 ease-out overflow-x-hidden pb-2 -mb-2 items-end ${isEditing ? "max-w-[800px] opacity-100 translate-x-0" : "max-w-0 opacity-0 -translate-x-4 pointer-events-none"}`, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-8 w-[1px] bg-border mb-1" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-thin text-muted-foreground ml-1", children: "Name" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Input,
+                {
+                  className: "min-w-42 shadow-sm w-fit bg-card",
+                  value: config2.config_name,
+                  onChange: (e) => updateConfig("config_name", e.target.value)
+                }
+              )
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "outline",
-                onClick: openFileDialog,
-                children: "Import"
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                className: "uma-bg font-bold",
-                onClick: () => {
-                  savePreset(config2);
-                  saveConfig();
-                  setIsEditing(false);
-                },
-                children: "Save Changes"
-              }
-            )
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "text-xs font-thin text-muted-foreground ml-1", children: [
+                "Uma ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] text-slate-800/40", children: "(Theme)" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: effectiveThemeId, onValueChange: (v) => updateConfig("theme", v), children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "min-w-42 shadow-sm bg-card", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Loading Themes..." }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: themes.filter((t) => t && t.id).map((theme2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: theme2.id, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full", style: { backgroundColor: theme2.primary } }),
+                  theme2.label
+                ] }) }, theme2.id)) })
+              ] })
+            ] })
           ] })
+        ] }),
+        toast.show && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `flex items-center gap-2 px-4 py-1 rounded-full text-sm font-medium animate-in fade-in zoom-in duration-300 border ${toast.isError ? "bg-destructive/10 border-destructive/20 text-destructive" : "bg-primary/10 border-primary/20 text-primary"}`, children: [
+          toast.isError ? /* @__PURE__ */ jsxRuntimeExports.jsx(CircleAlert, { size: 22 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, { size: 22 }),
+          toast.message
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex relative gap-3 pl-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2", children: [
+            "Press ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F1" }),
+            " to start/stop training."
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { className: "uma-bg ml-3", variant: "outline", onClick: openFileDialog, children: "Import" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "file", ref: fileInputRef, onChange: handleImport, className: "hidden" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Button,
+            {
+              className: "uma-bg font-bold",
+              onClick: () => {
+                savePreset(config2);
+                saveConfig();
+                setIsEditing(false);
+              },
+              children: "Save Changes"
+            }
+          )
         ] })
-      ] }),
+      ] }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 flex w-full min-h-[80vh] items-center transition-all animate-in fade-in slide-in-from-bottom-2 duration-300", children: renderContent() })
     ] })
   ] });

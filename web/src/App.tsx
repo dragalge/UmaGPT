@@ -82,13 +82,6 @@ function App() {
     }
   }, [themes, effectiveThemeId, config.theme]);
 
-  const handleSave = () => {
-    savePreset(config);
-    saveConfig();
-    setIsEditing(false); // Hide fields
-    setShowToast(true);  // Show toast
-    setTimeout(() => setShowToast(false), 3000); // Auto-hide toast
-  };
 
   const renderContent = () => {
     const props = { config, updateConfig };
@@ -111,17 +104,6 @@ function App() {
 
       <div className="flex-1 flex flex-col overflow-y-auto">
         <header className="p-6 w-full py-4 self-start border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md">
-
-          {/* Toast Notification Layer */}
-          {toast.show && (
-            <div className={`absolute top-2 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1 rounded-full text-xs font-medium animate-in fade-in zoom-in duration-300 border ${toast.isError
-              ? "bg-destructive/10 border-destructive/20 text-destructive"
-              : "bg-primary/10 border-primary/20 text-primary"
-              }`}>
-              {toast.isError ? <AlertCircle size={14} /> : <CheckCircle2 size={14} />}
-              {toast.message}
-            </div>
-          )}
 
           <div className="flex items-end justify-between w-full">
             <div className="flex items-center gap-4">
@@ -174,16 +156,16 @@ function App() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-thin text-muted-foreground ml-1">Uma</label>
+                  <label className="text-xs font-thin text-muted-foreground ml-1">Uma <span className="text-[10px] text-slate-800/40">(Theme)</span></label>
                   <Select value={effectiveThemeId} onValueChange={(v) => updateConfig("theme", v)}>
                     <SelectTrigger className="min-w-42 shadow-sm bg-card">
-                      <SelectValue placeholder="Theme" />
+                      <SelectValue placeholder="Loading Themes..." />
                     </SelectTrigger>
                     <SelectContent>
-                      {themes.map((theme) => (
+                       {themes.filter(t => t && t.id).map((theme) => (
                         <SelectItem key={theme.id} value={theme.id}>
                           <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.primary }} />
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: theme.primary }} />
                             {theme.label}
                           </div>
                         </SelectItem>
@@ -194,18 +176,26 @@ function App() {
               </div>
             </div>
 
+            {/* Toast Notification Layer */}
+            {toast.show && (
+              <div className={`flex items-center gap-2 px-4 py-1 rounded-full text-sm font-medium animate-in fade-in zoom-in duration-300 border ${toast.isError
+                ? "bg-destructive/10 border-destructive/20 text-destructive"
+                : "bg-primary/10 border-primary/20 text-primary"
+                }`}>
+                {toast.isError ? <AlertCircle size={22} /> : <CheckCircle2 size={22} />}
+                {toast.message}
+              </div>
+            )}
+
             <div className="flex relative gap-3 pl-3">
               <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2">
-              Press <span className="font-bold text-primary">F1</span> to start/stop training.
-            </p>
-              <Button
-                variant="outline"
-                onClick={openFileDialog}
-              >
+                Press <span className="font-bold text-primary">F1</span> to start/stop training.
+              </p>
+              <Button className="uma-bg ml-3" variant="outline" onClick={openFileDialog} >
                 Import
               </Button>
-              <Button
-                className="uma-bg font-bold"
+              <input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" />
+              <Button className="uma-bg font-bold"
                 onClick={() => {
                   savePreset(config);
                   saveConfig();

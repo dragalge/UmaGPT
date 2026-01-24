@@ -4,7 +4,7 @@ import rawConfig from "../../config.json";
 import { useConfigPreset } from "./hooks/useConfigPreset";
 import { useConfig } from "./hooks/useConfig";
 import { useImportConfig } from "./hooks/useImportConfig";
-import { Pencil, CheckCircle2, AlertCircle } from "lucide-react";
+import { Pencil, CheckCircle2, AlertCircle, Sun, Moon } from "lucide-react";
 
 import type { Config } from "./types";
 
@@ -34,7 +34,26 @@ function App() {
   const [appVersion, setAppVersion] = useState<string>("");
   const [themes, setThemes] = useState<Theme[]>([]);
   const [activeTab, setActiveTab] = useState<string>("general");
-  const [isEditing, setIsEditing] = useState(false);;
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      );
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.theme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = "light";
+    }
+  }, [isDark]);
 
   useEffect(() => {
     fetch("/version.txt", { cache: "no-store" })
@@ -191,7 +210,15 @@ function App() {
               <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2">
                 Press <span className="font-bold text-primary">F1</span> to start/stop training.
               </p>
-              <Button className="uma-bg ml-3" variant="outline" onClick={openFileDialog} >
+              <Button
+                variant="outline"
+                size="icon"
+                className="bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none text-muted-foreground"
+                onClick={() => setIsDark(!isDark)}
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </Button>
+              <Button className="uma-bg" variant="outline" onClick={openFileDialog} >
                 Import
               </Button>
               <input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" />

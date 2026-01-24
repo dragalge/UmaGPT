@@ -12094,14 +12094,14 @@ function requireClient() {
   return client.exports;
 }
 var clientExports = requireClient();
-const config_name = "Grass Wonder Breeding";
-const theme = "11";
-const priority_stat = ["spd", "pwr", "sta", "wit", "guts"];
-const priority_weights = [1.6, 1.8, 0.6, 0.6, 0.2];
-const stat_caps = { "spd": 1e3, "sta": 600, "pwr": 1100, "guts": 600, "wit": 600 };
+const config_name = "Oguri Cappu Breeding";
+const theme = "dark";
+const priority_stat = ["spd", "pwr", "wit", "sta", "guts"];
+const priority_weights = [1.5, 1.5, 1.3, 1.3, 0.4];
+const stat_caps = { "spd": 1100, "sta": 1100, "pwr": 1e3, "guts": 600, "wit": 600 };
 const sleep_time_multiplier = 1;
-const skip_training_energy = 25;
-const never_rest_energy = 75;
+const skip_training_energy = 40;
+const never_rest_energy = 70;
 const skip_infirmary_unless_missing_energy = 20;
 const wit_training_score_ratio_threshold = 1.25;
 const rainbow_support_weight_addition = 1;
@@ -12124,13 +12124,13 @@ const position_selection_enabled = false;
 const enable_positions_by_race = false;
 const preferred_position = "front";
 const positions_by_race = { "sprint": "front", "mile": "pace", "medium": "pace", "long": "pace" };
-const hint_hunting_enabled = true;
+const hint_hunting_enabled = false;
 const hint_hunting_weights = { "spd": 0.5, "sta": 0.5, "pwr": 0.5, "guts": 0.5, "wit": 0.5 };
-const use_skip_claw_machine = true;
+const use_skip_claw_machine = false;
 const scenario_gimmick_weight = 1;
-const race_schedule = [{ "name": "Arima Kinen", "year": "Senior Year", "date": "Late Dec" }, { "name": "Oka Sho", "year": "Classic Year", "date": "Early Apr" }, { "name": "Japanese Oaks", "year": "Classic Year", "date": "Late May" }, { "name": "Tenno Sho Autumn", "year": "Senior Year", "date": "Late Oct" }, { "name": "Japan Cup", "year": "Senior Year", "date": "Late Nov" }, { "name": "Tenno Sho Spring", "year": "Senior Year", "date": "Late Apr" }, { "name": "Japan Cup", "year": "Classic Year", "date": "Late Nov" }, { "name": "Arima Kinen", "year": "Classic Year", "date": "Late Dec" }, { "name": "Kikuka Sho", "year": "Classic Year", "date": "Late Oct" }];
-const skill = { "is_auto_buy_skill": false, "skill_check_turns": 10, "check_skill_before_races": false, "skill_pts_check": 400, "skill_list": ["Steadfast", "Focus", "Gourmand", "Swinging Maestro", "Homestretch Haste", "Up-Tempo", "Killer Tunes", "Prepared to Pass", "Race Planner", "Red Shift/LP1211-M", "Triumphant Pulse", "Straightaway Adept", "Professor of Curvature", "Stamina to Spare", "U=ma2", "Ramp Up"] };
-const event = { "use_optimal_event_choice": true, "event_choices": [{ "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Advice from an Older Student", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "As a Model Student...", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "At Summer Camp (Year 2) (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Can't Lose Sight of Number One!", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Dance Lesson (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Enjoying Number One", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Extra Training (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Get Well Soon! (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Her", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "How to Spend a Day Off", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Just a Little More (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Looking Good", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Resolutions (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Shrine Visit (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Rained On", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Recommended Restaurant", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Best Pose", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Weight of Racewear", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Under the Evening Star", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue)", "event_name": "Don't Over Do it! (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "At Summer Camp (Year 2) (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Better Than a Plushie", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Bottomless Pit", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Dance Lesson (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Field Workout", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "High-Level Rival", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Lost Umamusume", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Resolutions (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Shrine Visit (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Makes a Resolution", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Matures", "chosen": 3 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Perseveres", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri the Forest Guide?", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri's Gluttony Championship", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Pinned Hopes", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Running on Full", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Something Smells Good!", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat)", "event_name": "Extra Training (Oguri Cap)", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Friendship", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Home Sweet Home", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels)", "event_name": "Paying it Forward", "chosen": 1 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Be Considerate! ♪", "chosen": 2 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Help Out! ♪", "chosen": 1 }, { "character_name": "Sweep Tosho (It's All Mine!), Sweep Tosho (Lamplit Training of a Witch-to-Be), Sweep Tosho (Tracen Academy)", "event_name": "Miracle ☆ Escape!", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Premeditated Mischief", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Some Very Green Friends", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Reminiscent Clover", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Wonderful New Shoes", "chosen": 1 }, { "character_name": "Fine Motion (Wave of Gratitude)", "event_name": "Lovely Training Weather ♪", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Advise Me!", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Socialize With Me!", "chosen": 2 }, { "character_name": "Unity Cup", "event_name": "A Team at Last", "chosen": 5 }, { "character_name": "Unity Cup", "event_name": "Tutorial", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Just an Acupuncturist, No Worries! ☆", "chosen": 4 }, { "character_name": "All Umamusume", "event_name": "Victory! (G1)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Victory! (G2/G3)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Victory! (Pre/OP)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (G1)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (G2/G3)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (Pre/OP)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (G1)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (G2/G3)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (Pre/OP)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (G1)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (G2/G3)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (Pre/OP)", "chosen": 2 }, { "character_name": "URA Finale", "event_name": "Best Foot Forward!", "chosen": 2 }, { "character_name": "URA Finale", "event_name": "Exhilarating! What a Scoop!", "chosen": 1 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "(❯❯❯) Picture Their Joy", "chosen": 1 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "Unexpected Side\nDating starts", "chosen": 2 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "The Kashimoto Art of Tidying Up", "chosen": 1 }, { "character_name": "Manhattan Cafe (SR) (STA)", "event_name": "Solo Nighttime Run", "chosen": 2 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "Unexpected Side", "chosen": 2 }] };
+const race_schedule = [{ "name": "Victoria Mile", "year": "Senior Year", "date": "Early May" }, { "name": "Yasuda Kinen", "year": "Senior Year", "date": "Early Jun" }, { "name": "Osaka Hai", "year": "Senior Year", "date": "Late Mar" }, { "name": "Hopeful Stakes", "year": "Junior Year", "date": "Late Dec" }, { "name": "Oka Sho", "year": "Classic Year", "date": "Early Apr" }, { "name": "Japanese Oaks", "year": "Classic Year", "date": "Late May" }, { "name": "Shuka Sho", "year": "Classic Year", "date": "Late Oct" }, { "name": "Japan Cup", "year": "Senior Year", "date": "Late Nov" }, { "name": "Tenno Sho Autumn", "year": "Senior Year", "date": "Late Oct" }, { "name": "Queen Elizabeth II Cup", "year": "Classic Year", "date": "Early Nov" }, { "name": "Tokyo Daishoten", "year": "Classic Year", "date": "Late Dec" }, { "name": "Tokyo Daishoten", "year": "Senior Year", "date": "Late Dec" }];
+const skill = { "is_auto_buy_skill": false, "skill_check_turns": 5, "check_skill_before_races": false, "skill_pts_check": 400, "skill_list": ["Steadfast", "Focus", "Gourmand", "Swinging Maestro", "Homestretch Haste", "Up-Tempo", "Killer Tunes", "Prepared to Pass", "Race Planner", "Red Shift/LP1211-M", "Triumphant Pulse", "Straightaway Adept", "Professor of Curvature", "Stamina to Spare", "U=ma2", "Ramp Up"] };
+const event = { "use_optimal_event_choice": true, "event_choices": [{ "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Advice from an Older Student", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "As a Model Student...", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "At Summer Camp (Year 2) (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Can't Lose Sight of Number One!", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Dance Lesson (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Enjoying Number One", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Extra Training (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Get Well Soon! (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Her", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "How to Spend a Day Off", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Just a Little More (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Looking Good", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Resolutions (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Shrine Visit (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Rained On", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Recommended Restaurant", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Best Pose", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Weight of Racewear", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Under the Evening Star", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue)", "event_name": "Don't Over Do it! (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "At Summer Camp (Year 2) (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Better Than a Plushie", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Bottomless Pit", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Dance Lesson (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Field Workout", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "High-Level Rival", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Lost Umamusume", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Resolutions (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Shrine Visit (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Makes a Resolution", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Matures", "chosen": 3 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Perseveres", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri the Forest Guide?", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri's Gluttony Championship", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Pinned Hopes", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Running on Full", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Something Smells Good!", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat)", "event_name": "Extra Training (Oguri Cap)", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Friendship", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Home Sweet Home", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels)", "event_name": "Paying it Forward", "chosen": 1 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Be Considerate! ♪", "chosen": 2 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Help Out! ♪", "chosen": 1 }, { "character_name": "Sweep Tosho (It's All Mine!), Sweep Tosho (Lamplit Training of a Witch-to-Be), Sweep Tosho (Tracen Academy)", "event_name": "Miracle ☆ Escape!", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Premeditated Mischief", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Some Very Green Friends", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Reminiscent Clover", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Wonderful New Shoes", "chosen": 1 }, { "character_name": "Fine Motion (Wave of Gratitude)", "event_name": "Lovely Training Weather ♪", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Advise Me!", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Socialize With Me!", "chosen": 2 }, { "character_name": "Unity Cup", "event_name": "Tutorial", "chosen": 2 }, { "character_name": "Unity Cup", "event_name": "A Team at Last", "chosen": 5 }] };
 const training_strategy = { "name": "default", "timeline": { "Junior Year Pre-Debut": "max_out_friendships", "Classic Year Early Sep": "rainbow_training_2", "Senior Year Early Jul": "meta_training_3", "Senior Year Early Sep": "rainbow_training_3", "Classic Year Late May": "rainbow_training" }, "stat_weight_sets": { "set_1": { "spd": 1, "sta": 1, "pwr": 0.8, "guts": 0.5, "wit": 1, "sp": 0.6 } }, "risk_taking_sets": { "set_1": { "rainbow_increase": 5, "normal_increase": 2 } }, "action_sequence_sets": { "set_1": ["infirmary", "training", "race", "recreation"] }, "target_stat_sets": { "set_1": { "spd": 600, "sta": 400, "pwr": 400, "guts": 300, "wit": 300 }, "set_2": { "spd": 800, "sta": 660, "pwr": 600, "guts": 400, "wit": 400 }, "set_3": { "spd": 1200, "sta": 800, "pwr": 900, "guts": 400, "wit": 400 } }, "templates": { "do_most_cards": { "training_function": "most_support_cards", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "max_out_friendships": { "training_function": "max_out_friendships", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "most_stat_gain": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "most_stat_gain_2": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_2" }, "most_stat_gain_3": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_3" }, "rainbow_training": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "rainbow_training_2": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_2" }, "rainbow_training_3": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_3" }, "meta_training": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "meta_training_2": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_2" }, "meta_training_3": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_3" } } };
 const window_name = "Android Device";
 const rawConfig = {
@@ -15963,7 +15963,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$w = [
+const __iconNode$y = [
   [
     "path",
     {
@@ -15984,57 +15984,80 @@ const __iconNode$w = [
   ["circle", { cx: "20", cy: "21", r: ".5", key: "yhc1fs" }],
   ["circle", { cx: "20", cy: "8", r: ".5", key: "1e43v0" }]
 ];
-const BrainCircuit = createLucideIcon("brain-circuit", __iconNode$w);
+const BrainCircuit = createLucideIcon("brain-circuit", __iconNode$y);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$v = [
+const __iconNode$x = [
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
   ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
   ["path", { d: "M3 10h18", key: "8toen8" }]
 ];
-const Calendar = createLucideIcon("calendar", __iconNode$v);
+const Calendar = createLucideIcon("calendar", __iconNode$x);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$u = [
+const __iconNode$w = [
   ["path", { d: "M3 3v16a2 2 0 0 0 2 2h16", key: "c24i48" }],
   ["path", { d: "M18 17V9", key: "2bz60n" }],
   ["path", { d: "M13 17V5", key: "1frdt8" }],
   ["path", { d: "M8 17v-3", key: "17ska0" }]
 ];
-const ChartColumn = createLucideIcon("chart-column", __iconNode$u);
+const ChartColumn = createLucideIcon("chart-column", __iconNode$w);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$t = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$t);
+const __iconNode$v = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$v);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$s = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$s);
+const __iconNode$u = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$u);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$r = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-const ChevronUp = createLucideIcon("chevron-up", __iconNode$r);
+const __iconNode$t = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+const ChevronUp = createLucideIcon("chevron-up", __iconNode$t);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$s = [
+  ["path", { d: "m6 17 5-5-5-5", key: "xnjwq" }],
+  ["path", { d: "m13 17 5-5-5-5", key: "17xmmf" }]
+];
+const ChevronsRight = createLucideIcon("chevrons-right", __iconNode$s);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$r = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$r);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16042,10 +16065,10 @@ const ChevronUp = createLucideIcon("chevron-up", __iconNode$r);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$q = [
-  ["path", { d: "m6 17 5-5-5-5", key: "xnjwq" }],
-  ["path", { d: "m13 17 5-5-5-5", key: "17xmmf" }]
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const ChevronsRight = createLucideIcon("chevrons-right", __iconNode$q);
+const CircleCheck = createLucideIcon("circle-check", __iconNode$q);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16054,21 +16077,18 @@ const ChevronsRight = createLucideIcon("chevrons-right", __iconNode$q);
  */
 const __iconNode$p = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
-  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
+  ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-const CircleAlert = createLucideIcon("circle-alert", __iconNode$p);
+const CircleQuestionMark = createLucideIcon("circle-question-mark", __iconNode$p);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$o = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
-];
-const CircleCheck = createLucideIcon("circle-check", __iconNode$o);
+const __iconNode$o = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
+const Circle = createLucideIcon("circle", __iconNode$o);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16076,26 +16096,6 @@ const CircleCheck = createLucideIcon("circle-check", __iconNode$o);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$n = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
-  ["path", { d: "M12 17h.01", key: "p32p05" }]
-];
-const CircleQuestionMark = createLucideIcon("circle-question-mark", __iconNode$n);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$m = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
-const Circle = createLucideIcon("circle", __iconNode$m);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$l = [
   ["path", { d: "M11 10.27 7 3.34", key: "16pf9h" }],
   ["path", { d: "m11 13.73-4 6.93", key: "794ttg" }],
   ["path", { d: "M12 22v-2", key: "1osdcq" }],
@@ -16111,14 +16111,14 @@ const __iconNode$l = [
   ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }],
   ["circle", { cx: "12", cy: "12", r: "8", key: "46899m" }]
 ];
-const Cog = createLucideIcon("cog", __iconNode$l);
+const Cog = createLucideIcon("cog", __iconNode$n);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$k = [
+const __iconNode$m = [
   [
     "path",
     {
@@ -16137,7 +16137,39 @@ const __iconNode$k = [
   ],
   ["path", { d: "m9.6 14.4 4.8-4.8", key: "6umqxw" }]
 ];
-const Dumbbell = createLucideIcon("dumbbell", __iconNode$k);
+const Dumbbell = createLucideIcon("dumbbell", __iconNode$m);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$l = [
+  [
+    "path",
+    {
+      d: "M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528",
+      key: "1jaruq"
+    }
+  ]
+];
+const Flag = createLucideIcon("flag", __iconNode$l);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$k = [
+  [
+    "path",
+    {
+      d: "M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z",
+      key: "sc7q7i"
+    }
+  ]
+];
+const Funnel = createLucideIcon("funnel", __iconNode$k);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16148,12 +16180,14 @@ const __iconNode$j = [
   [
     "path",
     {
-      d: "M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528",
-      key: "1jaruq"
+      d: "M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z",
+      key: "169xi5"
     }
-  ]
+  ],
+  ["path", { d: "M15 5.764v15", key: "1pn4in" }],
+  ["path", { d: "M9 3.236v15", key: "1uimfh" }]
 ];
-const Flag = createLucideIcon("flag", __iconNode$j);
+const Map$1 = createLucideIcon("map", __iconNode$j);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16161,15 +16195,11 @@ const Flag = createLucideIcon("flag", __iconNode$j);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$i = [
-  [
-    "path",
-    {
-      d: "M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z",
-      key: "sc7q7i"
-    }
-  ]
+  ["path", { d: "M4 12h16", key: "1lakjw" }],
+  ["path", { d: "M4 18h16", key: "19g7jn" }],
+  ["path", { d: "M4 6h16", key: "1o0s65" }]
 ];
-const Funnel = createLucideIcon("funnel", __iconNode$i);
+const Menu = createLucideIcon("menu", __iconNode$i);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16180,34 +16210,32 @@ const __iconNode$h = [
   [
     "path",
     {
-      d: "M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z",
-      key: "169xi5"
+      d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401",
+      key: "kfwtm"
     }
-  ],
-  ["path", { d: "M15 5.764v15", key: "1pn4in" }],
-  ["path", { d: "M9 3.236v15", key: "1uimfh" }]
+  ]
 ];
-const Map$1 = createLucideIcon("map", __iconNode$h);
+const Moon = createLucideIcon("moon", __iconNode$h);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$g = [
-  ["path", { d: "M4 12h16", key: "1lakjw" }],
-  ["path", { d: "M4 18h16", key: "19g7jn" }],
-  ["path", { d: "M4 6h16", key: "1o0s65" }]
-];
-const Menu = createLucideIcon("menu", __iconNode$g);
+const __iconNode$g = [["path", { d: "m8 3 4 8 5-5 5 15H2L8 3z", key: "otkl63" }]];
+const Mountain = createLucideIcon("mountain", __iconNode$g);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$f = [["path", { d: "m8 3 4 8 5-5 5 15H2L8 3z", key: "otkl63" }]];
-const Mountain = createLucideIcon("mountain", __iconNode$f);
+const __iconNode$f = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M3 9h18", key: "1pudct" }],
+  ["path", { d: "M9 21V9", key: "1oto5p" }]
+];
+const PanelsTopLeft = createLucideIcon("panels-top-left", __iconNode$f);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16215,18 +16243,6 @@ const Mountain = createLucideIcon("mountain", __iconNode$f);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$e = [
-  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
-  ["path", { d: "M3 9h18", key: "1pudct" }],
-  ["path", { d: "M9 21V9", key: "1oto5p" }]
-];
-const PanelsTopLeft = createLucideIcon("panels-top-left", __iconNode$e);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$d = [
   [
     "path",
     {
@@ -16236,7 +16252,18 @@ const __iconNode$d = [
   ],
   ["path", { d: "m15 5 4 4", key: "1mk7zo" }]
 ];
-const Pencil = createLucideIcon("pencil", __iconNode$d);
+const Pencil = createLucideIcon("pencil", __iconNode$e);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$d = [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "M12 5v14", key: "s699le" }]
+];
+const Plus = createLucideIcon("plus", __iconNode$d);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16244,17 +16271,6 @@ const Pencil = createLucideIcon("pencil", __iconNode$d);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$c = [
-  ["path", { d: "M5 12h14", key: "1ays0h" }],
-  ["path", { d: "M12 5v14", key: "s699le" }]
-];
-const Plus = createLucideIcon("plus", __iconNode$c);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$b = [
   [
     "path",
     {
@@ -16267,7 +16283,18 @@ const __iconNode$b = [
   ["path", { d: "m8.5 6.5 2-2", key: "vc6u1g" }],
   ["path", { d: "m17.5 15.5 2-2", key: "wo5hmg" }]
 ];
-const Ruler = createLucideIcon("ruler", __iconNode$b);
+const Ruler = createLucideIcon("ruler", __iconNode$c);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$b = [
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+];
+const Search = createLucideIcon("search", __iconNode$b);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16275,17 +16302,6 @@ const Ruler = createLucideIcon("ruler", __iconNode$b);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$a = [
-  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
-  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
-];
-const Search = createLucideIcon("search", __iconNode$a);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$9 = [
   [
     "path",
     {
@@ -16295,14 +16311,14 @@ const __iconNode$9 = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Settings = createLucideIcon("settings", __iconNode$9);
+const Settings = createLucideIcon("settings", __iconNode$a);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [
+const __iconNode$9 = [
   [
     "path",
     {
@@ -16314,14 +16330,14 @@ const __iconNode$8 = [
   ["path", { d: "M22 4h-4", key: "gwowj6" }],
   ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
 ];
-const Sparkles = createLucideIcon("sparkles", __iconNode$8);
+const Sparkles = createLucideIcon("sparkles", __iconNode$9);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$7 = [
+const __iconNode$8 = [
   [
     "path",
     {
@@ -16330,7 +16346,25 @@ const __iconNode$7 = [
     }
   ]
 ];
-const Star = createLucideIcon("star", __iconNode$7);
+const Star = createLucideIcon("star", __iconNode$8);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$7 = [
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }],
+  ["path", { d: "M12 2v2", key: "tus03m" }],
+  ["path", { d: "M12 20v2", key: "1lh1kg" }],
+  ["path", { d: "m4.93 4.93 1.41 1.41", key: "149t6j" }],
+  ["path", { d: "m17.66 17.66 1.41 1.41", key: "ptbguv" }],
+  ["path", { d: "M2 12h2", key: "1t8f8n" }],
+  ["path", { d: "M20 12h2", key: "1q8mjw" }],
+  ["path", { d: "m6.34 17.66-1.41 1.41", key: "1m8zz5" }],
+  ["path", { d: "m19.07 4.93-1.41 1.41", key: "1shlcs" }]
+];
+const Sun = createLucideIcon("sun", __iconNode$7);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -37495,6 +37529,21 @@ function App() {
   const [themes, setThemes] = reactExports.useState([]);
   const [activeTab, setActiveTab] = reactExports.useState("general");
   const [isEditing, setIsEditing] = reactExports.useState(false);
+  const [isDark, setIsDark] = reactExports.useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.theme === "dark" || !("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return false;
+  });
+  reactExports.useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.theme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = "light";
+    }
+  }, [isDark]);
   reactExports.useEffect(() => {
     fetch("/version.txt", { cache: "no-store" }).then((r2) => {
       if (!r2.ok) throw new Error("version fetch failed");
@@ -37624,7 +37673,17 @@ function App() {
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F1" }),
             " to start/stop training."
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { className: "uma-bg ml-3", variant: "outline", onClick: openFileDialog, children: "Import" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Button,
+            {
+              variant: "outline",
+              size: "icon",
+              className: "bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none text-muted-foreground",
+              onClick: () => setIsDark(!isDark),
+              children: isDark ? /* @__PURE__ */ jsxRuntimeExports.jsx(Sun, { size: 18 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Moon, { size: 18 })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { className: "uma-bg", variant: "outline", onClick: openFileDialog, children: "Import" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "file", ref: fileInputRef, onChange: handleImport, className: "hidden" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Button,

@@ -1182,6 +1182,10 @@
     min-width: 160px;
   }
 
+  .min-w-\[200px\] {
+    min-width: 200px;
+  }
+
   .min-w-\[var\(--radix-select-trigger-width\)\] {
     min-width: var(--radix-select-trigger-width);
   }
@@ -1877,8 +1881,14 @@
     }
   }
 
-  .bg-background {
+  .bg-background, .bg-background\/95 {
     background-color: var(--background);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-background\/95 {
+      background-color: color-mix(in oklab, var(--background) 95%, transparent);
+    }
   }
 
   .bg-black\/80 {
@@ -3403,6 +3413,18 @@
 
   .data-\[state\=open\]\:zoom-in-95[data-state="open"] {
     --tw-enter-scale: .95;
+  }
+
+  @supports ((-webkit-backdrop-filter: var(--tw)) or (backdrop-filter: var(--tw))) {
+    .supports-\[backdrop-filter\]\:bg-background\/60 {
+      background-color: var(--background);
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .supports-\[backdrop-filter\]\:bg-background\/60 {
+        background-color: color-mix(in oklab, var(--background) 60%, transparent);
+      }
+    }
   }
 
   @media (min-width: 40rem) {

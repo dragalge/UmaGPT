@@ -213,16 +213,16 @@ function App() {
               <Button
                 variant="outline"
                 size="icon"
-                className="bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none text-muted-foreground"
+                className="uma-btn h-10 w-10"
                 onClick={() => setIsDark(!isDark)}
               >
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
               </Button>
-              <Button className="uma-bg" variant="outline" onClick={openFileDialog} >
+              <Button className="uma-btn" variant="outline" onClick={openFileDialog} >
                 Import
               </Button>
               <input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" />
-              <Button className="uma-bg font-bold"
+              <Button className="uma-btn font-bold"
                 onClick={() => {
                   savePreset(config);
                   saveConfig();

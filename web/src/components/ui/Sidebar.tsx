@@ -40,7 +40,7 @@ export function Sidebar({ activeTab, setActiveTab, appVersion }: SidebarProps) {
             key={item.id}
             onClick={() => setActiveTab(item.id)}
             className={cn(
-              "uma-bg w-full grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-3 py-3 rounded-md transition-colors font-medium",
+              "uma-btn w-full grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-3 py-3 rounded-md transition-colors font-medium",
               activeTab === item.id
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer "

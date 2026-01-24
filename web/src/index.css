@@ -129,18 +129,28 @@
 }
 .text-primary {transition: color 0.2s ease;}
 
-.bg-primary {
-  background-image: linear-gradient(#93d908,#6fc41a);
+.bg-triangles {
+  position: relative;
+  z-index: 0;
 }
 
-.bg-triangles {
+.bg-triangles::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image: url(assets/background.jpg);
   background-position: center;
   background-size: cover;
+  z-index: -1;
+  pointer-events: none;
+  transition: filter 0.3s ease-out;
 }
 
+.dark .bg-triangles::before {
+  filter: invert(1) hue-rotate(180deg);
+}
 
-.uma-bg {
+.uma-btn {
   position: relative;
   z-index: 10;
   overflow: hidden;
@@ -150,12 +160,17 @@
   border: 1px solid #635F7844;
 }
 
-.uma-bg.bg-primary {
+.dark .uma-btn {
+  box-shadow: 0 3px 1px -1px #000a;
+  border-color: #ffffff22;
+}
+
+.uma-btn.bg-primary {
   color: #fff;
   border-color: color-mix(in srgb, var(--color-primary), black 20%);
 }
 
-.uma-bg::after {
+.uma-btn::after {
   content: "";
   position: absolute;
   top: 0;
@@ -170,15 +185,20 @@
   background-image: url(assets/bg_title.png);
 }
 
-.uma-bg.bg-primary::after {
+.dark .uma-btn::after {
+  box-shadow: inset 0 0 9px 1px #0006;
+  filter: invert(1) hue-rotate(180deg) brightness(0.6);
+}
+
+.uma-btn.bg-primary::after {
   background-image: linear-gradient(color-mix(in srgb, var(--color-primary), white 20%),var(--color-primary)), url(assets/bg_title.png);
   box-shadow: inset 0 0 6px 0px #fff6;
 }
 
-.uma-bg.bg-secondary::after {
-  /*  To be added*/
+.dark .uma-btn.bg-primary::after {
+  box-shadow: inset 0 0 6px 0px #0004;
 }
 
-.uma-bg:hover::after {
+.uma-btn:hover::after {
   filter: brightness(1.1);
 }

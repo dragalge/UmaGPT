@@ -12095,7 +12095,7 @@ function requireClient() {
 }
 var clientExports = requireClient();
 const config_name = "Oguri Cappu Breeding";
-const theme = "dark";
+const theme = "6";
 const priority_stat = ["spd", "pwr", "wit", "sta", "guts"];
 const priority_weights = [1.5, 1.5, 1.3, 1.3, 0.4];
 const stat_caps = { "spd": 1100, "sta": 1100, "pwr": 1e3, "guts": 600, "wit": 600 };
@@ -19678,7 +19678,7 @@ function Sidebar({ activeTab, setActiveTab, appVersion }) {
       {
         onClick: () => setActiveTab(item.id),
         className: cn(
-          "uma-bg w-full grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-3 py-3 rounded-md transition-colors font-medium",
+          "uma-btn w-full grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-3 py-3 rounded-md transition-colors font-medium",
           activeTab === item.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer "
         ),
         children: [
@@ -37678,17 +37678,17 @@ function App() {
             {
               variant: "outline",
               size: "icon",
-              className: "bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none text-muted-foreground",
+              className: "uma-btn h-10 w-10",
               onClick: () => setIsDark(!isDark),
               children: isDark ? /* @__PURE__ */ jsxRuntimeExports.jsx(Sun, { size: 18 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Moon, { size: 18 })
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { className: "uma-bg", variant: "outline", onClick: openFileDialog, children: "Import" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { className: "uma-btn", variant: "outline", onClick: openFileDialog, children: "Import" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "file", ref: fileInputRef, onChange: handleImport, className: "hidden" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Button,
             {
-              className: "uma-bg font-bold",
+              className: "uma-btn font-bold",
               onClick: () => {
                 savePreset(config2);
                 saveConfig();

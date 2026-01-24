@@ -34,22 +34,21 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
+  /* --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --primary-gradient: linear-gradient(#93d908,#6fc41a);
+  --color-sidebar-ring: var(--sidebar-ring); */
 }
 
 :root {
   --radius: 0.75rem;
   --background: oklch(0.98 0.01 240);
   --foreground: oklch(0.1 0.01 240);
-  --card: oklch(1 0 0 / 0.5);
+  --card: oklch(1 0 0 / 0.8);
   --card-foreground: oklch(0.1 0.01 240);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.1 0.01 240);
@@ -83,21 +82,21 @@
 .dark {
   --background: oklch(0.05 0.01 240);
   --foreground: oklch(0.95 0.01 240);
-  --card: oklch(0.1 0.01 240 / 0.5);
+  --card: oklch(0.35 0.01 240 / 0.8);
   --card-foreground: oklch(0.95 0.01 240);
   --popover: oklch(0.1 0.01 240);
   --popover-foreground: oklch(0.95 0.01 240);
   --primary: oklch(0.6 0.2 15);
   --primary-foreground: oklch(0.98 0.01 240);
-  --secondary: oklch(0.15 0.01 240);
+  --secondary: oklch(0.35 0.01 240);
   --secondary-foreground: oklch(0.95 0.01 240);
-  --muted: oklch(0.15 0.01 240);
-  --muted-foreground: oklch(0.6 0.01 240);
-  --accent: oklch(0.15 0.01 240);
+  --muted: oklch(0.35 0.01 240);
+  --muted-foreground: oklch(0.8 0.01 240);
+  --accent: oklch(0.35 0.01 240);
   --accent-foreground: oklch(0.95 0.01 240);
   --destructive: oklch(0.6 0.2 15);
-  --border: oklch(0.2 0.01 240);
-  --input: oklch(0.2 0.01 2.4);
+  --border: oklch(0.45 0.01 240);
+  --input: oklch(0.05 0.01 2.4);
   --ring: oklch(0.6 0.2 15);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -146,7 +145,7 @@
 }
 
 .dark .bg-triangles::before {
-  filter: invert(1) hue-rotate(180deg);
+  filter: invert(1) hue-rotate(180deg) brightness(2);
 }
 
 .uma-btn {
@@ -156,12 +155,12 @@
   transition: all 0.3s ease-in-out;
   box-shadow: 0 3px 1px -1px #111c7c77;
   border-radius: calc(var(--radius) - 2px); /* Assuming it's .rounded-md, need a better solution */
-  border: 1px solid #635F7844;
+  border: 1px solid var(--border);
+  cursor: pointer;
 }
 
 .dark .uma-btn {
   box-shadow: 0 3px 1px -1px #000a;
-  border-color: #ffffff22;
 }
 
 .uma-btn.bg-primary {
@@ -182,22 +181,30 @@
   box-shadow: inset 0 0 9px 1px #fff;
   background-blend-mode: multiply;
   background-image: url(assets/bg_title.png);
+  --btn-filter: brightness(1);
+  filter: var(--btn-filter);
 }
 
 .dark .uma-btn::after {
-  box-shadow: inset 0 0 9px 1px #0006;
-  filter: invert(1) hue-rotate(180deg);
+  --btn-filter: invert(1) hue-rotate(180deg) brightness(1.3);
+    box-shadow: inset 0 0 9px 1px #fff6, inset 0 0 0 4rem #0002
 }
 
 .uma-btn.bg-primary::after {
-  background-image: linear-gradient(color-mix(in srgb, var(--color-primary), white 20%),var(--color-primary)), url(assets/bg_title.png);
+  background-image: linear-gradient(color-mix(in srgb, var(--color-primary), white 15%),var(--color-primary)), url(assets/bg_title.png);
   box-shadow: inset 0 0 6px 0px #fff6;
 }
 
 .dark .uma-btn.bg-primary::after {
-  box-shadow: inset 0 0 6px 0px #0004;
+  /* box-shadow: inset 0 0 6px 0px #0004; */
+    --btn-filter: brightness(1);
+  background-image: linear-gradient(color-mix(in srgb, var(--color-primary), black 15%),var(--color-primary)), url(assets/bg_title.png);
 }
 
 .uma-btn:hover::after {
-  filter: brightness(1.1);
+  filter: var(--btn-filter) brightness(1.1);
 }
+
+/* .dark .uma-btn:hover::after {
+  filter: var(--btn-filter) brightness(0.9);
+} */

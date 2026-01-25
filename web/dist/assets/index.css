@@ -1080,8 +1080,16 @@
     width: calc(var(--spacing) * 40);
   }
 
+  .w-42 {
+    width: calc(var(--spacing) * 42);
+  }
+
   .w-44 {
     width: calc(var(--spacing) * 44);
+  }
+
+  .w-48 {
+    width: calc(var(--spacing) * 48);
   }
 
   .w-52 {
@@ -1168,6 +1176,10 @@
     min-width: calc(var(--spacing) * 0);
   }
 
+  .min-w-36 {
+    min-width: calc(var(--spacing) * 36);
+  }
+
   .min-w-42 {
     min-width: calc(var(--spacing) * 42);
   }
@@ -1190,6 +1202,10 @@
 
   .min-w-\[140px\] {
     min-width: 140px;
+  }
+
+  .min-w-\[140px\]\! {
+    min-width: 140px !important;
   }
 
   .min-w-\[160px\] {
@@ -1694,6 +1710,11 @@
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
+  }
+
+  .border-0 {
+    border-style: var(--tw-border-style);
+    border-width: 0;
   }
 
   .border-2 {
@@ -2973,13 +2994,33 @@
     color: var(--muted-foreground);
   }
 
+  .focus-within\:border-primary:focus-within {
+    border-color: var(--primary);
+  }
+
+  .focus-within\:ring-1:focus-within {
+    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
   .focus-within\:ring-2:focus-within {
     --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
 
-  .focus-within\:ring-ring:focus-within {
+  .focus-within\:ring-\[3px\]:focus-within {
+    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .focus-within\:ring-ring:focus-within, .focus-within\:ring-ring\/50:focus-within {
     --tw-ring-color: var(--primary);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .focus-within\:ring-ring\/50:focus-within {
+      --tw-ring-color: color-mix(in oklab, var(--primary) 50%, transparent);
+    }
   }
 
   .focus-within\:ring-offset-2:focus-within {
@@ -3180,6 +3221,11 @@
     border-color: var(--primary);
   }
 
+  .focus-visible\:ring-0:focus-visible {
+    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
   .focus-visible\:ring-\[3px\]:focus-visible {
     --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -3203,6 +3249,11 @@
     .focus-visible\:ring-ring\/50:focus-visible {
       --tw-ring-color: color-mix(in oklab, var(--primary) 50%, transparent);
     }
+  }
+
+  .focus-visible\:ring-offset-0:focus-visible {
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-shadow: var(--tw-ring-inset, ) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   }
 
   .focus-visible\:outline-1:focus-visible {
@@ -3788,7 +3839,7 @@
 .dark {
   --background: oklch(5% .01 240);
   --foreground: oklch(95% .01 240);
-  --card: oklch(35% .01 240 / .8);
+  --card: oklch(35% .02 300 / .7);
   --card-foreground: oklch(95% .01 240);
   --popover: oklch(10% .01 240);
   --popover-foreground: oklch(95% .01 240);
@@ -3802,7 +3853,7 @@
   --accent-foreground: oklch(95% .01 240);
   --destructive: oklch(60% .2 15);
   --border: oklch(45% .01 240);
-  --input: oklch(5% .01 2.4);
+  --input: oklch(45% .01 240);
   --ring: oklch(60% .2 15);
   --chart-1: oklch(48.8% .243 264.376);
   --chart-2: oklch(69.6% .17 162.48);
@@ -3833,7 +3884,7 @@
 }
 
 .dark .bg-triangles:before {
-  filter: invert() hue-rotate(180deg) brightness(2);
+  filter: invert() hue-rotate(180deg) brightness(1.5);
 }
 
 .uma-btn {

@@ -129,7 +129,7 @@ function App() {
               <div className="space-y-1">
                 <label className="text-xs font-thin text-muted-foreground ml-1">Configuration Preset</label>
 
-                <div className="flex items-stretch shadow-sm rounded-md">
+                <div className="flex items-stretch shadow-sm bg-card rounded-md border border-input focus-within:ring-[3px] focus-within:ring-ring/50 focus-within:border-primary transition-all">
                   <Select
                     value={activeIndex.toString()}
                     onValueChange={(v) => {
@@ -137,7 +137,7 @@ function App() {
                       setIsEditing(false); // Auto-close edit mode when switching presets
                     }}
                   >
-                    <SelectTrigger className="w-auto min-w-[140px] bg-card rounded-r-none shadow-none border-r-0 transition-colors hover:bg-accent focus:ring-0 cursor-pointer">
+                    <SelectTrigger className="w-auto min-w-42 bg-card rounded-r-none shadow-none border-0 transition-colors hover:bg-accent focus:ring-0 cursor-pointer">
                       <SelectValue placeholder="Select Preset" />
                     </SelectTrigger>
                     <SelectContent>
@@ -149,9 +149,9 @@ function App() {
                     </SelectContent>
                   </Select>
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="icon"
-                    className={`rounded-l-none border-l-[1px] bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none ${isEditing ? "text-primary" : "text-muted-foreground"
+                    className={`rounded-l-none border-l border-input bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 ${isEditing ? "text-primary" : "text-muted-foreground"
                       }`}
                     onClick={() => setIsEditing(!isEditing)}
                   >
@@ -161,14 +161,14 @@ function App() {
               </div>
 
               {/* Transitioning Fields */}
-              <div className={`flex items-center gap-4 transition-all duration-300 ease-out overflow-x-hidden pb-2 -mb-2 items-end ${isEditing ? "max-w-[800px] opacity-100 translate-x-0" : "max-w-0 opacity-0 -translate-x-4 pointer-events-none"
+              <div className={`flex w-fit gap-4 transition-all duration-300 ease-out overflow-x-hidden pb-2 -mb-2 items-end ${isEditing ? "max-w-[800px] opacity-100 translate-x-0" : "max-w-0 opacity-0 -translate-x-4 pointer-events-none"
                 }`}>
                 <div className="h-8 w-[1px] bg-border mb-1" />
 
                 <div className="space-y-1">
                   <label className="text-xs font-thin text-muted-foreground ml-1">Name</label>
                   <Input
-                    className="min-w-42 shadow-sm w-fit bg-card"
+                    className="w-42 shadow-sm bg-card"
                     value={config.config_name}
                     onChange={(e) => updateConfig("config_name", e.target.value)}
                   />

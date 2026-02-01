@@ -52,7 +52,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
   };
 
   return (
-    <div className="w-full bg-card p-6 rounded-xl shadow-lg border border-border/80">
+    <div className="section-card">
       <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
         <Dumbbell className="text-primary" />
         Training

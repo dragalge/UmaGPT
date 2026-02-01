@@ -117,15 +117,20 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground font-sans;
     font-family: "Poppins", sans-serif;
   }
+
   .box {
     @apply bg-card p-6 rounded-xl shadow-lg border border-border/20;
   }
 }
-.text-primary {transition: color 0.2s ease;}
+
+.text-primary {
+  transition: color 0.2s ease;
+}
 
 .bg-triangles {
   position: relative;
@@ -154,7 +159,8 @@
   overflow: hidden;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 3px 1px -1px #111c7c77;
-  border-radius: calc(var(--radius) - 2px); /* Assuming it's .rounded-md, need a better solution */
+  border-radius: calc(var(--radius) - 2px);
+  /* Assuming it's .rounded-md, need a better solution */
   border: 1px solid var(--border);
   cursor: pointer;
 }
@@ -176,7 +182,8 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  border-radius: calc(var(--radius) - 2px); /* Assuming it's .rounded-md, need a better solution */
+  border-radius: calc(var(--radius) - 2px);
+  /* Assuming it's .rounded-md, need a better solution */
   transition: all 0.3s ease;
   box-shadow: inset 0 0 9px 1px #fff;
   background-blend-mode: multiply;
@@ -187,18 +194,18 @@
 
 .dark .uma-btn::after {
   --btn-filter: invert(1) hue-rotate(180deg) brightness(1.3);
-    box-shadow: inset 0 0 9px 1px #fff6, inset 0 0 0 4rem #0002
+  box-shadow: inset 0 0 9px 1px #fff6, inset 0 0 0 4rem #0002
 }
 
 .uma-btn.bg-primary::after {
-  background-image: linear-gradient(color-mix(in srgb, var(--color-primary), white 15%),var(--color-primary)), url(assets/bg_title.png);
+  background-image: linear-gradient(color-mix(in srgb, var(--color-primary), white 15%), var(--color-primary)), url(assets/bg_title.png);
   box-shadow: inset 0 0 6px 0px #fff6;
 }
 
 .dark .uma-btn.bg-primary::after {
   /* box-shadow: inset 0 0 6px 0px #0004; */
-    --btn-filter: brightness(1);
-  background-image: linear-gradient(color-mix(in srgb, var(--color-primary), black 15%),var(--color-primary)), url(assets/bg_title.png);
+  --btn-filter: brightness(1);
+  background-image: linear-gradient(color-mix(in srgb, var(--color-primary), black 15%), var(--color-primary)), url(assets/bg_title.png);
 }
 
 .uma-btn:hover::after {
@@ -208,3 +215,26 @@
 /* .dark .uma-btn:hover::after {
   filter: var(--btn-filter) brightness(0.9);
 } */
+
+.section-card {
+  width: 100%;
+  height: 100%;
+  animation-duration: .3s;
+  --tw-duration: .3s;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: .5rem;
+  animation-name: enter;
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, #0000001a), 0 4px 6px -4px var(--tw-shadow-color, #0000001a);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  padding: calc(var(--spacing) * 6);
+  background-color: var(--card);
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-color: color-mix(in oklab, var(--border) 80%, transparent);
+  border-radius: calc(var(--radius) + 4px);
+  outline-color: color-mix(in oklab, var(--primary) 50%, transparent);
+}

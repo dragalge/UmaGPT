@@ -15,11 +15,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 
 import SetUpSection from "./components/set-up/SetUpSection";
 import EventSection from "./components/event/EventSection";
+import EventListSection from "./components/event/EventListSection";
 import RaceScheduleSection from "./components/race-schedule/RaceScheduleSection";
+import RaceListSection from "./components/race-schedule/RaceListSection";
 import SkillSection from "./components/skill/SkillSection";
+import SkillListSection from "./components/skill/SkillListSection";
 import RaceStyleSection from "./components/race-style/RaceStyleSection";
 import TrainingSection from "./components/training/TrainingSection";
-import GeneralSection from "./components/general/GeneralSection";
+import EnergySection from "./components/training/EnergySection";
+import MoodSection from "./components/training/MoodSection";
+// import GeneralSection from "./components/general/GeneralSection";
 import Skeleton from "./components/skeleton/Skeleton";
 
 interface Theme {
@@ -76,7 +81,7 @@ function App() {
     } else {
       setConfig(defaultConfig);
     }
-  }, [activeIndex, presets, setConfig]);
+  }, [activeIndex, defaultConfig, presets, setConfig]);
 
   const effectiveThemeId = config.theme || (themes.length > 0 ? themes[0].id : "");
   useEffect(() => {
@@ -106,12 +111,12 @@ function App() {
     const props = { config, updateConfig };
     switch (activeTab) {
       case "set-up": return <SetUpSection {...props} />;
-      case "general": return <GeneralSection {...props} />;
-      case "training": return <TrainingSection {...props} />;
+      case "general": return <><EventSection {...props} /><RaceScheduleSection {...props} /><SkillSection {...props} /></>;
+      case "training": return <><EnergySection {...props} /><MoodSection {...props} /><TrainingSection {...props} /></>;
       case "race-style": return <RaceStyleSection {...props} />;
-      case "skills": return <SkillSection {...props} />;
-      case "schedule": return <RaceScheduleSection {...props} />;
-      case "events": return <EventSection {...props} />;
+      case "skills": return <SkillListSection {...props} />;
+      case "schedule": return <RaceListSection {...props} />;
+      case "events": return <EventListSection {...props} />;
       case "skeleton": return <Skeleton {...props} />;
       default: return <SetUpSection {...props} />;
     }
@@ -119,7 +124,14 @@ function App() {
 
   return (
     <main className="flex min-h-screen w-full bg-triangles overflow-hidden">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} appVersion={appVersion} />
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        appVersion={appVersion} 
+        eventCount={config.event.event_choices.length}
+        raceCount={config.race_schedule.length}
+        skillCount={config.skill.skill_list.length}
+      />
 
       <div className="flex-1 flex flex-col overflow-y-auto">
         <header className="p-6 w-full py-4 self-start border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md">
@@ -235,7 +247,7 @@ function App() {
           </div>
         </header>
 
-        <div className="p-6 flex w-full min-h-[80vh] items-center transition-all animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <div className="p-6 flex flex-col gap-y-6 w-full min-h-[calc(100vh-6.2rem)] items-center transition-all animate-in fade-in slide-in-from-bottom-2 duration-300">
           {renderContent()}
         </div>
       </div>

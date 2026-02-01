@@ -1,13 +1,5 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Calendar, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState } from "react";
 import type { EventChoicesType, EventType } from "@/types/event.type";
 import type { EventData } from "@/types/event.type";
@@ -39,22 +31,8 @@ export default function EventList({
 
   return (
     <div>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button className="flex items-center gap-2 shadow-sm hover:shadow-md transition">
-            <Calendar className="w-4 h-4" />
-            Event List
-          </Button>
-        </DialogTrigger>
+                  <div className="flex items-center justify-between">
 
-        <DialogContent className="max-w-7xl w-full h-[90vh] flex flex-col overflow-hidden p-0 [&>button]:hidden">
-          {/* HEADER */}
-          <DialogHeader className="px-6 py-4 border-b bg-muted/30 backdrop-blur-sm">
-            <div className="flex items-center justify-between">
-              <DialogTitle className="flex items-center gap-2 text-xl font-semibold">
-                <Calendar className="w-5 h-5 text-primary" />
-                Event Database
-              </DialogTitle>
 
               {selected && (
                 <Badge
@@ -71,9 +49,8 @@ export default function EventList({
                 </Badge>
               )}
             </div>
-          </DialogHeader>
 
-          {/* BODY */}
+
           <div className="flex-1 flex overflow-hidden">
             {/* SIDEBAR */}
             <SidebarEventList
@@ -92,8 +69,7 @@ export default function EventList({
               setSelected={setSelected}
             />
           </div>
-        </DialogContent>
-      </Dialog>
+
     </div>
   );
 }

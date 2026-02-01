@@ -1,33 +1,36 @@
-import { cn } from "@/lib/utils"; // Assuming you have a utility for tailwind classes
-import { 
-  Settings, 
-  Dumbbell, 
-  Trophy, 
-  Layout, 
+import { cn } from "@/lib/utils";
+import {
+  Settings,
+  Dumbbell,
+  // Trophy, 
+  Layout,
   Unplug,
-  Calendar, 
-  Star, 
-  Flag 
-} from "lucide-react"; // Using Lucide icons for a modern feel
+  Calendar,
+  Star,
+  Flag
+} from "lucide-react";
+import { Badge } from "./badge";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   appVersion: string;
+  eventCount?: number;
+  raceCount?: number;
+  skillCount?: number;
 }
 
 const navItems = [
   { id: "set-up", label: "Set-Up", icon: Unplug },
   { id: "general", label: "General", icon: Settings },
   { id: "training", label: "Training", icon: Dumbbell },
-  { id: "race-style", label: "Races", icon: Flag },
   { id: "skills", label: "Skills", icon: Star },
-  { id: "schedule", label: "Race Schedule", icon: Calendar },
-  { id: "events", label: "Events", icon: Trophy },
-  { id: "skeleton", label: "Schedule", icon: Layout },
+  { id: "schedule", label: "Race Schedule", icon: Flag },
+  { id: "events", label: "Events", icon: Calendar },
+  { id: "skeleton", label: "Timeline", icon: Layout },
 ];
 
-export function Sidebar({ activeTab, setActiveTab, appVersion }: SidebarProps) {
+export function Sidebar({ activeTab, setActiveTab, appVersion, eventCount, raceCount, skillCount }: SidebarProps) {
   return (
     <div className="w-64 h-screen sticky top-0 flex flex-col">
       <div className="p-3 py-4 absolute">
@@ -48,6 +51,13 @@ export function Sidebar({ activeTab, setActiveTab, appVersion }: SidebarProps) {
           >
             <item.icon className="w-4 h-4 justify-self-start" />
             {item.label}
+            {((item.id === "events" && (eventCount ?? 0) > 0) ||
+              (item.id === "schedule" && (raceCount ?? 0) > 0) ||
+              (item.id === "skills" && (skillCount ?? 0) > 0)) && (
+              <Badge variant="primary" className="text-xs px-2 justify-self-end">
+                {item.id === "events" ? eventCount : item.id === "schedule" ? raceCount : skillCount}
+              </Badge>
+            )}
           </button>
         ))}
       </nav>

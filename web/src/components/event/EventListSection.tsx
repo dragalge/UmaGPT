@@ -1,11 +1,10 @@
-import { List } from "lucide-react";
-import SelectedEventList from "./SelectedEventList";
-import Tooltips from "@/components/_c/Tooltips";
+import { TicketsIcon } from "lucide-react";
+
+import EventList from "./EventList";
 import type { EventChoicesType, EventData } from "@/types/event.type";
 import type { Config, UpdateConfigType } from "@/types";
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Checkbox } from "../ui/checkbox";
 
 type Props = {
   config: Config;
@@ -14,8 +13,8 @@ type Props = {
 
 export default function EventSection({ config, updateConfig }: Props) {
   const { event } = config;
-  const { use_optimal_event_choice, event_choices } = event;
-  const { use_skip_claw_machine } = config;
+  const { event_choices } = event;
+
 
   const getEventData = async () => {
     try {
@@ -40,8 +39,8 @@ export default function EventSection({ config, updateConfig }: Props) {
     const newEventChoices =
       existingIndex !== -1
         ? event_choices.map((ev, i) =>
-          i === existingIndex ? { ...ev, chosen: val.chosen } : ev
-        )
+            i === existingIndex ? { ...ev, chosen: val.chosen } : ev
+          )
         : [...event_choices, val];
 
     updateConfig("event", { ...event, event_choices: newEventChoices });
@@ -109,44 +108,15 @@ export default function EventSection({ config, updateConfig }: Props) {
   return (
     <div className="w-full bg-card p-6 rounded-xl shadow-lg border border-border/20">
       <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
-        <List className="text-primary" /> Events
+        <TicketsIcon className="text-primary" /> Event Database
       </h2>
-      <div className="grid lg:grid-cols-3 grid-cols-1 gap-2">
-        <label className="flex gap-2 items-center cursor-pointer">
-          <Checkbox
-            checked={use_optimal_event_choice}
-            onCheckedChange={() =>
-              updateConfig("event", {
-                ...event,
-                use_optimal_event_choice: !use_optimal_event_choice,
-              })
-            }
-          />
-          <span className="shrink-0">Use Optimal Event Choices</span>
-        </label>
-        <div className="flex gap-6 fade-in duration-200">
-          <SelectedEventList
-            data={data!}
-            groupedChoices={groupedChoices}
-            eventChoicesConfig={event_choices}
-            addEventList={handleAddEventList}
-            deleteEventList={deleteEventList}
-            clearEventList={() =>
-              updateConfig("event", { ...event, event_choices: [] })
-            }
-          />
-        </div>
-        <label className="flex gap-2 items-center cursor-pointer">
-          <Checkbox
-            checked={use_skip_claw_machine}
-            onCheckedChange={() =>
-              updateConfig("use_skip_claw_machine", !use_skip_claw_machine)
-            }
-          />
-          <span className="shrink-0">Autoplay Claw Machine</span>
-          <Tooltips>Enabling this will auto play the claw machine.</Tooltips>
-        </label>
-      </div>
+        <EventList
+          eventChoicesConfig={event_choices}
+          addEventList={handleAddEventList}
+          deleteEventList={deleteEventList}
+          data={data!}
+          groupedChoices={groupedChoices}
+        />
     </div>
   );
 }

@@ -11,7 +11,7 @@ export default function Sortable({ id }: { id: string }) {
   };
 
   return (
-    <li ref={setNodeRef} style={style} {...attributes} {...listeners} className="px-3 py-2 rounded-md cursor-grab flex gap-4 border-2 border-neutral-500">
+    <li ref={setNodeRef} style={style} {...attributes} {...listeners} className="px-3 py-1.75 rounded-md cursor-grab flex gap-4 border-1 border-border bg-transparent dark:bg-input/30">
       <MenuIcon />
       {id.toUpperCase()}
     </li>

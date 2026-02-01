@@ -12100,7 +12100,7 @@ const priority_stat = ["spd", "pwr", "sta", "wit", "guts"];
 const priority_weights = [1.6, 1.8, 0.6, 0.6, 0.2];
 const stat_caps = { "spd": 1e3, "sta": 600, "pwr": 1100, "guts": 600, "wit": 600 };
 const sleep_time_multiplier = 1;
-const skip_training_energy = 25;
+const skip_training_energy = 10;
 const never_rest_energy = 75;
 const skip_infirmary_unless_missing_energy = 20;
 const wit_training_score_ratio_threshold = 1.25;
@@ -12113,23 +12113,23 @@ const minimum_condition_severity = 2;
 const minimum_mood = "GOOD";
 const priority_weight = "LIGHT";
 const minimum_mood_junior_year = "NORMAL";
-const maximum_failure = 20;
+const maximum_failure = 10;
 const minimum_aptitudes = { "surface": "b", "distance": "b", "style": "c" };
 const rest_before_summer_energy = 60;
 const use_adb = true;
 const device_id = "127.0.0.1:5555";
 const use_race_schedule = true;
-const cancel_consecutive_race = true;
-const position_selection_enabled = false;
+const cancel_consecutive_race = false;
+const position_selection_enabled = true;
 const enable_positions_by_race = false;
-const preferred_position = "front";
+const preferred_position = "pace";
 const positions_by_race = { "sprint": "front", "mile": "pace", "medium": "pace", "long": "pace" };
 const hint_hunting_enabled = true;
 const hint_hunting_weights = { "spd": 0.5, "sta": 0.5, "pwr": 0.5, "guts": 0.5, "wit": 0.5 };
 const use_skip_claw_machine = true;
 const scenario_gimmick_weight = 1;
-const race_schedule = [{ "name": "Arima Kinen", "year": "Senior Year", "date": "Late Dec" }, { "name": "Oka Sho", "year": "Classic Year", "date": "Early Apr" }, { "name": "Japanese Oaks", "year": "Classic Year", "date": "Late May" }, { "name": "Tenno Sho Autumn", "year": "Senior Year", "date": "Late Oct" }, { "name": "Japan Cup", "year": "Senior Year", "date": "Late Nov" }, { "name": "Tenno Sho Spring", "year": "Senior Year", "date": "Late Apr" }, { "name": "Japan Cup", "year": "Classic Year", "date": "Late Nov" }, { "name": "Arima Kinen", "year": "Classic Year", "date": "Late Dec" }, { "name": "Kikuka Sho", "year": "Classic Year", "date": "Late Oct" }];
-const skill = { "is_auto_buy_skill": false, "skill_check_turns": 10, "check_skill_before_races": false, "skill_pts_check": 400, "skill_list": ["Steadfast", "Focus", "Gourmand", "Swinging Maestro", "Homestretch Haste", "Up-Tempo", "Killer Tunes", "Prepared to Pass", "Race Planner", "Red Shift/LP1211-M", "Triumphant Pulse", "Straightaway Adept", "Professor of Curvature", "Stamina to Spare", "U=ma2", "Ramp Up"] };
+const race_schedule = [{ "name": "Arima Kinen", "year": "Senior Year", "date": "Late Dec" }, { "name": "Oka Sho", "year": "Classic Year", "date": "Early Apr" }, { "name": "Japanese Oaks", "year": "Classic Year", "date": "Late May" }, { "name": "Tenno Sho Autumn", "year": "Senior Year", "date": "Late Oct" }, { "name": "Japan Cup", "year": "Senior Year", "date": "Late Nov" }, { "name": "Tenno Sho Spring", "year": "Senior Year", "date": "Late Apr" }, { "name": "Japan Cup", "year": "Classic Year", "date": "Late Nov" }, { "name": "Arima Kinen", "year": "Classic Year", "date": "Late Dec" }, { "name": "Kikuka Sho", "year": "Classic Year", "date": "Late Oct" }, { "name": "Stayers Stakes", "year": "Senior Year", "date": "Early Dec" }, { "name": "Queen Elizabeth II Cup", "year": "Senior Year", "date": "Early Nov" }, { "name": "Osaka Hai", "year": "Senior Year", "date": "Late Mar" }, { "name": "Hanshin Umamusume Stakes", "year": "Senior Year", "date": "Early Apr" }, { "name": "Victoria Mile", "year": "Senior Year", "date": "Early May" }, { "name": "Meguro Kinen", "year": "Senior Year", "date": "Late May" }, { "name": "Yasuda Kinen", "year": "Senior Year", "date": "Early Jun" }, { "name": "Takarazuka Kinen", "year": "Senior Year", "date": "Late Jun" }, { "name": "Hakodate Kinen", "year": "Senior Year", "date": "Early Jul" }, { "name": "Chukyo Kinen", "year": "Senior Year", "date": "Late Jul" }, { "name": "Sekiya Kinen", "year": "Senior Year", "date": "Early Aug" }, { "name": "Sapporo Kinen", "year": "Senior Year", "date": "Late Aug" }, { "name": "Keisei Hai Autumn Handicap", "year": "Senior Year", "date": "Early Sep" }, { "name": "All Comers", "year": "Senior Year", "date": "Late Sep" }, { "name": "Mainichi Okan", "year": "Senior Year", "date": "Early Oct" }];
+const skill = { "is_auto_buy_skill": true, "skill_check_turns": 10, "check_skill_before_races": false, "skill_pts_check": 500, "skill_list": ["Ignited Spirit WIT", "Ignited Spirit PWR", "Ignited Spirit STA", "Ignited Spirit SPD", "Preferred Position", "Pace Chaser Savvy ○", "Pace Chaser Corners ○", "Long Corners ○", "Medium Corners ○", "Mile Corners ○", "Corner Adept ○", "Corner Recovery ○", "Steadfast", "Focus", "Gourmand", "Swinging Maestro", "Homestretch Haste", "Up-Tempo", "Prepared to Pass", "Race Planner", "Red Shift/LP1211-M", "Triumphant Pulse", "Straightaway Adept", "Stamina to Spare", "Ramp Up"] };
 const event = { "use_optimal_event_choice": true, "event_choices": [{ "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Advice from an Older Student", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "As a Model Student...", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "At Summer Camp (Year 2) (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Can't Lose Sight of Number One!", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Dance Lesson (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Enjoying Number One", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Extra Training (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Get Well Soon! (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Her", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "How to Spend a Day Off", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Just a Little More (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Looking Good", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Resolutions (Daiwa Scarlet)", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "New Year's Shrine Visit (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Rained On", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Recommended Restaurant", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Best Pose", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "The Weight of Racewear", "chosen": 1 }, { "character_name": "Daiwa Scarlet (Peak Blue),", "event_name": "Under the Evening Star", "chosen": 2 }, { "character_name": "Daiwa Scarlet (Peak Blue)", "event_name": "Don't Over Do it! (Daiwa Scarlet)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "At Summer Camp (Year 2) (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Better Than a Plushie", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Bottomless Pit", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Dance Lesson (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Field Workout", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "High-Level Rival", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Lost Umamusume", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Resolutions (Oguri Cap)", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "New Year's Shrine Visit (Oguri Cap)", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Makes a Resolution", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Matures", "chosen": 3 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri Perseveres", "chosen": 2 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri the Forest Guide?", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Oguri's Gluttony Championship", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Pinned Hopes", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Running on Full", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat),", "event_name": "Something Smells Good!", "chosen": 1 }, { "character_name": "Oguri Cap (Starlight Beat)", "event_name": "Extra Training (Oguri Cap)", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Friendship", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels), Kitasan Black (Tracen Academy)", "event_name": "Ah, Home Sweet Home", "chosen": 2 }, { "character_name": "Kitasan Black (Fire at My Heels)", "event_name": "Paying it Forward", "chosen": 1 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Be Considerate! ♪", "chosen": 2 }, { "character_name": "Super Creek (Tracen Academy), Super Creek (Piece of Mind)", "event_name": "Leave it to Me to Help Out! ♪", "chosen": 1 }, { "character_name": "Sweep Tosho (It's All Mine!), Sweep Tosho (Lamplit Training of a Witch-to-Be), Sweep Tosho (Tracen Academy)", "event_name": "Miracle ☆ Escape!", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Premeditated Mischief", "chosen": 1 }, { "character_name": "Sweep Tosho (Lamplit Training of a Witch-to-Be)", "event_name": "Some Very Green Friends", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Reminiscent Clover", "chosen": 1 }, { "character_name": "Fine Motion (Tracen Academy), Fine Motion (Wave of Gratitude)", "event_name": "Wonderful New Shoes", "chosen": 1 }, { "character_name": "Fine Motion (Wave of Gratitude)", "event_name": "Lovely Training Weather ♪", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Advise Me!", "chosen": 2 }, { "character_name": "King Halo (Tracen Academy), King Halo (First-Rate Plan), King Halo (Tonight, We Waltz)", "event_name": "You May Socialize With Me!", "chosen": 2 }, { "character_name": "Unity Cup", "event_name": "A Team at Last", "chosen": 5 }, { "character_name": "Unity Cup", "event_name": "Tutorial", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Just an Acupuncturist, No Worries! ☆", "chosen": 4 }, { "character_name": "All Umamusume", "event_name": "Victory! (G1)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Victory! (G2/G3)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Victory! (Pre/OP)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (G1)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (G2/G3)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Solid Showing (Pre/OP)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (G1)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (G2/G3)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Defeat (Pre/OP)", "chosen": 1 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (G1)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (G2/G3)", "chosen": 2 }, { "character_name": "All Umamusume", "event_name": "Etsuko's Exhaustive Coverage (Pre/OP)", "chosen": 2 }, { "character_name": "URA Finale", "event_name": "Best Foot Forward!", "chosen": 2 }, { "character_name": "URA Finale", "event_name": "Exhilarating! What a Scoop!", "chosen": 1 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "(❯❯❯) Picture Their Joy", "chosen": 1 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "Unexpected Side\nDating starts", "chosen": 2 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "The Kashimoto Art of Tidying Up", "chosen": 1 }, { "character_name": "Manhattan Cafe (SR) (STA)", "event_name": "Solo Nighttime Run", "chosen": 2 }, { "character_name": "Riko Kashimoto (R) (PAL)", "event_name": "Unexpected Side", "chosen": 2 }] };
 const training_strategy = { "name": "default", "timeline": { "Junior Year Pre-Debut": "max_out_friendships", "Classic Year Early Sep": "rainbow_training_2", "Senior Year Early Jul": "meta_training_3", "Senior Year Early Sep": "rainbow_training_3", "Classic Year Late May": "rainbow_training" }, "stat_weight_sets": { "set_1": { "spd": 1, "sta": 1, "pwr": 0.8, "guts": 0.5, "wit": 1, "sp": 0.6 } }, "risk_taking_sets": { "set_1": { "rainbow_increase": 5, "normal_increase": 2 } }, "action_sequence_sets": { "set_1": ["infirmary", "training", "race", "recreation"] }, "target_stat_sets": { "set_1": { "spd": 600, "sta": 400, "pwr": 400, "guts": 300, "wit": 300 }, "set_2": { "spd": 800, "sta": 660, "pwr": 600, "guts": 400, "wit": 400 }, "set_3": { "spd": 1200, "sta": 800, "pwr": 900, "guts": 400, "wit": 400 } }, "templates": { "do_most_cards": { "training_function": "most_support_cards", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "max_out_friendships": { "training_function": "max_out_friendships", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "most_stat_gain": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "most_stat_gain_2": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_2" }, "most_stat_gain_3": { "training_function": "most_stat_gain", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_3" }, "rainbow_training": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "rainbow_training_2": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_2" }, "rainbow_training_3": { "training_function": "rainbow_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_3" }, "meta_training": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_1" }, "meta_training_2": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_2" }, "meta_training_3": { "training_function": "meta_training", "action_sequence_set": "set_1", "risk_taking_set": "set_1", "stat_weight_set": "set_1", "target_stat_set": "set_3" } } };
 const window_name = "Android Device";
@@ -15963,7 +15963,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$y = [
+const __iconNode$z = [
   [
     "path",
     {
@@ -15984,7 +15984,20 @@ const __iconNode$y = [
   ["circle", { cx: "20", cy: "21", r: ".5", key: "yhc1fs" }],
   ["circle", { cx: "20", cy: "8", r: ".5", key: "1e43v0" }]
 ];
-const BrainCircuit = createLucideIcon("brain-circuit", __iconNode$y);
+const BrainCircuit = createLucideIcon("brain-circuit", __iconNode$z);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$y = [
+  ["path", { d: "M8 2v4", key: "1cmpym" }],
+  ["path", { d: "M16 2v4", key: "4m81vk" }],
+  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
+  ["path", { d: "M3 10h18", key: "8toen8" }]
+];
+const Calendar = createLucideIcon("calendar", __iconNode$y);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -15992,49 +16005,47 @@ const BrainCircuit = createLucideIcon("brain-circuit", __iconNode$y);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$x = [
-  ["path", { d: "M8 2v4", key: "1cmpym" }],
-  ["path", { d: "M16 2v4", key: "4m81vk" }],
-  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
-  ["path", { d: "M3 10h18", key: "8toen8" }]
-];
-const Calendar = createLucideIcon("calendar", __iconNode$x);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$w = [
   ["path", { d: "M3 3v16a2 2 0 0 0 2 2h16", key: "c24i48" }],
   ["path", { d: "M18 17V9", key: "2bz60n" }],
   ["path", { d: "M13 17V5", key: "1frdt8" }],
   ["path", { d: "M8 17v-3", key: "17ska0" }]
 ];
-const ChartColumn = createLucideIcon("chart-column", __iconNode$w);
+const ChartColumn = createLucideIcon("chart-column", __iconNode$x);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$v = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$v);
+const __iconNode$w = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$w);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$u = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$u);
+const __iconNode$v = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$v);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$t = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-const ChevronUp = createLucideIcon("chevron-up", __iconNode$t);
+const __iconNode$u = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+const ChevronUp = createLucideIcon("chevron-up", __iconNode$u);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$t = [
+  ["path", { d: "m6 17 5-5-5-5", key: "xnjwq" }],
+  ["path", { d: "m13 17 5-5-5-5", key: "17xmmf" }]
+];
+const ChevronsRight = createLucideIcon("chevrons-right", __iconNode$t);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16042,10 +16053,11 @@ const ChevronUp = createLucideIcon("chevron-up", __iconNode$t);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$s = [
-  ["path", { d: "m6 17 5-5-5-5", key: "xnjwq" }],
-  ["path", { d: "m13 17 5-5-5-5", key: "17xmmf" }]
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
 ];
-const ChevronsRight = createLucideIcon("chevrons-right", __iconNode$s);
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$s);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16054,10 +16066,9 @@ const ChevronsRight = createLucideIcon("chevrons-right", __iconNode$s);
  */
 const __iconNode$r = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
-  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const CircleAlert = createLucideIcon("circle-alert", __iconNode$r);
+const CircleCheck = createLucideIcon("circle-check", __iconNode$r);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16066,36 +16077,25 @@ const CircleAlert = createLucideIcon("circle-alert", __iconNode$r);
  */
 const __iconNode$q = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
-];
-const CircleCheck = createLucideIcon("circle-check", __iconNode$q);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$p = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-const CircleQuestionMark = createLucideIcon("circle-question-mark", __iconNode$p);
+const CircleQuestionMark = createLucideIcon("circle-question-mark", __iconNode$q);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$o = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
-const Circle = createLucideIcon("circle", __iconNode$o);
+const __iconNode$p = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
+const Circle = createLucideIcon("circle", __iconNode$p);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$n = [
+const __iconNode$o = [
   ["path", { d: "M11 10.27 7 3.34", key: "16pf9h" }],
   ["path", { d: "m11 13.73-4 6.93", key: "794ttg" }],
   ["path", { d: "M12 22v-2", key: "1osdcq" }],
@@ -16111,14 +16111,14 @@ const __iconNode$n = [
   ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }],
   ["circle", { cx: "12", cy: "12", r: "8", key: "46899m" }]
 ];
-const Cog = createLucideIcon("cog", __iconNode$n);
+const Cog = createLucideIcon("cog", __iconNode$o);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$m = [
+const __iconNode$n = [
   [
     "path",
     {
@@ -16137,7 +16137,23 @@ const __iconNode$m = [
   ],
   ["path", { d: "m9.6 14.4 4.8-4.8", key: "6umqxw" }]
 ];
-const Dumbbell = createLucideIcon("dumbbell", __iconNode$m);
+const Dumbbell = createLucideIcon("dumbbell", __iconNode$n);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$m = [
+  [
+    "path",
+    {
+      d: "M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528",
+      key: "1jaruq"
+    }
+  ]
+];
+const Flag = createLucideIcon("flag", __iconNode$m);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16148,12 +16164,12 @@ const __iconNode$l = [
   [
     "path",
     {
-      d: "M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528",
-      key: "1jaruq"
+      d: "M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z",
+      key: "sc7q7i"
     }
   ]
 ];
-const Flag = createLucideIcon("flag", __iconNode$l);
+const Funnel = createLucideIcon("funnel", __iconNode$l);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16161,15 +16177,14 @@ const Flag = createLucideIcon("flag", __iconNode$l);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$k = [
-  [
-    "path",
-    {
-      d: "M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z",
-      key: "sc7q7i"
-    }
-  ]
+  ["path", { d: "M3 12h.01", key: "nlz23k" }],
+  ["path", { d: "M3 18h.01", key: "1tta3j" }],
+  ["path", { d: "M3 6h.01", key: "1rqtza" }],
+  ["path", { d: "M8 12h13", key: "1za7za" }],
+  ["path", { d: "M8 18h13", key: "1lx6n3" }],
+  ["path", { d: "M8 6h13", key: "ik3vkj" }]
 ];
-const Funnel = createLucideIcon("funnel", __iconNode$k);
+const List$1 = createLucideIcon("list", __iconNode$k);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -19654,17 +19669,48 @@ function Input({ className, type, ...props }) {
     }
   );
 }
+const badgeVariants = cva(
+  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  {
+    variants: {
+      variant: {
+        default: "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+        secondary: "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+        destructive: "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline: "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground"
+      }
+    },
+    defaultVariants: {
+      variant: "default"
+    }
+  }
+);
+function Badge({
+  className,
+  variant,
+  asChild = false,
+  ...props
+}) {
+  const Comp = asChild ? Slot$2 : "span";
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Comp,
+    {
+      "data-slot": "badge",
+      className: cn(badgeVariants({ variant }), className),
+      ...props
+    }
+  );
+}
 const navItems = [
   { id: "set-up", label: "Set-Up", icon: Unplug },
   { id: "general", label: "General", icon: Settings },
   { id: "training", label: "Training", icon: Dumbbell },
-  { id: "race-style", label: "Races", icon: Flag },
   { id: "skills", label: "Skills", icon: Star },
-  { id: "schedule", label: "Race Schedule", icon: Calendar },
-  { id: "events", label: "Events", icon: Trophy },
-  { id: "skeleton", label: "Schedule", icon: PanelsTopLeft }
+  { id: "schedule", label: "Race Schedule", icon: Flag },
+  { id: "events", label: "Events", icon: Calendar },
+  { id: "skeleton", label: "Timeline", icon: PanelsTopLeft }
 ];
-function Sidebar({ activeTab, setActiveTab, appVersion }) {
+function Sidebar({ activeTab, setActiveTab, appVersion, eventCount, raceCount, skillCount }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-64 h-screen sticky top-0 flex flex-col", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3 py-4 absolute", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-3xl font-bold text-primary tracking-tight", children: "Uma Auto Train" }),
@@ -19683,7 +19729,8 @@ function Sidebar({ activeTab, setActiveTab, appVersion }) {
         ),
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(item.icon, { className: "w-4 h-4 justify-self-start" }),
-          item.label
+          item.label,
+          (item.id === "events" && (eventCount ?? 0) > 0 || item.id === "schedule" && (raceCount ?? 0) > 0 || item.id === "skills" && (skillCount ?? 0) > 0) && /* @__PURE__ */ jsxRuntimeExports.jsx(Badge, { variant: "primary", className: "text-xs px-2 justify-self-end", children: item.id === "events" ? eventCount : item.id === "schedule" ? raceCount : skillCount })
         ]
       },
       item.id
@@ -25801,7 +25848,7 @@ function Checkbox({ className, ...props }) {
     {
       "data-slot": "checkbox",
       className: cn(
-        "peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-md border shadow-lg transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        "peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[5px] border shadow-lg transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
         className
       ),
       ...props,
@@ -25858,19 +25905,6 @@ function SetUpSection({ config: config2, updateConfig }) {
         )
       ] })
     ] })
-  ] });
-}
-function IsOptimalEvent({ isUseOptimalEventChoice, setIsUseOptimalEventChoice }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "is-optimal-event", className: "flex gap-2 items-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { id: "is-optimal-event", checked: isUseOptimalEventChoice, onCheckedChange: () => setIsUseOptimalEventChoice(!isUseOptimalEventChoice) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Use Optimal Event?" })
-  ] });
-}
-function isSkipClaw({ isSkipClawMachine, setSkipClawMachine }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "skip-claw-machine", className: "flex gap-2 items-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { id: "skip-claw-machine", checked: isSkipClawMachine, onCheckedChange: () => setSkipClawMachine(!isSkipClawMachine) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Skip Claw Machine?" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "Enabling this will auto play the claw machine." })
   ] });
 }
 // @__NO_SIDE_EFFECTS__
@@ -26320,38 +26354,6 @@ function DialogTitle({ className, ...props }) {
 function DialogDescription({ className, ...props }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Description, { "data-slot": "dialog-description", className: cn("text-muted-foreground text-base", className), ...props });
 }
-const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
-  {
-    variants: {
-      variant: {
-        default: "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
-        secondary: "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
-        destructive: "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline: "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground"
-      }
-    },
-    defaultVariants: {
-      variant: "default"
-    }
-  }
-);
-function Badge({
-  className,
-  variant,
-  asChild = false,
-  ...props
-}) {
-  const Comp = asChild ? Slot$2 : "span";
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Comp,
-    {
-      "data-slot": "badge",
-      className: cn(badgeVariants({ variant }), className),
-      ...props
-    }
-  );
-}
 function Card({ className, ...props }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
@@ -26489,383 +26491,6 @@ function EventCard({
     event2.event_name
   );
 }
-function MainEventList({
-  eventSelected,
-  selected,
-  setSelected,
-  eventChoicesConfig,
-  addEventList,
-  deleteEventList
-}) {
-  const [search, setSearch] = reactExports.useState("");
-  const filtered = reactExports.useMemo(() => {
-    const val = search.toLowerCase().trim();
-    if (!val) return eventSelected;
-    return eventSelected.filter((event2) => {
-      const nameMatch = event2.event_name.toLowerCase().includes(val);
-      const choiceMatch = event2.choices.some((choice) => {
-        const textMatch = choice.choice_text.toLowerCase().includes(val);
-        const outcomeMatch = choice.variants.some(
-          (variant) => variant.all_outcomes.toLowerCase().includes(val)
-          // Check the Outcomes (Variants)
-        );
-        return textMatch || outcomeMatch;
-      });
-      return nameMatch || choiceMatch;
-    });
-  }, [eventSelected, search]);
-  reactExports.useEffect(() => {
-    setSearch("");
-  }, [selected]);
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 overflow-y-auto p-6 bg-background", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-lg font-semibold", children: selected ? `Events for: ${selected}` : "All Events" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "outline", className: "text-xs", children: [
-        filtered.length,
-        " events found"
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input,
-      {
-        value: search,
-        onChange: handleSearch,
-        placeholder: "Search events..."
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4", children: filtered.length > 0 ? filtered.map((event2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      EventCard,
-      {
-        addEventList,
-        event: event2,
-        search,
-        eventChoicesConfig,
-        deleteEventList
-      },
-      event2.event_name
-    )) : /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { className: "border-dashed", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "py-12 text-center text-muted-foreground", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Funnel, { className: "w-12 h-12 mx-auto mb-3 opacity-50" }),
-      selected ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium mb-1", children: "No events found for this filter." }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Button,
-          {
-            variant: "outline",
-            size: "sm",
-            onClick: () => setSelected(""),
-            children: "Clear Filter"
-          }
-        )
-      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Select a scenario, character, or support card from the sidebar to view events." })
-    ] }) }) })
-  ] }) });
-}
-function EventDialog({ data, button, setSelected }) {
-  const [search, setSearch] = reactExports.useState("");
-  const [open, setOpen] = reactExports.useState(false);
-  const [iconFilter, setIconFilter] = reactExports.useState("ALL");
-  const filteredData = reactExports.useMemo(() => {
-    const val = search.toLowerCase().trim();
-    return data.filter((d) => {
-      const nameMatch = d.name.toLowerCase().includes(val);
-      const iconMatch = iconFilter === "ALL" || d.type === iconFilter;
-      return nameMatch && iconMatch;
-    });
-  }, [data, search, iconFilter]);
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-  const ICON_MAP = {
-    SPD: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_00.png",
-    STA: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_01.png",
-    POW: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_02.png",
-    GUTS: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_03.png",
-    WIT: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_04.png",
-    PAL: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_05.png",
-    GRP: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_06.png"
-  };
-  const SupportCard = ({ name, cardSrc, iconSrc }) => {
-    const resolvedIcon = iconSrc ? ICON_MAP[iconSrc] : null;
-    const cleanName = name.split("(")[0].trim();
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-3 flex flex-col items-center text-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-[110px]", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: cardSrc, alt: cleanName, className: "w-full h-auto rounded-md" }),
-        resolvedIcon && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "img",
-          {
-            src: resolvedIcon,
-            alt: "",
-            className: "absolute top-1 right-1 w-9 h-9"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 text-sm font-medium", children: cleanName })
-    ] });
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Dialog, { open, onOpenChange: setOpen, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { variant: "outline", className: "flex items-center gap-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "w-4 h-4" }),
-      button
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "max-w-4xl h-[80vh]", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogTitle, { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "w-5 h-5" }),
-        button
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 items-center", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex-1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "absolute left-3 top-3 h-4 w-4 text-muted-foreground" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Input, { type: "search", placeholder: "Search...", value: search, onChange: handleSearch, className: "pl-10" })
-          ] }),
-          button !== "Select Character" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Funnel, { className: "absolute left-3 top-3 h-4 w-4 text-muted-foreground" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              "select",
-              {
-                value: iconFilter,
-                onChange: (e) => setIconFilter(e.target.value),
-                className: "border rounded-md px-3 py-2 text-sm bg-background pl-10",
-                children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "ALL", children: "All Support Types" }),
-                  Object.keys(ICON_MAP).map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: key, children: key }, key))
-                ]
-              }
-            )
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "border rounded-lg h-[60vh] overflow-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4", children: filteredData.map((val) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Card,
-          {
-            className: "cursor-pointer transition-all hover:scale-105 hover:shadow-md",
-            onClick: () => {
-              setSelected(val.name);
-              setOpen(false);
-              setSearch("");
-            },
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(CardContent, { className: "p-3 flex flex-col items-center text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              SupportCard,
-              {
-                name: val.name,
-                cardSrc: val.image_url,
-                iconSrc: val.type
-              }
-            ) })
-          },
-          val.id
-        )) }) })
-      ] })
-    ] })
-  ] });
-}
-function SidebarEventList({
-  selected,
-  setSelected,
-  data
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-80 border-r bg-muted/10 p-4 space-y-6 overflow-y-auto", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "font-semibold text-sm flex items-center gap-2 mb-1", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Funnel, { className: "w-4 h-4" }),
-        "Filter Options"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Filter events by scenario, character, or support card" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { className: "pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardTitle, { className: "text-sm flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Map$1, { className: "w-4 h-4 text-blue-500" }),
-        "Scenario"
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "button",
-          {
-            onClick: () => {
-              setSelected("URA Finale");
-            },
-            className: "flex items-center gap-3 p-2 rounded-lg hover:bg-accent transition-colors w-full text-left",
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "img",
-                {
-                  width: 48,
-                  src: "https://gametora.com/images/umamusume/scenarios/bnr_ico_001.png",
-                  alt: "URA Scenario",
-                  className: "rounded"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium text-sm", children: "URA Finale" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Main Scenario" })
-              ] })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "button",
-          {
-            onClick: () => {
-              setSelected("Unity Cup");
-            },
-            className: "flex items-center gap-3 p-2 rounded-lg hover:bg-accent transition-colors w-full text-left",
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "img",
-                {
-                  width: 48,
-                  src: "https://gametora.com/images/umamusume/scenarios/bnr_ico_002.png",
-                  alt: "Unity Cup",
-                  className: "rounded"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium text-sm", children: "Unity Cup" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Main Scenario" })
-              ] })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "button",
-          {
-            onClick: () => {
-              setSelected("All Umamusume");
-            },
-            className: "flex items-center gap-3 p-2 rounded-lg hover:bg-accent transition-colors w-full text-left",
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "img",
-                {
-                  width: 48,
-                  src: "/9005.png",
-                  alt: "Acupuncturist",
-                  className: "rounded"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium text-sm", children: "All Umamusume" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Special Event" })
-              ] })
-            ]
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { className: "pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardTitle, { className: "text-sm flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Users, { className: "w-4 h-4 text-green-500" }),
-        "Character"
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardContent, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        EventDialog,
-        {
-          button: "Select Character",
-          data: data?.characterArraySchema.characters ?? [],
-          setSelected: (selectedChar) => {
-            setSelected(selectedChar);
-          }
-        }
-      ) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { className: "pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardTitle, { className: "text-sm flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-4 h-4 text-purple-500" }),
-        "Support Card"
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardContent, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        EventDialog,
-        {
-          button: "Select Support Card",
-          data: data?.supportCardArraySchema.supportCards ?? [],
-          setSelected: (selectedCard) => {
-            setSelected(selectedCard);
-          }
-        }
-      ) })
-    ] }),
-    selected && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      Button,
-      {
-        variant: "outline",
-        onClick: () => setSelected(""),
-        className: "w-full flex items-center gap-2",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-4 h-4" }),
-          "Clear Filter"
-        ]
-      }
-    )
-  ] });
-}
-function EventList({
-  data,
-  groupedChoices,
-  eventChoicesConfig,
-  addEventList,
-  deleteEventList
-}) {
-  const [selected, setSelected] = reactExports.useState("");
-  const eventSelected = selected ? groupedChoices?.filter(
-    (val) => val.character_name.toLowerCase().includes(selected.toLowerCase())
-  ) : [];
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Dialog, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "flex items-center gap-2 shadow-sm hover:shadow-md transition", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { className: "w-4 h-4" }),
-      "Event List"
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "max-w-7xl w-full h-[90vh] flex flex-col overflow-hidden p-0 [&>button]:hidden", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { className: "px-6 py-4 border-b bg-muted/30 backdrop-blur-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogTitle, { className: "flex items-center gap-2 text-xl font-semibold", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { className: "w-5 h-5 text-primary" }),
-          "Event Database"
-        ] }),
-        selected && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          Badge,
-          {
-            variant: "secondary",
-            className: "flex items-center gap-1 text-sm",
-            children: [
-              "Filter: ",
-              selected,
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  onClick: () => setSelected(""),
-                  className: "ml-1 hover:text-destructive",
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-3 h-3" })
-                }
-              )
-            ]
-          }
-        )
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex overflow-hidden", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          SidebarEventList,
-          {
-            selected,
-            setSelected,
-            data
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          MainEventList,
-          {
-            deleteEventList,
-            addEventList,
-            eventChoicesConfig,
-            eventSelected,
-            selected,
-            setSelected
-          }
-        )
-      ] })
-    ] })
-  ] }) });
-}
 function SelectedEventList({
   data,
   groupedChoices,
@@ -26916,7 +26541,7 @@ function SelectedEventList({
       },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { variant: "outline", className: "flex items-center gap-2", children: [
-          "Selected Events",
+          "Display Selected Events",
           eventChoicesConfig.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Badge, { variant: "secondary", className: "ml-1 text-xs px-2", children: eventChoicesConfig.length })
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "h-[85vh] w-full max-w-[90vw] p-0 overflow-hidden [&>button]:hidden", children: [
@@ -29620,7 +29245,7 @@ function useBaseQuery(options, Observer, queryClient2) {
 function useQuery(options, queryClient2) {
   return useBaseQuery(options, QueryObserver);
 }
-function EventSection({ config: config2, updateConfig }) {
+function EventSection$1({ config: config2, updateConfig }) {
   const { event: event2 } = config2;
   const { use_optimal_event_choice, event_choices } = event2;
   const { use_skip_claw_machine: use_skip_claw_machine2 } = config2;
@@ -29687,35 +29312,24 @@ function EventSection({ config: config2, updateConfig }) {
   }, [data]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Tickets, { className: "text-primary" }),
-      " Event"
+      /* @__PURE__ */ jsxRuntimeExports.jsx(List$1, { className: "text-primary" }),
+      " Events"
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      IsOptimalEvent,
-      {
-        isUseOptimalEventChoice: use_optimal_event_choice,
-        setIsUseOptimalEventChoice: (val) => updateConfig("event", { ...event2, use_optimal_event_choice: val })
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      isSkipClaw,
-      {
-        isSkipClawMachine: use_skip_claw_machine2,
-        setSkipClawMachine: (val) => updateConfig("use_skip_claw_machine", val)
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-6 mt-6", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        EventList,
-        {
-          eventChoicesConfig: event_choices,
-          addEventList: handleAddEventList,
-          deleteEventList,
-          data,
-          groupedChoices
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid lg:grid-cols-3 grid-cols-1 gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Checkbox,
+          {
+            checked: use_optimal_event_choice,
+            onCheckedChange: () => updateConfig("event", {
+              ...event2,
+              use_optimal_event_choice: !use_optimal_event_choice
+            })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Use Optimal Event Choices" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-6 fade-in duration-200", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         SelectedEventList,
         {
           data,
@@ -29725,31 +29339,597 @@ function EventSection({ config: config2, updateConfig }) {
           deleteEventList,
           clearEventList: () => updateConfig("event", { ...event2, event_choices: [] })
         }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Checkbox,
+          {
+            checked: use_skip_claw_machine2,
+            onCheckedChange: () => updateConfig("use_skip_claw_machine", !use_skip_claw_machine2)
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Autoplay Claw Machine" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "Enabling this will auto play the claw machine." })
+      ] })
+    ] })
+  ] });
+}
+function MainEventList({
+  eventSelected,
+  selected,
+  setSelected,
+  eventChoicesConfig,
+  addEventList,
+  deleteEventList
+}) {
+  const [search, setSearch] = reactExports.useState("");
+  const filtered = reactExports.useMemo(() => {
+    const val = search.toLowerCase().trim();
+    if (!val) return eventSelected;
+    return eventSelected.filter((event2) => {
+      const nameMatch = event2.event_name.toLowerCase().includes(val);
+      const choiceMatch = event2.choices.some((choice) => {
+        const textMatch = choice.choice_text.toLowerCase().includes(val);
+        const outcomeMatch = choice.variants.some(
+          (variant) => variant.all_outcomes.toLowerCase().includes(val)
+          // Check the Outcomes (Variants)
+        );
+        return textMatch || outcomeMatch;
+      });
+      return nameMatch || choiceMatch;
+    });
+  }, [eventSelected, search]);
+  reactExports.useEffect(() => {
+    setSearch("");
+  }, [selected]);
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 overflow-y-auto p-6 bg-background", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-lg font-semibold", children: selected ? `Events for: ${selected}` : "All Events" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "outline", className: "text-xs", children: [
+        filtered.length,
+        " events found"
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Input,
+      {
+        value: search,
+        onChange: handleSearch,
+        placeholder: "Search events..."
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4", children: filtered.length > 0 ? filtered.map((event2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      EventCard,
+      {
+        addEventList,
+        event: event2,
+        search,
+        eventChoicesConfig,
+        deleteEventList
+      },
+      event2.event_name
+    )) : /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { className: "border-dashed", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "py-12 text-center text-muted-foreground", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Funnel, { className: "w-12 h-12 mx-auto mb-3 opacity-50" }),
+      selected ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium mb-1", children: "No events found for this filter." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            variant: "outline",
+            size: "sm",
+            onClick: () => setSelected(""),
+            children: "Clear Filter"
+          }
+        )
+      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Select a scenario, character, or support card from the sidebar to view events." })
+    ] }) }) })
+  ] }) });
+}
+function EventDialog({ data, button, setSelected }) {
+  const [search, setSearch] = reactExports.useState("");
+  const [open, setOpen] = reactExports.useState(false);
+  const [iconFilter, setIconFilter] = reactExports.useState("ALL");
+  const filteredData = reactExports.useMemo(() => {
+    const val = search.toLowerCase().trim();
+    return data.filter((d) => {
+      const nameMatch = d.name.toLowerCase().includes(val);
+      const iconMatch = iconFilter === "ALL" || d.type === iconFilter;
+      return nameMatch && iconMatch;
+    });
+  }, [data, search, iconFilter]);
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  const ICON_MAP = {
+    SPD: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_00.png",
+    STA: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_01.png",
+    POW: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_02.png",
+    GUTS: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_03.png",
+    WIT: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_04.png",
+    PAL: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_05.png",
+    GRP: "https://gametora.com/images/umamusume/icons/utx_ico_obtain_06.png"
+  };
+  const SupportCard = ({ name, cardSrc, iconSrc }) => {
+    const resolvedIcon = iconSrc ? ICON_MAP[iconSrc] : null;
+    const cleanName = name.split("(")[0].trim();
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-3 flex flex-col items-center text-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-[110px]", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: cardSrc, alt: cleanName, className: "w-full h-auto rounded-md" }),
+        resolvedIcon && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "img",
+          {
+            src: resolvedIcon,
+            alt: "",
+            className: "absolute top-1 right-1 w-9 h-9"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 text-sm font-medium", children: cleanName })
+    ] });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Dialog, { open, onOpenChange: setOpen, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { variant: "outline", className: "flex items-center gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "w-4 h-4" }),
+      button
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "max-w-4xl h-[80vh]", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogTitle, { className: "flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "w-5 h-5" }),
+        button
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 items-center", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "absolute left-3 top-3 h-4 w-4 text-muted-foreground" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Input, { type: "search", placeholder: "Search...", value: search, onChange: handleSearch, className: "pl-10" })
+          ] }),
+          button !== "Select Character" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Funnel, { className: "absolute left-3 top-3 h-4 w-4 text-muted-foreground" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "select",
+              {
+                value: iconFilter,
+                onChange: (e) => setIconFilter(e.target.value),
+                className: "border rounded-md px-3 py-2 text-sm bg-background pl-10",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "ALL", children: "All Support Types" }),
+                  Object.keys(ICON_MAP).map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: key, children: key }, key))
+                ]
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "border rounded-lg h-[60vh] overflow-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4", children: filteredData.map((val) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Card,
+          {
+            className: "cursor-pointer transition-all hover:scale-105 hover:shadow-md",
+            onClick: () => {
+              setSelected(val.name);
+              setOpen(false);
+              setSearch("");
+            },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(CardContent, { className: "p-3 flex flex-col items-center text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              SupportCard,
+              {
+                name: val.name,
+                cardSrc: val.image_url,
+                iconSrc: val.type
+              }
+            ) })
+          },
+          val.id
+        )) }) })
+      ] })
+    ] })
+  ] });
+}
+function SidebarEventList({
+  selected,
+  setSelected,
+  data
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-80 border-r bg-muted/10 p-4 space-y-6 overflow-y-auto", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "font-semibold text-sm flex items-center gap-2 mb-1", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Funnel, { className: "w-4 h-4" }),
+        "Filter Options"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Filter events by scenario, character, or support card" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { className: "pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardTitle, { className: "text-sm flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Map$1, { className: "w-4 h-4 text-blue-500" }),
+        "Scenario"
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            onClick: () => {
+              setSelected("URA Finale");
+            },
+            className: "flex items-center gap-3 p-2 rounded-lg hover:bg-accent transition-colors w-full text-left",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  width: 48,
+                  src: "https://gametora.com/images/umamusume/scenarios/bnr_ico_001.png",
+                  alt: "URA Scenario",
+                  className: "rounded"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium text-sm", children: "URA Finale" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Main Scenario" })
+              ] })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            onClick: () => {
+              setSelected("Unity Cup");
+            },
+            className: "flex items-center gap-3 p-2 rounded-lg hover:bg-accent transition-colors w-full text-left",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  width: 48,
+                  src: "https://gametora.com/images/umamusume/scenarios/bnr_ico_002.png",
+                  alt: "Unity Cup",
+                  className: "rounded"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium text-sm", children: "Unity Cup" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Main Scenario" })
+              ] })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            onClick: () => {
+              setSelected("All Umamusume");
+            },
+            className: "flex items-center gap-3 p-2 rounded-lg hover:bg-accent transition-colors w-full text-left",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  width: 48,
+                  src: "/9005.png",
+                  alt: "Acupuncturist",
+                  className: "rounded"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium text-sm", children: "All Umamusume" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Special Event" })
+              ] })
+            ]
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { className: "pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardTitle, { className: "text-sm flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Users, { className: "w-4 h-4 text-green-500" }),
+        "Character"
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardContent, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        EventDialog,
+        {
+          button: "Select Character",
+          data: data?.characterArraySchema.characters ?? [],
+          setSelected: (selectedChar) => {
+            setSelected(selectedChar);
+          }
+        }
+      ) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { className: "pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardTitle, { className: "text-sm flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-4 h-4 text-purple-500" }),
+        "Support Card"
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardContent, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        EventDialog,
+        {
+          button: "Select Support Card",
+          data: data?.supportCardArraySchema.supportCards ?? [],
+          setSelected: (selectedCard) => {
+            setSelected(selectedCard);
+          }
+        }
+      ) })
+    ] }),
+    selected && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      Button,
+      {
+        variant: "outline",
+        onClick: () => setSelected(""),
+        className: "w-full flex items-center gap-2",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-4 h-4" }),
+          "Clear Filter"
+        ]
+      }
+    )
+  ] });
+}
+function EventList({
+  data,
+  groupedChoices,
+  eventChoicesConfig,
+  addEventList,
+  deleteEventList
+}) {
+  const [selected, setSelected] = reactExports.useState("");
+  const eventSelected = selected ? groupedChoices?.filter(
+    (val) => val.character_name.toLowerCase().includes(selected.toLowerCase())
+  ) : [];
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-between", children: selected && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      Badge,
+      {
+        variant: "secondary",
+        className: "flex items-center gap-1 text-sm",
+        children: [
+          "Filter: ",
+          selected,
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: () => setSelected(""),
+              className: "ml-1 hover:text-destructive",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-3 h-3" })
+            }
+          )
+        ]
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex overflow-hidden", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        SidebarEventList,
+        {
+          selected,
+          setSelected,
+          data
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        MainEventList,
+        {
+          deleteEventList,
+          addEventList,
+          eventChoicesConfig,
+          eventSelected,
+          selected,
+          setSelected
+        }
       )
     ] })
   ] });
 }
-function PrioritizeG1({
-  prioritizeG1Race,
-  setPrioritizeG1
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-fit", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "prioritize-g1", className: "flex gap-2 items-center", children: [
+function EventSection({ config: config2, updateConfig }) {
+  const { event: event2 } = config2;
+  const { event_choices } = event2;
+  const getEventData = async () => {
+    try {
+      const res = await fetch("/data/events.json");
+      if (!res.ok) throw new Error("Failed to fetch events");
+      return res.json();
+    } catch (error) {
+      console.error("Failed to fetch events:", error);
+    }
+  };
+  const { data } = useQuery({
+    queryKey: ["events"],
+    queryFn: getEventData
+  });
+  const handleAddEventList = (val) => {
+    const existingIndex = event_choices.findIndex(
+      (ev) => ev.event_name === val.event_name
+    );
+    const newEventChoices = existingIndex !== -1 ? event_choices.map(
+      (ev, i) => i === existingIndex ? { ...ev, chosen: val.chosen } : ev
+    ) : [...event_choices, val];
+    updateConfig("event", { ...event2, event_choices: newEventChoices });
+  };
+  const deleteEventList = (val) => updateConfig("event", {
+    ...event2,
+    event_choices: event_choices.filter((e) => e.event_name !== val)
+  });
+  const groupedChoices = reactExports.useMemo(() => {
+    const choices = data?.choiceArraySchema?.choices ?? [];
+    return Object.values(
+      choices.reduce(
+        (acc, choice) => {
+          const key = `${choice.event_name}__${choice.character_name}`;
+          if (!acc[key]) {
+            acc[key] = {
+              event_name: choice.event_name,
+              character_name: choice.character_name,
+              choices: []
+            };
+          }
+          const eventGroup = acc[key];
+          let existingChoice = eventGroup.choices.find(
+            (c) => c.choice_number === choice.choice_number
+          );
+          if (!existingChoice) {
+            existingChoice = {
+              choice_number: choice.choice_number,
+              choice_text: choice.choice_text,
+              variants: []
+            };
+            eventGroup.choices.push(existingChoice);
+          }
+          existingChoice.variants.push({
+            success_type: choice.success_type,
+            all_outcomes: choice.all_outcomes
+          });
+          return acc;
+        },
+        {}
+      )
+    );
+  }, [data]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Tickets, { className: "text-primary" }),
+      " Event Database"
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Checkbox,
+      EventList,
       {
-        id: "prioritize-g1",
-        checked: prioritizeG1Race,
-        onCheckedChange: () => setPrioritizeG1(!prioritizeG1Race)
+        eventChoicesConfig: event_choices,
+        addEventList: handleAddEventList,
+        deleteEventList,
+        data,
+        groupedChoices
       }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Run Race Schedule?" })
-  ] }) });
+    )
+  ] });
 }
-function CancelConsecutive({ cancelConsecutive, setCancelConsecutive }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-fit", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "cancel-consecutive", className: "flex gap-2 items-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { id: "cancel-consecutive", checked: cancelConsecutive, onCheckedChange: () => setCancelConsecutive(!cancelConsecutive) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Cancel Consecutive Race?" })
-  ] }) });
+const MOOD = ["AWFUL", "BAD", "NORMAL", "GOOD", "GREAT"];
+const PRIORITY_WEIGHT = {
+  HEAVY: "Strongly focuses on prioritized stats. A training with fewer supports can still get picked (+75%).",
+  MEDIUM: "Moderately focuses on prioritized stats but still considers support count (+50%).",
+  LIGHT: "Slightly focuses on prioritized stats. Usually goes for trainings with more supports (+25%).",
+  NONE: "Doesn't focus on main stats at all, just picks based on support count only."
+};
+const POSITION = ["front", "pace", "late", "end"];
+const RANK$1 = ["s", "a", "b", "c", "d", "e", "f", "g"];
+function RaceScheduleSection$1({ config: config2, updateConfig }) {
+  const {
+    use_race_schedule: use_race_schedule2,
+    cancel_consecutive_race: cancel_consecutive_race2,
+    race_turn_threshold: race_turn_threshold2,
+    do_mission_races_if_possible: do_mission_races_if_possible2,
+    prioritize_missions_over_g1: prioritize_missions_over_g12,
+    position_selection_enabled: position_selection_enabled2,
+    preferred_position: preferred_position2,
+    enable_positions_by_race: enable_positions_by_race2,
+    positions_by_race: positions_by_race2,
+    minimum_aptitudes: { surface, distance, style }
+  } = config2;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/80", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-4 flex items-center gap-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Trophy, { className: "text-primary" }),
+      "Racing"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 h-fit items-center cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0 mr-2", children: "Race Turn Treshold" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Input, { className: "w-18", type: "number", step: 1, value: race_turn_threshold2, onChange: (e) => updateConfig("race_turn_threshold", e.target.valueAsNumber) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: use_race_schedule2, onCheckedChange: () => updateConfig("use_race_schedule", !use_race_schedule2) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Run Race Schedule" })
+        ] }),
+        use_race_schedule2 && /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer animate-in fade-in slide-in-from-top-1 duration-200", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: cancel_consecutive_race2, onCheckedChange: () => updateConfig("cancel_consecutive_race", !cancel_consecutive_race2) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Cancel Consecutive Races" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: do_mission_races_if_possible2, onCheckedChange: () => updateConfig("do_mission_races_if_possible", !do_mission_races_if_possible2) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Do Mission Races if Possible" })
+        ] }),
+        do_mission_races_if_possible2 && /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer animate-in fade-in slide-in-from-top-1 duration-200", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: prioritize_missions_over_g12, onCheckedChange: () => updateConfig("prioritize_missions_over_g1", !prioritize_missions_over_g12) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Prioritize Missions Over G1" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-x-6 gap-y-2 w-fit content-start ", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "items-center font-semibold col-span-2", children: "Minimum Aptitutes:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_surface", className: "flex gap-2 justify-self-start items-center cursor-pointer", children: "Surface" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: surface, onValueChange: (val) => updateConfig("minimum_aptitudes", { ...config2.minimum_aptitudes, surface: val }), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { id: "aptitude_surface", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "surface" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: RANK$1.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: r2, children: r2.toUpperCase() }, r2)) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_distance", className: "flex gap-2 justify-self-start items-center cursor-pointer", children: "Distance" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: distance, onValueChange: (val) => updateConfig("minimum_aptitudes", { ...config2.minimum_aptitudes, distance: val }), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { id: "aptitude_distance", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "distance" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: RANK$1.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: r2, children: r2.toUpperCase() }, r2)) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_style", className: "flex gap-2 justify-self-start items-center cursor-pointer", children: "Style" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: style, onValueChange: (val) => updateConfig("minimum_aptitudes", { ...config2.minimum_aptitudes, style: val }), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { id: "aptitude_style", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "style" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: RANK$1.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: r2, children: r2.toUpperCase() }, r2)) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center shrink cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: position_selection_enabled2, onCheckedChange: () => updateConfig("position_selection_enabled", !position_selection_enabled2) }),
+          "Enable Position Selection"
+        ] }),
+        position_selection_enabled2 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center shrink cursor-pointer", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Checkbox,
+              {
+                disabled: !position_selection_enabled2,
+                checked: enable_positions_by_race2,
+                onCheckedChange: () => updateConfig("enable_positions_by_race", !enable_positions_by_race2)
+              }
+            ),
+            "Position By Race"
+          ] }),
+          !enable_positions_by_race2 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center", children: [
+            "Preferred Position:",
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              Select,
+              {
+                disabled: !(position_selection_enabled2 && !enable_positions_by_race2),
+                value: preferred_position2,
+                onValueChange: (val) => updateConfig("preferred_position", val),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: pos, children: pos.toUpperCase() }, pos)) })
+                ]
+              }
+            )
+          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(positions_by_race2).map(([key, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "label",
+            {
+              htmlFor: key,
+              className: "flex gap-2 items-center w-44 justify-between cursor-pointer",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "capitalize", children: key }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  Select,
+                  {
+                    disabled: !(enable_positions_by_race2 && position_selection_enabled2),
+                    value: val,
+                    onValueChange: (newVal) => updateConfig("positions_by_race", { ...positions_by_race2, [key]: newVal }),
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectItem, { value: pos, children: [
+                        " ",
+                        pos.toUpperCase(),
+                        " "
+                      ] }, pos)) })
+                    ]
+                  }
+                )
+              ]
+            },
+            key
+          )) })
+        ] })
+      ] })
+    ] })
+  ] });
 }
 var ENTRY_FOCUS = "rovingFocusGroup.onEntryFocus";
 var EVENT_OPTIONS = { bubbles: false, cancelable: true };
@@ -31436,11 +31616,11 @@ function RaceScheduleDialog({
     "Classic Year": classic,
     "Senior Year": senior
   } = filteredRaceData;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "max-w-7xl w-full h-[90vh] flex flex-col overflow-hidden p-0 [&>button]:hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogHeader, { className: "px-6 py-4 border-b bg-gradient-to-r from-background to-muted/30 backdrop-blur-sm flex flex-row justify-between items-center", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-6 py-4 border-b bg-gradient-to-r from-background to-muted/30 backdrop-blur-sm flex flex-row justify-between items-center", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Trophy, { className: "w-6 h-6 text-primary" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTitle, { children: "Race Schedule" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { children: "Race Schedule" }),
         raceSchedule.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "secondary", children: [
           raceSchedule.length,
           " race",
@@ -31459,7 +31639,7 @@ function RaceScheduleDialog({
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(DialogDescription, { children: "Race schedule selection dialog" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Race schedule selection dialog" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex overflow-hidden", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(RaceFilters, { filterState }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 px-8 flex", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Tabs, { className: "w-full", defaultValue: "junior-year", children: [
@@ -31617,134 +31797,114 @@ function RaceSchedule({
     setDistanceFilter,
     setSparksFilter
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Dialog, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "font-semibold gap-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { className: "w-4 h-4" }),
-      "Select Race",
-      raceSchedule.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Badge, { variant: "secondary", className: "ml-1", children: raceSchedule.length })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      RaceScheduleDialog,
-      {
-        raceSchedule,
-        filteredRaceData,
-        filterState,
-        addRaceSchedule,
-        deleteRaceSchedule,
-        clearRaceSchedule
-      }
-    )
-  ] }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    RaceScheduleDialog,
+    {
+      raceSchedule,
+      filteredRaceData,
+      filterState,
+      addRaceSchedule,
+      deleteRaceSchedule,
+      clearRaceSchedule
+    }
+  ) });
 }
 function RaceScheduleSection({ config: config2, updateConfig }) {
   const {
-    use_race_schedule: use_race_schedule2,
-    cancel_consecutive_race: cancel_consecutive_race2,
-    race_schedule: race_schedule2,
-    race_turn_threshold: race_turn_threshold2,
-    do_mission_races_if_possible: do_mission_races_if_possible2,
-    prioritize_missions_over_g1: prioritize_missions_over_g12
+    race_schedule: race_schedule2
   } = config2;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronsRight, { className: "text-primary" }),
       "Race Schedule"
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        PrioritizeG1,
-        {
-          prioritizeG1Race: use_race_schedule2,
-          setPrioritizeG1: (val) => updateConfig("use_race_schedule", val)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        CancelConsecutive,
-        {
-          cancelConsecutive: cancel_consecutive_race2,
-          setCancelConsecutive: (val) => updateConfig("cancel_consecutive_race", val)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "race_turn_threshold" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            type: "number",
-            step: 1,
-            value: race_turn_threshold2,
-            onChange: (e) => updateConfig("race_turn_threshold", e.target.valueAsNumber)
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "do_mission_races_if_possible", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Checkbox,
-          {
-            id: "do_mission_races_if_possible",
-            checked: do_mission_races_if_possible2,
-            onCheckedChange: () => updateConfig(
-              "do_mission_races_if_possible",
-              !do_mission_races_if_possible2
-            )
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "do_mission_races_if_possible" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "prioritize_missions_over_g1", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Checkbox,
-          {
-            id: "prioritize_missions_over_g1",
-            checked: prioritize_missions_over_g12,
-            onCheckedChange: () => updateConfig(
-              "prioritize_missions_over_g1",
-              !prioritize_missions_over_g12
-            )
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "prioritize_missions_over_g1" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        RaceSchedule,
-        {
-          raceSchedule: race_schedule2,
-          addRaceSchedule: (val) => {
-            const updated = (() => {
-              const exists = race_schedule2.some(
-                (r2) => r2.year === val.year && r2.date === val.date
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      RaceSchedule,
+      {
+        raceSchedule: race_schedule2,
+        addRaceSchedule: (val) => {
+          const updated = (() => {
+            const exists = race_schedule2.some(
+              (r2) => r2.year === val.year && r2.date === val.date
+            );
+            if (exists) {
+              return race_schedule2.map(
+                (r2) => r2.year === val.year && r2.date === val.date ? val : r2
               );
-              if (exists) {
-                return race_schedule2.map(
-                  (r2) => r2.year === val.year && r2.date === val.date ? val : r2
-                );
-              }
-              return [...race_schedule2, val];
-            })();
-            updateConfig("race_schedule", updated);
-          },
-          deleteRaceSchedule: (name, year) => updateConfig(
-            "race_schedule",
-            race_schedule2.filter(
-              (race) => race.name !== name || race.year !== year
-            )
+            }
+            return [...race_schedule2, val];
+          })();
+          updateConfig("race_schedule", updated);
+        },
+        deleteRaceSchedule: (name, year) => updateConfig(
+          "race_schedule",
+          race_schedule2.filter(
+            (race) => race.name !== name || race.year !== year
+          )
+        ),
+        clearRaceSchedule: () => updateConfig("race_schedule", [])
+      }
+    )
+  ] });
+}
+function SkillSection$1({ config: config2, updateConfig }) {
+  const { skill: skill2 } = config2;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/80", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-4 flex items-center gap-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(BrainCircuit, { className: "text-primary" }),
+      "Skills"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid lg:grid-cols-3 grid-cols-1 gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer col-span-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Checkbox,
+          {
+            id: "buy-auto-skill",
+            checked: skill2.is_auto_buy_skill,
+            onCheckedChange: () => updateConfig("skill", { ...skill2, is_auto_buy_skill: !skill2.is_auto_buy_skill })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Auto Buy Skills" })
+      ] }),
+      skill2.is_auto_buy_skill && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Checkbox,
+            {
+              checked: skill2.check_skill_before_races,
+              onCheckedChange: () => updateConfig("skill", { ...skill2, check_skill_before_races: !skill2.check_skill_before_races })
+            }
           ),
-          clearRaceSchedule: () => updateConfig("race_schedule", [])
-        }
-      )
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Check Skills Before Races" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Turns Before Checking Skills" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-18",
+              step: 1,
+              type: "number",
+              value: skill2.skill_check_turns,
+              onChange: (e) => updateConfig("skill", { ...skill2, skill_check_turns: e.target.valueAsNumber })
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Points Before Checking Skills" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-22",
+              type: "number",
+              min: 0,
+              value: skill2.skill_pts_check,
+              onChange: (e) => updateConfig("skill", { ...skill2, skill_pts_check: e.target.valueAsNumber })
+            }
+          )
+        ] })
+      ] })
     ] })
-  ] });
-}
-function IsAutoBuy({ isAutoBuySkill, setAutoBuySkill }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "buy-auto-skill", className: "flex gap-2 items-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { id: "buy-auto-skill", checked: isAutoBuySkill, onCheckedChange: () => setAutoBuySkill(!isAutoBuySkill) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Auto Buy Skill? " })
-  ] });
-}
-function SkillPtsCheck({ skillPtsCheck, setSkillPtsCheck }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "skill-pts-check", className: "flex gap-2 items-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Skill Pts Check" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Input, { id: "skill-pts-check", className: "w-24", type: "number", min: 0, value: skillPtsCheck, onChange: (e) => setSkillPtsCheck(e.target.valueAsNumber) })
   ] });
 }
 function SkillList({
@@ -31775,158 +31935,76 @@ function SkillList({
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium mb-2", children: "Select skill you want to buy" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Dialog, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { className: "font-semibold", children: "Open" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "min-h-[512px] max-w-4xl", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTitle, { children: "Skills List" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-6 min-h-[400px]", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-9/12 flex flex-col", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Input,
-              {
-                placeholder: "Search...",
-                type: "search",
-                value: search,
-                onChange: handleSearch
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4 grid grid-cols-2 gap-4 overflow-auto pr-2 max-h-[420px]", children: filtered?.map(
-              (skill2) => !list.includes(skill2.name) && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
-                {
-                  className: "w-full border-2 border-border rounded-lg px-3 py-2 cursor-pointer hover:border-primary/50 transition",
-                  onClick: () => addSkillList(skill2.name),
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-semibold", children: skill2.name }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: skill2.description })
-                  ]
-                },
-                skill2.name
-              )
-            ) })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-3/12 flex flex-col", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold mb-2", children: "Skills to buy" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2 overflow-auto pr-2 max-h-[420px]", children: list.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "div",
-              {
-                className: "px-4 py-2 cursor-pointer border-2 border-border rounded-lg flex justify-between items-center hover:border-destructive/50 transition",
-                onClick: () => deleteSkillList(item),
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: item })
-              },
-              item
-            )) })
-          ] })
-        ] })
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium mb-2", children: "Select skills you want to buy" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-6 min-h-[400px]", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-9/12 flex flex-col", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            placeholder: "Search...",
+            type: "search",
+            value: search,
+            onChange: handleSearch
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4 grid grid-cols-2 gap-4 overflow-auto pr-2 max-h-[calc(80vh-11rem)]", children: filtered?.map(
+          (skill2) => !list.includes(skill2.name) && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
+            {
+              className: "w-full border-2 border-border rounded-lg px-3 py-2 cursor-pointer hover:border-primary/50 transition",
+              onClick: () => addSkillList(skill2.name),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-semibold", children: skill2.name }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: skill2.description })
+              ]
+            },
+            skill2.name
+          )
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-3/12 flex flex-col", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold mb-2", children: "Skills to buy" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2 overflow-auto pr-2 max-h-[calc(80vh-11rem)]", children: list.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: "px-4 py-2 cursor-pointer border-2 border-border rounded-lg flex justify-between items-center hover:border-destructive/50 transition",
+            onClick: () => deleteSkillList(item),
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: item })
+          },
+          item
+        )) })
       ] })
     ] })
   ] });
 }
 function SkillSection({ config: config2, updateConfig }) {
   const { skill: skill2 } = config2;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full h-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(BrainCircuit, { className: "text-primary" }),
-      "Skill"
+      "Skill List"
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-6", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        IsAutoBuy,
-        {
-          isAutoBuySkill: skill2.is_auto_buy_skill,
-          setAutoBuySkill: (val) => updateConfig("skill", { ...skill2, is_auto_buy_skill: val })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "check-skill-before-races", className: "flex gap-2 items-center", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Checkbox,
-          {
-            id: "check-skill-before-races",
-            checked: skill2.check_skill_before_races,
-            onCheckedChange: () => updateConfig("skill", { ...skill2, check_skill_before_races: !skill2.check_skill_before_races })
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Check Skill Before Races" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "skill-check-turns", className: "flex gap-2 items-center", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Skill Check Turns" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            id: "skill-check-turns",
-            className: "w-24",
-            step: 1,
-            type: "number",
-            value: skill2.skill_check_turns,
-            onChange: (e) => updateConfig("skill", { ...skill2, skill_check_turns: e.target.valueAsNumber })
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        SkillPtsCheck,
-        {
-          skillPtsCheck: skill2.skill_pts_check,
-          setSkillPtsCheck: (val) => updateConfig("skill", { ...skill2, skill_pts_check: val })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        SkillList,
-        {
-          list: skill2.skill_list,
-          addSkillList: (val) => updateConfig("skill", {
-            ...skill2,
-            skill_list: [val, ...skill2.skill_list]
-          }),
-          deleteSkillList: (val) => updateConfig("skill", {
-            ...skill2,
-            skill_list: skill2.skill_list.filter((s) => s !== val)
-          })
-        }
-      )
-    ] })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      SkillList,
+      {
+        list: skill2.skill_list,
+        addSkillList: (val) => updateConfig("skill", {
+          ...skill2,
+          skill_list: [val, ...skill2.skill_list]
+        }),
+        deleteSkillList: (val) => updateConfig("skill", {
+          ...skill2,
+          skill_list: skill2.skill_list.filter((s) => s !== val)
+        })
+      }
+    )
   ] });
 }
 function IsPositionSelectionEnabled({ positionSelectionEnabled, setPositionSelectionEnabled }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "position-selection-enabled", className: "flex gap-2 items-center", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { id: "position-selection-enabled", checked: positionSelectionEnabled, onCheckedChange: () => setPositionSelectionEnabled(!positionSelectionEnabled) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Position Selection Enabled" })
-  ] });
-}
-const MOOD = ["AWFUL", "BAD", "NORMAL", "GOOD", "GREAT"];
-const PRIORITY_WEIGHT = {
-  HEAVY: "Strongly focuses on prioritized stats. A training with fewer supports can still get picked (+75%).",
-  MEDIUM: "Moderately focuses on prioritized stats but still considers support count (+50%).",
-  LIGHT: "Slightly focuses on prioritized stats. Usually goes for trainings with more supports (+25%).",
-  NONE: "Doesn't focus on main stats at all, just picks based on support count only."
-};
-const POSITION = ["front", "pace", "late", "end"];
-function PreferredPosition({ preferredPosition, setPreferredPosition, enablePositionsByRace, positionSelectionEnabled }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Preferred Position" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { disabled: !(positionSelectionEnabled && !enablePositionsByRace), value: preferredPosition, onValueChange: (val) => setPreferredPosition(val), children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: pos, children: pos.toUpperCase() }, pos)) })
-    ] })
-  ] });
-}
-function IsPositionByRace({ enablePositionsByRace, setPositionByRace, positionSelectionEnabled }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "position-by-race", className: "flex gap-2 items-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { disabled: !positionSelectionEnabled, id: "position-by-race", checked: enablePositionsByRace, onCheckedChange: () => setPositionByRace(!enablePositionsByRace) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Position By Race?" })
-  ] });
-}
-function PositionByRace({ positionByRace, setPositionByRace, enablePositionsByRace, positionSelectionEnabled }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium", children: "Position By Race:" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(positionByRace).map(([key, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: key, className: "flex gap-2 items-center w-44 justify-between", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "capitalize", children: key }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { disabled: !(enablePositionsByRace && positionSelectionEnabled), value: val, onValueChange: (val2) => setPositionByRace(key, val2), children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: pos, children: pos.toUpperCase() }, pos)) })
-      ] })
-    ] }, key)) })
   ] });
 }
 const RANK = ["s", "a", "b", "c", "d", "e", "f", "g"];
@@ -31952,39 +32030,77 @@ function RaceStyleSection({ config: config2, updateConfig }) {
             setPositionSelectionEnabled: (val) => updateConfig("position_selection_enabled", val)
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          PreferredPosition,
-          {
-            preferredPosition: preferred_position2,
-            setPreferredPosition: (val) => updateConfig("preferred_position", val),
-            enablePositionsByRace: enable_positions_by_race2,
-            positionSelectionEnabled: position_selection_enabled2
-          }
-        )
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Preferred Position" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            Select,
+            {
+              disabled: !(position_selection_enabled2 && !enable_positions_by_race2),
+              value: preferred_position2,
+              onValueChange: (val) => updateConfig("preferred_position", val),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: pos, children: pos.toUpperCase() }, pos)) })
+              ]
+            }
+          )
+        ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-6", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          IsPositionByRace,
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "label",
           {
-            enablePositionsByRace: enable_positions_by_race2,
-            setPositionByRace: (val) => updateConfig("enable_positions_by_race", val),
-            positionSelectionEnabled: position_selection_enabled2
+            htmlFor: "position-by-race",
+            className: "flex gap-2 items-center cursor-pointer",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Checkbox,
+                {
+                  disabled: !position_selection_enabled2,
+                  id: "position-by-race",
+                  checked: enable_positions_by_race2,
+                  onCheckedChange: () => updateConfig(
+                    "enable_positions_by_race",
+                    !enable_positions_by_race2
+                  )
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Position By Race?" })
+            ]
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          PositionByRace,
-          {
-            positionByRace: positions_by_race2,
-            setPositionByRace: (key, val) => updateConfig("positions_by_race", {
-              ...positions_by_race2,
-              [key]: val
-            }),
-            enablePositionsByRace: enable_positions_by_race2,
-            positionSelectionEnabled: position_selection_enabled2
-          }
-        )
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium", children: "Position By Race:" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(positions_by_race2).map(([key, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "label",
+            {
+              htmlFor: key,
+              className: "flex gap-2 items-center w-44 justify-between cursor-pointer",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "capitalize", children: key }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  Select,
+                  {
+                    disabled: !(enable_positions_by_race2 && position_selection_enabled2),
+                    value: val,
+                    onValueChange: (newVal) => updateConfig("positions_by_race", {
+                      ...positions_by_race2,
+                      [key]: newVal
+                    }),
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: pos, children: pos.toUpperCase() }, pos)) })
+                    ]
+                  }
+                )
+              ]
+            },
+            key
+          )) })
+        ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+        "Minimum Aptituted",
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-center", children: "surface" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -35851,30 +35967,9 @@ function Sortable({ id }) {
     transform: CSS$1.Transform.toString(transform2),
     transition
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { ref: setNodeRef, style, ...attributes, ...listeners, className: "px-3 py-2 rounded-md cursor-grab flex gap-4 border-2 border-neutral-500", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { ref: setNodeRef, style, ...attributes, ...listeners, className: "px-3 py-1.75 rounded-md cursor-grab flex gap-4 border-1 border-border bg-transparent dark:bg-input/30", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, {}),
     id.toUpperCase()
-  ] });
-}
-function PriorityStat({ priorityStat, setPriorityStat }) {
-  const sensors = useSensors(useSensor(PointerSensor));
-  const handleDragEnd = (event2) => {
-    const { active, over } = event2;
-    if (active.id !== over?.id) {
-      const oldIndex = priorityStat.indexOf(active.id);
-      const newIndex = priorityStat.indexOf(over?.id);
-      setPriorityStat(arrayMove(priorityStat, oldIndex, newIndex));
-    }
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium", children: "Priority Stat" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(DndContext, { sensors, collisionDetection: closestCenter, onDragEnd: handleDragEnd, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SortableContext, { items: priorityStat, strategy: verticalListSortingStrategy, children: /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "flex flex-col gap-2 w-fit", children: priorityStat.map((s) => /* @__PURE__ */ jsxRuntimeExports.jsx(Sortable, { id: s }, s)) }) }) })
-  ] });
-}
-function PriorityWeights({ priorityWeights, setPriorityWeights }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium", children: "Priority Weight Multiplier" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Array.from({ length: 5 }, (_, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Input, { type: "number", step: 0.05, value: priorityWeights[i], onChange: (e) => setPriorityWeights(e.target.valueAsNumber, i) }, i)) })
   ] });
 }
 var RADIO_NAME = "Radio";
@@ -36145,7 +36240,7 @@ var Root2 = RadioGroup$1;
 var Item2 = RadioGroupItem$1;
 var Indicator = RadioGroupIndicator;
 function RadioGroup({ className, ...props }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Root2, { "data-slot": "radio-group", className: cn("grid gap-3", className), ...props });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Root2, { "data-slot": "radio-group", className: cn("grid gap-1", className), ...props });
 }
 function RadioGroupItem({ className, ...props }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -36161,88 +36256,11 @@ function RadioGroupItem({ className, ...props }) {
     }
   );
 }
-function PriorityWeight({ priorityWeight, setPriorityWeight }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-fit", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "priority-weight", className: "flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Priority Weight Level" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(RadioGroup, { value: priorityWeight, onValueChange: (val) => setPriorityWeight(val), children: Object.entries(PRIORITY_WEIGHT).map(([weight, description]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(RadioGroupItem, { value: weight, id: weight }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: weight, children: weight }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: description })
-    ] }, weight)) })
-  ] }) });
-}
-function FailChance({ maximumFailure, setFail }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "fail", className: "flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Max Failure Chance" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Input,
-        {
-          className: "w-24",
-          type: "number",
-          name: "fail",
-          id: "fail",
-          min: 0,
-          value: maximumFailure,
-          onChange: (e) => setFail(e.target.valueAsNumber)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-muted-foreground", children: "%" })
-    ] })
-  ] });
-}
-function StatCaps({ statCaps, setStatCaps }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium", children: "Stat Caps" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(statCaps).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Input,
-        {
-          type: "number",
-          value: val,
-          min: 0,
-          onChange: (e) => setStatCaps(stat, e.target.valueAsNumber)
-        }
-      )
-    ] }, stat)) })
-  ] });
-}
-function HintHunting({ hintHuntingEnabled, hintWeights, setHintHuntingEnabled, setHintWeights }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-medium", children: "Hint Hunting" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "hint-hunting", className: "flex gap-2 items-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Checkbox,
-        {
-          id: "hint-hunting",
-          checked: hintHuntingEnabled,
-          onCheckedChange: () => setHintHuntingEnabled(!hintHuntingEnabled)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children: "Enable Hint Hunting" })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(hintWeights).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Input,
-        {
-          type: "number",
-          value: val,
-          min: 0,
-          step: 0.1,
-          onChange: (e) => setHintWeights(stat, e.target.valueAsNumber)
-        }
-      )
-    ] }, stat)) })
-  ] });
-}
-function TrainingSection({ config: config2, updateConfig }) {
+function TrainingSection$2({ config: config2, updateConfig }) {
   const {
     priority_stat: priority_stat2,
     priority_weight: priority_weight2,
     priority_weights: priority_weights2,
-    maximum_failure: maximum_failure2,
     stat_caps: stat_caps2,
     hint_hunting_enabled: hint_hunting_enabled2,
     hint_hunting_weights: hint_hunting_weights2,
@@ -36251,245 +36269,334 @@ function TrainingSection({ config: config2, updateConfig }) {
     non_max_support_weight: non_max_support_weight2,
     scenario_gimmick_weight: scenario_gimmick_weight2
   } = config2;
+  const sensors = useSensors(useSensor(PointerSensor));
+  const handleDragEnd = (event2) => {
+    const { active, over } = event2;
+    if (active.id !== over?.id) {
+      const oldIndex = priority_stat2.indexOf(active.id);
+      const newIndex = priority_stat2.indexOf(over?.id);
+      updateConfig("priority_stat", arrayMove(priority_stat2, oldIndex, newIndex));
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ChartColumn, { className: "text-primary" }),
       "Training"
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        PriorityStat,
-        {
-          priorityStat: priority_stat2,
-          setPriorityStat: (val) => updateConfig("priority_stat", val)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        PriorityWeights,
-        {
-          priorityWeights: priority_weights2,
-          setPriorityWeights: (val, i) => {
-            const newWeights = [...priority_weights2];
-            newWeights[i] = isNaN(val) ? 0 : val;
-            updateConfig("priority_weights", newWeights);
-          }
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        PriorityWeight,
-        {
-          priorityWeight: priority_weight2,
-          setPriorityWeight: (val) => updateConfig("priority_weight", val)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        FailChance,
-        {
-          maximumFailure: maximum_failure2,
-          setFail: (val) => updateConfig("maximum_failure", isNaN(val) ? 0 : val)
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8 grid grid-cols-1 md:grid-cols-2 gap-8", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        StatCaps,
-        {
-          statCaps: stat_caps2,
-          setStatCaps: (key, val) => updateConfig("stat_caps", {
-            ...stat_caps2,
-            [key]: isNaN(val) ? 0 : val
-          })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        HintHunting,
-        {
-          hintWeights: hint_hunting_weights2,
-          setHintWeights: (key, val) => updateConfig("hint_hunting_weights", {
-            ...hint_hunting_weights2,
-            [key]: isNaN(val) ? 0 : val
-          }),
-          hintHuntingEnabled: hint_hunting_enabled2,
-          setHintHuntingEnabled: (enabled) => updateConfig("hint_hunting_enabled", enabled)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 items-center", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "wit_training_score_ratio_threshold" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            type: "number",
-            min: 0,
-            step: 0.05,
-            value: wit_training_score_ratio_threshold2,
-            onChange: (e) => updateConfig(
-              "wit_training_score_ratio_threshold",
-              e.target.valueAsNumber
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-fit", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "priority-weight", className: "flex flex-col gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-semibold", children: "Priority Weight Level:" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            RadioGroup,
+            {
+              value: priority_weight2,
+              onValueChange: (val) => updateConfig("priority_weight", val),
+              children: Object.entries(PRIORITY_WEIGHT).map(([weight, description]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(RadioGroupItem, { value: weight, id: weight }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: weight, className: "cursor-pointer capitalize", children: weight }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: description })
+              ] }, weight))
+            }
+          )
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-row gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold", children: "Priority Stat" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              DndContext,
+              {
+                sensors,
+                collisionDetection: closestCenter,
+                onDragEnd: handleDragEnd,
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  SortableContext,
+                  {
+                    items: priority_stat2,
+                    strategy: verticalListSortingStrategy,
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "flex flex-col gap-2 w-fit", children: priority_stat2.map((s) => /* @__PURE__ */ jsxRuntimeExports.jsx(Sortable, { id: s }, s)) })
+                  }
+                )
+              }
             )
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "rainbow_support_weight_addition" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            type: "number",
-            min: 0,
-            step: 0.05,
-            value: rainbow_support_weight_addition2,
-            onChange: (e) => updateConfig(
-              "rainbow_support_weight_addition",
-              e.target.valueAsNumber
-            )
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "non_max_support_weight" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            type: "number",
-            min: 0,
-            step: 0.05,
-            value: non_max_support_weight2,
-            onChange: (e) => updateConfig("non_max_support_weight", e.target.valueAsNumber)
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "scenario_gimmick_weight" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            type: "number",
-            min: 0,
-            step: 0.05,
-            value: scenario_gimmick_weight2,
-            onChange: (e) => updateConfig("scenario_gimmick_weight", e.target.valueAsNumber)
-          }
-        )
-      ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold", children: "Priority Multiplier" }),
+            Array.from({ length: 5 }, (_, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Input,
+              {
+                className: "w-20",
+                type: "number",
+                step: 0.05,
+                value: priority_weights2[i],
+                onChange: (e) => {
+                  const newWeights = [...priority_weights2];
+                  newWeights[i] = e.target.valueAsNumber;
+                  updateConfig("priority_weights", newWeights);
+                }
+              },
+              i
+            ))
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Wit Training Treshold",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20",
+              type: "number",
+              min: 0,
+              step: 0.05,
+              value: wit_training_score_ratio_threshold2,
+              onChange: (e) => updateConfig(
+                "wit_training_score_ratio_threshold",
+                e.target.valueAsNumber
+              )
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Rainbow Weight Addition",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20",
+              type: "number",
+              min: 0,
+              step: 0.05,
+              value: rainbow_support_weight_addition2,
+              onChange: (e) => updateConfig(
+                "rainbow_support_weight_addition",
+                e.target.valueAsNumber
+              )
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Non-Max Support Weight",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20",
+              type: "number",
+              min: 0,
+              step: 0.05,
+              value: non_max_support_weight2,
+              onChange: (e) => updateConfig("non_max_support_weight", e.target.valueAsNumber)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Scenario Gimmick Weight",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20",
+              type: "number",
+              min: 0,
+              step: 0.05,
+              value: scenario_gimmick_weight2,
+              onChange: (e) => updateConfig("scenario_gimmick_weight", e.target.valueAsNumber)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "hint-hunting", className: "flex gap-2 items-center cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Checkbox,
+            {
+              id: "hint-hunting",
+              checked: hint_hunting_enabled2,
+              onCheckedChange: () => updateConfig("hint_hunting_enabled", !hint_hunting_enabled2)
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-semibold", children: "Enable Hint Hunting" })
+        ] }) }),
+        hint_hunting_enabled2 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(hint_hunting_weights2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-4 cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-24",
+              type: "number",
+              value: val,
+              min: 0,
+              step: 0.1,
+              onChange: (e) => updateConfig("hint_hunting_weights", { ...hint_hunting_weights2, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber })
+            }
+          )
+        ] }, stat)) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold", children: "Stat Caps" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(stat_caps2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-4 cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-24",
+              type: "number",
+              value: val,
+              min: 0,
+              onChange: (e) => updateConfig("stat_caps", { ...stat_caps2, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber })
+            }
+          )
+        ] }, stat)) })
+      ] }) })
     ] })
   ] });
 }
-function Mood({
-  minimumMood,
-  setMood,
-  minimumMoodJunior,
-  setMoodJunior
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Min Mood (Junior)" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Select,
-        {
-          name: "mood-junior",
-          value: minimumMoodJunior,
-          onValueChange: (val) => setMoodJunior(val),
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-36 mt-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Mood" }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: MOOD.map((m2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: m2, children: m2 }, m2)) })
-          ]
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Min Mood" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        Select,
-        {
-          name: "mood",
-          value: minimumMood,
-          onValueChange: (val) => setMood(val),
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-36 mt-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Mood" }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: MOOD.map((m2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: m2, children: m2 }, m2)) })
-          ]
-        }
-      )
-    ] })
-  ] });
-}
-function EnergyInput({ name, value, setValue, children }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: name, className: "flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium shrink-0", children }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Input, { className: "w-24 shrink-0", type: "number", name, id: name, min: 0, value, onChange: (e) => setValue(Number(e.target.valueAsNumber)) })
-  ] });
-}
-function EnergySection({ config: config2, updateConfig }) {
+function TrainingSection$1({ config: config2, updateConfig }) {
   const {
+    maximum_failure: maximum_failure2,
+    minimum_condition_severity: minimum_condition_severity2,
     skip_training_energy: skip_training_energy2,
     never_rest_energy: never_rest_energy2,
     skip_infirmary_unless_missing_energy: skip_infirmary_unless_missing_energy2,
     rest_before_summer_energy: rest_before_summer_energy2
   } = config2;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-6", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      EnergyInput,
-      {
-        name: "skip-training-energy",
-        value: skip_training_energy2,
-        setValue: (val) => updateConfig("skip_training_energy", val),
-        children: "Skip Training Energy"
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      EnergyInput,
-      {
-        name: "never-rest-energy",
-        value: never_rest_energy2,
-        setValue: (val) => updateConfig("never_rest_energy", val),
-        children: "Never Rest Energy"
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      EnergyInput,
-      {
-        name: "skip-infirmary-unless_missing-energy",
-        value: skip_infirmary_unless_missing_energy2,
-        setValue: (val) => updateConfig("skip_infirmary_unless_missing_energy", val),
-        children: "Skip Infirmary"
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      EnergyInput,
-      {
-        name: "rest_before_summer_energy",
-        value: rest_before_summer_energy2,
-        setValue: (val) => updateConfig("rest_before_summer_energy", val),
-        children: "rest_before_summer_energy"
-      }
-    )
-  ] });
-}
-function GeneralSection({ config: config2, updateConfig }) {
-  const {
-    minimum_mood: minimum_mood2,
-    minimum_mood_junior_year: minimum_mood_junior_year2,
-    minimum_condition_severity: minimum_condition_severity2
-  } = config2;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Cog, { className: "text-primary" }),
-      "General"
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ChartColumn, { className: "text-primary" }),
+      "Energy"
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Mood,
-        {
-          minimumMood: minimum_mood2,
-          setMood: (val) => updateConfig("minimum_mood", val),
-          minimumMoodJunior: minimum_mood_junior_year2,
-          setMoodJunior: (val) => updateConfig("minimum_mood_junior_year", val)
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EnergySection, { config: config2, updateConfig }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "minimum_condition_severity" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Skip Training Energy",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20 text-center",
+              type: "number",
+              min: 0,
+              value: skip_training_energy2,
+              onChange: (e) => updateConfig("skip_training_energy", e.target.valueAsNumber)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Never Rest Energy",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20 text-center",
+              type: "number",
+              min: 0,
+              value: never_rest_energy2,
+              onChange: (e) => updateConfig("never_rest_energy", e.target.valueAsNumber)
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Rest Before Summer Energy",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20 text-center",
+              type: "number",
+              min: 0,
+              value: rest_before_summer_energy2,
+              onChange: (e) => updateConfig("rest_before_summer_energy", e.target.valueAsNumber)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Skip Infirmary Threshold",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20 text-center",
+              type: "number",
+              min: 0,
+              value: skip_infirmary_unless_missing_energy2,
+              onChange: (e) => updateConfig(
+                "skip_infirmary_unless_missing_energy",
+                e.target.valueAsNumber
+              )
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Max Failure Chance (%)",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20 text-center",
+              type: "number",
+              min: 0,
+              value: maximum_failure2,
+              onChange: (e) => updateConfig(
+                "maximum_failure",
+                isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber
+              )
+            }
+          ) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+          "Min Condition Severity",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              className: "w-20 text-center",
+              type: "number",
+              step: 1,
+              value: minimum_condition_severity2,
+              onChange: (e) => updateConfig(
+                "minimum_condition_severity",
+                e.target.valueAsNumber
+              )
+            }
+          )
+        ] })
+      ] })
+    ] })
+  ] });
+}
+function TrainingSection({ config: config2, updateConfig }) {
+  const { minimum_mood: minimum_mood2, minimum_mood_junior_year: minimum_mood_junior_year2 } = config2;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full bg-card p-6 rounded-xl shadow-lg border border-border/20", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ChartColumn, { className: "text-primary" }),
+      "Mood"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+        "Min Mood (Junior)",
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          Select,
           {
-            type: "number",
-            step: 1,
-            value: minimum_condition_severity2,
-            onChange: (e) => updateConfig("minimum_condition_severity", e.target.valueAsNumber)
+            name: "mood-junior",
+            value: minimum_mood_junior_year2,
+            onValueChange: (val) => updateConfig("minimum_mood_junior_year", val),
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-36", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Mood" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: MOOD.map((m2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectItem, { value: m2, children: [
+                " ",
+                m2
+              ] }, m2)) })
+            ]
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+        "Min Mood",
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          Select,
+          {
+            name: "mood",
+            value: minimum_mood2,
+            onValueChange: (val) => updateConfig("minimum_mood", val),
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-36", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Mood" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: MOOD.map((m2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: m2, children: m2 }, m2)) })
+            ]
           }
         )
       ] })
@@ -37560,7 +37667,7 @@ function App() {
     } else {
       setConfig(defaultConfig);
     }
-  }, [activeIndex, presets, setConfig]);
+  }, [activeIndex, defaultConfig, presets, setConfig]);
   const effectiveThemeId = config2.theme || (themes.length > 0 ? themes[0].id : "");
   reactExports.useEffect(() => {
     fetch("/themes").then((res) => res.json()).then((data) => setThemes(data)).catch((err) => console.error("Failed to load themes:", err));
@@ -37584,9 +37691,17 @@ function App() {
       case "set-up":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(SetUpSection, { ...props });
       case "general":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(GeneralSection, { ...props });
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(EventSection$1, { ...props }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(RaceScheduleSection$1, { ...props }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SkillSection$1, { ...props })
+        ] });
       case "training":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection, { ...props });
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection$1, { ...props }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection, { ...props }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection$2, { ...props })
+        ] });
       case "race-style":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(RaceStyleSection, { ...props });
       case "skills":
@@ -37602,7 +37717,17 @@ function App() {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "flex min-h-screen w-full bg-triangles overflow-hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Sidebar, { activeTab, setActiveTab, appVersion }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Sidebar,
+      {
+        activeTab,
+        setActiveTab,
+        appVersion,
+        eventCount: config2.event.event_choices.length,
+        raceCount: config2.race_schedule.length,
+        skillCount: config2.skill.skill_list.length
+      }
+    ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col overflow-y-auto", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("header", { className: "p-6 w-full py-4 self-start border-b border-border flex items-end justify-between sticky top-0 z-10 backdrop-blur-md", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end justify-between w-full", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
@@ -37699,7 +37824,7 @@ function App() {
           )
         ] })
       ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 flex w-full min-h-[80vh] items-center transition-all animate-in fade-in slide-in-from-bottom-2 duration-300", children: renderContent() })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 flex flex-col gap-y-6 w-full min-h-[calc(100vh-6.2rem)] items-center transition-all animate-in fade-in slide-in-from-bottom-2 duration-300", children: renderContent() })
     ] })
   ] });
 }

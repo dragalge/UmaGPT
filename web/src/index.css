@@ -145,7 +145,7 @@
 }
 
 .dark .bg-triangles::before {
-  filter: invert(1) hue-rotate(180deg) brightness(1.5);
+  filter: invert(1) hue-rotate(180deg) brightness(1.0);
 }
 
 .uma-btn {

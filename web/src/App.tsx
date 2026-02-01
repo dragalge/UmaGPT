@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import rawConfig from "../../config.json";
 import { useConfigPreset } from "./hooks/useConfigPreset";
@@ -24,7 +24,6 @@ import RaceStyleSection from "./components/race-style/RaceStyleSection";
 import TrainingSection from "./components/training/TrainingSection";
 import EnergySection from "./components/training/EnergySection";
 import MoodSection from "./components/training/MoodSection";
-// import GeneralSection from "./components/general/GeneralSection";
 import Skeleton from "./components/skeleton/Skeleton";
 
 interface Theme {
@@ -91,20 +90,21 @@ function App() {
       .catch((err) => console.error("Failed to load themes:", err));
   }, []);
 
-  const updateConfig = <K extends keyof typeof config>(key: K, value: (typeof config)[K]) => {
+  const updateConfig = useCallback(<K extends keyof typeof config>(key: K, value: (typeof config)[K]) => {
     setConfig((prev) => ({ ...prev, [key]: value }));
-  };
+  }, [setConfig]);
 
   useEffect(() => {
     if (themes.length === 0) return;
     const activeTheme = themes.find((t) => t.id === effectiveThemeId) || themes[0];
     if (activeTheme) {
       document.documentElement.style.setProperty("--primary", activeTheme.primary);
+      document.documentElement.style.setProperty("--secondary", activeTheme.secondary);
       if (config.theme !== activeTheme.id) {
         updateConfig("theme", activeTheme.id);
       }
     }
-  }, [themes, effectiveThemeId, config.theme]);
+  }, [themes, effectiveThemeId, config.theme, updateConfig]);
 
 
   const renderContent = () => {
@@ -163,8 +163,7 @@ function App() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className={`rounded-l-none border-l border-input bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 ${isEditing ? "text-primary" : "text-muted-foreground"
-                      }`}
+                    className={`rounded-l-none border-l border-input bg-card hover:bg-accent h-10 w-10 transition-colors shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 ${isEditing ? "text-primary" : "text-muted-foreground"}`}
                     onClick={() => setIsEditing(!isEditing)}
                   >
                     <Pencil size={14} className={isEditing ? "fill-current" : ""} />
@@ -211,7 +210,7 @@ function App() {
             {toast.show && (
               <div className={`flex items-center gap-2 px-4 py-1 rounded-full text-sm font-medium animate-in fade-in zoom-in duration-300 border ${toast.isError
                 ? "bg-destructive/10 border-destructive/20 text-destructive"
-                : "bg-primary/10 border-primary/20 text-primary"
+                : "bg-secondary/10 border-secondary/20 text-secondary"
                 }`}>
                 {toast.isError ? <AlertCircle size={22} /> : <CheckCircle2 size={22} />}
                 {toast.message}

@@ -44,8 +44,7 @@ def play_claw_machine(claw_btn_match):
 
   # coords to hold btn on
   x, y, w, h = claw_btn_match
-  offset_x = constants.GAME_WINDOW_REGION[0]
-  cx = offset_x + x + w // 2
+  cx = x + w // 2
   cy = y + h // 2
 
   info(f"Claw machine press duration: {seconds}, coord_x_diff: {coord_x_diff}, claw_speed {claw_speed}")

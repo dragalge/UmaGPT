@@ -13,7 +13,7 @@ import FormRiskTaking from "./_c/risk-taking/Form.RiskTaking";
 import ListRiskTaking from "./_c/risk-taking/List.RiskTaking";
 import FormActionSequence from "./_c/action-sequence/Form.ActionSequence";
 import ListActionSequence from "./_c/action-sequence/List.ActionSequence";
-import Timeline from "./_c/timeline/Timeline";
+import Timeline from "./timeline/Timeline";
 
 type Props = {
   config: Config;
@@ -24,20 +24,16 @@ export default function TimelineSection({ config, updateConfig }: Props) {
   return (
     <>
       <div className="section-card">
-        <h2 className="text-3xl font-semibold mb-6 flex items-center gap-3">
+        <h2 className="text-3xl font-semibold flex items-center gap-3">
           <CalendarRange className="text-primary" />
           Timeline
         </h2>
-<TemplateList config={config} updateConfig={updateConfig} />
+
+        <Timeline config={config} updateConfig={updateConfig} />
+
+        <TemplateList config={config} updateConfig={updateConfig} />
       </div>
 
-
-      <div className="relative w-fit pb-12 min-h-[300px]">
-        <h2 className="text-2xl font-semibold">Timeline</h2>
-        <div className="max-w-[calc(100vw-256px-56px)] w-fit overflow-x-auto min-h-[300px] flex items-stretch">
-          <Timeline config={config} updateConfig={updateConfig} />
-        </div>
-      </div>
       <Tabs defaultValue="action_sequence">
 
         <TabsList>

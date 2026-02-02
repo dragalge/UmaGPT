@@ -25,7 +25,7 @@ export default function TemplateList({ config, updateConfig }: Props) {
           <p className="text-slate-500">Please add them first</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4">
           {templates.map((set) => {
             const [name, value] = set;
             const stat = Object.entries(value ?? {});
@@ -33,17 +33,19 @@ export default function TemplateList({ config, updateConfig }: Props) {
             return (
               <div
                 key={name}
-                style={{
-                  ...colorFromString(name),
+                draggable
+                onDragStart={(e) => {
+                  e.dataTransfer.setData("templateName", name);
                 }}
-                className="relative group border border-slate-200 rounded-xl p-4 w-full max-w-80 bg-white shadow-sm hover:shadow-md hover:border-slate-300 transition-all"
+                style={{ ...colorFromString(name) }}
+                className="relative group border border-slate-200 rounded-xl p-2 py-4 w-full max-w-80 bg-white shadow-sm hover:shadow-md hover:border-slate-300 transition-all cursor-grab active:cursor-grabbing"
               >
                 <div className="pr-10">
-                  <p className="text-lg font-semibold text-slate-800 truncate">
-                    {name}
+                  <p className="font-semibold text-slate-800 dark:text-slate-200 truncate">
+                    {name.replaceAll("_", " ")}
                   </p>
 
-                  <div className="mt-2 flex flex-col gap-2">
+                  {/* <div className="mt-2 flex flex-col gap-2">
                     {stat.map(([key, val]) => (
                       <div
                         key={key}
@@ -53,7 +55,7 @@ export default function TemplateList({ config, updateConfig }: Props) {
                         <span className="font-medium">{val}</span>
                       </div>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
 
                 <Button

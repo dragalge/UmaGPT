@@ -1,19 +1,8 @@
 import { Dumbbell } from "lucide-react";
 import type { Config, UpdateConfigType } from "@/types";
 import { Input } from "../ui/input";
-import {
-  DndContext,
-  closestCenter,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-} from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, type DragEndEvent,} from "@dnd-kit/core";
+import { arrayMove, SortableContext, verticalListSortingStrategy,} from "@dnd-kit/sortable";
 import Sortable from "../Sortable";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { PRIORITY_WEIGHT } from "@/constants";

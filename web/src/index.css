@@ -218,7 +218,7 @@
 
 .section-card {
   width: 100%;
-  height: 100%;
+  height: fit-content;
   animation-duration: .3s;
   --tw-duration: .3s;
   --tw-enter-scale: initial;

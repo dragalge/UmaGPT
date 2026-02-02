@@ -15963,7 +15963,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$x = [
+const __iconNode$y = [
   [
     "path",
     {
@@ -15984,7 +15984,24 @@ const __iconNode$x = [
   ["circle", { cx: "20", cy: "21", r: ".5", key: "yhc1fs" }],
   ["circle", { cx: "20", cy: "8", r: ".5", key: "1e43v0" }]
 ];
-const BrainCircuit = createLucideIcon("brain-circuit", __iconNode$x);
+const BrainCircuit = createLucideIcon("brain-circuit", __iconNode$y);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$x = [
+  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
+  ["path", { d: "M16 2v4", key: "4m81vk" }],
+  ["path", { d: "M3 10h18", key: "8toen8" }],
+  ["path", { d: "M8 2v4", key: "1cmpym" }],
+  ["path", { d: "M17 14h-6", key: "bkmgh3" }],
+  ["path", { d: "M13 18H7", key: "bb0bb7" }],
+  ["path", { d: "M7 14h.01", key: "1qa3f1" }],
+  ["path", { d: "M17 18h.01", key: "1bdyru" }]
+];
+const CalendarRange = createLucideIcon("calendar-range", __iconNode$x);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -19680,7 +19697,7 @@ const navItems = [
   { id: "skills", label: "Skills", icon: Star },
   { id: "schedule", label: "Race Schedule", icon: Flag },
   { id: "events", label: "Events", icon: Calendar },
-  { id: "skeleton", label: "Timeline", icon: PanelsTopLeft }
+  { id: "timeline", label: "Timeline", icon: PanelsTopLeft }
 ];
 function Sidebar({ activeTab, setActiveTab, appVersion, eventCount, raceCount, skillCount }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-64 h-screen sticky top-0 flex flex-col", children: [
@@ -25805,21 +25822,6 @@ function SetUpSection({ config: config2, updateConfig }) {
       "Set-Up"
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-8", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "window-name", className: "flex flex-col gap-2 cursor-pointer group", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 items-center", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium group-hover:text-primary transition-colors", children: "Window Name" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "If you're using an emulator, set this to your emulator's window name (case-sensitive)." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Input,
-          {
-            id: "window-name",
-            className: "w-48",
-            value: window_name2,
-            onChange: (e) => updateConfig("window_name", e.target.value)
-          }
-        )
-      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "sleep-multiplier", className: "flex flex-col gap-2 cursor-pointer group", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium group-hover:text-primary transition-colors", children: "Sleep Time Multiplier" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -25844,7 +25846,22 @@ function SetUpSection({ config: config2, updateConfig }) {
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Use ADB" })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-col gap-2", children: [
+      !use_adb2 && /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "window-name", className: "flex flex-col gap-2 cursor-pointer group", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 items-center", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium group-hover:text-primary transition-colors", children: "Window Name" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "If you're using an emulator, set this to your emulator's window name (case-sensitive)." })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            id: "window-name",
+            className: "w-48",
+            value: window_name2,
+            onChange: (e) => updateConfig("window_name", e.target.value)
+          }
+        )
+      ] }),
+      use_adb2 && /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-col gap-2", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg font-medium", children: "Device ID" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Input,
@@ -37008,6 +37025,56 @@ function ListTemplate({ config: config2, updateConfig }) {
     );
   }) }) });
 }
+function TemplateList({ config: config2, updateConfig }) {
+  const {
+    training_strategy: { templates: templates_config }
+  } = config2;
+  const templates = Object.entries(templates_config);
+  const modify = useModifyTrainingStrategy(config2, updateConfig, "templates");
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: templates.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "size-full flex flex-col items-center justify-center", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-semibold", children: "No target stat sets" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-slate-500", children: "Please add them first" })
+  ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4", children: templates.map((set) => {
+    const [name, value] = set;
+    const stat = Object.entries(value ?? {});
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        style: {
+          ...colorFromString(name)
+        },
+        className: "relative group border border-slate-200 rounded-xl p-4 w-full max-w-80 bg-white shadow-sm hover:shadow-md hover:border-slate-300 transition-all",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pr-10", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-semibold text-slate-800 truncate", children: name }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 flex flex-col gap-2", children: stat.map(([key, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "text-sm text-slate-600 border rounded-md px-2 py-1",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "capitalize", children: key.replaceAll("_", " ") }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-medium", children: val })
+                ]
+              },
+              key
+            )) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Button,
+            {
+              size: "icon",
+              variant: "destructive",
+              className: "absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200",
+              onClick: () => modify(name, null),
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash, { className: "h-4 w-4", color: "white" })
+            }
+          )
+        ]
+      },
+      name
+    );
+  }) }) });
+}
 function FormRiskTaking({ config: config2, updateConfig }) {
   const [value, setValue] = reactExports.useState({
     rainbow_increase: 0,
@@ -37404,54 +37471,63 @@ function Timeline({ config: config2, updateConfig }) {
     }) })
   ] }, year)) });
 }
-function Skeleton({ config: config2, updateConfig }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Tabs, { defaultValue: "action_sequence", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pb-12 min-h-[300px] w-full", children: [
+function TimelineSection({ config: config2, updateConfig }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "section-card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CalendarRange, { className: "text-primary" }),
+        "Timeline"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(TemplateList, { config: config2, updateConfig })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-fit pb-12 min-h-[300px]", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Timeline" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "-mx-[calc(50vw-50%-50px)] w-[calc(100vw-100px)] overflow-x-auto min-h-[300px] flex items-stretch", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Timeline, { config: config2, updateConfig }) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "max-w-[calc(100vw-256px-56px)] w-fit overflow-x-auto min-h-[300px] flex items-stretch", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Timeline, { config: config2, updateConfig }) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(TabsList, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "action_sequence", children: "Action Sequence" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "risk_taking", children: "Risk Taking" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "stat_weight", children: "Stat Weight" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "target_stat", children: "Target Stat" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "template", children: "Template" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "action_sequence", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Action Sequence" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FormActionSequence, { config: config2, updateConfig })
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Tabs, { defaultValue: "action_sequence", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(TabsList, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "action_sequence", children: "Action Sequence" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "risk_taking", children: "Risk Taking" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "stat_weight", children: "Stat Weight" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "target_stat", children: "Target Stat" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TabsTrigger, { value: "template", children: "Template" })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListActionSequence, { config: config2, updateConfig }) })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "risk_taking", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Risk Taking" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FormRiskTaking, { config: config2, updateConfig })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListRiskTaking, { config: config2, updateConfig }) })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "stat_weight", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Stat Weight" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FormStatWeight, { config: config2, updateConfig })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListStatWeight, { config: config2, updateConfig }) })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "target_stat", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Target Stat" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FormTargetStat, { updateConfig, config: config2 })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListTargetStat, { config: config2, updateConfig }) })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "template", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Template" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FormTemplate, { config: config2, updateConfig })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListTemplate, { config: config2, updateConfig }) })
-    ] }) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "action_sequence", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Action Sequence" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FormActionSequence, { config: config2, updateConfig })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListActionSequence, { config: config2, updateConfig }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "risk_taking", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Risk Taking" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FormRiskTaking, { config: config2, updateConfig })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListRiskTaking, { config: config2, updateConfig }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "stat_weight", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Stat Weight" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FormStatWeight, { config: config2, updateConfig })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListStatWeight, { config: config2, updateConfig }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "target_stat", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Target Stat" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FormTargetStat, { updateConfig, config: config2 })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListTargetStat, { config: config2, updateConfig }) })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(TabsContent, { value: "template", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(SkeletonLayout.Column, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-semibold", children: "Template" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FormTemplate, { config: config2, updateConfig })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SkeletonLayout.Column, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(ListTemplate, { config: config2, updateConfig }) })
+      ] }) })
+    ] })
   ] });
 }
 function App() {
@@ -37532,8 +37608,8 @@ function App() {
         return /* @__PURE__ */ jsxRuntimeExports.jsx(RaceScheduleSection, { ...props });
       case "events":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(EventSection, { ...props });
-      case "skeleton":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { ...props });
+      case "timeline":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(TimelineSection, { ...props });
       default:
         return /* @__PURE__ */ jsxRuntimeExports.jsx(SetUpSection, { ...props });
     }

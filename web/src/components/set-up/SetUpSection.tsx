@@ -24,23 +24,6 @@ export default function SetUpSection({ config, updateConfig }: Props) {
         Set-Up
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <label htmlFor="window-name" className="flex flex-col gap-2 cursor-pointer group">
-          <div className="flex gap-2 items-center">
-            <span className="text-lg font-medium group-hover:text-primary transition-colors">
-              Window Name
-            </span>
-            <Tooltips>
-              If you're using an emulator, set this to your emulator's window name
-              (case-sensitive).
-            </Tooltips>
-          </div>
-          <Input
-            id="window-name"
-            className="w-48"
-            value={window_name}
-            onChange={(e) => updateConfig("window_name", e.target.value)}
-          />
-        </label>
         <label htmlFor="sleep-multiplier" className="flex flex-col gap-2 cursor-pointer group">
           <span className="text-lg font-medium group-hover:text-primary transition-colors">
             Sleep Time Multiplier
@@ -63,15 +46,36 @@ export default function SetUpSection({ config, updateConfig }: Props) {
           />
           <span className="text-lg font-medium">Use ADB</span>
         </label>
-        <label className="flex flex-col gap-2">
-          <span className="text-lg font-medium">Device ID</span>
-          <Input
-            type="text"
-            className="w-48"
-            value={device_id}
-            onChange={(e) => updateConfig("device_id", e.target.value)}
-          />
-        </label>
+        {!use_adb && (
+          <label htmlFor="window-name" className="flex flex-col gap-2 cursor-pointer group">
+            <div className="flex gap-2 items-center">
+              <span className="text-lg font-medium group-hover:text-primary transition-colors">
+                Window Name
+              </span>
+              <Tooltips>
+                If you're using an emulator, set this to your emulator's window name
+                (case-sensitive).
+              </Tooltips>
+            </div>
+            <Input
+              id="window-name"
+              className="w-48"
+              value={window_name}
+              onChange={(e) => updateConfig("window_name", e.target.value)}
+            />
+          </label>
+        )}
+        {use_adb && (
+          <label className="flex flex-col gap-2">
+            <span className="text-lg font-medium">Device ID</span>
+            <Input
+              type="text"
+              className="w-48"
+              value={device_id}
+              onChange={(e) => updateConfig("device_id", e.target.value)}
+            />
+          </label>
+        )}
       </div>
     </div>
   );

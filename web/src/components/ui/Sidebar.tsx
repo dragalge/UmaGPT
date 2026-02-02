@@ -27,7 +27,7 @@ const navItems = [
   { id: "skills", label: "Skills", icon: Star },
   { id: "schedule", label: "Race Schedule", icon: Flag },
   { id: "events", label: "Events", icon: Calendar },
-  { id: "skeleton", label: "Timeline", icon: Layout },
+  { id: "timeline", label: "Timeline", icon: Layout },
 ];
 
 export function Sidebar({ activeTab, setActiveTab, appVersion, eventCount, raceCount, skillCount }: SidebarProps) {

@@ -601,6 +601,10 @@
     left: 50%;
   }
 
+  .left-\[110px\] {
+    left: 110px;
+  }
+
   .isolate {
     isolation: isolate;
   }
@@ -1234,6 +1238,10 @@
     width: calc(100vw - 100px);
   }
 
+  .w-\[calc\(100vw-210px\)\] {
+    width: calc(100vw - 210px);
+  }
+
   .w-auto {
     width: auto;
   }
@@ -1270,12 +1278,28 @@
     max-width: 90vw;
   }
 
+  .max-w-\[100vw\] {
+    max-width: 100vw;
+  }
+
   .max-w-\[800px\] {
     max-width: 800px;
   }
 
   .max-w-\[calc\(100\%-2rem\)\] {
     max-width: calc(100% - 2rem);
+  }
+
+  .max-w-\[calc\(100vw-256px-24px\)\] {
+    max-width: calc(100vw - 280px);
+  }
+
+  .max-w-\[calc\(100vw-256px-24px-24px\)\], .max-w-\[calc\(100vw-256px-48px\)\] {
+    max-width: calc(100vw - 304px);
+  }
+
+  .max-w-\[calc\(100vw-256px-56px\)\] {
+    max-width: calc(100vw - 312px);
   }
 
   .max-w-full {
@@ -4096,7 +4120,7 @@
   --tw-enter-translate-x: initial;
   --tw-enter-translate-y: .5rem;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   transition-property: all;
   transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
   --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, #0000001a), 0 4px 6px -4px var(--tw-shadow-color, #0000001a);

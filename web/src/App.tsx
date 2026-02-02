@@ -23,7 +23,7 @@ import SkillListSection from "./components/skill/SkillListSection";
 import TrainingSection from "./components/training/TrainingSection";
 import EnergySection from "./components/training/EnergySection";
 import MoodSection from "./components/training/MoodSection";
-import Skeleton from "./components/skeleton/Skeleton";
+import TimelineSection from "./components/skeleton/TimelineSection";
 
 interface Theme {
   id: string;
@@ -115,7 +115,7 @@ function App() {
       case "skills": return <SkillListSection {...props} />;
       case "schedule": return <RaceListSection {...props} />;
       case "events": return <EventListSection {...props} />;
-      case "skeleton": return <Skeleton {...props} />;
+      case "timeline": return <TimelineSection {...props} />;
       default: return <SetUpSection {...props} />;
     }
   };

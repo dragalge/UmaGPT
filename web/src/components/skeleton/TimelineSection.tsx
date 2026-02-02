@@ -7,6 +7,7 @@ import FormStatWeight from "./_c/stat-weight/Form.StatWeight";
 import ListStatWeight from "./_c/stat-weight/List.StatWeight";
 import FormTemplate from "./_c/template/Form.Template";
 import ListTemplate from "./_c/template/List.Template";
+import TemplateList from "./timeline/TemplateList";
 import type { Config, UpdateConfigType } from "@/types";
 import FormRiskTaking from "./_c/risk-taking/Form.RiskTaking";
 import ListRiskTaking from "./_c/risk-taking/List.RiskTaking";
@@ -19,7 +20,7 @@ type Props = {
   updateConfig: UpdateConfigType;
 };
 
-export default function Skeleton({ config, updateConfig }: Props) {
+export default function TimelineSection({ config, updateConfig }: Props) {
   return (
     <>
       <div className="section-card">
@@ -27,7 +28,7 @@ export default function Skeleton({ config, updateConfig }: Props) {
           <CalendarRange className="text-primary" />
           Timeline
         </h2>
-
+<TemplateList config={config} updateConfig={updateConfig} />
       </div>
 
 

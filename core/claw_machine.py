@@ -6,11 +6,15 @@ from utils.log import info, warning, error, debug, debug_window
 
 from utils.screenshot import custom_grabcut, binarize_between_colors, foreground_centroid, enhance_image_for_ocr
 from core.ocr import extract_allowed_text
+import core.bot as bot
 
 def play_claw_machine(claw_btn_match):
   # decide difficulty:
   difficulty = get_claw_machine_difficulty()
-  speed_array = [140, 280, 450]
+  if bot.use_adb:
+    speed_array = [140, 280, 450]
+  else:
+    speed_array = [140, 260, 400]
   claw_speed = speed_array[difficulty]
   screenshot = device_action.screenshot(region_ltrb = constants.CLAW_MACHINE_PLUSHIE_BBOX)
   debug_window(screenshot, save_name="crop", force_save=True)

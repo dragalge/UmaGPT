@@ -7,8 +7,9 @@ import keyboard
 import time
 
 import utils.device_action_wrapper as device_action
+from utils.device_action_wrapper import BotStopException
 import utils.constants as constants
-from utils.log import info, warning, error, debug, debug_window, args, init_logging
+from utils.log import info, warning, error, debug, debug_window, args, init_logging, notify
 from utils.tools import sleep, get_secs
 import core.config as config
 import core.bot as bot
@@ -27,16 +28,6 @@ else:
     bot.device_id = config.DEVICE_ID
 
 init_adb()
-
-bot.is_bot_running = True
-
-stop_key='left ctrl+q'
-def stop_callback():
-  bot.is_bot_running = False
-  print(f"{stop_key} pressed — stopping gracefully.")
-
-# Register hotkey once
-keyboard.add_hotkey(stop_key, stop_callback)
 
 def focus_umamusume():
   if bot.use_adb:
@@ -74,7 +65,7 @@ def focus_umamusume():
       return True
 
     if target_window.width < 1920 or target_window.height < 1080:
-      error(f"Your resolution is {res.width} x {res.height}. Minimum expected size is 1920 x 1080.")
+      error(f"Your resolution is {target_window.width} x {target_window.height}. Minimum expected size is 1920 x 1080.")
       return
     if target_window.isMinimized:
       target_window.restore()
@@ -88,8 +79,6 @@ def focus_umamusume():
     error(f"Error focusing window: {e}")
     return False
   return True
-
-focus_umamusume()
 
 def do_race():
   for i in range(5):
@@ -194,167 +183,229 @@ team_trials_entered=False
 non_match_count=0
 previous_click_name=None
 same_button_clicks=0
-while True:
-  sleep(0.5)
-  device_action.flush_screenshot_cache()
-  screenshot = device_action.screenshot()
-  matches = device_action.multi_match_templates(templates, screenshot=screenshot)
 
-  if non_match_count > 20:
-    info("Career lobby stuck, quitting.")
-    quit()
+def run(mode=None):
+  global race_events_entered, cm_entered, cm_missions_collected, legend_races, team_trials_entered
+  global non_match_count, previous_click_name, same_button_clicks
 
-  def click_match(matches, name = None):
-    global previous_click_name, same_button_clicks, non_match_count
-    if len(matches) > 0:
-      x, y, w, h = matches[0]
-      offset_x = constants.GAME_WINDOW_REGION[0]
-      cx = offset_x + x + w // 2
-      cy = y + h // 2
-      if name:
-        if same_button_clicks > 0:
-          debug(f"same_button_clicks: {same_button_clicks} ")
-          if same_button_clicks > 20:
-            info("Career lobby stuck, quitting.")
-            quit()
-        if name == previous_click_name:
-          debug(f"name == previous_click_name")
-          same_button_clicks += 1
-        else:
-          same_button_clicks = 0
-        info(f"Clicking {name}.")
-        previous_click_name = name
-      return device_action.click(target=(cx, cy), text=f"Clicked match: {matches[0]}")
-    return False
+  # Override args if mode is provided
+  is_cm = (mode == 'cm') if mode else args.cm
+  is_lr = (mode == 'lr') if mode else args.lr
+  is_tt = (mode == 'tt') if mode else (True if args.tt else False)
+  tt_difficulty = args.tt if args.tt else "hard"
 
-  if not cm_missions_collected and click_match(matches.get("collect"), "collect"):
-    non_match_count=0
-    cm_missions_collected=True
-    continue
+  if not bot.is_bot_running:
+    config.reload_config()
+    init_logging()
 
-  if matches.get("skip_btn"):
-    for i in range(5):
-      click_match(matches.get("skip_btn"), "skip_btn")
-      sleep(0.1)
+    if args.use_adb:
+      bot.use_adb = True
+      bot.device_id = args.use_adb
+    else:
+      bot.use_adb = config.USE_ADB
+      if config.DEVICE_ID and config.DEVICE_ID != "":
+        bot.device_id = config.DEVICE_ID
 
-  if (
-      click_match(matches.get("next"), "next") or
-      click_match(matches.get("next2"), "next2") or
-      click_match(matches.get("confirm"), "confirm") or
-      click_match(matches.get("ok_btn"), "ok_btn") or
-      click_match(matches.get("retry"), "retry") or
-      click_match(matches.get("close_btn"), "close_btn")
-    ):
-    non_match_count = 0
-    continue
+    init_adb()
 
-  if args.cm and (click_match(matches.get("race")) or click_match(matches.get("race_2"))):
-    info("Pressed race.")
-    sleep(2)
-    do_race()
-    non_match_count = 0
-    continue
+  bot.is_bot_running = True
 
-  if args.cm or args.tt or args.lr:
-    if click_match(matches.get("main_menu_races"), "main_menu_races"):
-      non_match_count=0
-      continue
+  stop_key='left ctrl+q'
+  def stop_callback():
+    bot.is_bot_running = False
+    print(f"{stop_key} pressed — stopping gracefully.")
 
-  if args.cm or args.lr:
-    if click_match(matches.get("race_events"), "race_events"):
-      non_match_count=0
-      continue
+  try:
+    keyboard.remove_hotkey(stop_key)
+  except:
+    pass
+  keyboard.add_hotkey(stop_key, stop_callback)
 
-  if args.cm:
-    device_action.flush_screenshot_cache()
-    cm_matches = device_action.multi_match_templates(cm_templates, screenshot=screenshot)
-    if not cm_missions_collected and click_match(cm_matches.get("cm_special_missions"), "cm_special_missions"):
-      non_match_count=0
-      continue
-    if (
-        click_match(cm_matches.get("cm_entry"), "cm_entry") or
-        click_match(cm_matches.get("cm_register"), "cm_register") or
-        click_match(cm_matches.get("cm_race"), "cm_race") or
-        click_match(cm_matches.get("cm_claim"), "cm_claim") or
-        click_match(cm_matches.get("cm_event"), "cm_event")
-      ):
-      non_match_count = 0
-      cm_entered = True
-      continue
+  if not focus_umamusume():
+    return
 
-  if args.tt:
-    if click_match(matches.get("team_trials"), "team_trials"):
-      non_match_count=0
-      continue
+  race_events_entered=False
+  cm_entered=False
+  cm_missions_collected=False
+  legend_races=False
+  team_trials_entered=False
 
-    device_action.flush_screenshot_cache()
-    tt_matches = device_action.multi_match_templates(tt_templates, screenshot=screenshot)
-    if (
-        click_match(tt_matches.get("tt_team_race"), "tt_team_race") or
-        click_match(tt_matches.get("tt_see_all"), "tt_see_all") or
-        click_match(tt_matches.get("tt_race"), "tt_race") or
-        click_match(tt_matches.get("tt_gift"), "tt_gift")
-      ):
-      non_match_count=0
-      continue
-    opponent_matches = device_action.deduplicate_boxes(tt_matches.get("tt_select_opponent") + tt_matches.get("tt_select_opponent_2"), min_dist=10)
-    opponent_matches.sort(key=lambda x: x[1])
-    info(f"Matched buttons: {opponent_matches}")
-    if len(opponent_matches) == 3:
-      # Map difficulty to button index (hard=0, medium=1, easy=2)
-      difficulty_indices = {"hard": 0, "medium": 1, "easy": 2}
+  non_match_count=0
+  previous_click_name=None
+  same_button_clicks=0
 
-      if args.tt in difficulty_indices:
-        target_index = difficulty_indices[args.tt]
-        # Check if we have enough buttons for the selected difficulty
-        info(f"Selecting opponent button {target_index} (for {args.tt} difficulty)")
-        click_match_array = []
-        click_match_array.append(opponent_matches[target_index])
-        debug(f"click_match_array: {click_match_array}")
-        click_match(click_match_array, "opponent_btn")
-      else:
-        info(f"Invalid difficulty level: {args.tt}.")
-      continue
+  try:
+    while bot.is_bot_running:
+      sleep(0.5)
+      device_action.flush_screenshot_cache()
+      screenshot = device_action.screenshot()
+      matches = device_action.multi_match_templates(templates, screenshot=screenshot)
 
-  if args.lr:
-    if click_match(matches.get("legend_race"), "legend_race"):
-      non_match_count=0
-      continue
-    device_action.flush_screenshot_cache()
-    lr_matches = device_action.multi_match_templates(lr_templates, screenshot=screenshot)
-    info(f"Legend race matches: {lr_matches}")
-    if click_match(lr_matches.get("lr_view_results"), "lr_view_results"):
-      close_btn = device_action.locate("assets/buttons/close_btn.png", min_search_time=get_secs(1))
-      if not close_btn:
-        device_action.click(target=constants.RACE_SCROLL_BOTTOM_MOUSE_POS, clicks=2, interval=0.1)
-        sleep(0.2)
-        device_action.click(target=constants.RACE_SCROLL_BOTTOM_MOUSE_POS, clicks=2, interval=0.2)
-        info("Race should be over.")
+      if non_match_count > 20:
+        info("Career lobby stuck, stopping.")
+        notify("error")
+        bot.is_bot_running = False
+        break
+
+      def click_match(matches, name = None):
+        global previous_click_name, same_button_clicks, non_match_count
+        if len(matches) > 0:
+          x, y, w, h = matches[0]
+          offset_x = constants.GAME_WINDOW_REGION[0]
+          cx = offset_x + x + w // 2
+          cy = y + h // 2
+          if name:
+            if same_button_clicks > 0:
+              debug(f"same_button_clicks: {same_button_clicks} ")
+              if same_button_clicks > 20:
+                info("Career lobby stuck, stopping.")
+                notify("error")
+                bot.is_bot_running = False
+                return False
+            if name == previous_click_name:
+              debug(f"name == previous_click_name")
+              same_button_clicks += 1
+            else:
+              same_button_clicks = 0
+            info(f"Clicking {name}.")
+            previous_click_name = name
+          return device_action.click(target=(cx, cy), text=f"Clicked match: {matches[0]}")
+        return False
+
+      if not cm_missions_collected and click_match(matches.get("collect"), "collect"):
+        non_match_count=0
+        cm_missions_collected=True
+        continue
+
+      if matches.get("skip_btn"):
+        for i in range(5):
+          click_match(matches.get("skip_btn"), "skip_btn")
+          sleep(0.1)
+
+      if (
+          click_match(matches.get("next"), "next") or
+          click_match(matches.get("next2"), "next2") or
+          click_match(matches.get("confirm"), "confirm") or
+          click_match(matches.get("ok_btn"), "ok_btn") or
+          click_match(matches.get("retry"), "retry") or
+          click_match(matches.get("close_btn"), "close_btn")
+        ):
         non_match_count = 0
         continue
-      else:
-        info(f"Close button for view results found. Trying to go into the race.")
-        device_action.click(target=close_btn)
-        if click_match(matches.get("race")) or click_match(matches.get("race_2")):
-          info("Pressed race.")
-          sleep(2)
-          do_race()
-          non_match_count = 0
+
+      if is_cm and (click_match(matches.get("race")) or click_match(matches.get("race_2"))):
+        info("Pressed race.")
+        sleep(2)
+        do_race()
+        non_match_count = 0
+        continue
+
+      if is_cm or is_tt or is_lr:
+        if click_match(matches.get("main_menu_races"), "main_menu_races"):
+          non_match_count=0
           continue
 
-    if (
-      click_match(lr_matches.get("lr_confirm"), "lr_confirm") or
-      click_match(lr_matches.get("lr_next"), "lr_next") or
-      click_match(lr_matches.get("lr_next2"), "lr_next2") or
-      click_match(lr_matches.get("lr_race"), "lr_race") or
-      click_match(lr_matches.get("lr_race2"), "lr_race2") or
-      click_match(lr_matches.get("lr_race3"), "lr_race3")
-    ):
-      non_match_count=0
-      continue
+      if is_cm or is_lr:
+        if click_match(matches.get("race_events"), "race_events"):
+          non_match_count=0
+          continue
 
-    if lr_matches.get("lr_ticket"):
-      device_action.click(constants.LR_TOP_RACE_MOUSE_POS)
+      if is_cm:
+        device_action.flush_screenshot_cache()
+        cm_matches = device_action.multi_match_templates(cm_templates, screenshot=screenshot)
+        if not cm_missions_collected and click_match(cm_matches.get("cm_special_missions"), "cm_special_missions"):
+          non_match_count=0
+          continue
+        if (
+            click_match(cm_matches.get("cm_entry"), "cm_entry") or
+            click_match(cm_matches.get("cm_register"), "cm_register") or
+            click_match(cm_matches.get("cm_race"), "cm_race") or
+            click_match(cm_matches.get("cm_claim"), "cm_claim") or
+            click_match(cm_matches.get("cm_event"), "cm_event")
+          ):
+          non_match_count = 0
+          cm_entered = True
+          continue
 
-  device_action.click(constants.SAFE_SPACE_MOUSE_POS)
-  non_match_count+=1
+      if is_tt:
+        if click_match(matches.get("team_trials"), "team_trials"):
+          non_match_count=0
+          continue
+
+        device_action.flush_screenshot_cache()
+        tt_matches = device_action.multi_match_templates(tt_templates, screenshot=screenshot)
+        if (
+            click_match(tt_matches.get("tt_team_race"), "tt_team_race") or
+            click_match(tt_matches.get("tt_see_all"), "tt_see_all") or
+            click_match(tt_matches.get("tt_race"), "tt_race") or
+            click_match(tt_matches.get("tt_gift"), "tt_gift")
+          ):
+          non_match_count=0
+          continue
+        opponent_matches = device_action.deduplicate_boxes(tt_matches.get("tt_select_opponent") + tt_matches.get("tt_select_opponent_2"), min_dist=10)
+        opponent_matches.sort(key=lambda x: x[1])
+        info(f"Matched buttons: {opponent_matches}")
+        if len(opponent_matches) == 3:
+          # Map difficulty to button index (hard=0, medium=1, easy=2)
+          difficulty_indices = {"hard": 0, "medium": 1, "easy": 2}
+
+          if tt_difficulty in difficulty_indices:
+            target_index = difficulty_indices[tt_difficulty]
+            # Check if we have enough buttons for the selected difficulty
+            info(f"Selecting opponent button {target_index} (for {tt_difficulty} difficulty)")
+            click_match_array = []
+            click_match_array.append(opponent_matches[target_index])
+            debug(f"click_match_array: {click_match_array}")
+            click_match(click_match_array, "opponent_btn")
+          else:
+            info(f"Invalid difficulty level: {tt_difficulty}.")
+          continue
+
+      if is_lr:
+        if click_match(matches.get("legend_race"), "legend_race"):
+          non_match_count=0
+          continue
+        device_action.flush_screenshot_cache()
+        lr_matches = device_action.multi_match_templates(lr_templates, screenshot=screenshot)
+        info(f"Legend race matches: {lr_matches}")
+        if click_match(lr_matches.get("lr_view_results"), "lr_view_results"):
+          close_btn = device_action.locate("assets/buttons/close_btn.png", min_search_time=get_secs(1))
+          if not close_btn:
+            device_action.click(target=constants.RACE_SCROLL_BOTTOM_MOUSE_POS, clicks=2, interval=0.1)
+            sleep(0.2)
+            device_action.click(target=constants.RACE_SCROLL_BOTTOM_MOUSE_POS, clicks=2, interval=0.2)
+            info("Race should be over.")
+            non_match_count = 0
+            continue
+          else:
+            info(f"Close button for view results found. Trying to go into the race.")
+            device_action.click(target=close_btn)
+            if click_match(matches.get("race")) or click_match(matches.get("race_2")):
+              info("Pressed race.")
+              sleep(2)
+              do_race()
+              non_match_count = 0
+              continue
+
+        if (
+          click_match(lr_matches.get("lr_confirm"), "lr_confirm") or
+          click_match(lr_matches.get("lr_next"), "lr_next") or
+          click_match(lr_matches.get("lr_next2"), "lr_next2") or
+          click_match(lr_matches.get("lr_race"), "lr_race") or
+          click_match(lr_matches.get("lr_race2"), "lr_race2") or
+          click_match(lr_matches.get("lr_race3"), "lr_race3")
+        ):
+          non_match_count=0
+          continue
+
+        if lr_matches.get("lr_ticket"):
+          device_action.click(constants.LR_TOP_RACE_MOUSE_POS)
+
+      device_action.click(constants.SAFE_SPACE_MOUSE_POS)
+      non_match_count+=1
+  except BotStopException:
+    info("Bot stopped by user.")
+    return
+
+if __name__ == "__main__":
+  run()

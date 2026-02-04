@@ -221,6 +221,9 @@ function App() {
             <div className="flex relative gap-3 pl-3">
               <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2">
                 Press <span className="font-bold text-primary">F1</span> to start/stop training.
+                <span className="font-bold text-primary">F2</span> for Team Trials
+                <span className="font-bold text-primary">F3</span> for CM
+                <span className="font-bold text-primary">F4</span> for Legend Races
               </p>
               <Button
                 variant="outline"

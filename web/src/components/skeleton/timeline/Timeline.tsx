@@ -99,9 +99,9 @@ export default function Timeline({ config, updateConfig }: Props) {
                 }}
                 className={`flex-1 min-h-32 pb-6 pt-1 border-r border-dotted flex items-center justify-center transition-all hover:opacity-80
                   ${item.assignedTemplate ? "border-l-2 border-l-solid min-w-12" : ""} 
-                  ${isYearStart ? "border-l-0 border-l-card" : ""} 
-                  ${isYearEnd ? "border-r-1 border-dashed !border-background" : ""}
-                  ${item.year === "Finale Underway" ? "!border-r-0" : "left-0"}`}
+                  ${isYearStart ? "border-l-0 border-l-card !border-b-timeline" : "!border-b-timeline !border-b-foreground"} 
+                  ${isYearEnd ? "border-r-2 border-dashed !border-r-background" : ""}
+                  ${item.year === "Finale Underway" ? "!border-r-0 !border-b-timeline" : "left-0"}`}
                 style={{ backgroundColor: color.backgroundColor, borderColor: color.borderColor }}
               >
                 {item.assignedTemplate ? (

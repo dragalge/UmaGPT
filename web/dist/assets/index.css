@@ -1780,14 +1780,29 @@
     border-right-width: 0 !important;
   }
 
-  .border-r, .border-r-1 {
+  .border-r {
     border-right-style: var(--tw-border-style);
     border-right-width: 1px;
+  }
+
+  .border-r-2 {
+    border-right-style: var(--tw-border-style);
+    border-right-width: 2px;
+  }
+
+  .\!border-b-timeline {
+    border-bottom-style: ridge !important;
+    border-bottom-width: 5px !important;
   }
 
   .border-b {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
+  }
+
+  .border-b-timeline {
+    border-bottom-style: ridge;
+    border-bottom-width: 5px;
   }
 
   .border-l {
@@ -1930,6 +1945,22 @@
 
   .border-yellow-300 {
     border-color: var(--color-yellow-300);
+  }
+
+  .\!border-r-background {
+    border-right-color: var(--background) !important;
+  }
+
+  .\!border-b-background {
+    border-bottom-color: var(--background) !important;
+  }
+
+  .\!border-b-foreground {
+    border-bottom-color: var(--foreground) !important;
+  }
+
+  .\!border-l-background {
+    border-left-color: var(--background) !important;
   }
 
   .border-l-card {
@@ -2188,10 +2219,6 @@
     padding-inline: calc(var(--spacing) * 8);
   }
 
-  .py-0 {
-    padding-block: calc(var(--spacing) * 0);
-  }
-
   .py-0\.5 {
     padding-block: calc(var(--spacing) * .5);
   }
@@ -2206,10 +2233,6 @@
 
   .py-1\.25 {
     padding-block: calc(var(--spacing) * 1.25);
-  }
-
-  .py-1\.75 {
-    padding-block: calc(var(--spacing) * 1.75);
   }
 
   .py-2 {
@@ -2951,10 +2974,6 @@
     --tw-enter-translate-y: .5rem;
   }
 
-  .slide-in-from-top-1 {
-    --tw-enter-translate-y: -.25rem;
-  }
-
   .zoom-in {
     --tw-enter-scale: 0;
   }
@@ -3434,16 +3453,8 @@
     height: calc(var(--spacing) * 9);
   }
 
-  .data-\[size\=default\]\:h-10[data-size="default"] {
-    height: calc(var(--spacing) * 10);
-  }
-
   .data-\[size\=sm\]\:h-8[data-size="sm"] {
     height: calc(var(--spacing) * 8);
-  }
-
-  .data-\[size\=sm\]\:h-9[data-size="sm"] {
-    height: calc(var(--spacing) * 9);
   }
 
   :is(.\*\*\:data-\[slot\=command-input-wrapper\]\:h-12 *)[data-slot="command-input-wrapper"] {

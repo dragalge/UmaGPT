@@ -7,6 +7,11 @@
   border-left-style: solid;
 }
 
+@utility border-b-timeline {
+  border-bottom-style: ridge;
+  border-bottom-width: 5px;
+}
+
 @utility uma-label {
   @apply flex flex-row gap-2 w-fit items-center cursor-pointer;
 }

@@ -127,10 +127,6 @@ def main():
     error("Failed to focus Umamusume window")
 
 def hotkey_listener():
-  def log_key(key):
-    print(f'{key} key pressed')
-
-  keyboard.on_press(log_key)
   while True:
     keyboard.wait(bot.hotkey)
     if not bot.is_bot_running:

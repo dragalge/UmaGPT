@@ -52,10 +52,8 @@ import utils.constants as constants
 from utils.log import info, warning, error, debug, args, init_logging, notify
 
 from core.skeleton import career_lobby
-from utils.device_action_wrapper import BotStopException
 import core.config as config
 import core.bot as bot
-import auto_misc
 from server.main import app
 from update_config import update_config
 
@@ -122,47 +120,24 @@ def main():
     bot.use_adb = config.USE_ADB
     if config.DEVICE_ID and config.DEVICE_ID != "":
       bot.device_id = config.DEVICE_ID
-  try:
-    if focus_umamusume():
-      info(f"Config: {config.CONFIG_NAME}")
-      career_lobby(args.dry_run_turn)
-    else:
-      error("Failed to focus Umamusume window")
-  except BotStopException:
-    info("Bot stopped by user.")
-    return
+  if focus_umamusume():
+    info(f"Config: {config.CONFIG_NAME}")
+    career_lobby(args.dry_run_turn)
+  else:
+    error("Failed to focus Umamusume window")
 
 def hotkey_listener():
-  def toggle_bot(mode):
+  while True:
+    keyboard.wait(bot.hotkey)
     if not bot.is_bot_running:
-      if mode == 'main':
-        print("[BOT] Starting Main Bot...")
-        bot.is_bot_running = True
-        t = threading.Thread(target=main, daemon=True)
-        t.start()
-      elif mode == 'tt':
-        print("[BOT] Starting Team Trials...")
-        t = threading.Thread(target=auto_misc.run, args=('tt',), daemon=True)
-        t.start()
-      elif mode == 'cm':
-        print("[BOT] Starting Champions Meeting...")
-        t = threading.Thread(target=auto_misc.run, args=('cm',), daemon=True)
-        t.start()
-      elif mode == 'lr':
-        print("[BOT] Starting Legend Race...")
-        t = threading.Thread(target=auto_misc.run, args=('lr',), daemon=True)
-        t.start()
+      print("[BOT] Starting...")
+      bot.is_bot_running = True
+      t = threading.Thread(target=main, daemon=True)
+      t.start()
     else:
       print("[BOT] Stopping...")
       bot.is_bot_running = False
-
-  keyboard.add_hotkey(bot.hotkey, lambda: toggle_bot('main'))
-  keyboard.add_hotkey("f2", lambda: toggle_bot('tt'))
-  keyboard.add_hotkey("f3", lambda: toggle_bot('cm'))
-  keyboard.add_hotkey("f4", lambda: toggle_bot('lr'))
-
-  while True:
-    sleep(1)
+    sleep(0.5)
 
 def is_port_available(host, port):
   try:
@@ -188,11 +163,8 @@ def start_server():
   server_config = uvicorn.Config(app, host=host, port=port, workers=1, log_level="warning")
   server = uvicorn.Server(server_config)
   init_logging()
-  info(f"[SERVER] Open http://{host}:{port} to configure the bot.")
   info(f"Press '{bot.hotkey}' to start/stop the bot.")
-  info(f"Press F2 for Team Trials")
-  info(f"Press F3 for Champions Meeting")
-  info(f"Press F4 for Legend Races")
+  info(f"[SERVER] Open http://{host}:{port} to configure the bot.")
   server.run()
 
 if __name__ == "__main__":

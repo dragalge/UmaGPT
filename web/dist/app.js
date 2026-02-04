@@ -37708,13 +37708,7 @@ function App() {
           /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2 w-fit whitespace-nowrap", children: [
             "Press ",
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F1" }),
-            " to start/stop training.",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: " F2" }),
-            " for Team Trials.",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: " F3" }),
-            " for CM.",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: " F4" }),
-            " for Legend Races."
+            " to start/stop training."
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Button,

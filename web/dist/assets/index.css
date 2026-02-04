@@ -2204,6 +2204,10 @@
     padding-block: calc(var(--spacing) * 1.5);
   }
 
+  .py-1\.25 {
+    padding-block: calc(var(--spacing) * 1.25);
+  }
+
   .py-1\.75 {
     padding-block: calc(var(--spacing) * 1.75);
   }

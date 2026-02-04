@@ -1,8 +1,8 @@
 import { Dumbbell } from "lucide-react";
 import type { Config, UpdateConfigType } from "@/types";
 import { Input } from "../ui/input";
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, type DragEndEvent,} from "@dnd-kit/core";
-import { arrayMove, SortableContext, verticalListSortingStrategy,} from "@dnd-kit/sortable";
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, type DragEndEvent, } from "@dnd-kit/core";
+import { arrayMove, SortableContext, verticalListSortingStrategy, } from "@dnd-kit/sortable";
 import Sortable from "../Sortable";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { PRIORITY_WEIGHT } from "@/constants";
@@ -110,36 +110,30 @@ export default function TrainingSection({ config, updateConfig }: Props) {
         <div className="flex flex-col gap-2">
 
           <div className="flex items-center gap-2">
-            <label htmlFor="hint-hunting" className="flex gap-2 items-center cursor-pointer">
-              <Checkbox
-                id="hint-hunting"
-                checked={hint_hunting_enabled}
-                onCheckedChange={() =>
-                  updateConfig("hint_hunting_enabled", !hint_hunting_enabled)
-                }
-              />
+            <label className="uma-label">
+              <Checkbox checked={hint_hunting_enabled} onCheckedChange={() => updateConfig("hint_hunting_enabled", !hint_hunting_enabled)} />
               Enable Hint Hunting
             </label>
           </div>
-          {hint_hunting_enabled && (
-            <div className="flex flex-col gap-2 mb-2">
-              {Object.entries(hint_hunting_weights).map(([stat, val]) => (
-                <label key={stat} className="flex items-center gap-4 cursor-pointer">
-                  <span className="inline-block w-16">{stat.toUpperCase()}</span>
-                  <Input
-                    className="w-24"
-                    type="number"
-                    value={val}
-                    min={0}
-                    step={0.1}
-                    onChange={(e) => updateConfig("hint_hunting_weights", { ...hint_hunting_weights, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber, })}
-                  />
-                </label>
-              ))}
-            </div>
-          )}
 
-          <label className="flex flex-row gap-2 w-fit items-center cursor-pointer">
+          <div className="flex flex-col gap-2 mb-2">
+            <p className={`font-semibold ${hint_hunting_enabled ? "" : "disabled"}`}>Hint Weights</p>
+            {Object.entries(hint_hunting_weights).map(([stat, val]) => (
+              <label className={`uma-label ${hint_hunting_enabled ? "" : "disabled"}`}>
+                <span className="inline-block w-16">{stat.toUpperCase()}</span>
+                <Input
+                  className="w-24"
+                  type="number"
+                  value={val}
+                  min={0}
+                  step={0.1}
+                  onChange={(e) => updateConfig("hint_hunting_weights", { ...hint_hunting_weights, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber, })}
+                />
+              </label>
+            ))}
+          </div>
+
+          <label className="uma-label">
             Wit Training Treshold
             <Input
               className="w-20"
@@ -155,7 +149,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
               }
             />
           </label>
-          <label className="flex flex-row gap-2 w-fit items-center cursor-pointer">
+          <label className="uma-label">
             Rainbow Weight Addition
             <Input
               className="w-20"
@@ -171,7 +165,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
               }
             />
           </label>
-          <label className="flex flex-row gap-2 w-fit items-center cursor-pointer">
+          <label className="uma-label">
             Non-Max Support Weight
             <Input
               className="w-20"
@@ -184,7 +178,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
               }
             />
           </label>
-          <label className="flex flex-row gap-2 w-fit items-center cursor-pointer">
+          <label className="uma-label">
             Scenario Gimmick Weight
             <Input
               className="w-20"
@@ -206,7 +200,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
             <p className="font-semibold">Stat Caps</p>
             <div className="flex flex-col gap-2">
               {Object.entries(stat_caps).map(([stat, val]) => (
-                <label key={stat} className="flex items-center gap-4 cursor-pointer">
+                <label key={stat} className="uma-label">
                   <span className="inline-block w-16">{stat.toUpperCase()}</span>
                   <Input
                     className="w-24"

@@ -16208,14 +16208,17 @@ const Funnel = createLucideIcon("funnel", __iconNode$m);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$l = [
-  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
-  ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
-  ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
-  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
-  ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
-  ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
+  ["circle", { cx: "12", cy: "5", r: "1", key: "gxeob9" }],
+  ["circle", { cx: "19", cy: "5", r: "1", key: "w8mnmm" }],
+  ["circle", { cx: "5", cy: "5", r: "1", key: "lttvr7" }],
+  ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
+  ["circle", { cx: "19", cy: "12", r: "1", key: "1wjl8i" }],
+  ["circle", { cx: "5", cy: "12", r: "1", key: "1pcz8c" }],
+  ["circle", { cx: "12", cy: "19", r: "1", key: "lyex9k" }],
+  ["circle", { cx: "19", cy: "19", r: "1", key: "shf9b7" }],
+  ["circle", { cx: "5", cy: "19", r: "1", key: "bfqh0e" }]
 ];
-const GripVertical = createLucideIcon("grip-vertical", __iconNode$l);
+const Grip = createLucideIcon("grip", __iconNode$l);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16223,6 +16226,21 @@ const GripVertical = createLucideIcon("grip-vertical", __iconNode$l);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$k = [
+  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
+  ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
+  ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
+  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
+  ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
+  ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
+];
+const GripVertical = createLucideIcon("grip-vertical", __iconNode$k);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$j = [
   [
     "path",
     {
@@ -16231,21 +16249,7 @@ const __iconNode$k = [
     }
   ]
 ];
-const Heart = createLucideIcon("heart", __iconNode$k);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$j = [
-  ["rect", { x: "3", y: "5", width: "6", height: "6", rx: "1", key: "1defrl" }],
-  ["path", { d: "m3 17 2 2 4-4", key: "1jhpwq" }],
-  ["path", { d: "M13 6h8", key: "15sg57" }],
-  ["path", { d: "M13 12h8", key: "h98zly" }],
-  ["path", { d: "M13 18h8", key: "oe0vm4" }]
-];
-const ListTodo = createLucideIcon("list-todo", __iconNode$j);
+const Heart = createLucideIcon("heart", __iconNode$j);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -16253,6 +16257,20 @@ const ListTodo = createLucideIcon("list-todo", __iconNode$j);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$i = [
+  ["rect", { x: "3", y: "5", width: "6", height: "6", rx: "1", key: "1defrl" }],
+  ["path", { d: "m3 17 2 2 4-4", key: "1jhpwq" }],
+  ["path", { d: "M13 6h8", key: "15sg57" }],
+  ["path", { d: "M13 12h8", key: "h98zly" }],
+  ["path", { d: "M13 18h8", key: "oe0vm4" }]
+];
+const ListTodo = createLucideIcon("list-todo", __iconNode$i);
+/**
+ * @license lucide-react v0.541.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$h = [
   [
     "path",
     {
@@ -16263,19 +16281,7 @@ const __iconNode$i = [
   ["path", { d: "M15 5.764v15", key: "1pn4in" }],
   ["path", { d: "M9 3.236v15", key: "1uimfh" }]
 ];
-const Map$1 = createLucideIcon("map", __iconNode$i);
-/**
- * @license lucide-react v0.541.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$h = [
-  ["path", { d: "M4 12h16", key: "1lakjw" }],
-  ["path", { d: "M4 18h16", key: "19g7jn" }],
-  ["path", { d: "M4 6h16", key: "1o0s65" }]
-];
-const Menu = createLucideIcon("menu", __iconNode$h);
+const Map$1 = createLucideIcon("map", __iconNode$h);
 /**
  * @license lucide-react v0.541.0 - ISC
  *
@@ -29879,104 +29885,103 @@ function RaceScheduleSection$1({ config: config2, updateConfig }) {
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0 mr-2", children: "Race Turn Treshold" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Input, { className: "w-18", type: "number", step: 1, value: race_turn_threshold2, onChange: (e) => updateConfig("race_turn_threshold", e.target.valueAsNumber) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: use_race_schedule2, onCheckedChange: () => updateConfig("use_race_schedule", !use_race_schedule2) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Run Race Schedule" })
         ] }),
-        use_race_schedule2 && /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer animate-in fade-in slide-in-from-top-1 duration-200", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${use_race_schedule2 ? "" : "disabled"}`, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: cancel_consecutive_race2, onCheckedChange: () => updateConfig("cancel_consecutive_race", !cancel_consecutive_race2) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Cancel Consecutive Races" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: do_mission_races_if_possible2, onCheckedChange: () => updateConfig("do_mission_races_if_possible", !do_mission_races_if_possible2) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Do Mission Races if Possible" })
         ] }),
-        do_mission_races_if_possible2 && /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer animate-in fade-in slide-in-from-top-1 duration-200", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${do_mission_races_if_possible2 ? "" : "disabled"}`, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: prioritize_missions_over_g12, onCheckedChange: () => updateConfig("prioritize_missions_over_g1", !prioritize_missions_over_g12) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Prioritize Missions Over G1" })
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-x-6 gap-y-2 w-fit content-start ", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "items-center font-semibold col-span-2", children: "Minimum Aptitutes:" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_surface", className: "flex gap-2 justify-self-start items-center cursor-pointer", children: "Surface" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_surface", className: "uma-label", children: "Surface" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: surface, onValueChange: (val) => updateConfig("minimum_aptitudes", { ...config2.minimum_aptitudes, surface: val }), children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { id: "aptitude_surface", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "surface" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: RANK.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: r2, children: r2.toUpperCase() }, r2)) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_distance", className: "flex gap-2 justify-self-start items-center cursor-pointer", children: "Distance" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_distance", className: "uma-label", children: "Distance" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: distance, onValueChange: (val) => updateConfig("minimum_aptitudes", { ...config2.minimum_aptitudes, distance: val }), children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { id: "aptitude_distance", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "distance" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: RANK.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: r2, children: r2.toUpperCase() }, r2)) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_style", className: "flex gap-2 justify-self-start items-center cursor-pointer", children: "Style" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "aptitude_style", className: "uma-label", children: "Style" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: style, onValueChange: (val) => updateConfig("minimum_aptitudes", { ...config2.minimum_aptitudes, style: val }), children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { id: "aptitude_style", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "style" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: RANK.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: r2, children: r2.toUpperCase() }, r2)) })
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center shrink cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: position_selection_enabled2, onCheckedChange: () => updateConfig("position_selection_enabled", !position_selection_enabled2) }),
           "Enable Position Selection"
         ] }),
-        position_selection_enabled2 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center shrink cursor-pointer", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Checkbox,
-              {
-                disabled: !position_selection_enabled2,
-                checked: enable_positions_by_race2,
-                onCheckedChange: () => updateConfig("enable_positions_by_race", !enable_positions_by_race2)
-              }
-            ),
-            "Position By Race"
-          ] }),
-          !enable_positions_by_race2 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center", children: [
-            "Preferred Position:",
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              Select,
-              {
-                disabled: !(position_selection_enabled2 && !enable_positions_by_race2),
-                value: preferred_position2,
-                onValueChange: (val) => updateConfig("preferred_position", val),
-                children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: pos, children: pos.toUpperCase() }, pos)) })
-                ]
-              }
-            )
-          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(positions_by_race2).map(([key, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "label",
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${position_selection_enabled2 && !enable_positions_by_race2 ? "" : "disabled"}`, children: [
+          "Preferred Position:",
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            Select,
             {
-              htmlFor: key,
-              className: "flex gap-2 items-center w-44 justify-between cursor-pointer",
+              disabled: !(position_selection_enabled2 && !enable_positions_by_race2),
+              value: preferred_position2,
+              onValueChange: (val) => updateConfig("preferred_position", val),
               children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "capitalize", children: key }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                  Select,
-                  {
-                    disabled: !(enable_positions_by_race2 && position_selection_enabled2),
-                    value: val,
-                    onValueChange: (newVal) => updateConfig("positions_by_race", { ...positions_by_race2, [key]: newVal }),
-                    children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectItem, { value: pos, children: [
-                        " ",
-                        pos.toUpperCase(),
-                        " "
-                      ] }, pos)) })
-                    ]
-                  }
-                )
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: pos, children: pos.toUpperCase() }, pos)) })
               ]
-            },
-            key
-          )) })
-        ] })
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${position_selection_enabled2 ? "" : "disabled"}`, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Checkbox,
+            {
+              disabled: !position_selection_enabled2,
+              checked: enable_positions_by_race2,
+              onCheckedChange: () => updateConfig("enable_positions_by_race", !enable_positions_by_race2)
+            }
+          ),
+          "Position By Race"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(positions_by_race2).map(([key, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "label",
+          {
+            htmlFor: key,
+            className: `uma-label w-44 justify-between ${position_selection_enabled2 && enable_positions_by_race2 ? "" : "disabled"} `,
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "capitalize", children: key }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Select,
+                {
+                  disabled: !(enable_positions_by_race2 && position_selection_enabled2),
+                  value: val,
+                  onValueChange: (newVal) => updateConfig("positions_by_race", { ...positions_by_race2, [key]: newVal }),
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Position" }) }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: POSITION.map((pos) => /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectItem, { value: pos, children: [
+                      " ",
+                      pos.toUpperCase(),
+                      " "
+                    ] }, pos)) })
+                  ]
+                }
+              )
+            ]
+          },
+          key
+        )) })
       ] })
     ] })
   ] });
@@ -31917,7 +31922,7 @@ function SkillSection$1({ config: config2, updateConfig }) {
       "Skills"
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid lg:grid-cols-3 grid-cols-1 gap-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer col-span-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label col-span-3", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Checkbox,
           {
@@ -31928,43 +31933,41 @@ function SkillSection$1({ config: config2, updateConfig }) {
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Auto Buy Skills" })
       ] }),
-      skill2.is_auto_buy_skill && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Checkbox,
-            {
-              checked: skill2.check_skill_before_races,
-              onCheckedChange: () => updateConfig("skill", { ...skill2, check_skill_before_races: !skill2.check_skill_before_races })
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Check Skills Before Races" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Turns Before Checking Skills" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Input,
-            {
-              className: "w-18",
-              step: 1,
-              type: "number",
-              value: skill2.skill_check_turns,
-              onChange: (e) => updateConfig("skill", { ...skill2, skill_check_turns: e.target.valueAsNumber })
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex gap-2 items-center cursor-pointer", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Points Before Checking Skills" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Input,
-            {
-              className: "w-22",
-              type: "number",
-              min: 0,
-              value: skill2.skill_pts_check,
-              onChange: (e) => updateConfig("skill", { ...skill2, skill_pts_check: e.target.valueAsNumber })
-            }
-          )
-        ] })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${skill2.is_auto_buy_skill ? "" : "disabled"}`, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Checkbox,
+          {
+            checked: skill2.check_skill_before_races,
+            onCheckedChange: () => updateConfig("skill", { ...skill2, check_skill_before_races: !skill2.check_skill_before_races })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "shrink-0", children: "Check Skills Before Races" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${skill2.is_auto_buy_skill ? "" : "disabled"}`, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Turns Before Checking Skills" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            className: "w-18",
+            step: 1,
+            type: "number",
+            value: skill2.skill_check_turns,
+            onChange: (e) => updateConfig("skill", { ...skill2, skill_check_turns: e.target.valueAsNumber })
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${skill2.is_auto_buy_skill ? "" : "disabled"}`, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Points Before Checking Skills" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            className: "w-22",
+            type: "number",
+            min: 0,
+            value: skill2.skill_pts_check,
+            onChange: (e) => updateConfig("skill", { ...skill2, skill_pts_check: e.target.valueAsNumber })
+          }
+        )
       ] })
     ] })
   ] });
@@ -35888,8 +35891,8 @@ function Sortable({ id }) {
     transform: CSS$1.Transform.toString(transform2),
     transition
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { ref: setNodeRef, style, ...attributes, ...listeners, className: "px-3 py-1.75 rounded-md cursor-grab flex gap-4 border-1 border-border bg-transparent dark:bg-input/30", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, {}),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { ref: setNodeRef, style, ...attributes, ...listeners, className: "px-3 py-1.25 rounded-md cursor-grab flex gap-4 border-1 border-border bg-transparent dark:bg-input/30", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Grip, {}),
     id.toUpperCase()
   ] });
 }
@@ -36262,32 +36265,28 @@ function TrainingSection$2({ config: config2, updateConfig }) {
         ] }) })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { htmlFor: "hint-hunting", className: "flex gap-2 items-center cursor-pointer", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Checkbox,
-            {
-              id: "hint-hunting",
-              checked: hint_hunting_enabled2,
-              onCheckedChange: () => updateConfig("hint_hunting_enabled", !hint_hunting_enabled2)
-            }
-          ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: hint_hunting_enabled2, onCheckedChange: () => updateConfig("hint_hunting_enabled", !hint_hunting_enabled2) }),
           "Enable Hint Hunting"
         ] }) }),
-        hint_hunting_enabled2 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2 mb-2", children: Object.entries(hint_hunting_weights2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-4 cursor-pointer", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Input,
-            {
-              className: "w-24",
-              type: "number",
-              value: val,
-              min: 0,
-              step: 0.1,
-              onChange: (e) => updateConfig("hint_hunting_weights", { ...hint_hunting_weights2, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber })
-            }
-          )
-        ] }, stat)) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 mb-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `font-semibold ${hint_hunting_enabled2 ? "" : "disabled"}`, children: "Hint Weights" }),
+          Object.entries(hint_hunting_weights2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${hint_hunting_enabled2 ? "" : "disabled"}`, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Input,
+              {
+                className: "w-24",
+                type: "number",
+                value: val,
+                min: 0,
+                step: 0.1,
+                onChange: (e) => updateConfig("hint_hunting_weights", { ...hint_hunting_weights2, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber })
+              }
+            )
+          ] }))
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           "Wit Training Treshold",
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Input,
@@ -36304,7 +36303,7 @@ function TrainingSection$2({ config: config2, updateConfig }) {
             }
           )
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           "Rainbow Weight Addition",
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Input,
@@ -36321,7 +36320,7 @@ function TrainingSection$2({ config: config2, updateConfig }) {
             }
           )
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           "Non-Max Support Weight",
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Input,
@@ -36335,7 +36334,7 @@ function TrainingSection$2({ config: config2, updateConfig }) {
             }
           )
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex flex-row gap-2 w-fit items-center cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           "Scenario Gimmick Weight",
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Input,
@@ -36352,7 +36351,7 @@ function TrainingSection$2({ config: config2, updateConfig }) {
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold", children: "Stat Caps" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(stat_caps2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-4 cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(stat_caps2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Input,
@@ -37706,16 +37705,16 @@ function App() {
           toast.message
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex relative gap-3 pl-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2 w-fit whitespace-nowrap", children: [
             "Press ",
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F1" }),
             " to start/stop training.",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F2" }),
-            " for Team Trials",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F3" }),
-            " for CM",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: "F4" }),
-            " for Legend Races"
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: " F2" }),
+            " for Team Trials.",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: " F3" }),
+            " for CM.",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-primary", children: " F4" }),
+            " for Legend Races."
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Button,

@@ -18,44 +18,42 @@ export default function SkillSection({ config, updateConfig }: Props) {
         Skills
       </h2>
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-2">
-        <label className="flex gap-2 items-center cursor-pointer col-span-3">
+        <label className="uma-label col-span-3">
           <Checkbox
             id="buy-auto-skill"
             checked={skill.is_auto_buy_skill}
             onCheckedChange={() => updateConfig("skill", { ...skill, is_auto_buy_skill: !skill.is_auto_buy_skill, })} />
           <span className="shrink-0">Auto Buy Skills</span>
         </label>
-        {skill.is_auto_buy_skill && (
-          <>
-            <label className="flex gap-2 items-center cursor-pointer">
-              <Checkbox
-                checked={skill.check_skill_before_races}
-                onCheckedChange={() => updateConfig("skill", { ...skill, check_skill_before_races: !skill.check_skill_before_races })}
-              />
-              <span className="shrink-0">Check Skills Before Races</span>
-            </label>
-            <label className="flex gap-2 items-center cursor-pointer">
-              <span className="shrink-0">Turns Before Checking Skills</span>
-              <Input
-                className="w-18"
-                step={1}
-                type="number"
-                value={skill.skill_check_turns}
-                onChange={(e) => updateConfig("skill", { ...skill, skill_check_turns: e.target.valueAsNumber })}
-              />
-            </label>
-            <label className="flex gap-2 items-center cursor-pointer">
-              <span className="shrink-0">Points Before Checking Skills</span>
-              <Input
-                className="w-22"
-                type="number"
-                min={0}
-                value={skill.skill_pts_check}
-                onChange={(e) => updateConfig("skill", { ...skill, skill_pts_check: e.target.valueAsNumber, })}
-              />
-            </label>
-          </>
-        )}
+
+        <label className={`uma-label ${skill.is_auto_buy_skill ? "" : "disabled"}`}>
+          <Checkbox
+            checked={skill.check_skill_before_races}
+            onCheckedChange={() => updateConfig("skill", { ...skill, check_skill_before_races: !skill.check_skill_before_races })}
+          />
+          <span className="shrink-0">Check Skills Before Races</span>
+        </label>
+        <label className={`uma-label ${skill.is_auto_buy_skill ? "" : "disabled"}`}>
+          <span>Turns Before Checking Skills</span>
+          <Input
+            className="w-18"
+            step={1}
+            type="number"
+            value={skill.skill_check_turns}
+            onChange={(e) => updateConfig("skill", { ...skill, skill_check_turns: e.target.valueAsNumber })}
+          />
+        </label>
+        <label className={`uma-label ${skill.is_auto_buy_skill ? "" : "disabled"}`}>
+          <span>Points Before Checking Skills</span>
+          <Input
+            className="w-22"
+            type="number"
+            min={0}
+            value={skill.skill_pts_check}
+            onChange={(e) => updateConfig("skill", { ...skill, skill_pts_check: e.target.valueAsNumber, })}
+          />
+        </label>
+
       </div>
     </div>
   );

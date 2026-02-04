@@ -343,8 +343,8 @@ def career_lobby(dry_run_turn=False):
         record_and_finalize_turn(state_obj, action)
         continue
 
-  except BotStopException:
-    info("Bot stopped by user.")
+  except BotStopException as e:
+    info(f"{e}")
     return
 
 def record_and_finalize_turn(state_obj, action):

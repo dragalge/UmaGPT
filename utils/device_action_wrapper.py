@@ -4,19 +4,27 @@ import core.bot as bot
 import utils.pyautogui_actions as pyautogui_actions
 import utils.adb_actions as adb_actions
 import utils.constants as constants
+import inspect
 from utils.log import error, info, warning, debug, debug_window, args
 
 from time import sleep, time
 
 class BotStopException(Exception):
   #Exception raised to immediately stop the bot
-  pass
+  pass 
 
 def stop_bot():
+  stack = inspect.stack()
+  info(f"stop_bot called from {stack[1].function}")
+  info("======== Tracing stack ==========")
+  for frame in stack:
+    frame_info = frame[0]
+    info(f"Function: {frame_info.f_code.co_name}, File: {frame_info.f_code.co_filename}, Line: {frame_info.f_lineno}")
+  info("=================================")
   # Stop the bot immediately by raising an exception
   flush_screenshot_cache()
   bot.is_bot_running = False
-  raise BotStopException("Bot stopped by user")
+  raise BotStopException("Bot stopped. If this was not intentional, please report with the logs above.")
 
 Pos = tuple[int, int]                     # (x, y)
 Box = tuple[int, int, int, int]           # (x, y, w, h)

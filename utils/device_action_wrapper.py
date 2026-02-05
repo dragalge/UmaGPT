@@ -173,7 +173,7 @@ def deduplicate_boxes(boxes_xywh : list[tuple[int, int, int, int]], min_dist=5):
       filtered.append((x, y, w, h))
   return filtered
 
-def screenshot(region_xywh : tuple[int, int, int, int] = None, region_ltrb : tuple[int, int, int, int] = None):
+def screenshot(region_xywh : tuple[int, int, int, int] = None, region_ltrb : tuple[int, int, int, int] = None, force_save=False):
   if not bot.is_bot_running:
     stop_bot()
 
@@ -193,11 +193,11 @@ def screenshot(region_xywh : tuple[int, int, int, int] = None, region_ltrb : tup
   if bot.use_adb:
     if args.device_debug:
       debug(f"Using ADB screenshot")
-    screenshot = adb_actions.screenshot(region_xywh=region_xywh)
+    screenshot = adb_actions.screenshot(region_xywh=region_xywh, force_save=force_save)
   else:
     if args.device_debug:
       debug(f"Using PyAutoGUI screenshot")
-    screenshot = pyautogui_actions.screenshot(region_xywh=region_xywh)
+    screenshot = pyautogui_actions.screenshot(region_xywh=region_xywh, force_save=force_save)
   debug_window(screenshot, save_name="device_screenshot")
   return np.array(screenshot)
 

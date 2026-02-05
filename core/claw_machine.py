@@ -14,7 +14,7 @@ def play_claw_machine(claw_btn_match):
   if bot.use_adb:
     speed_array = [140, 280, 450]
   else:
-    speed_array = [140, 260, 400]
+    speed_array = [140, 300, 500]
   claw_speed = speed_array[difficulty]
   screenshot = device_action.screenshot(region_ltrb = constants.CLAW_MACHINE_PLUSHIE_BBOX)
   debug_window(screenshot, save_name="crop")

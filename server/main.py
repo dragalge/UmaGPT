@@ -72,6 +72,11 @@ def get_version():
   with open("version.txt", "r") as f:
     return PlainTextResponse(f.read().strip())
 
+@app.get("/notifs")
+def get_notifs():
+  folder = "assets/notifications"
+  return os.listdir(folder)
+
 # this get returns search results for the event.
 @app.get("/event/{text}")
 def get_event(text: str):
@@ -90,21 +95,6 @@ def get_event(text: str):
         break
 
   return {"data": results}
-
-@app.get("/notifications-poll")
-def poll_notifications():
-  if not bot.notifications:
-    return {"notifications": []}
-  n = list(bot.notifications)
-  bot.notifications.clear()
-  return {"notifications": n}
-
-@app.get("/notifications/{filename}")
-def get_notification_file(filename: str):
-  file_path = os.path.join("notifications", filename)
-  if os.path.exists(file_path):
-    return FileResponse(file_path)
-  return {"error": "File not found"}
 
 @app.get("/data/{path:path}")
 async def get_data_file(path: str):

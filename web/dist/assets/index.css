@@ -1800,11 +1800,6 @@
     border-bottom-width: 1px;
   }
 
-  .border-b-timeline {
-    border-bottom-style: ridge;
-    border-bottom-width: 5px;
-  }
-
   .border-l {
     border-left-style: var(--tw-border-style);
     border-left-width: 1px;
@@ -1839,10 +1834,6 @@
     border-left-style: solid;
   }
 
-  .\!border-background {
-    border-color: var(--background) !important;
-  }
-
   .border-amber-200 {
     border-color: var(--color-amber-200);
   }
@@ -1872,16 +1863,6 @@
   @supports (color: color-mix(in lab, red, red)) {
     .border-border\/60 {
       border-color: color-mix(in oklab, var(--border) 60%, transparent);
-    }
-  }
-
-  .border-destructive\/20 {
-    border-color: var(--destructive);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .border-destructive\/20 {
-      border-color: color-mix(in oklab, var(--destructive) 20%, transparent);
     }
   }
 
@@ -1951,16 +1932,8 @@
     border-right-color: var(--background) !important;
   }
 
-  .\!border-b-background {
-    border-bottom-color: var(--background) !important;
-  }
-
   .\!border-b-foreground {
     border-bottom-color: var(--foreground) !important;
-  }
-
-  .\!border-l-background {
-    border-left-color: var(--background) !important;
   }
 
   .border-l-card {
@@ -2013,14 +1986,8 @@
     background-color: var(--card);
   }
 
-  .bg-destructive, .bg-destructive\/10 {
+  .bg-destructive {
     background-color: var(--destructive);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-destructive\/10 {
-      background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
-    }
   }
 
   .bg-gray-500\/20 {
@@ -2477,10 +2444,6 @@
 
   .text-current {
     color: currentColor;
-  }
-
-  .text-destructive {
-    color: var(--destructive);
   }
 
   .text-foreground {

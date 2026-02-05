@@ -6,6 +6,10 @@ import utils.adb_actions as adb_actions
 import utils.constants as constants
 import inspect
 from utils.log import error, info, warning, debug, debug_window, args
+import os
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+
+import pygame
 
 from time import sleep, time
 
@@ -13,7 +17,8 @@ class BotStopException(Exception):
   #Exception raised to immediately stop the bot
   pass 
 
-def stop_bot():
+pygame.mixer.init()
+def stop_bot(message = None, notification_string = None):
   stack = inspect.stack()
   info(f"stop_bot called from {stack[1].function}")
   info("======== Tracing stack ==========")
@@ -24,6 +29,12 @@ def stop_bot():
   # Stop the bot immediately by raising an exception
   flush_screenshot_cache()
   bot.is_bot_running = False
+
+  if notification_string is not None:
+    pygame.mixer.music.load(f"{notification_string}")
+    pygame.mixer.music.play()
+  if message is not None:
+    info(f"Bot stopped with message: {message}")
   raise BotStopException("Bot stopped. If this was not intentional, please report with the logs above.")
 
 Pos = tuple[int, int]                     # (x, y)

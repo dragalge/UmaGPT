@@ -17,7 +17,7 @@ from core.skill import buy_skill, init_skill_py
 pyautogui.useImageNotFoundException(False)
 
 import core.bot as bot
-from utils.log import info, warning, error, debug, log_encoded, args, record_turn, VERSION, notify
+from utils.log import info, warning, error, debug, log_encoded, args, record_turn, VERSION
 from utils.device_action_wrapper import BotStopException
 import utils.device_action_wrapper as device_action
 
@@ -104,8 +104,11 @@ def career_lobby(dry_run_turn=False):
 
       if non_match_count > 20:
         info("Career lobby stuck, quitting.")
-        notify("error")
-        quit()
+        complete_career_btn = device_action.locate("assets/buttons/complete_career_btn.png", min_search_time=get_secs(2))
+        if complete_career_btn is not None:
+          device_action.stop_bot("finished", f"assets/notifications/{config.SUCCESS_NOTIFICATION}")
+        else:
+          device_action.stop_bot("stuck", f"assets/notifications/{config.ERROR_NOTIFICATION}")
       if constants.SCENARIO_NAME == "":
         info("Trying to find what scenario we're on.")
         if device_action.locate_and_click("assets/unity/unity_cup_btn.png", min_search_time=get_secs(1)):
@@ -143,7 +146,6 @@ def career_lobby(dry_run_turn=False):
         clock_icon = device_action.match_template("assets/icons/clock_icon.png", screenshot=screenshot, threshold=0.9)
         if clock_icon:
           info("Lost race, wait for input.")
-          notify("info")
           non_match_count += 1
         elif click_match(matches.get("cancel")):
           info("Pressed cancel.")
@@ -314,7 +316,7 @@ def career_lobby(dry_run_turn=False):
           buy_skill(state_obj, action_count, race_check=True)
         if dry_run_turn:
           info("Dry run turn, quitting.")
-          quit()
+          device_action.stop_bot("finished", f"assets/notifications/{config.SUCCESS_NOTIFICATION}")
         elif not action.run():
           if action.available_actions:  # Check if the list is not empty
             action.available_actions.pop(0)
@@ -357,8 +359,7 @@ def record_and_finalize_turn(state_obj, action):
   if LIMIT_TURNS > 0:
     if action_count >= LIMIT_TURNS:
       info(f"Completed {action_count} actions, stopping bot as requested.")
-      notify("success")
-      quit()
+      device_action.stop_bot("finished", f"assets/notifications/{config.SUCCESS_NOTIFICATION}")
 
 def validate_turn(state):
   if state["turn"] == -1:

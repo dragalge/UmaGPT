@@ -3,6 +3,8 @@ import type { Config, UpdateConfigType } from "@/types";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import Tooltips from "@/components/_c/Tooltips";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { useEffect, useState } from "react";
 
 type Props = {
   config: Config;
@@ -20,6 +22,18 @@ export default function SetUpSection({ config, updateConfig }: Props) {
     error_notification,
     success_notification,
   } = config;
+  const [notificationSounds, setNotificationSounds] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("/notifs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setNotificationSounds(data);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch notification sounds", err));
+  }, []);
 
   return (
     <div className="section-card">
@@ -74,7 +88,18 @@ export default function SetUpSection({ config, updateConfig }: Props) {
               Info sound
             </span>
           </div>
-          <Input className="w-48" value={info_notification} onChange={(e) => updateConfig("info_notification", e.target.value)} />
+          <Select value={info_notification} onValueChange={(v) => updateConfig("info_notification", v)}>
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="Select sound" />
+            </SelectTrigger>
+            <SelectContent>
+              {notificationSounds.map((sound) => (
+                <SelectItem key={sound} value={sound}>
+                  {sound}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
         <label className={`uma-label ${notifications_enabled ? "" : "disabled"}`}>
           <div className="flex gap-2 items-center">
@@ -82,11 +107,18 @@ export default function SetUpSection({ config, updateConfig }: Props) {
               Error sound
             </span>
           </div>
-          <Input
-            className="w-48"
-            value={error_notification}
-            onChange={(e) => updateConfig("error_notification", e.target.value)}
-          />
+          <Select value={error_notification} onValueChange={(v) => updateConfig("error_notification", v)}>
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="Select sound" />
+            </SelectTrigger>
+            <SelectContent>
+              {notificationSounds.map((sound) => (
+                <SelectItem key={sound} value={sound}>
+                  {sound}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
         <label className={`uma-label ${notifications_enabled ? "" : "disabled"}`}>
           <div className="flex gap-2 items-center">
@@ -94,11 +126,18 @@ export default function SetUpSection({ config, updateConfig }: Props) {
               Success sound
             </span>
           </div>
-          <Input
-            className="w-48"
-            value={success_notification}
-            onChange={(e) => updateConfig("success_notification", e.target.value)}
-          />
+          <Select value={success_notification} onValueChange={(v) => updateConfig("success_notification", v)}>
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="Select sound" />
+            </SelectTrigger>
+            <SelectContent>
+              {notificationSounds.map((sound) => (
+                <SelectItem key={sound} value={sound}>
+                  {sound}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
       </div>
     </div>

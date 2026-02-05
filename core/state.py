@@ -513,7 +513,7 @@ def get_aptitudes():
   aptitudes={}
   image = device_action.screenshot(region_xywh=constants.FULL_STATS_APTITUDE_REGION)
   if not device_action.locate("assets/buttons/close_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
-    sleep(0.5)
+    sleep(1)
     device_action.flush_screenshot_cache()
     image = device_action.screenshot(region_xywh=constants.FULL_STATS_APTITUDE_REGION)
   # Ratios for each aptitude box (x, y, width, height) in percentages
@@ -541,7 +541,6 @@ def get_aptitudes():
       if match:
         aptitudes[key] = name
         #debug_window(cropped_image)
-
   info(f"Parsed aptitude values: {aptitudes}. If these values are wrong, please stop and start the bot again with the hotkey.")
   return aptitudes
 

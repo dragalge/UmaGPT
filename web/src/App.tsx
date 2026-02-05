@@ -4,8 +4,7 @@ import rawConfig from "../../config.json";
 import { useConfigPreset } from "./hooks/useConfigPreset";
 import { useConfig } from "./hooks/useConfig";
 import { useImportConfig } from "./hooks/useImportConfig";
-import { useNotifications } from "./hooks/useNotifications";
-import { Pencil, CheckCircle2, AlertCircle, Sun, Moon } from "lucide-react";
+import { Pencil, Sun, Moon } from "lucide-react";
 
 import type { Config } from "./types";
 
@@ -71,10 +70,8 @@ function App() {
 
   const defaultConfig = rawConfig as Config;
   const { activeIndex, activeConfig, presets, setActiveIndex, savePreset, updatePreset } = useConfigPreset();
-  const { config, setConfig, saveConfig, toast } = useConfig(activeConfig ?? defaultConfig);
+  const { config, setConfig, saveConfig } = useConfig(activeConfig ?? defaultConfig);
   const { fileInputRef, openFileDialog, handleImport } = useImportConfig({ activeIndex, updatePreset, savePreset });
-
-  useNotifications(config);
 
   useEffect(() => {
     if (presets[activeIndex]) {
@@ -206,17 +203,6 @@ function App() {
                 </div>
               </div>
             </div>
-
-            {/* Toast Notification Layer */}
-            {toast.show && (
-              <div className={`flex items-center gap-2 px-4 py-1 rounded-full text-sm font-medium animate-in fade-in zoom-in duration-300 border ${toast.isError
-                ? "bg-destructive/10 border-destructive/20 text-destructive"
-                : "bg-secondary/10 border-secondary/20 text-secondary"
-                }`}>
-                {toast.isError ? <AlertCircle size={22} /> : <CheckCircle2 size={22} />}
-                {toast.message}
-              </div>
-            )}
 
             <div className="flex relative gap-3 pl-3">
               <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2 w-fit whitespace-nowrap">

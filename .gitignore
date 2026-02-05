@@ -29,3 +29,12 @@ dist_ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ignore everything under notifications
+assets/notifications/*
+
+# But keep these specific sound effects
+!assets/notifications/harikitte_ikou.mp3
+!assets/notifications/sfx_01.mp3
+!assets/notifications/sfx_02.mp3
+!assets/notifications/sfx_03.mp3

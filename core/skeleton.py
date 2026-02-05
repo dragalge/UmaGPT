@@ -102,7 +102,7 @@ def career_lobby(dry_run_turn=False):
       device_action.flush_screenshot_cache()
       screenshot = device_action.screenshot()
 
-      if non_match_count > 1:
+      if non_match_count > 20:
         info("Career lobby stuck, quitting.")
         complete_career_btn = device_action.locate("assets/buttons/complete_career_btn.png", min_search_time=get_secs(2))
         if complete_career_btn is not None:

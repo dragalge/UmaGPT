@@ -158,7 +158,7 @@ export default function SetUpSection({ config, updateConfig }: Props) {
                   Math.round(parseFloat(e.target.value) * 100) / 100
                 )
               }
-              className="w-64"
+              className="w-64 accent-primary"
             />
 
             <span className="w-14 text-right tabular-nums">

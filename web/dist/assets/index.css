@@ -2642,6 +2642,10 @@
     -moz-osx-font-smoothing: auto;
   }
 
+  .accent-primary {
+    accent-color: var(--primary);
+  }
+
   .opacity-0 {
     opacity: 0;
   }

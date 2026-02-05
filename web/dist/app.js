@@ -12122,7 +12122,7 @@ const notifications_enabled = true;
 const info_notification = "harikitte_ikou.mp3";
 const error_notification = "harikitte_ikou.mp3";
 const success_notification = "harikitte_ikou.mp3";
-const notification_volume = 0.8;
+const notification_volume = 0.3;
 const use_race_schedule = false;
 const cancel_consecutive_race = true;
 const position_selection_enabled = false;
@@ -25910,28 +25910,28 @@ function SetUpSection({ config: config2, updateConfig }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base", children: "Enable notification sounds" })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${notifications_enabled2 ? "" : "disabled"}`, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base", children: "Info sound" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base", children: "Info Sound" }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: info_notification2, onValueChange: (v) => updateConfig("info_notification", v), children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-48", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select sound" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: notificationSounds.map((sound) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: sound, children: sound }, sound)) })
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${notifications_enabled2 ? "" : "disabled"}`, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base", children: "Error sound" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base", children: "Error Sound" }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: error_notification2, onValueChange: (v) => updateConfig("error_notification", v), children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-48", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select sound" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: notificationSounds.map((sound) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: sound, children: sound }, sound)) })
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${notifications_enabled2 ? "" : "disabled"}`, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base", children: "Success sound" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base", children: "Success Sound" }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: success_notification2, onValueChange: (v) => updateConfig("success_notification", v), children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { className: "w-48", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select sound" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: notificationSounds.map((sound) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: sound, children: sound }, sound)) })
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: `uma-label ${notifications_enabled2 ? "" : "disabled"} col-span-3`, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base min-w-[160px]", children: "Notification volume" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-base min-w-[160px]", children: "Notification Volume" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "input",
           {
@@ -25944,7 +25944,7 @@ function SetUpSection({ config: config2, updateConfig }) {
               "notification_volume",
               Math.round(parseFloat(e.target.value) * 100) / 100
             ),
-            className: "w-64"
+            className: "w-64 accent-primary"
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "w-14 text-right tabular-nums", children: [

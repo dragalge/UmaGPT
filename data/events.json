@@ -26831,6 +26831,282 @@
         "all_outcomes": "Skill points +35"
       },
       {
+        "char_id": "30080",
+        "event_name": "(❯❯❯) The Final Race ☆ For a Worry-Free Future!",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Energy +30, All stats +11, Skill points +22, Nothing Ventured hint +3, Sasami Anshinzawa bond +5"
+      },
+      {
+        "char_id": "30080",
+        "event_name": "(❯❯❯) The Final Race ☆ For a Worry-Free Future!",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Energy -10, Mood -2, Sasami Anshinzawa bond +5"
+      },
+      {
+        "char_id": "30080",
+        "event_name": "(❯❯❯) The Final Race ☆ For a Worry-Free Future!",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Full energy recovery, Mood +1, Nothing Ventured hint +1, Sasami Anshinzawa bond +5"
+      },
+      {
+        "char_id": "30080",
+        "event_name": "(❯❯❯) The Final Race ☆ For a Worry-Free Future!",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Energy +20, Risky Business hint +1, Sasami Anshinzawa bond +5"
+      },
+      {
+        "char_id": "30080",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Maximum Energy +4, Energy +10, Mood +1, Sasami Anshinzawa bond +10, Can start dating"
+      },
+      {
+        "char_id": "30080",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Skill points +55, Obtain Corner Recovery × skill, Sasami Anshinzawa bond +5, Can start dating"
+      },
+      {
+        "char_id": "30080",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Mood +1, Stamina +11, Sasami Anshinzawa bond +5, Can start dating"
+      },
+      {
+        "char_id": "30080",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (SSR) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "3",
+        "relation": "Sasami Anshinzawa (SSR) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy -10, Skill points +110, Risky Business hint +1, Obtain Running Idle skill, Sasami Anshinzawa bond -10, Event chain ended"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "(❯) Rhapsody of Kindness",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Mood +1, Speed +5, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "(❯) Rhapsody of Kindness",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy +10, Stamina +5, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "(❯❯) The Path of Profit and People",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Speed +10, Skill points +10, Pace Chaser Corners ○ hint +1, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "(❯❯) The Path of Profit and People",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Stamina +10, Skill points +10, Late Surger Corners ○ hint +1, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "Tamamo's School Tour",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Wit +10, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "Tamamo's School Tour",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Stamina +5, Guts +5, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "A Battle I Can't Lose!",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Calm in a Crowd hint +1, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "20022",
+        "event_name": "A Battle I Can't Lose!",
+        "character_name": "Tamamo Cross (SR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Tamamo Cross (SR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Stamina +5, Wit +5, Tamamo Cross bond +5"
+      },
+      {
+        "char_id": "10074",
+        "event_name": "(❯❯❯) The Final Race ☆ For a Worry-Free Future!",
+        "character_name": "Sasami Anshinzawa (R) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (R) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Energy +10, All stats +3, Skill points +10, Risky Business hint +3, Sasami Anshinzawa bond +5"
+      },
+      {
+        "char_id": "10074",
+        "event_name": "(❯❯❯) The Final Race ☆ For a Worry-Free Future!",
+        "character_name": "Sasami Anshinzawa (R) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (R) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Energy -10, Mood -2, Sasami Anshinzawa bond +5"
+      },
+      {
+        "char_id": "10074",
+        "event_name": "(❯❯❯) The Final Race ☆ For a Worry-Free Future!",
+        "character_name": "Sasami Anshinzawa (R) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Sasami Anshinzawa (R) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy +20, Mood +1, Risky Business hint +1, Sasami Anshinzawa bond +5"
+      },
+      {
+        "char_id": "10074",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (R) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (R) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Maximum Energy +4, Energy +10, Mood +1, Sasami Anshinzawa bond +10, Can start dating"
+      },
+      {
+        "char_id": "10074",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (R) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sasami Anshinzawa (R) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Skill points +52, Obtain Corner Recovery × skill, Sasami Anshinzawa bond +5, Can start dating"
+      },
+      {
+        "char_id": "10074",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (R) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Sasami Anshinzawa (R) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Mood +1, Stamina +10, Sasami Anshinzawa bond +5, Can start dating"
+      },
+      {
+        "char_id": "10074",
+        "event_name": "A Pleasant Practice Partner?",
+        "character_name": "Sasami Anshinzawa (R) (PAL)",
+        "type": "PAL",
+        "choice_text": "",
+        "choice_number": "3",
+        "relation": "Sasami Anshinzawa (R) (PAL)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy -10, Skill points +105, Risky Business hint +1, Obtain Running Idle skill, Sasami Anshinzawa bond -10, Event chain ended"
+      },
+      {
         "char_id": "30079",
         "event_name": "(❯) Doomsday for the Overlord?!",
         "character_name": "Meisho Doto (SSR) (STA)",
@@ -39024,6 +39300,13 @@
   "supportCardArraySchema": {
     "supportCards": [
       {
+        "id": "30080",
+        "name": "Sasami Anshinzawa (SSR) (PAL)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30080.png",
+        "rarity": "SSR",
+        "type": "PAL"
+      },
+      {
         "id": "30079",
         "name": "Meisho Doto (SSR) (STA)",
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30079.png",
@@ -39493,6 +39776,13 @@
         "type": "GUTS"
       },
       {
+        "id": "20022",
+        "name": "Tamamo Cross (SR) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20022.png",
+        "rarity": "SR",
+        "type": "GUTS"
+      },
+      {
         "id": "20032",
         "name": "Inari One (SR) (POW)",
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20032.png",
@@ -39736,6 +40026,13 @@
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20001.png",
         "rarity": "SR",
         "type": "WIT"
+      },
+      {
+        "id": "10074",
+        "name": "Sasami Anshinzawa (R) (PAL)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_10074.png",
+        "rarity": "R",
+        "type": "PAL"
       },
       {
         "id": "10075",

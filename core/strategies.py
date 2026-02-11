@@ -53,7 +53,7 @@ class Strategy:
       total_gap = sum(target_stat_gap.values())
 
       if "status_effect_names" in action.options and "Slow Metabolism" in action["status_effect_names"]:
-        if action["training_function"] in ["meta_training", "most_stat_gain"]:
+        if action["training_function"] != "meta_training" and action["training_function"] != "most_stat_gain":
           action["available_trainings"].pop("spd", None)
       if state["energy_level"] < 50:
         if state["date_event_available"]:
@@ -350,7 +350,6 @@ class Strategy:
       ]
 
       if state["year"] in dates_near_energy_gain and energy_headroom < 25:
-
         skip_wit_for_other_training = True
         if "Early Dec" in state["year"] and state["turn"] != 1:
           skip_wit_for_other_training = False
@@ -358,7 +357,6 @@ class Strategy:
         if skip_wit_for_other_training:
           action.func = "do_training"
           for training_name, training_data in available_trainings.items():
-            # training is not defined, would crash in niche cases
             if training_name == "wit":
               continue
             else:

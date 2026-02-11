@@ -3939,6 +3939,10 @@
   --chart-5: oklch(64.5% .246 16.439);
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 .text-primary {
   transition: color .2s;
 }
@@ -3956,7 +3960,7 @@
   background-position: center;
   background-size: cover;
   transition: filter .3s ease-out;
-  position: absolute;
+  position: fixed;
   inset: 0;
 }
 

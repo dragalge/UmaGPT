@@ -229,7 +229,9 @@ def enter_race(race_name="any", race_image_path="", options=None):
     race_image_path = "assets/ui/match_track.png"
   sleep(1)
 
-  go_to_racebox_top()
+  if options["scroll_to_top_wanted"]:
+    go_to_racebox_top()
+  options["scroll_to_top_wanted"]=True
   while True:
     screenshot1 = device_action.screenshot(region_ltrb=constants.RACE_LIST_BOX_BBOX)
     if options is not None and "race_mission_available" in options and options["race_mission_available"]:

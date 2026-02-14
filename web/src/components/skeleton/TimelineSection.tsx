@@ -14,6 +14,7 @@ import ListRiskTaking from "./_c/risk-taking/List.RiskTaking";
 import FormActionSequence from "./_c/action-sequence/Form.ActionSequence";
 import ListActionSequence from "./_c/action-sequence/List.ActionSequence";
 import Timeline from "./timeline/Timeline";
+import Tooltips from "@/components/_c/Tooltips";
 
 type Props = {
   config: Config;
@@ -27,6 +28,9 @@ export default function TimelineSection({ config, updateConfig }: Props) {
         <h2 className="text-3xl font-semibold flex items-center gap-3">
           <CalendarRange className="text-primary" />
           Timeline
+          <Tooltips>{"Bot will use the timeline to decide trainings.\n\
+          For detailed explanations of training functions, you can read the file readmes/LOGIC.md\n\
+          (since it's a markdown file you might want to read it on the repo instead)"}</Tooltips>
         </h2>
 
         <Timeline config={config} updateConfig={updateConfig} />
@@ -46,7 +50,12 @@ export default function TimelineSection({ config, updateConfig }: Props) {
         <TabsContent value="action_sequence">
           <SkeletonLayout>
             <SkeletonLayout.Column>
-              <h2 className="text-2xl font-semibold">Action Sequence</h2>
+              <h2 className="text-2xl font-semibold">
+                Action Sequence
+                <Tooltips>{"This is used to decide which actions are more important than others.\n\
+                Default sequence is: infirmary -> training -> recreation -> rest -> race\n\
+                Currently not recommended to set anything else but you can make the bot do some strange stuff if you want."}</Tooltips>
+              </h2>
               <FormActionSequence config={config} updateConfig={updateConfig} />
             </SkeletonLayout.Column>
             <SkeletonLayout.Column>
@@ -57,7 +66,14 @@ export default function TimelineSection({ config, updateConfig }: Props) {
         <TabsContent value="risk_taking">
           <SkeletonLayout>
             <SkeletonLayout.Column>
-              <h2 className="text-2xl font-semibold">Risk Taking</h2>
+              <h2 className="text-2xl font-semibold">
+                Risk Taking
+                <Tooltips>{"This is used to decide how much risk bot should put on top of the base risk.\n\
+                Default is 8 for rainbow and 2 for normal supports.\n\
+                This means bot will add 8% risk for every rainbow support after the first one;\n\
+                2% for every other support after the first one.\n\
+                So a training with 2 rainbows supports and 2 normal supports would receive and increase of 8% + 2%."}</Tooltips>
+              </h2>
               <FormRiskTaking config={config} updateConfig={updateConfig} />
             </SkeletonLayout.Column>
             <SkeletonLayout.Column>
@@ -68,7 +84,14 @@ export default function TimelineSection({ config, updateConfig }: Props) {
         <TabsContent value="stat_weight">
           <SkeletonLayout>
             <SkeletonLayout.Column>
-              <h2 className="text-2xl font-semibold">Stat Weight</h2>
+              <h2 className="text-2xl font-semibold">
+                Stat Weight
+                <Tooltips>{"This is only used in meta training and most stat gain.\n\
+                This directly sets the scores that stats provide.\n\
+                More explanation can be found in readmes/LOGIC.md\n\
+                Basically, 0 means stat if worthless, 1 means it is worth 1 point per stat gain.\n\
+                SP means skill points."}</Tooltips>
+              </h2>
               <FormStatWeight config={config} updateConfig={updateConfig} />
             </SkeletonLayout.Column>
             <SkeletonLayout.Column>
@@ -79,7 +102,10 @@ export default function TimelineSection({ config, updateConfig }: Props) {
         <TabsContent value="target_stat">
           <SkeletonLayout>
             <SkeletonLayout.Column>
-              <h2 className="text-2xl font-semibold">Target Stat</h2>
+              <h2 className="text-2xl font-semibold">
+                Target Stat
+                <Tooltips>Currently unused, leave it as is for future.</Tooltips>
+              </h2>
               <FormTargetStat updateConfig={updateConfig} config={config} />
             </SkeletonLayout.Column>
             <SkeletonLayout.Column>
@@ -91,7 +117,10 @@ export default function TimelineSection({ config, updateConfig }: Props) {
         <TabsContent value="template">
           <SkeletonLayout>
             <SkeletonLayout.Column>
-              <h2 className="text-2xl font-semibold">Template</h2>
+              <h2 className="text-2xl font-semibold">
+                Template
+                <Tooltips>Mix and match the previous sets to create a template and use it in the timeline.</Tooltips>
+              </h2>
               <FormTemplate config={config} updateConfig={updateConfig} />
             </SkeletonLayout.Column>
             <SkeletonLayout.Column>

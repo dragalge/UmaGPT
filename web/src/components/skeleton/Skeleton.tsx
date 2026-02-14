@@ -13,6 +13,7 @@ import ListRiskTaking from "./_c/risk-taking/List.RiskTaking";
 import FormActionSequence from "./_c/action-sequence/Form.ActionSequence";
 import ListActionSequence from "./_c/action-sequence/List.ActionSequence";
 import Timeline from "./_c/timeline/Timeline";
+import Tooltips from "@/components/_c/Tooltips";
 
 type Props = {
   config: Config;
@@ -32,7 +33,12 @@ export default function Skeleton({ config, updateConfig }: Props) {
 
 
       <div className="relative w-fit pb-12 min-h-[300px]">
-        <h2 className="text-2xl font-semibold">Timeline</h2>
+        <h2 className="text-2xl font-semibold">
+          Timeline
+          <Tooltips>{"Bot will use the timeline to decide trainings.\n\
+          For detailed explanations of training functions, you can read the file readmes/LOGIC.md\n\
+          (since it's a markdown file you might want to read it on the repo instead)"}</Tooltips>
+        </h2>
         <div className="max-w-[calc(100vw-256px-56px)] w-fit overflow-x-auto min-h-[300px] flex items-stretch">
           <Timeline config={config} updateConfig={updateConfig} />
         </div>

@@ -6,8 +6,8 @@ import { arrayMove, SortableContext, verticalListSortingStrategy, } from "@dnd-k
 import Sortable from "../Sortable";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { PRIORITY_WEIGHT } from "@/constants";
-import Tooltips from "../_c/Tooltips";
 import { Checkbox } from "../ui/checkbox";
+import Tooltips from "@/components/_c/Tooltips";
 
 type Props = {
   config: Config;
@@ -50,7 +50,10 @@ export default function TrainingSection({ config, updateConfig }: Props) {
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-2 mb-2">
             <div className="flex flex-col gap-2 w-fit">
-              <p className="font-semibold">Priority Stat</p>
+              <p className="font-semibold">
+                Priority Stat
+                <Tooltips>This order decides the result of a training if there's a tie in scoring.</Tooltips>
+              </p>
               <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -69,7 +72,10 @@ export default function TrainingSection({ config, updateConfig }: Props) {
               </DndContext>
             </div>
             <div className="flex flex-col gap-2 w-fit">
-              <p className="font-semibold">Priority Multiplier</p>
+              <p className="font-semibold">
+                Priority Multiplier
+                <Tooltips>Multipliers here will multiply the end score of the training type by (1+multiplier), if negative it will divide it by (1-multiplier). Use sparingly. You usually don't want these values to go above 2 or below -1</Tooltips>
+              </p>
               {Array.from({ length: 5 }, (_, i) => (
                 <Input
                   className="w-20"
@@ -89,7 +95,10 @@ export default function TrainingSection({ config, updateConfig }: Props) {
           </div>
           <div className="w-fit">
             <label htmlFor="priority-weight" className="flex flex-col gap-2">
-              <span className="font-semibold">Priority Weight Level:</span>
+              <span className="font-semibold">
+                Priority Weight Level
+                <Tooltips>This selection decides how heavy of an addition the multipliers will give to the scores. This is basically an easier way to increase the gap between your weights. (Recommended: Medium or Light)</Tooltips>
+              </span>
               <RadioGroup
                 value={priority_weight}
                 onValueChange={(val) => updateConfig("priority_weight", val)}
@@ -112,7 +121,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
           <div className="flex items-center gap-2">
             <label className="uma-label">
               <Checkbox checked={hint_hunting_enabled} onCheckedChange={() => updateConfig("hint_hunting_enabled", !hint_hunting_enabled)} />
-              Enable Hint Hunting
+              Enable Hint Hunting<Tooltips>When this is enabled, below base scores will be added to the trainings with relevant hints. Ex, if guts training has a power type card hint and the weight is set to 6 it will add +6 to the guts training, then apply all weight modifiers.</Tooltips>
             </label>
           </div>
 
@@ -147,7 +156,11 @@ export default function TrainingSection({ config, updateConfig }: Props) {
                   e.target.valueAsNumber
                 )
               }
-            />
+            /><Tooltips>{"This is to incentivise the bot to go for wit trainings when there's energy to be had.\n\
+            Only effective when wit training would give more than 5 energy.\n\
+            Basically, if previously picked training score divided by wit training score is below this value;\n\
+            then bot will pick wit training instead of the previously selected training.\n\
+            Higher values will incentivise more wit training."}</Tooltips>
           </label>
           <label className="uma-label">
             Rainbow Weight Addition
@@ -163,7 +176,8 @@ export default function TrainingSection({ config, updateConfig }: Props) {
                   e.target.valueAsNumber
                 )
               }
-            />
+            /><Tooltips>{"This will increase the rainbow support scores, recommended value is between 1.2 to 1.5.\n\
+            Setting this too high may force the bot to pick worse trainings (i.e. 1 rainbow vs 5 normal supports)"}</Tooltips>
           </label>
           <label className="uma-label">
             Non-Max Support Weight
@@ -176,7 +190,9 @@ export default function TrainingSection({ config, updateConfig }: Props) {
               onChange={(e) =>
                 updateConfig("non_max_support_weight", e.target.valueAsNumber)
               }
-            />
+            /><Tooltips>{"This value decides how valuable a non-max support is (to increase friendship).\n\
+            The non-max support scores are used in other trainings to add small weights to trainings.\n\
+            If you set this value high enough, you should be able to use rainbow training throughout the entire career."}</Tooltips>
           </label>
           <label className="uma-label">
             Scenario Gimmick Weight
@@ -189,7 +205,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
               onChange={(e) =>
                 updateConfig("scenario_gimmick_weight", e.target.valueAsNumber)
               }
-            />
+            /><Tooltips>This increases the value of scenario gimmick. In unity scenario, this is the value of unity gauge fills and spirit explosions.</Tooltips>
           </label>
 
 
@@ -197,7 +213,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
         <div className="flex flex-col gap-2">
 
           <div className="flex flex-col gap-2 w-fit">
-            <p className="font-semibold">Stat Caps</p>
+            <p className="font-semibold">Stat Caps<Tooltips>These values decide when a training or stat is no longer worth it and tells the bot to avoid them completely. If you set these too low, the bot may get stuck.</Tooltips></p>
             <div className="flex flex-col gap-2">
               {Object.entries(stat_caps).map(([stat, val]) => (
                 <label key={stat} className="uma-label">

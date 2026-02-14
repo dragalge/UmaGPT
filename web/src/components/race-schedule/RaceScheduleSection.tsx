@@ -3,6 +3,8 @@ import type { Config, UpdateConfigType } from "@/types";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { POSITION } from "@/constants";
+import Tooltips from "@/components/_c/Tooltips";
+
 import {
   Select,
   SelectContent,
@@ -54,21 +56,26 @@ export default function RaceScheduleSection({ config, updateConfig }: Props) {
           </label>
           <label className={`uma-label ${use_race_schedule ? "" : "disabled"}`}>
             <Checkbox checked={cancel_consecutive_race} onCheckedChange={() => updateConfig("cancel_consecutive_race", !cancel_consecutive_race)} />
-            <span className="shrink-0">Cancel Consecutive Races</span>
+            <span className="shrink-0">Cancel Consecutive Races</span><Tooltips>Enable to skip optional races that would cause bad status effects.</Tooltips>
           </label>
           <label className="uma-label">
             <Checkbox checked={do_mission_races_if_possible} onCheckedChange={() => updateConfig("do_mission_races_if_possible", !do_mission_races_if_possible)} />
-            <span className="shrink-0">Do Mission Races if Possible</span>
+            <span className="shrink-0">Do Mission Races if Possible</span><Tooltips>If there's a mission race, the bot will check if it can do it.</Tooltips>
           </label>
           <label className={`uma-label ${do_mission_races_if_possible ? "" : "disabled"}`}>
             <Checkbox checked={prioritize_missions_over_g1} onCheckedChange={() => updateConfig("prioritize_missions_over_g1", !prioritize_missions_over_g1)} />
-            <span className="shrink-0">Prioritize Missions Over G1</span>
+            <span className="shrink-0">Prioritize Missions Over Scheduled Races</span><Tooltips>The bot will first check mission races before your scheduled races.</Tooltips>
           </label>
         </div>
 
         <div className="grid grid-cols-2 gap-x-6 gap-y-2 w-fit content-start ">
-          <div className="items-center font-semibold col-span-2">Minimum Aptitutes:</div>
-
+          <div className="items-center font-semibold col-span-2">
+            Minimum Aptitutes
+            <Tooltips>
+              {"Bot will do scheduled races that suit these restrictions.\n\
+              If set to G, it will do any scheduled race even if it's going to fail."}
+            </Tooltips>
+          </div>
           <label htmlFor="aptitude_surface" className="uma-label">Surface</label>
           <Select value={surface} onValueChange={(val) => updateConfig("minimum_aptitudes", { ...config.minimum_aptitudes, surface: val, })} >
             <SelectTrigger id="aptitude_surface">
@@ -97,7 +104,7 @@ export default function RaceScheduleSection({ config, updateConfig }: Props) {
         <div className="flex flex-col gap-2">
           <label className="uma-label">
             <Checkbox checked={position_selection_enabled} onCheckedChange={() => updateConfig("position_selection_enabled", !position_selection_enabled)} />
-            Enable Position Selection
+            Enable Position Selection<Tooltips>Bot will select the below position if you enable this option.</Tooltips>
           </label>
           <label className={`uma-label ${position_selection_enabled && !enable_positions_by_race ? "" : "disabled"}`}>
             Preferred Position:
@@ -123,7 +130,7 @@ export default function RaceScheduleSection({ config, updateConfig }: Props) {
               disabled={!position_selection_enabled}
               checked={enable_positions_by_race}
               onCheckedChange={() => updateConfig("enable_positions_by_race", !enable_positions_by_race)} />
-            Position By Race
+            Position By Race<Tooltips>Bot will select positions depending on the distance of the race.</Tooltips>
           </label>
 
           <div className="flex flex-col gap-2">

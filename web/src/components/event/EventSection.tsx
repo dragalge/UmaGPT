@@ -122,7 +122,8 @@ export default function EventSection({ config, updateConfig }: Props) {
               })
             }
           />
-          <span className="shrink-0">Use Optimal Event Choices</span>
+          <span className="shrink-0">Use Event Choices</span>
+          <Tooltips>Enable to use selected event choices, disable to always pick top choice.</Tooltips>
         </label>
         <div className="flex gap-6 fade-in duration-200">
           <SelectedEventList
@@ -143,8 +144,8 @@ export default function EventSection({ config, updateConfig }: Props) {
               updateConfig("use_skip_claw_machine", !use_skip_claw_machine)
             }
           />
-          <span className="shrink-0">Autoplay Claw Machine</span>
-          <Tooltips>Enabling this will auto play the claw machine.</Tooltips>
+          <span className="shrink-0">Skip Claw Machine</span>
+          <Tooltips>Enabling this will try to play the claw machine.</Tooltips>
         </label>
       </div>
     </div>

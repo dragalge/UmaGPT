@@ -2,6 +2,7 @@ import { Heart } from "lucide-react";
 import type { Config, UpdateConfigType } from "@/types";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MOOD } from "@/constants";
+import Tooltips from "@/components/_c/Tooltips";
 
 type Props = {
   config: Config;
@@ -30,7 +31,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
             <SelectContent>
               {MOOD.map((m) => ( <SelectItem key={m} value={m}> {m}</SelectItem> ))}
             </SelectContent>
-          </Select>
+          </Select><Tooltips>Minimum acceptable mood for junior year, bot will not do anything else if it sees mood below this value and directly try to do recreation (unless it has mood improvement disabling statuses)</Tooltips>
         </label>
 
         <label className="flex flex-row gap-2 w-fit items-center cursor-pointer">Min Mood
@@ -44,7 +45,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
             </SelectTrigger>
             <SelectContent>
               {MOOD.map((m) => ( <SelectItem key={m} value={m}>{m}</SelectItem> ))}</SelectContent>
-          </Select>
+          </Select><Tooltips>Minimum acceptable mood for classic and senior year, bot will not do anything else if it sees mood below this value and directly try to do recreation (unless it has mood improvement disabling statuses)</Tooltips>
         </label>
       </div>
     </div>

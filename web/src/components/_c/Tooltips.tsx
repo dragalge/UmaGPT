@@ -11,7 +11,7 @@ export default function Tooltips({ children }: Props) {
       <TooltipTrigger>
         <CircleQuestionMarkIcon size={20} />
       </TooltipTrigger>
-      <TooltipContent>{children}</TooltipContent>
+      <TooltipContent style={{ whiteSpace: "pre-line" }}>{children}</TooltipContent>
     </Tooltip>
   );
 }

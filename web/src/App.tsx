@@ -24,6 +24,7 @@ import TrainingSection from "./components/training/TrainingSection";
 import EnergySection from "./components/training/EnergySection";
 import MoodSection from "./components/training/MoodSection";
 import TimelineSection from "./components/skeleton/TimelineSection";
+import Tooltips from "@/components/_c/Tooltips";
 
 interface Theme {
   id: string;
@@ -213,7 +214,10 @@ function App() {
                   </Select>
                 </div>
               </div>
+              <Tooltips>{"These presets are saved by your browser. They're not in the bot folder.\n\
+              To get your configs out, you need to select the template and then go to bot folder and copy config.json somewhere else."}</Tooltips>
             </div>
+
 
             <div className="flex relative gap-3 pl-3">
               <p className="text-sm absolute top-[-1rem] end-px align-right text-muted-foreground -mt-2 w-fit whitespace-nowrap">
@@ -227,7 +231,7 @@ function App() {
               >
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
               </Button>
-              <Button className="uma-btn" variant="outline" onClick={openFileDialog} >
+              <Button className="uma-btn" variant="outline" onClick={openFileDialog} title="If the import button is giving errors for a config, copy the config to the bot folder and run the bot with py main.py again.">
                 Import
               </Button>
               <input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" />

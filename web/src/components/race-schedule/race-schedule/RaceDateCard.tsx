@@ -53,7 +53,7 @@ export default function RaceDateCard({
           `}
         >
           <div className="flex flex-col items-center justify-center h-full p-2">
-            {["Early Jul", "Late Jul", "Early Aug", "Late Aug"].includes(date) && (
+            {["Early Jul", "Late Jul", "Early Aug", "Late Aug"].includes(date) && !year.includes("Junior Year") && (
               <ThermometerSun className="absolute right-2 top-2" size={16} />
             )}
             <span className="text-base font-semibold">{date}</span>

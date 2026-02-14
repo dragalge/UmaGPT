@@ -50,6 +50,12 @@ export default function SetUpSection({ config, updateConfig }: Props) {
           <Input className="w-24" step={0.1} type="number"
             value={sleep_time_multiplier}
             onChange={(e) => updateConfig("sleep_time_multiplier", e.target.valueAsNumber)} />
+          <Tooltips>
+            {"This value decides how much the bot will wait between some detections.\n\
+            If your game is fast, set it lower (not recommended to go below 0.6)\n\
+            If your game is slow, set it higher (should not need to go above 1.6)\n\
+            Default: 1.1"}
+          </Tooltips>
         </label>
         <label className="uma-label">
           <Checkbox
@@ -57,6 +63,8 @@ export default function SetUpSection({ config, updateConfig }: Props) {
             onCheckedChange={() => updateConfig("use_adb", !use_adb)}
           />
           <span className="font-base">Use ADB</span>
+          <Tooltips>If enabled bot will use ADB to connect to your emulator.
+            You need to find the device ID which is the IP address of your emulator and its ADB port and enter it correctly as IP:Port.</Tooltips>
         </label>
         <label className={`uma-label ${!use_adb ? "" : "disabled"}`}>
           <div className="flex gap-2 items-center">
@@ -64,14 +72,14 @@ export default function SetUpSection({ config, updateConfig }: Props) {
               Window Name
             </span>
             <Tooltips>
-              If you're using an emulator, set this to your emulator's window name
-              (case-sensitive).
+              {"If you're using an emulator but not ADB, set this to your emulator's window name (case-sensitive).\n\
+               Otherwise this has no effect on Steam or ADB versions."}
             </Tooltips>
           </div>
           <Input className="w-48" value={window_name} onChange={(e) => updateConfig("window_name", e.target.value)} />
         </label>
         <label className={`uma-label ${use_adb ? "" : "disabled"}`}>
-          <span className="font-base">Device ID</span>
+          <span className="font-base">Device ID</span><Tooltips>Needs to be in the format of "IP:Port", example 127.0.0.1:5555</Tooltips>
           <Input
             type="text"
             className="w-48"
@@ -81,13 +89,13 @@ export default function SetUpSection({ config, updateConfig }: Props) {
         </label>
         <label className="col-span-3 uma-label">
           <Checkbox checked={notifications_enabled} onCheckedChange={() => updateConfig("notifications_enabled", !notifications_enabled)} />
-          <span className="font-base">Enable notification sounds</span>
+          <span className="font-base">Enable Notification Sounds</span><Tooltips>Enables sounds to play as notifications. You can use custom sounds by adding them to assets/notifications folder of the bot.</Tooltips>
         </label>
         <label className={`uma-label ${notifications_enabled ? "" : "disabled"}`}>
           <div className="flex gap-2 items-center">
             <span className="font-base">
               Info Sound
-            </span>
+            </span><Tooltips>Plays for other things, currently unused (v1.3.44).</Tooltips>
           </div>
           <Select value={info_notification} onValueChange={(v) => updateConfig("info_notification", v)}>
             <SelectTrigger className="w-48">
@@ -106,7 +114,7 @@ export default function SetUpSection({ config, updateConfig }: Props) {
           <div className="flex gap-2 items-center">
             <span className="font-base">
               Error Sound
-            </span>
+            </span><Tooltips>Plays when the bot gets stuck.</Tooltips>
           </div>
           <Select value={error_notification} onValueChange={(v) => updateConfig("error_notification", v)}>
             <SelectTrigger className="w-48">
@@ -125,7 +133,7 @@ export default function SetUpSection({ config, updateConfig }: Props) {
           <div className="flex gap-2 items-center">
             <span className="font-base">
               Success Sound
-            </span>
+            </span><Tooltips>Plays when the bot has finished a run.</Tooltips>
           </div>
           <Select value={success_notification} onValueChange={(v) => updateConfig("success_notification", v)}>
             <SelectTrigger className="w-48">

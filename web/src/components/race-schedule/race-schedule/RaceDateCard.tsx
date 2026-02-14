@@ -9,7 +9,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import type { RaceScheduleType, RaceType } from "@/types/race.type";
 import RaceCard from "./RaceCard";
-import { Calendar } from "lucide-react";
+import { Calendar, ThermometerSun } from "lucide-react";
 
 type Props = {
   date: string;
@@ -41,7 +41,7 @@ export default function RaceDateCard({
         <DialogTrigger
           disabled={filtered.length === 0}
           className={`
-            group relative h-24 rounded-xl border text-sm font-medium
+            group relative min-h-22 h-max rounded-xl border text-sm font-medium
             transition-all duration-200
             ${
               filtered.length === 0
@@ -53,6 +53,9 @@ export default function RaceDateCard({
           `}
         >
           <div className="flex flex-col items-center justify-center h-full p-2">
+            {["Early Jul", "Late Jul", "Early Aug", "Late Aug"].includes(date) && !year.includes("Junior Year") && (
+              <ThermometerSun className="absolute right-2 top-2" size={16} />
+            )}
             <span className="text-base font-semibold">{date}</span>
             {filtered.length > 0 && (
               <>

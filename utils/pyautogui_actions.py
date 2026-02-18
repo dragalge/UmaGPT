@@ -157,15 +157,19 @@ def screenshot(region_xywh : tuple[int, int, int, int] = None, force_save=False)
       screenshot = cv2.cvtColor(screenshot, cv2.COLOR_BGRA2RGB)
 
   if force_save:
-    debug_window(screenshot, save_name="adb_screenshot", force_save=force_save)
+    debug_window(screenshot, save_name="pyautogui_screenshot", force_save=force_save)
   cached_screenshot = screenshot
 
   # crop screenshot to region_xywh
   if region_xywh:
     x, y, w, h = region_xywh
+    debug(f"requested region: ({x},{y},{x+w},{y+h})")
     x, y = screen_space_to_world(x, y)
     x1, y1 = screen_space_to_world(x+w, y+h)
+    debug(f"screenshotted region: ({x},{y},{x1},{y1})")
     screenshot = screenshot[y:y1, x:x1]
+    debug_window(screenshot, save_name="pyautogui_screenshot", force_save=force_save)
     screenshot = scale_screenshot(screenshot, CONVERSION_PARAMS["scale"])
+    debug_window(screenshot, save_name="pyautogui_screenshot_scaled", force_save=force_save)
   #debug_window(screenshot, save_name=f"pyautogui_screenshot_{x}_{y}_{w}_{h}")
   return screenshot

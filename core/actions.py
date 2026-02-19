@@ -177,6 +177,17 @@ def do_rest(options=None):
       return False
   return True
 
+def click_race_buttons():
+  # click the race button in race list, then the race button that comes up on screen
+  for i in range(2):
+    for i in range(5):
+      if device_action.locate_and_click("assets/buttons/race_btn.png", min_search_time=get_secs(2)):
+        break
+      else:
+        if device_action.locate_and_click("assets/buttons/bluestacks/race_btn.png", min_search_time=get_secs(2)):
+          break
+  sleep(0.5)
+
 def race_day(options=None):
   if options["year"] == "Finale Underway":
     device_action.locate_and_click("assets/ura/ura_race_btn.png", min_search_time=get_secs(10), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
@@ -185,10 +196,7 @@ def race_day(options=None):
   sleep(0.5)
   device_action.locate_and_click("assets/buttons/ok_btn.png")
   sleep(0.5)
-  for i in range(2):
-    if not device_action.locate_and_click("assets/buttons/race_btn.png", min_search_time=get_secs(2)):
-      device_action.locate_and_click("assets/buttons/bluestacks/race_btn.png", min_search_time=get_secs(2))
-    sleep(0.5)
+  click_race_buttons()
 
 def go_to_racebox_top():
   for i in range(10):
@@ -254,10 +262,7 @@ def enter_race(race_name="any", race_image_path="", options=None):
       device_action.locate_and_click("assets/buttons/back_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
       return False
 
-  for i in range(2):
-    if not device_action.locate_and_click("assets/buttons/race_btn.png", min_search_time=get_secs(2)):
-      device_action.locate_and_click("assets/buttons/bluestacks/race_btn.png", min_search_time=get_secs(2))
-    sleep(0.5)
+  click_race_buttons()
   return True
 
 # support functions for actions

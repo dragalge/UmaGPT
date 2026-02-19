@@ -292,7 +292,9 @@ def career_lobby(dry_run_turn=False):
       training_function_name = strategy.get_training_template(state_obj)['training_function']
 
       state_obj = collect_training_state(state_obj, training_function_name)
-
+      if not state_obj.get("training_results", False):
+        info("Couldn't collect training state, retrying turn from top.")
+        continue
       # go to skill buy function every turn, conditions are handled inside the function.
       buy_skill(state_obj, action_count)
 

@@ -78,6 +78,8 @@ def collect_training_state(state_object, training_function_name):
     check_stat_gains = True
 
   if device_action.locate_and_click("assets/buttons/training_btn.png", min_search_time=get_secs(5), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
+    if not device_action.locate("assets/buttons/back_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
+      return state_object
     training_results = CleanDefaultDict()
     sleep(0.25)
     for name, mouse_pos in constants.TRAINING_BUTTON_POSITIONS.items():

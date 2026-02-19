@@ -174,7 +174,8 @@ def screenshot(region_xywh : tuple[int, int, int, int] = None, force_save=False)
     debug(f"screenshotted region: ({x},{y},{x1},{y1})")
     screenshot = screenshot[y:y1, x:x1]
     debug_window(screenshot, save_name="pyautogui_screenshot", force_save=force_save)
-    screenshot = scale_screenshot(screenshot, CONVERSION_PARAMS["scale"])
-    debug_window(screenshot, save_name="pyautogui_screenshot_scaled", force_save=force_save)
+    if CONVERSION_PARAMS is not None:
+      screenshot = scale_screenshot(screenshot, CONVERSION_PARAMS["scale"])
+      debug_window(screenshot, save_name="pyautogui_screenshot_scaled", force_save=force_save)
   #debug_window(screenshot, save_name=f"pyautogui_screenshot_{x}_{y}_{w}_{h}")
   return screenshot

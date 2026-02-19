@@ -21,7 +21,7 @@ def create_training_score_entry(training_name, training_data, score_tuple):
     Dictionary with standardized training score data
   """
   total_rainbow_friends = training_data[training_name]["friendship_levels"]["yellow"] + training_data[training_name]["friendship_levels"]["max"]
-  total_friendship_increases = training_data[training_name]["friendship_levels"]["gray"] + training_data[training_name]["friendship_levels"]["blue"] + training_data[training_name]["friendship_levels"]["green"]
+  total_friendship_increases = training_data[training_name]["total_friendship_levels"]["gray"] + training_data[training_name]["total_friendship_levels"]["blue"] + training_data[training_name]["total_friendship_levels"]["green"]
 
   entry = {
     "score_tuple": score_tuple,

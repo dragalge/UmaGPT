@@ -216,7 +216,7 @@ def career_lobby(dry_run_turn=False):
       if not validate_turn(state_obj):
         info("Couldn't read turn text correctly, retrying to avoid unnecessary races. If this keeps happening please report it.")
         continue
-
+      action["scroll_to_top_wanted"] = False
       if state_obj["turn"] == "Race Day":
         action.func = "do_race"
         action["is_race_day"] = True

@@ -123,7 +123,7 @@ def max_out_friendships(state, training_template, action):
     # supporting score
     rainbow_score = rainbow_training_score(x)
 
-    score_tuple = (score_tuple[0] + rainbow_score[0] * 0.25 * config.RAINBOW_SUPPORT_WEIGHT_ADDITION, score_tuple[1])
+    score_tuple = (score_tuple[0] + rainbow_score[0] * 0.25, score_tuple[1])
     debug(f"Total training score: {score_tuple[0]}")
 
     return score_tuple

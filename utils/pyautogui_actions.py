@@ -88,18 +88,23 @@ def screen_space_to_world(x, y):
 
 def click(x_y : tuple[int, int], clicks: int = 1, interval: float = 0.1, duration: float = 0.225):
   if CONVERSION_PARAMS is not None:
-    x_y[0], x_y[1] = screen_space_to_world(x_y[0], x_y[1])
-  pyautogui.click(x_y[0], x_y[1], clicks=clicks, interval=interval, duration=duration)
+    x, y = screen_space_to_world(x_y[0], x_y[1])
+  else:
+    x, y = x_y[0], x_y[1]
+  pyautogui.click(x, y, clicks=clicks, interval=interval, duration=duration)
   return True
 
 def swipe(start_x_y : tuple[int, int], end_x_y : tuple[int, int], duration=0.3):
   if CONVERSION_PARAMS is not None:
-    start_x_y[0], start_x_y[1] = screen_space_to_world(start_x_y[0], start_x_y[1])
-    end_x_y[0], end_x_y[1] = screen_space_to_world(end_x_y[0], end_x_y[1])
+    start_x, start_y = screen_space_to_world(start_x_y[0], start_x_y[1])
+    end_x, end_y = screen_space_to_world(end_x_y[0], end_x_y[1])
+  else:
+    start_x, start_y = start_x_y[0], start_x_y[1]
+    end_x, end_y = end_x_y[0], end_x_y[1]
   delay_to_first_move = 0.1
-  moveTo(start_x_y[0], start_x_y[1], duration=delay_to_first_move)
+  pyautogui.moveTo(start_x, start_y, duration=delay_to_first_move)
   hold()
-  moveTo(end_x_y[0], end_x_y[1], duration=duration-delay_to_first_move)
+  pyautogui.moveTo(end_x, end_y, duration=duration-delay_to_first_move)
   release()
   return True
 
@@ -164,8 +169,8 @@ def screenshot(region_xywh : tuple[int, int, int, int] = None, force_save=False)
   if region_xywh:
     x, y, w, h = region_xywh
     debug(f"requested region: ({x},{y},{x+w},{y+h})")
-    x, y = screen_space_to_world(x, y)
     x1, y1 = screen_space_to_world(x+w, y+h)
+    x, y = screen_space_to_world(x, y)
     debug(f"screenshotted region: ({x},{y},{x1},{y1})")
     screenshot = screenshot[y:y1, x:x1]
     debug_window(screenshot, save_name="pyautogui_screenshot", force_save=force_save)

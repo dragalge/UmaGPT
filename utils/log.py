@@ -189,21 +189,25 @@ def user_info_block(state, last_state, action):
   else:
     action_info = action.func
   training_strings = []
-  for training_name, training_data in action["available_trainings"].items():
-    string_block = ""
-    if training_data["total_rainbow_friends"] > 0:
-      string_block += f"Rainbow {training_data["total_rainbow_friends"]}, "
-    if training_data["total_friendship_increases"] > 0:
-      string_block += f"Non-max {training_data["total_friendship_increases"]}, "
-    if training_data["total_supports"] > 0:
-      string_block += f"Non-rainbow {training_data["total_supports"] - training_data["total_rainbow_friends"]}, "
-    for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_trainings"]:
-      if training_data[unity_element] is not None and training_data[unity_element] > 0:
-        string_block += f"{unity_element.replace("_", " ")} {training_data[unity_element]}, "
-    if string_block != "":
-      string_block = training_name + ": " + string_block
-      training_strings.append(string_block)
-  training_info = '\n    '.join(training_strings)
+  if action.get("available_trainings", False):
+    for training_name, training_data in action["available_trainings"].items():
+      string_block = ""
+      if training_data["total_rainbow_friends"] > 0:
+        string_block += f"Rainbow {training_data["total_rainbow_friends"]}, "
+      if training_data["total_friendship_increases"] > 0:
+        string_block += f"Non-max {training_data["total_friendship_increases"]}, "
+      if training_data["total_supports"] > 0:
+        string_block += f"Non-rainbow {training_data["total_supports"] - training_data["total_rainbow_friends"]}, "
+      for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_trainings"]:
+        if training_data.get(unity_element, False):
+          if training_data[unity_element] > 0:
+            string_block += f"{unity_element.replace("_", " ")} {training_data[unity_element]}, "
+      if string_block != "":
+        string_block = training_name + ": " + string_block
+        training_strings.append(string_block)
+    training_info = '\n    '.join(training_strings)
+  else:
+    training_info = "No info."
   #spaces in front of lines in this info block is important.
   info(f"User Info Block:\n\
   Year: {state["year"]} / Turns left until goal: {state["turn"]}\n\

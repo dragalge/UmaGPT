@@ -34,7 +34,7 @@ def create_training_score_entry(training_name, training_data, score_tuple):
   }
   if constants.SCENARIO_NAME == "unity":
     entry["unity_gauge_fills"] = training_data["unity_gauge_fills"]
-    entry["unity_trainings"] = training_data["unity_trainings"]
+    entry["unity_trainings"] = training_data["unity_trainings"] - training_data["unity_gauge_fills"]
     entry["unity_spirit_explosions"] = training_data["unity_spirit_explosions"]
 
   return entry

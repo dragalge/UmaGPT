@@ -31255,46 +31255,5 @@
 				"default_preference": 2
 			}
 		]
-	},
-	  {
-    "type": "support",
-    "name": "Mayano Top Gun",
-    "rarity": "SSR",
-    "attribute": "SPD",
-    "choice_events": [
-      {
-        "name": "Special Gifts for a Special Day \u266a",
-        "type": "chain",
-        "chain_step": 1,
-        "options": {
-          "1": [{"energy": 10, "speed": 10, "guts": 5, "hints": ["Restless"], "bond": 5}]
-        },
-        "default_preference": 1
-      },
-      {
-        "name": "A Wonderful Weekend \u266a",
-        "type": "chain",
-        "chain_step": 2,
-        "options": {
-          "1": [{"speed": 10, "guts": 5}]
-        },
-        "default_preference": 1
-      },
-      {
-        "name": "Just Because \u266a",
-        "type": "chain",
-        "chain_step": 3,
-        "options": {
-          "1": [
-            {"mood": 1, "speed": 20, "guts": 10, "hints": ["Head-On"], "bond": 5},
-            {"energy": -10, "mood": 1, "guts": 10, "bond": 5}
-          ],
-          "2": [{"wit": 15, "bond": 5}],
-          "3": [{"energy": 20, "stamina": 10, "hints": ["Competitive Spirit \u25cb"]}]
-        },
-        "default_preference": 1
-      }
-    ]
-  },
-  {
+	}
 ]

@@ -3988,5 +3988,15 @@
     "color_class": "geDDHx",
     "rarity": "gold",
     "grade_symbol": null
-  }
+  },
+  {
+  "id": 201999,
+  "icon_filename": "utx_ico_skill_20041.png",
+  "icon_src": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_20041.png",
+  "name": "Head-On",
+  "description": "Slightly increase acceleration when positioned toward the front late-race. (Pace Chaser)",
+  "color_class": "dnlGQR",
+  "rarity": "normal",
+  "grade_symbol": null
+}
 ]

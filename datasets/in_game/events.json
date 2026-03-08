@@ -31253,50 +31253,7 @@
 					]
 				},
 				"default_preference": 2
-			},
-{
-  "type": "support",
-  "name": "Mayano Top Gun",
-  "rarity": "SSR",
-  "attribute": "SPD",
-  "choice_events": [
-    {
-      "name": "Just Because ",
-      "type": "chain",
-      "chain_step": 1,
-      "options": {
-        "1": [
-          {
-            "mood": 1,
-            "speed": 20,
-            "guts": 10,
-            "hints": [
-              "Head-On"
-            ],
-            "bond": 5
-          },
-          {
-            "energy": -10,
-            "mood": 1,
-            "guts": 10,
-            "bond": 5
-          }
-        ],
-        "2": [
-          {
-            "wit": 15,
-            "bond": 5
-          }
-        ],
-        "3": [
-          {
-            "energy": 10,
-            "speed": 10,
-            "guts": 5,
-            "bond": 5
-          }
-        ]
-      },
-      "default_preference": 1
 			}
 		]
+	}
+]

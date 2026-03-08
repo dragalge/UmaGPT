@@ -62,7 +62,7 @@ class Settings:
     """
 
     HOTKEY = "F2"
-    DEBUG = _env_bool("DEBUG", default=True)
+    DEBUG = _env_bool("DEBUG", default=False)
     HOST = "127.0.0.1"
     PORT = 8000
 

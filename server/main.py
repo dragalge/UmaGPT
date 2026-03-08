@@ -17,7 +17,6 @@ from server.utils import (
     ensure_nav_exists,
     load_event_setup_defaults,
 )
-from server.updater import latest_info
 from core.version import __version__
 
 ensure_nav_exists()
@@ -26,11 +25,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://127.0.0.1:8000", "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
 
 
 @app.get("/config")
@@ -341,7 +339,7 @@ def get_version():
 
 @app.get("/admin/check_update")
 def check_update():
-    return latest_info()
+    return {"update_available": False, "disabled": True}
 
 
 @app.get("/{path:path}")

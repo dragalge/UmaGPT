@@ -31256,4 +31256,55 @@
 			}
 		]
 	}
-]
+	{
+  "type": "support",
+  "name": "Mayano Top Gun",
+  "rarity": "SSR",
+  "attribute": "SPD",
+  "choiceEvents": [
+    {
+      "name": "Fashion Advice for Mayano!",
+      "type": "date",
+      "options": {
+        "1": [{"hints": ["Straightaway Adept"], "bond": 5}],
+        "2": [{"stamina": 10, "bond": 5}]
+      }
+    },
+    {
+      "name": "Snack Advice for Mayano!",
+      "type": "date",
+      "options": {
+        "1": [{"stamina": 5, "guts": 5, "bond": 5}],
+        "2": [{"stamina": 10, "bond": 5}]
+      }
+    },
+    {
+      "name": "Special Gifts for a Special Day \u266a",
+      "type": "chain",
+      "chainstep": 1,
+      "options": {
+        "1": [{"energy": 10, "speed": 10, "guts": 5, "hints": ["Restless"], "bond": 5}]
+      }
+    },
+    {
+      "name": "A Wonderful Weekend \u266a",
+      "type": "chain",
+      "chainstep": 2,
+      "options": {
+        "1": [{"speed": 10, "guts": 5}]
+      }
+    },
+    {
+      "name": "Just Because \u266a",
+      "type": "chain",
+      "chainstep": 3,
+      "options": {
+        "1": [
+          {"mood": 1, "speed": 20, "guts": 10, "hints": ["Head-On"], "bond": 5},
+          {"energy": -10, "mood": 1, "guts": 10, "bond": 5}
+        ],
+        "2": [{"wit": 15, "bond": 5}],
+        "3": [{"energy": 20, "stamina": 10, "hints": ["Competitive Spirit \u25cb"]}]
+      }
+    }
+  ]

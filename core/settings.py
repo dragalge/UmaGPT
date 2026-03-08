@@ -168,7 +168,7 @@ class Settings:
     HINT_IS_IMPORTANT = False
     MAX_FAILURE = 20  # integer, no pct
 
-    STORE_FOR_TRAINING = True
+    STORE_FOR_TRAINING = False
     STORE_FOR_TRAINING_THRESHOLD = 0.71  # YOLO baseline to say is accurate will be 0.7
 
     ANDROID_WINDOW_TITLE = "23117RA68G"

@@ -31306,8 +31306,9 @@
         "2": [{"wit": 15, "bond": 5}],
         "3": [{"energy": 20, "stamina": 10, "hints": ["Competitive Spirit \u25cb"]}]
       }
-		]
-    },
+    }
+  ]
+},
 {
   "type": "support",
   "name": "Matikanefukukitaru",

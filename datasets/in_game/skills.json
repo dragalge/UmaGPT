@@ -4000,56 +4000,13 @@
   "grade_symbol": null
 },
 {
-  "type": "support",
-  "name": "Admire Vega",
-  "rarity": "SSR",
-  "attribute": "PWR",
-  "choiceEvents": [
-    {
-      "name": "Ayabe Shows Concern",
-      "type": "chain",
-      "chainstep": 1,
-      "options": {
-        "1": [
-          {"power": 5, "wit": 15, "bond": 5, "hints": ["Flustered Pace Chasers"]},
-          {"power": 5, "wit": 10, "bond": 5}
-        ],
-        "2": [{"energy": 15, "bond": 5}]
-      }
-    },
-    {
-      "name": "Ayabe Doesn't Cut Corners",
-      "type": "chain",
-      "chainstep": 2,
-      "options": {
-        "1": [{"power": 7, "wit": 7}]
-      }
-    },
-    {
-      "name": "Ayabe Won't Be Disheartened!",
-      "type": "chain",
-      "chainstep": 3,
-      "options": {
-        "1": [{"power": 15, "wit": 10, "bond": 5, "hints": ["Daring Strike"]}],
-        "2": [{"speed": 15, "skillpts": 30, "bond": 5}]
-      }
-    },
-    {
-      "name": "Awkward Triangulum",
-      "type": "random",
-      "chainstep": 1,
-      "options": {
-        "1": [{"power": 15, "bond": 5}],
-        "2": [{"energy": 10, "bond": 5}]
-      }
-    },
-    {
-      "name": "Lonesome Cepheus",
-      "type": "random",
-      "chainstep": 1,
-      "options": {
-        "1": [{"hints": ["Subdued Pace Chasers"], "bond": 5}],
-        "2": [{"wit": 10, "bond": 5}]
-      }
-    }
+  "id": 201998,
+  "icon_filename": "utx_ico_skill_20013.png",
+  "icon_src": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_20013.png",
+  "name": "Daring Strike",
+  "description": "Moderately increase velocity for a medium duration when positioned toward the back mid-race.",
+  "color_class": "dnlGQR",
+  "rarity": "normal",
+  "grade_symbol": null
+}
   ]

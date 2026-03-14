@@ -7,6 +7,7 @@ from core.recognizer import compare_brightness
 from utils.log import error, warning, info, debug
 from utils.tools import remove_if_exists, sleep, get_secs, click
 import utils.device_action_wrapper as device_action
+from scenarios.registry import get_active_scenario_handler
 
 class Strategy:
 
@@ -333,8 +334,8 @@ class Strategy:
       wit_score_ratio = effective_training_score / effective_wit_score
       rainbow_count = available_trainings["wit"]["total_rainbow_friends"]
       wit_raw_energy = 5
-      if available_trainings["wit"].get("unity_spirit_explosions"):
-        wit_raw_energy += available_trainings["wit"]["unity_spirit_explosions"] * 5
+      active_handler = get_active_scenario_handler()
+      wit_raw_energy += active_handler.wit_training_energy_bonus(available_trainings["wit"], state)
       wit_raw_energy += (rainbow_count * 4)  # Base 5 + 4 per rainbow
 
 

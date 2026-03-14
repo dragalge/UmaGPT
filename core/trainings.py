@@ -3,10 +3,14 @@ from utils.log import error, info, warning, debug
 from core.actions import Action
 import core.config as config
 from utils.shared import CleanDefaultDict
-import utils.constants as constants
+from scenarios.registry import get_active_scenario_handler
 
 # Training function names:
 # max_out_friendships, most_support_cards, most_stat_gain, rainbow_training, meta_training
+
+def get_minimum_training_fixture(training_mode):
+  active_handler = get_active_scenario_handler()
+  return active_handler.minimum_training_fixture(training_mode)
 
 def create_training_score_entry(training_name, training_data, score_tuple):
   """
@@ -32,10 +36,10 @@ def create_training_score_entry(training_name, training_data, score_tuple):
     "total_rainbow_friends": total_rainbow_friends,
     "total_friendship_increases": total_friendship_increases
   }
-  if constants.SCENARIO_NAME == "unity":
-    entry["unity_gauge_fills"] = training_data["unity_gauge_fills"]
-    entry["unity_trainings"] = training_data["unity_trainings"] - training_data["unity_gauge_fills"]
-    entry["unity_spirit_explosions"] = training_data["unity_spirit_explosions"]
+
+  active_handler = get_active_scenario_handler()
+  for field_name, field_value in active_handler.extra_training_log_fields(training_data):
+    entry[field_name] = field_value
 
   return entry
 
@@ -88,9 +92,9 @@ def rainbow_training(state, training_template, action):
     'training_name',
     CleanDefaultDict({
       'training_name': {'supports': 1, 'friendship_levels': {'max': 1}},
-      'unity_spirit_explosions': 1,
     })
   )
+  minimum_acceptable_data[1].update(get_minimum_training_fixture("rainbow_training"))
 
   minimum_score = _calculate_score(minimum_acceptable_data)
   if not action.options.get("min_scores"):
@@ -141,9 +145,9 @@ def max_out_friendships(state, training_template, action):
     "training_name",
     CleanDefaultDict({
       "total_friendship_levels":{"green": 2},
-      "unity_gauge_fills": 1
     })
   )
+  minimum_acceptable_data[1].update(get_minimum_training_fixture("max_out_friendships"))
   minimum_score = _calculate_score(minimum_acceptable_data)
   if not action.options.get("min_scores"):
     action["min_scores"] = CleanDefaultDict()
@@ -195,9 +199,9 @@ def most_support_cards(state, training_template, action):
     CleanDefaultDict({
       'total_supports': 1,
       'total_friendship_levels': {'green': 1},
-      'unity_gauge_fills': 1
     })
   )
+  minimum_acceptable_data[1].update(get_minimum_training_fixture("most_support_cards"))
   minimum_score = _calculate_score(minimum_acceptable_data)
   if not action.options.get("min_scores"):
     action["min_scores"] = CleanDefaultDict()
@@ -507,43 +511,9 @@ def rainbow_training_score(x):
   return (rainbow_points, -priority_index)
 
 def add_scenario_gimmick_score(training_dict, score_tuple, state):
-  score = 0
-  if constants.SCENARIO_NAME == "unity":
-    score = unity_training_score(training_dict, state["year"].split()[0]) * config.SCENARIO_GIMMICK_WEIGHT
+  active_handler = get_active_scenario_handler()
+  score = active_handler.training_gimmick_score(training_dict[0], training_dict[1], state) * config.SCENARIO_GIMMICK_WEIGHT
   debug(f"Scenario gimmick score: {score}")
 
   score_tuple = (score_tuple[0] + score, score_tuple[1])
   return score_tuple
-
-def unity_training_score(x, year):
-  training_name, training_data = x
-  priority_index = get_priority_index(x)
-  priority_effect = config.PRIORITY_EFFECTS_LIST[priority_index]
-  priority_weight = PRIORITY_WEIGHTS_LIST[config.PRIORITY_WEIGHT]
-  priority_adjustment = priority_effect * priority_weight
-
-  # spirit explosions are more important later years.
-  if year == "Junior":
-    year_adjustment = -0.35
-  elif year == "Classic":
-    year_adjustment = 0
-  elif year == "Senior" or year == "Finale":
-    year_adjustment = 0.35
-  else:
-    warning("Didn't get year value, this should not happen.")
-    year_adjustment = 0
-
-  score = 0
-  # unity gauges fills are more important during earlier years and spirit explosions are more important later years.
-  if year == "Finale":
-    score += (training_data["unity_trainings"] * 0.2 + training_data["unity_gauge_fills"]) * 0.05
-  else:
-    score += training_data["unity_gauge_fills"] * (1 - year_adjustment)
-    score += training_data["unity_trainings"] * 0.1
-  if priority_adjustment >= 0:
-    score += training_data["unity_spirit_explosions"] * (1 + year_adjustment) * (1 + priority_adjustment)
-  else:
-    score += training_data["unity_spirit_explosions"] * (1 + year_adjustment) / (1 + abs(priority_adjustment))
-
-  debug(f"Unity training score: {training_name} -> {score}")
-  return score

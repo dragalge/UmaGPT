@@ -185,6 +185,16 @@ def debug_window(screen, wait_timer=0, x=-1400, y=-100, save_name=None, show_on_
 
 #This function is so fugly but I cannot be bothered to do a better logging for users
 def user_info_block(state, last_state, action):
+  # Local import avoids circular import during scenario module initialization.
+  from scenarios.registry import get_active_scenario_handler
+
+  def _append_scenario_extra_fields(string_block, training_data):
+    active_handler = get_active_scenario_handler()
+    for field_name, field_value in active_handler.extra_training_log_fields(training_data):
+      if isinstance(field_value, (int, float)) and field_value > 0:
+        string_block += f"{field_name.replace('_', ' ')} {field_value}, "
+    return string_block
+
   if action.func == "do_training":
     action_info = action.func + " | " + action["training_name"]
   elif action.func == "do_race":
@@ -210,10 +220,7 @@ def user_info_block(state, last_state, action):
         string_block += f"Non-max {training_data['total_friendship_increases']}, "
       if (training_data['total_supports'] - training_data['total_rainbow_friends']) > 0:
         string_block += f"Non-rainbow {training_data['total_supports'] - training_data['total_rainbow_friends']}, "
-      for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_trainings"]:
-        if training_data.get(unity_element, False):
-          if training_data[unity_element] > 0:
-            string_block += f"{unity_element.replace('_', ' ')} {training_data[unity_element]}, "
+      string_block = _append_scenario_extra_fields(string_block, training_data)
       if string_block != "":
         string_block = string_block[:-2]  # remove trailing ", "
         string_block = training_name.upper()[:3] + ": " + score_string + string_block
@@ -235,10 +242,7 @@ def user_info_block(state, last_state, action):
             string_block += f"Non-max {training_data['total_friendship_increases']}, "
           if (training_data['total_supports'] - training_data['total_rainbow_friends']) > 0:
             string_block += f"Non-rainbow {training_data['total_supports'] - training_data['total_rainbow_friends']}, "
-          for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_trainings"]:
-            if training_data.get(unity_element, False):
-              if training_data[unity_element] > 0:
-                string_block += f"{unity_element.replace('_', ' ')} {training_data[unity_element]}, "
+          string_block = _append_scenario_extra_fields(string_block, training_data)
           if string_block != "":
             string_block = string_block[:-2]  # remove trailing ", "
             string_block = training_name.upper()[:3] + ": " + fail_rate_string + string_block

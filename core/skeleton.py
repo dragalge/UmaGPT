@@ -10,7 +10,8 @@ import core.config as config
 from PIL import ImageGrab
 from core.actions import Action
 import utils.constants as constants
-from scenarios.unity import unity_cup_function
+from scenarios.base import ScenarioHandler
+from scenarios.registry import initialize_scenario_registry, set_active_scenario, get_active_scenario_handler, get_registered_scenarios
 from core.events import select_event
 from core.claw_machine import play_claw_machine
 from core.skill import buy_skill, init_skill_py
@@ -53,15 +54,11 @@ templates = {
 
 cached_templates = cache_templates(templates)
 
-unity_templates = {
-  "close_btn": "assets/buttons/close_btn.png",
-  "unity_cup_btn": "assets/unity/unity_cup_btn.png",
-  "unity_banner_mid_screen": "assets/unity/unity_banner_mid_screen.png"
-}
-
-cached_unity_templates = cache_templates(unity_templates)
-
 def detect_scenario():
+  scenario_name = ScenarioHandler.detect_scenario(get_registered_scenarios().values())
+  if scenario_name is not None:
+    return scenario_name
+
   screenshot = device_action.screenshot()
   if not device_action.locate_and_click("assets/buttons/details_btn.png", confidence=0.75, min_search_time=get_secs(2), region_ltrb=constants.SCREEN_TOP_BBOX):
     error("Details button not found.")
@@ -93,6 +90,9 @@ def career_lobby(dry_run_turn=False):
   sleep(1)
   bot.PREFERRED_POSITION_SET = False
   constants.SCENARIO_NAME = ""
+  initialize_scenario_registry()
+  default_handler = set_active_scenario("ura_finale")
+  info(f"Scenario handler selected: {default_handler.id} ({default_handler.display_name})")
   clear_aptitudes_cache()
   strategy = Strategy()
   init_adb()
@@ -112,11 +112,14 @@ def career_lobby(dry_run_turn=False):
           device_action.stop_bot("stuck", f"assets/notifications/{config.ERROR_NOTIFICATION}", volume = config.NOTIFICATION_VOLUME)
       if constants.SCENARIO_NAME == "":
         info("Trying to find what scenario we're on.")
-        if device_action.locate_and_click("assets/unity/unity_cup_btn.png", min_search_time=get_secs(1)):
-          constants.SCENARIO_NAME = "unity"
-          info("Unity race detected, calling unity cup function. If this is not correct, please report this.")
-          unity_cup_function()
-          continue
+        try:
+          scenario_name = detect_scenario()
+          constants.SCENARIO_NAME = scenario_name
+          active_handler = set_active_scenario(constants.SCENARIO_NAME)
+          info(f"Scenario handler selected: {active_handler.id} ({active_handler.display_name})")
+        except ValueError:
+          # Not on a screen where scenario detection is possible yet.
+          pass
 
       matches = device_action.match_cached_templates(cached_templates, region_ltrb=constants.GAME_WINDOW_BBOX, threshold=0.9, stop_after_first_match=True)
       def click_match(matches):
@@ -182,21 +185,10 @@ def career_lobby(dry_run_turn=False):
         non_match_count = 0
         continue
 
-      if constants.SCENARIO_NAME == "unity":
-        unity_matches = device_action.match_cached_templates(cached_unity_templates, region_ltrb=constants.GAME_WINDOW_BBOX)
-        if click_match(unity_matches.get("unity_cup_btn")):
-          debug("Pressed unity cup.")
-          unity_cup_function()
-          non_match_count = 0
-          continue
-        if click_match(unity_matches.get("close_btn")):
-          debug("Pressed close.")
-          non_match_count = 0
-          continue
-        if click_match(unity_matches.get("unity_banner_mid_screen")):
-          debug("Unity banner mid screen found. Starting over.")
-          non_match_count = 0
-          continue
+      active_handler = get_active_scenario_handler()
+      if active_handler.on_special_screen({"click_match": click_match}):
+        non_match_count = 0
+        continue
 
       if not matches.get("tazuna"):
         print(".", end="")
@@ -209,6 +201,8 @@ def career_lobby(dry_run_turn=False):
           scenario_name = detect_scenario()
           info(f"Scenario detected: {scenario_name}, if this is not correct, please report this.")
           constants.SCENARIO_NAME = scenario_name
+          active_handler = set_active_scenario(scenario_name)
+          info(f"Scenario handler selected: {active_handler.id} ({active_handler.display_name})")
         non_match_count = 0
       device_action.flush_screenshot_cache()
       debug(f"Bot version: {VERSION}")

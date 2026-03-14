@@ -15,6 +15,7 @@ import utils.device_action_wrapper as device_action
 from utils.shared import CleanDefaultDict
 import core.config as config
 import utils.constants as constants
+from scenarios.registry import get_active_scenario_handler
 from collections import defaultdict
 from math import floor
 
@@ -69,6 +70,12 @@ def collect_main_state():
       filter_race_list(state_object)
       filter_race_schedule(state_object)
       device_action.locate_and_click("assets/buttons/close_btn.png", min_search_time=get_secs(1), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+
+  active_handler = get_active_scenario_handler()
+  state_patch = active_handler.collect_main_state_patch(state_object)
+  if state_patch:
+    state_object.update(state_patch)
+
   debug(f"Main state collection done.")
   return state_object
 
@@ -81,6 +88,7 @@ def collect_training_state(state_object, training_function_name):
     if not device_action.locate("assets/buttons/back_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
       return state_object
     training_results = CleanDefaultDict()
+    active_handler = get_active_scenario_handler()
     sleep(0.25)
     for name, mouse_pos in constants.TRAINING_BUTTON_POSITIONS.items():
       # swipe up to avoid clicking on the training button again.
@@ -99,10 +107,14 @@ def collect_training_state(state_object, training_function_name):
           debug(info)
       training_results[name].update(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
       training_results[name].update(get_support_card_data())
+      training_patch = active_handler.collect_training_state_patch(training_results[name], state_object)
+      if training_patch:
+        training_results[name].update(training_patch)
 
     debug(f"Training results: {training_results}")
     
     training_results = filter_training_lock(training_results)
+
     device_action.locate_and_click("assets/buttons/back_btn.png", min_search_time=get_secs(1), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
     state_object["training_results"] = training_results
 
@@ -182,28 +194,9 @@ def is_valid_training(name, training):
 
 def get_support_card_data(threshold=0.8):
   count_result = CleanDefaultDict()
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_SUPPORT_CARD_ICON_REGION
-  else:
-    region_xywh = constants.SUPPORT_CARD_ICON_REGION
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.support_card_icon_region() or constants.SUPPORT_CARD_ICON_REGION
   screenshot = device_action.screenshot(region_xywh=region_xywh)
-
-  if constants.SCENARIO_NAME == "unity":
-    unity_training_matches = device_action.match_template("assets/unity/unity_training.png", screenshot, threshold)
-    unity_gauge_matches = device_action.match_template("assets/unity/unity_gauge_unfilled.png", screenshot, threshold)
-    unity_spirit_exp_matches = device_action.match_template("assets/unity/unity_spirit_explosion.png", screenshot, threshold)
-
-    for training_match in unity_training_matches:
-      count_result["unity_trainings"] += 1
-      for gauge_match in unity_gauge_matches:
-        dist = gauge_match[1] - training_match[1]
-        if dist < 100 and dist > 0:
-          count_result["unity_gauge_fills"] += 1
-          # each unity training can only be matched to one gauge fill, so break
-          break
-
-    for spirit_exp_match in unity_spirit_exp_matches:
-      count_result["unity_spirit_explosions"] += 1
 
   hint_matches = device_action.match_template("assets/icons/support_hint.png", screenshot, threshold)
 
@@ -238,21 +231,28 @@ def get_support_card_data(threshold=0.8):
   return count_result
 
 def get_training_data(year=None, check_stat_gains = False):
+  active_handler = get_active_scenario_handler()
   results = {}
+  failure_region = active_handler.failure_region() or constants.FAILURE_REGION
+  results["failure"] = get_failure_chance(region_xywh=failure_region)
 
-  if constants.SCENARIO_NAME == "unity":
-    results["failure"] = get_failure_chance(region_xywh=constants.UNITY_FAILURE_REGION)
-    if check_stat_gains:
-      stat_gains = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_REGION, scale_factor=1.5)
-      stat_gains2 = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_2_REGION, scale_factor=1.5, secondary_stat_gains=True)
-      for key, value in stat_gains.items():
-        if key in stat_gains2:
-          stat_gains[key] += stat_gains2[key]
-      results["stat_gains"] = stat_gains
-  else:
-    results["failure"] = get_failure_chance(region_xywh=constants.FAILURE_REGION)
-    if check_stat_gains:
-      results["stat_gains"] = get_stat_gains(year=year, region_xywh=constants.URA_STAT_GAINS_REGION)
+  if check_stat_gains:
+    stat_gain_regions = active_handler.stat_gain_region_configs()
+    if not stat_gain_regions:
+      stat_gain_regions = active_handler.default_stat_gain_region_configs()
+
+    stat_gains = {}
+    for region_config in stat_gain_regions:
+      region_stat_gains = get_stat_gains(
+        year=year,
+        region_xywh=region_config["region_xywh"],
+        scale_factor=region_config.get("scale_factor", 1),
+        secondary_stat_gains=region_config.get("secondary_stat_gains", False),
+      )
+      for key, value in region_stat_gains.items():
+        stat_gains[key] = stat_gains.get(key, 0) + value
+
+    results["stat_gains"] = stat_gains
 
   return results
 
@@ -397,30 +397,17 @@ def get_mood(attempts=0):
 
 # Check turn
 def get_turn():
-  if device_action.locate("assets/buttons/race_day_btn.png", region_ltrb=constants.SCREEN_BOTTOM_BBOX):
-    return "Race Day"
-  elif device_action.locate("assets/ura/ura_race_btn.png", region_ltrb=constants.SCREEN_BOTTOM_BBOX):
-    return "Race Day"
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_TURN_REGION
-  else:
-    region_xywh = constants.TURN_REGION
+  active_handler = get_active_scenario_handler()
+  for race_day_template in active_handler.race_day_button_templates():
+    if device_action.locate(race_day_template, region_ltrb=constants.SCREEN_BOTTOM_BBOX):
+      return "Race Day"
+  region_xywh = active_handler.turn_region() or constants.TURN_REGION
   turn = device_action.screenshot(region_xywh=region_xywh)
   turn = enhance_image_for_ocr(turn, resize_factor=2)
   turn_text = extract_allowed_text(turn, allowlist="0123456789")
   debug(f"Turn text: {turn_text}")
 
-  if constants.SCENARIO_NAME == "unity":
-    race_turns = device_action.screenshot(region_xywh=constants.UNITY_RACE_TURNS_REGION)
-    race_turns = enhance_image_for_ocr(race_turns, resize_factor=4, binarize_threshold=None)
-    race_turns_text = extract_allowed_text(race_turns, allowlist="0123456789")
-    digits_only = re.sub(r"[^\d]", "", race_turns_text)
-    if digits_only:
-      digits_only = int(digits_only)
-      debug(f"Unity cup race turns text: {race_turns_text}")
-      if digits_only in [5, 10]:
-        debug(f"Race turns left until unity cup: {digits_only}, waiting for 3 seconds to allow banner to pass.")
-        sleep(3)
+  active_handler.on_turn_read(turn_text)
 
   digits_only = re.sub(r"[^\d]", "", turn_text)
 
@@ -431,10 +418,8 @@ def get_turn():
 
 # Check year
 def get_current_year():
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_YEAR_REGION
-  else:
-    region_xywh = constants.YEAR_REGION
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.year_region() or constants.YEAR_REGION
   for i in range(3):
     year = enhanced_screenshot(region_xywh)
     text = extract_text(year, allowlist=constants.OCR_DATE_RECOGNITION_SET)
@@ -457,10 +442,8 @@ def get_current_year():
 
 # Check criteria
 def get_criteria():
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_CRITERIA_REGION
-  else:
-    region_xywh = constants.CRITERIA_REGION
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.criteria_region() or constants.CRITERIA_REGION
   img = enhanced_screenshot(region_xywh)
   text = extract_text(img)
   debug(f"Criteria text: {text}")
@@ -567,10 +550,8 @@ def get_aptitudes():
 
 def get_energy_level(threshold=0.85):
   # find where the right side of the bar is on screen
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_ENERGY_REGION
-  else:
-    region_xywh = constants.ENERGY_REGION
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.energy_region() or constants.ENERGY_REGION
   screenshot = device_action.screenshot(region_xywh=region_xywh)
 
   right_bar_match = device_action.match_template("assets/ui/energy_bar_right_end_part.png", screenshot, threshold)

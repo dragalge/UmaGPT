@@ -117,6 +117,8 @@ def career_lobby(dry_run_turn=False):
           constants.SCENARIO_NAME = scenario_name
           active_handler = set_active_scenario(constants.SCENARIO_NAME)
           info(f"Scenario handler selected: {active_handler.id} ({active_handler.display_name})")
+          if active_handler.on_scenario_detected({"scenario_name": scenario_name}):
+            continue
         except ValueError:
           # Not on a screen where scenario detection is possible yet.
           pass
@@ -203,6 +205,8 @@ def career_lobby(dry_run_turn=False):
           constants.SCENARIO_NAME = scenario_name
           active_handler = set_active_scenario(scenario_name)
           info(f"Scenario handler selected: {active_handler.id} ({active_handler.display_name})")
+          if active_handler.on_scenario_detected({"scenario_name": scenario_name}):
+            continue
         non_match_count = 0
       device_action.flush_screenshot_cache()
       debug(f"Bot version: {VERSION}")
@@ -225,6 +229,14 @@ def career_lobby(dry_run_turn=False):
           action.func = None
           del action.options["is_race_day"]
           del action.options["year"]
+
+      training_function_name = strategy.get_training_template(state_obj)['training_function']
+      state_obj = collect_training_state(state_obj, training_function_name, force_stat_gains=True)
+      if not state_obj.get("training_results", False):
+        info("Couldn't collect training state, retrying turn from top.")
+        continue
+      if active_handler.consider_item_usage(state_obj):
+        continue
 
       if config.PRIORITIZE_MISSIONS_OVER_G1 and config.DO_MISSION_RACES_IF_POSSIBLE and state_obj["race_mission_available"]:
         debug(f"Mission race logic entered with priority.")
@@ -284,13 +296,6 @@ def career_lobby(dry_run_turn=False):
             continue
           else:
             action.func = None
-
-      training_function_name = strategy.get_training_template(state_obj)['training_function']
-
-      state_obj = collect_training_state(state_obj, training_function_name)
-      if not state_obj.get("training_results", False):
-        info("Couldn't collect training state, retrying turn from top.")
-        continue
       # go to skill buy function every turn, conditions are handled inside the function.
       buy_skill(state_obj, action_count)
 

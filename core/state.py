@@ -79,8 +79,8 @@ def collect_main_state():
   debug(f"Main state collection done.")
   return state_object
 
-def collect_training_state(state_object, training_function_name):
-  check_stat_gains = False
+def collect_training_state(state_object, training_function_name, force_stat_gains=False):
+  check_stat_gains = force_stat_gains
   if training_function_name == "meta_training" or training_function_name == "most_stat_gain":
     check_stat_gains = True
 
@@ -100,16 +100,21 @@ def collect_training_state(state_object, training_function_name):
         for i in range(10):
           test_results.append(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
           test_results.append(get_support_card_data())
-        equal, info = compare_training_samples(test_results)
+        equal, debug_info = compare_training_samples(test_results)
 
         if not equal:
           debug("Training samples diverged")
-          debug(info)
+          debug(debug_info)
       training_results[name].update(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
       training_results[name].update(get_support_card_data())
       training_patch = active_handler.collect_training_state_patch(training_results[name], state_object)
       if training_patch:
         training_results[name].update(training_patch)
+
+      stat_gains = training_results[name].get("stat_gains", {})
+      if stat_gains:
+        gains_str = ", ".join(f"{stat}={gain}" for stat, gain in stat_gains.items())
+        info(f"[TRAINING] {name}: {gains_str}")
 
     debug(f"Training results: {training_results}")
     
@@ -316,6 +321,7 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
   h, w = stat_screenshot.shape
   stat_gains={}
   for key, (xr, yr, wr, hr) in boxes.items():
+    info(key)
     x, y, ww, hh = int(xr*w), int(yr*h), int(wr*w), int(hr*h)
     cropped_image = np.array(stat_screenshot[y:y+hh, x:x+ww])
     if enable_debug:
@@ -324,6 +330,7 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
       cropped_image = crop_after_plus_component(cropped_image, plus_length=12, bar_width=0)
     else:
       cropped_image = crop_after_plus_component(cropped_image)
+    info(cropped_image)
     if np.all(cropped_image == 0):
       continue
     if enable_debug:
@@ -400,6 +407,7 @@ def get_turn():
   active_handler = get_active_scenario_handler()
   for race_day_template in active_handler.race_day_button_templates():
     if device_action.locate(race_day_template, region_ltrb=constants.SCREEN_BOTTOM_BBOX):
+      active_handler.on_turn_read("Race Day")
       return "Race Day"
   region_xywh = active_handler.turn_region() or constants.TURN_REGION
   turn = device_action.screenshot(region_xywh=region_xywh)

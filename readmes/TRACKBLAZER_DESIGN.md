@@ -59,10 +59,10 @@ New data/config files to add:
 
 ## Master Task List
 
-- [ ] Milestone 0: Scenario modularization framework (registry + hooks).
-- [ ] Milestone 0a: Extract URA Finale logic into a dedicated scenario module.
-- [ ] Milestone 0b: Extract Unity Cup logic into a dedicated scenario module.
-- [ ] Milestone 1: Item state collection and Trackblazer item database.
+- [x] Milestone 0: Scenario modularization framework (registry + hooks).
+- [x] Milestone 0a: Extract URA Finale logic into a dedicated scenario module.
+- [x] Milestone 0b: Extract Unity Cup logic into a dedicated scenario module.
+- [x] Milestone 1: Item state collection and Trackblazer item database.
 - [ ] Milestone 2: Race schedule override by training thresholds.
 - [ ] Milestone 3: Item usage and combo move planning.
 - [ ] Milestone 4: Tuning and telemetry-based cleanup.

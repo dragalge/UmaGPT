@@ -27,6 +27,13 @@ class ScenarioHandler:
   def on_special_screen(self, context: dict[str, Any] | None = None) -> bool:
     return False
 
+  def on_scenario_detected(self, context: dict[str, Any] | None = None) -> bool:
+    """Run one-time scenario initialization work right after detection.
+
+    Return True when the current loop iteration should be short-circuited.
+    """
+    return False
+
   def collect_main_state_patch(self, state: dict[str, Any]) -> dict[str, Any]:
     return {}
 
@@ -62,6 +69,13 @@ class ScenarioHandler:
 
   def on_turn_read(self, turn_text: str) -> None:
     return
+
+  def consider_item_usage(self, state: dict[str, Any]) -> bool:
+    """Optional pre-decision hook to consider using items before train/race choice.
+
+    Return True if the handler consumed the turn flow and the caller should restart.
+    """
+    return False
 
   def training_gimmick_score(self, training_name: str, training_data: dict[str, Any], state: dict[str, Any]) -> float:
     return 0.0

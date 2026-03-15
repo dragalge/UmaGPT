@@ -17,11 +17,13 @@ from scenarios.registry import get_active_scenario_handler
 class Action:
   def __init__(self, **options):
     self.func = None
+    self._callable = None  # When set, run() uses this instead of a globals() lookup.
     self.available_actions = []
     self.options = options
 
   def run(self):
-
+    if self._callable is not None:
+      return self._callable(self.options)
     return globals()[self.func](self.options)
 
   def get(self, key, default=None):

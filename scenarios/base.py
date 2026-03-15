@@ -70,12 +70,10 @@ class ScenarioHandler:
   def on_turn_read(self, turn_text: str) -> None:
     return
 
-  def consider_item_usage(self, state: dict[str, Any]) -> bool:
-    """Optional pre-decision hook to consider using items before train/race choice.
-
-    Return True if the handler consumed the turn flow and the caller should restart.
-    """
-    return False
+  def decide_handler_action(self, state: dict[str, Any]) -> Any:
+    """Called after full state collection. Return an Action to use as the turn's action,
+    or None to let normal training/race flow proceed."""
+    return None
 
   def training_gimmick_score(self, training_name: str, training_data: dict[str, Any], state: dict[str, Any]) -> float:
     return 0.0

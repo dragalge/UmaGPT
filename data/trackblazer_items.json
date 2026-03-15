@@ -71,7 +71,7 @@
       "image_path": "assets/trackblazer/items/speed_manual.png",
       "match_threshold": 0.78,
       "cost": 15,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "spd": 7
@@ -84,7 +84,7 @@
       "image_path": "assets/trackblazer/items/power_manual.png",
       "match_threshold": 0.78,
       "cost": 15,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "pwr": 7
@@ -97,7 +97,7 @@
       "image_path": "assets/trackblazer/items/stamina_manual.png",
       "match_threshold": 0.78,
       "cost": 15,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "sta": 7
@@ -110,7 +110,7 @@
       "image_path": "assets/trackblazer/items/guts_manual.png",
       "match_threshold": 0.78,
       "cost": 15,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "guts": 7
@@ -123,7 +123,7 @@
       "image_path": "assets/trackblazer/items/wit_manual.png",
       "match_threshold": 0.78,
       "cost": 15,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "wit": 7
@@ -136,7 +136,7 @@
       "image_path": "assets/trackblazer/items/speed_scroll.png",
       "match_threshold": 0.78,
       "cost": 30,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "spd": 15
@@ -149,7 +149,7 @@
       "image_path": "assets/trackblazer/items/power_scroll.png",
       "match_threshold": 0.78,
       "cost": 30,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "pwr": 15
@@ -162,7 +162,7 @@
       "image_path": "assets/trackblazer/items/stamina_scroll.png",
       "match_threshold": 0.78,
       "cost": 30,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "sta": 15
@@ -175,7 +175,7 @@
       "image_path": "assets/trackblazer/items/guts_scroll.png",
       "match_threshold": 0.78,
       "cost": 30,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "guts": 15
@@ -188,7 +188,7 @@
       "image_path": "assets/trackblazer/items/wit_scroll.png",
       "match_threshold": 0.78,
       "cost": 30,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "wit": 15
@@ -215,7 +215,7 @@
       "image_path": "assets/trackblazer/items/motivating_megaphone.png",
       "match_threshold": 0.78,
       "cost": 55,
-      "priority": 4,
+      "priority": 8,
       "usage_effects": {
         "training_bonus": {
           "effectiveness": 1.4,
@@ -229,7 +229,7 @@
       "image_path": "assets/trackblazer/items/plain_cupcake.png",
       "match_threshold": 0.78,
       "cost": 30,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "mood_bonus": 1,
         "notes": "Mood +1"
@@ -240,7 +240,7 @@
       "image_path": "assets/trackblazer/items/berry_sweet_cupcake.png",
       "match_threshold": 0.78,
       "cost": 55,
-      "priority": 4,
+      "priority": 8,
       "usage_effects": {
         "mood_bonus": 2,
         "notes": "Mood +2"
@@ -251,7 +251,7 @@
       "image_path": "assets/trackblazer/items/vita_20.png",
       "match_threshold": 0.78,
       "cost": 35,
-      "priority": 5,
+      "priority": 15,
       "usage_effects": {
         "energy_restore": 20,
         "notes": "Restores 20 energy"
@@ -262,7 +262,7 @@
       "image_path": "assets/trackblazer/items/vita_40.png",
       "match_threshold": 0.78,
       "cost": 55,
-      "priority": 5,
+      "priority": 15,
       "usage_effects": {
         "energy_restore": 40,
         "notes": "Restores 40 energy"
@@ -273,7 +273,7 @@
       "image_path": "assets/trackblazer/items/vita_65.png",
       "match_threshold": 0.78,
       "cost": 75,
-      "priority": 5,
+      "priority": 15,
       "usage_effects": {
         "energy_restore": 65,
         "notes": "Restores 65 energy"
@@ -284,7 +284,7 @@
       "image_path": "assets/trackblazer/items/royal_kale_juice.png",
       "match_threshold": 0.78,
       "cost": 70,
-      "priority": 5,
+      "priority": 15,
       "usage_effects": {
         "energy_restore": 100,
         "mood_bonus": -1,
@@ -307,7 +307,7 @@
       "image_path": "assets/trackblazer/items/good_luck_charm.png",
       "match_threshold": 0.78,
       "cost": 40,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_failure_override": 0,
         "turns": 1,
@@ -343,7 +343,7 @@
       "image_path": "assets/trackblazer/items/empowering_megaphone.png",
       "match_threshold": 0.78,
       "cost": 70,
-      "priority": 5,
+      "priority": 10,
       "usage_effects": {
         "training_bonus": {
           "effectiveness": 1.6,
@@ -357,7 +357,7 @@
       "image_path": "assets/trackblazer/items/reset_whistle.png",
       "match_threshold": 0.78,
       "cost": 20,
-      "priority": 5,
+      "priority": 500,
       "usage_effects": {
         "shuffle_support_cards": true,
         "notes": "Shuffles support cards on training options"
@@ -414,7 +414,7 @@
       "image_path": "assets/trackblazer/items/speed_ankle_weights.png",
       "match_threshold": 0.78,
       "cost": 50,
-      "priority": 4,
+      "priority": 6,
       "usage_effects": {
         "training_bonus": {
           "stat": "spd",
@@ -446,7 +446,7 @@
       "image_path": "assets/trackblazer/items/power_ankle_weights.png",
       "match_threshold": 0.78,
       "cost": 50,
-      "priority": 4,
+      "priority": 0,
       "usage_effects": {
         "training_bonus": {
           "stat": "pwr",
@@ -462,7 +462,7 @@
       "image_path": "assets/trackblazer/items/guts_ankle_weights.png",
       "match_threshold": 0.78,
       "cost": 50,
-      "priority": 4,
+      "priority": 0,
       "usage_effects": {
         "training_bonus": {
           "stat": "guts",

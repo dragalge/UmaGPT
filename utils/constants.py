@@ -277,6 +277,7 @@ TIMELINE = [
   "Senior Year Early Dec",
   "Senior Year Late Dec",
   "Finale Underway",
+  "TS Climax Races Underway"
 ]
 
 OCR_DATE_RECOGNITION_SET = extract_unique_letters(TIMELINE)

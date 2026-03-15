@@ -212,13 +212,29 @@ def career_lobby(dry_run_turn=False):
       debug(f"Bot version: {VERSION}")
 
       action = Action()
+      def mark_race_selected_for_next_turn_if_supported(selected_action_name):
+        if selected_action_name != "do_race":
+          return
+        if hasattr(active_handler, "mark_race_selected_for_next_turn"):
+          active_handler.mark_race_selected_for_next_turn()
+
       state_obj = collect_main_state()
       if not validate_turn(state_obj):
         info("Couldn't read turn text correctly, retrying to avoid unnecessary races. If this keeps happening please report it.")
         continue
       action["scroll_to_top_wanted"] = False
       if state_obj["turn"] == "Race Day":
+        # Allow scenario handlers to consume pre-race items before entering race.
+        pre_race_handler_action = active_handler.decide_handler_action(state_obj)
+        if pre_race_handler_action is not None:
+          if pre_race_handler_action.run():
+            # Keep going into race on the same turn unless handler explicitly wants to end turn.
+            if not pre_race_handler_action.options.get("continue_turn_after_run", False):
+              record_and_finalize_turn(state_obj, pre_race_handler_action)
+              continue
+
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         action["is_race_day"] = True
         action["year"] = state_obj["year"]
         info(f"Race Day")
@@ -235,12 +251,23 @@ def career_lobby(dry_run_turn=False):
       if not state_obj.get("training_results", False):
         info("Couldn't collect training state, retrying turn from top.")
         continue
-      if active_handler.consider_item_usage(state_obj):
-        continue
+      handler_action = active_handler.decide_handler_action(state_obj)
+      if handler_action is not None:
+        if handler_action.run():
+          if handler_action.options.get("recheck_trainings", False):
+            state_obj = collect_training_state(state_obj, training_function_name, force_stat_gains=True)
+            if not state_obj.get("training_results", False):
+              info("Couldn't re-collect training state after handler action, retrying turn from top.")
+              continue
+          if not handler_action.options.get("continue_turn_after_run", False):
+            record_and_finalize_turn(state_obj, handler_action)
+            continue
+        # Action failed — fall through so normal training/race logic can proceed this turn.
 
       if config.PRIORITIZE_MISSIONS_OVER_G1 and config.DO_MISSION_RACES_IF_POSSIBLE and state_obj["race_mission_available"]:
         debug(f"Mission race logic entered with priority.")
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         action["race_name"] = "any"
         action["race_image_path"] = "assets/ui/match_track.png"
         action["race_mission_available"] = True
@@ -258,6 +285,7 @@ def career_lobby(dry_run_turn=False):
       action = strategy.check_scheduled_races(state_obj, action)
       if "race_name" in action.options:
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         debug(f"Taking action: {action.func}")
         buy_skill(state_obj, action_count, race_check=True)
         if action.run():
@@ -271,6 +299,7 @@ def career_lobby(dry_run_turn=False):
       if (not config.PRIORITIZE_MISSIONS_OVER_G1) and config.DO_MISSION_RACES_IF_POSSIBLE and state_obj["race_mission_available"]:
         debug(f"Mission race logic entered.")
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         action["race_name"] = "any"
         action["race_image_path"] = "assets/ui/match_track.png"
         action["prioritize_missions_over_g1"] = config.PRIORITIZE_MISSIONS_OVER_G1
@@ -289,6 +318,7 @@ def career_lobby(dry_run_turn=False):
       if not "Achieved" in state_obj["criteria"]:
         action = strategy.decide_race_for_goal(state_obj, action)
         if action.func == "do_race":
+          mark_race_selected_for_next_turn_if_supported(action.func)
           debug(f"Taking action: {action.func}")
           buy_skill(state_obj, action_count, race_check=True)
           if action.run():
@@ -313,6 +343,7 @@ def career_lobby(dry_run_turn=False):
         info("Skipping turn, retrying...")
       else:
         debug(f"Taking action: {action.func}")
+        mark_race_selected_for_next_turn_if_supported(action.func)
 
         # go to skill buy function if we come across a do_race function, conditions are handled in buy_skill
         if action.func == "do_race":
@@ -338,6 +369,7 @@ def career_lobby(dry_run_turn=False):
             sleep(1)
             debug(f"Trying action: {function_name}")
             action.func = function_name
+            mark_race_selected_for_next_turn_if_supported(action.func)
             # go to skill buy function if we come across a do_race function, conditions are handled in buy_skill
             if action.func == "do_race":
               buy_skill(state_obj, action_count, race_check=True)

@@ -3,6 +3,7 @@ import operator
 import re
 import cv2
 import time
+import difflib
 
 from utils.log import info, warning, error, debug, debug_window, args
 
@@ -16,7 +17,7 @@ from utils.shared import CleanDefaultDict
 import core.config as config
 import utils.constants as constants
 from scenarios.registry import get_active_scenario_handler
-from collections import defaultdict
+from collections import defaultdict, Counter
 from math import floor
 
 aptitudes_cache = {}
@@ -105,11 +106,23 @@ def collect_training_state(state_object, training_function_name, force_stat_gain
         if not equal:
           debug("Training samples diverged")
           debug(debug_info)
-      training_results[name].update(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
+      training_results[name].update(
+        get_training_data(
+          year=state_object["year"],
+          check_stat_gains=check_stat_gains,
+          training_name=name,
+        )
+      )
       training_results[name].update(get_support_card_data())
       training_patch = active_handler.collect_training_state_patch(training_results[name], state_object)
       if training_patch:
         training_results[name].update(training_patch)
+
+      # Keep only this training's own stat support bucket (e.g., keep "pwr" in
+      # pwr training), removing cross-stat buckets like "spd"/"wit" from this row.
+      for stat_name in constants.TRAINING_BUTTON_POSITIONS.keys():
+        if stat_name != name:
+          training_results[name].pop(stat_name, None)
 
       stat_gains = training_results[name].get("stat_gains", {})
       if stat_gains:
@@ -235,7 +248,7 @@ def get_support_card_data(threshold=0.8):
 
   return count_result
 
-def get_training_data(year=None, check_stat_gains = False):
+def get_training_data(year=None, check_stat_gains=False, training_name=None):
   active_handler = get_active_scenario_handler()
   results = {}
   failure_region = active_handler.failure_region() or constants.FAILURE_REGION
@@ -253,6 +266,7 @@ def get_training_data(year=None, check_stat_gains = False):
         region_xywh=region_config["region_xywh"],
         scale_factor=region_config.get("scale_factor", 1),
         secondary_stat_gains=region_config.get("secondary_stat_gains", False),
+        training_name=training_name,
       )
       for key, value in region_stat_gains.items():
         stat_gains[key] = stat_gains.get(key, 0) + value
@@ -261,7 +275,16 @@ def get_training_data(year=None, check_stat_gains = False):
 
   return results
 
-def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False, region_xywh=None, scale_factor=1, secondary_stat_gains=False):
+def get_stat_gains(
+  year=1,
+  attempts=0,
+  enable_debug=True,
+  show_screenshot=False,
+  region_xywh=None,
+  scale_factor=1,
+  secondary_stat_gains=False,
+  training_name=None,
+):
   if region_xywh is None:
     raise ValueError("region_xywh is required")
   
@@ -320,8 +343,8 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
 
   h, w = stat_screenshot.shape
   stat_gains={}
+  stat_candidates = {}
   for key, (xr, yr, wr, hr) in boxes.items():
-    info(key)
     x, y, ww, hh = int(xr*w), int(yr*h), int(wr*w), int(hr*h)
     cropped_image = np.array(stat_screenshot[y:y+hh, x:x+ww])
     if enable_debug:
@@ -330,20 +353,100 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
       cropped_image = crop_after_plus_component(cropped_image, plus_length=12, bar_width=0)
     else:
       cropped_image = crop_after_plus_component(cropped_image)
-    info(cropped_image)
     if np.all(cropped_image == 0):
       continue
     if enable_debug:
       debug_window(cropped_image, save_name=f"stat_{key}_cropped_{year}", show_on_screen=show_screenshot)
-    cropped_image = clean_noise(cropped_image)
-    if enable_debug:
-      debug_window(cropped_image, save_name=f"stat_{key}_cleaned_{year}", show_on_screen=show_screenshot)
-    text = extract_number(cropped_image)
 
-    if text != -1:
+    cleaned = clean_noise(cropped_image)
+    if enable_debug:
+      debug_window(cleaned, save_name=f"stat_{key}_cleaned_{year}", show_on_screen=show_screenshot)
+
+    # Build multiple OCR views and vote, similar to shop coin OCR approach.
+    ocr_variants = [("cleaned", cleaned, 3)]
+
+    otsu = cv2.threshold(cleaned, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    ocr_variants.append(("otsu", otsu, 2))
+
+    adaptive = cv2.adaptiveThreshold(
+      cleaned,
+      255,
+      cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+      cv2.THRESH_BINARY,
+      11,
+      2,
+    )
+    ocr_variants.append(("adaptive", adaptive, 1))
+
+    sobel_x = cv2.Sobel(cleaned, cv2.CV_64F, 1, 0, ksize=3)
+    sobel_x = cv2.convertScaleAbs(sobel_x)
+    sobel = cv2.threshold(sobel_x, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    ocr_variants.append(("sobel", sobel, 1))
+
+    votes = []
+    raw_candidates = []
+    for variant_name, variant_image, weight in ocr_variants:
       if enable_debug:
-        debug_window(cropped_image, save_name=f"{text}_stat_{key}_gain_screenshot_{year}", show_on_screen=show_screenshot)
-      stat_gains[key] = text
+        debug_window(
+          variant_image,
+          save_name=f"stat_{key}_{variant_name}_{year}",
+          show_on_screen=show_screenshot,
+        )
+
+      detected = extract_number(variant_image)
+      if detected == -1:
+        continue
+
+      try:
+        detected = int(detected)
+      except (TypeError, ValueError):
+        continue
+
+      if not (0 <= detected <= 120):
+        continue
+
+      raw_candidates.append(detected)
+      votes.extend([detected] * max(1, int(weight)))
+
+    if votes:
+      counts = Counter(votes)
+      best_value = sorted(counts.keys(), key=lambda value: (counts[value], -value), reverse=True)[0]
+      stat_gains[key] = int(best_value)
+      stat_candidates[key] = sorted(set(raw_candidates))
+
+      if enable_debug:
+        debug(
+          f"[STAT_GAINS] {year} {key} votes={dict(counts)} chosen={best_value}"
+        )
+
+  # Safety check: clicked training's main stat should dominate in most cases.
+  # If OCR outputs a very large off-stat while main stat is small, discard the off-stat
+  # when lower alternatives exist from variant candidates.
+  if training_name in {"spd", "sta", "pwr", "guts", "wit"} and training_name in stat_gains:
+    main_gain = int(stat_gains.get(training_name, 0) or 0)
+    for key, value in list(stat_gains.items()):
+      if key in {"sp", training_name}:
+        continue
+      off_gain = int(value or 0)
+      if off_gain >= 40 and off_gain > (main_gain + 20) and main_gain <= 25:
+        alternatives = [
+          candidate
+          for candidate in stat_candidates.get(key, [])
+          if candidate <= max(main_gain + 20, 35)
+        ]
+        if alternatives:
+          replacement = max(alternatives)
+          debug(
+            f"[STAT_GAINS] {year} {key} adjusted {off_gain} -> {replacement} "
+            f"(training={training_name}, main={main_gain})"
+          )
+          stat_gains[key] = replacement
+        else:
+          debug(
+            f"[STAT_GAINS] {year} dropping suspicious off-stat {key}={off_gain} "
+            f"(training={training_name}, main={main_gain})"
+          )
+          stat_gains.pop(key, None)
 
   if attempts >= 10:
     if enable_debug:
@@ -352,7 +455,16 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
   elif any(value > 100 for value in stat_gains.values()):
     if enable_debug:
       debug(f"[STAT_GAINS] {year} Too high, retrying. Gains: {stat_gains}")
-    return get_stat_gains(year=year, attempts=attempts + 1, enable_debug=enable_debug, show_screenshot=show_screenshot, region_xywh=region_xywh)
+    return get_stat_gains(
+      year=year,
+      attempts=attempts + 1,
+      enable_debug=enable_debug,
+      show_screenshot=show_screenshot,
+      region_xywh=region_xywh,
+      scale_factor=scale_factor,
+      secondary_stat_gains=secondary_stat_gains,
+      training_name=training_name,
+    )
   debug(f"[STAT_GAINS] {year} Gains: {stat_gains}")
   return stat_gains
 
@@ -426,8 +538,34 @@ def get_turn():
 
 # Check year
 def get_current_year():
+  def _normalize_timeline_text(value):
+    normalized = str(value or "").strip().lower()
+    normalized = normalized.replace("pre debut", "pre-debut")
+    normalized = re.sub(r"\s+", " ", normalized)
+    return normalized
+
+  def _match_timeline_fuzzy(text, min_ratio=0.78):
+    normalized_text = _normalize_timeline_text(text)
+    if not normalized_text:
+      return None
+
+    best_token = None
+    best_ratio = 0.0
+    for token in constants.TIMELINE:
+      normalized_token = _normalize_timeline_text(token)
+      ratio = difflib.SequenceMatcher(None, normalized_text, normalized_token).ratio()
+      if ratio > best_ratio:
+        best_ratio = ratio
+        best_token = token
+
+    if best_token is not None and best_ratio >= min_ratio:
+      debug(f"Fuzzy matched year text '{text}' -> '{best_token}' (ratio={best_ratio:.3f})")
+      return best_token
+    return None
+
   active_handler = get_active_scenario_handler()
   region_xywh = active_handler.year_region() or constants.YEAR_REGION
+  text = ""
   for i in range(3):
     year = enhanced_screenshot(region_xywh)
     text = extract_text(year, allowlist=constants.OCR_DATE_RECOGNITION_SET)
@@ -435,6 +573,9 @@ def get_current_year():
     debug(f"Year text from main screen: {text}")
     if text in constants.TIMELINE:
       return text
+    fuzzy_match = _match_timeline_fuzzy(text)
+    if fuzzy_match:
+      return fuzzy_match
     else:
       device_action.flush_screenshot_cache()
 
@@ -444,7 +585,10 @@ def get_current_year():
     year_region = enhanced_screenshot(constants.RACE_LIST_YEAR_REGION)
     text = extract_text(year_region, allowlist=constants.OCR_DATE_RECOGNITION_SET)
     debug(f"Year text from races screen: {text}")
+    fuzzy_match = _match_timeline_fuzzy(text)
     device_action.locate_and_click("assets/buttons/back_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+    if fuzzy_match:
+      return fuzzy_match
 
   return text
 

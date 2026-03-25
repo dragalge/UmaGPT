@@ -2664,6 +2664,8 @@ class TrackblazerHandler(ScenarioHandler):
     timeline_token = race_schedule_state.get("timeline_token", "")
     is_key_day = self.is_trackblazer_key_item_usage_day(timeline_token)
     is_race_day = bool(race_schedule_state.get("is_race_day", False))
+    scheduled_races_today = race_schedule_state.get("scheduled_races_today", []) or []
+    has_scheduled_race_today = bool(scheduled_races_today)
     is_climax_underway_window = ("climax" in str(timeline_token or "").lower()) and (
       "underway" in str(timeline_token or "").lower() or "races" in str(timeline_token or "").lower()
     )
@@ -2715,9 +2717,26 @@ class TrackblazerHandler(ScenarioHandler):
           max_training_failure = failure
 
     max_training_total_gain = self._max_training_total_gain(training_state)
+    training_items_allowed = ((not is_race_day) and (not has_scheduled_race_today)) or is_climax_underway_window
 
     condition_item_names = self._plan_condition_items(status_effect_names, inventory_counts)
     planned_item_names.extend(condition_item_names)
+
+    if (
+      training_items_allowed
+      and is_key_day
+      and max_training_total_gain < 45
+      and int(inventory_counts.get("Reset Whistle", 0) or 0) > 0
+    ):
+      debug(
+        "[TRACKBLAZER] Planning Reset Whistle on weak key training turn: "
+        f"timeline={timeline_token}, max_training_total_gain={max_training_total_gain}"
+      )
+      planned_item_names.append("Reset Whistle")
+      return {
+        "item_names": planned_item_names,
+        "recheck_trainings": True,
+      }
 
     # Emergency race-day recovery: if energy is empty, force an immediate MAX drink.
     if is_race_day and current_energy <= 0:
@@ -2744,8 +2763,9 @@ class TrackblazerHandler(ScenarioHandler):
         energy_restore = int(usage_effects.get("energy_restore", 0) or 0)
         current_energy = min(max_energy, current_energy + max(0, energy_restore))
 
-    # During TS Climax Underway, burn key training items even if the turn is reported as Race Day.
-    if (not is_race_day) or is_climax_underway_window:
+    # Only use training-only items on actual training turns. Scheduled race dates are treated as race turns
+    # here because the handler runs before the main race-selection logic.
+    if training_items_allowed:
       if is_key_day:
         planned_item_names.extend(self._plan_key_day_megaphone(timeline_token, inventory_counts))
       elif max_training_total_gain > 42:

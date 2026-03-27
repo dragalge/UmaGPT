@@ -10,8 +10,6 @@ We do not expect compensation but it helps motivate the development to see peopl
 
 This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
 
-Join our [discord server](https://discord.gg/vKKmYUNZuk)
-
 [Demo video](https://youtu.be/CXSYVD-iMJk)
 
 ![Screenshot](screenshot.png)

@@ -1,4 +1,4 @@
-# ⚠️ USE IT AT YOUR OWN RISK ⚠️
+# ⚠️ USE THIS AT YOUR OWN RISK ⚠️
 
 We are not responsible for any issues, account bans, or losses that may occur from using it.
 Use responsibly and at your own discretion.
@@ -9,10 +9,8 @@ Use responsibly and at your own discretion.
 Like the title says, this is a simple auto training for Umamusume.
 
 To support the creator and the current contributors, use these links:
-  - Give thanks to the creator of project [Samsul Panjul](https://ko-fi.com/samsulpanjul)
-  - Give thanks to the current maintainer and developer [CrazyIvanTR](https://buymeacoffee.com/crazyivantr)
-
-We do not expect compensation but it helps motivate the development to see people join the Discord, present new ideas, give thanks and support monetarily.
+  - Thanks to the creator of project [Samsul Panjul](https://ko-fi.com/samsulpanjul)
+  - Thanks to the current maintainer and developer [CrazyIvanTR](https://buymeacoffee.com/crazyivantr)
 
 This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
 

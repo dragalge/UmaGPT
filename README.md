@@ -46,7 +46,7 @@ This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/s
 #### Clone repository
 
 ```
-git clone https://github.com/samsulpanjul/umamusume-auto-train.git
+git clone https://github.com/dragalge/UmaGPT.git
 cd umamusume-auto-train
 ```
 

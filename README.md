@@ -1,3 +1,9 @@
+# ⚠️ USE IT AT YOUR OWN RISK ⚠️
+
+We are not responsible for any issues, account bans, or losses that may occur from using it.
+Use responsibly and at your own discretion.
+- [License and disclaimer.](./LICENSE_AND_DISCLAIMER.md)
+
 # Umamusume Auto Train
 
 Like the title says, this is a simple auto training for Umamusume.
@@ -13,15 +19,6 @@ This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/s
 [Demo video](https://youtu.be/CXSYVD-iMJk)
 
 ![Screenshot](screenshot.png)
-
-# ⚠️ USE IT AT YOUR OWN RISK ⚠️
-
-We are not responsible for any issues, account bans, or losses that may occur from using it.
-Use responsibly and at your own discretion.
-- [License and disclaimer.](./LICENSE_AND_DISCLAIMER.md)
-
-### If you are a new player, it is recommended to learn the game's systems before using the bot.
-- For game guides visit [this link](./readmes/GUIDES.md).
 
 ## Features
 
@@ -43,7 +40,6 @@ Use responsibly and at your own discretion.
 
 ### Requirements
 
-- [Python Versions 3.10 to 3.13](https://www.python.org/downloads/)
 - [Windows Installer 64-bit direct link](https://www.python.org/ftp/python/3.13.11/python-3.13.11-amd64.exe)
 <img width="445" height="141" alt="image" src="https://github.com/user-attachments/assets/36f7f078-9fce-4bd8-b92c-7ff5c5a5eb8d" />
 

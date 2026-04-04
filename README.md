@@ -11,6 +11,7 @@ Like the title says, this is a simple auto training for Umamusume.
 To support the creator and the current contributors, use these links:
   - Thanks to the creator of project [Samsul Panjul](https://ko-fi.com/samsulpanjul)
   - Thanks to the current maintainer and developer [CrazyIvanTR](https://buymeacoffee.com/crazyivantr)
+  - Thanks to [Fuzznip](https://github.com/samsulpanjul/umamusume-auto-train/compare/main...Fuzznip:umamusume-auto-train:mant) for MANT integration 
 
 This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
 
@@ -123,8 +124,4 @@ Notes: this doesn't work if you have an in progress CM from the main menu, like 
 ### Known Issues
 
 - OCR might misread some values and do trainings otherwise it shouldn't do.
-
-### Contribute
-
-If you run into any issues or something doesn’t work as expected, feel free to open an issue or join the Discord to ask.
-Contributions are very welcome! If you want to contribute, please check out the [dev](https://github.com/samsulpanjul/umamusume-auto-train/tree/dev) branch, which is used for testing new features. We truly appreciate any support to help improve this project further.
+- Limited TB/MANT capabilities.

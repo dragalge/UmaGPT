@@ -2899,7 +2899,8 @@ class TrackblazerHandler(ScenarioHandler):
       "recheck_trainings": recheck_trainings,
     }
 
-  def decide_handler_action(self, state: dict[str, object]):
+    def decide_handler_action(self, state: dict[str, object]):
+    return None  # TB item/shop logic disabled — no-op until implementation is stable
     training_state = state.get("training_results", {})
     timeline_token = str(state.get("year", ""))
     normalized_timeline_token = re.sub(r"\s+", " ", timeline_token.lower()).strip()

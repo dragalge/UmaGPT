@@ -1,0 +1,665 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "name": "Speed Notepad",
+      "image_path": "assets/trackblazer/items/speed_notepad.png",
+      "match_threshold": 0.78,
+      "cost": 10,
+      "priority": 0,
+      "usage_effects": {
+        "training_bonus": {
+          "spd": 3
+        },
+        "notes": "Speed +3"
+      }
+    },
+    {
+      "name": "Power Notepad",
+      "image_path": "assets/trackblazer/items/power_notepad.png",
+      "match_threshold": 0.78,
+      "cost": 10,
+      "priority": 0,
+      "usage_effects": {
+        "training_bonus": {
+          "pwr": 3
+        },
+        "notes": "Power +3"
+      }
+    },
+    {
+      "name": "Stamina Notepad",
+      "image_path": "assets/trackblazer/items/stamina_notepad.png",
+      "match_threshold": 0.78,
+      "cost": 10,
+      "priority": 0,
+      "usage_effects": {
+        "training_bonus": {
+          "sta": 3
+        },
+        "notes": "Stamina +3"
+      }
+    },
+    {
+      "name": "Guts Notepad",
+      "image_path": "assets/trackblazer/items/guts_notepad.png",
+      "match_threshold": 0.78,
+      "cost": 10,
+      "priority": 0,
+      "usage_effects": {
+        "training_bonus": {
+          "guts": 3
+        },
+        "notes": "Guts +3"
+      }
+    },
+    {
+      "name": "Wit Notepad",
+      "image_path": "assets/trackblazer/items/wit_notepad.png",
+      "match_threshold": 0.78,
+      "cost": 10,
+      "priority": 0,
+      "usage_effects": {
+        "training_bonus": {
+          "wit": 3
+        },
+        "notes": "Wit +3"
+      }
+    },
+    {
+      "name": "Speed Manual",
+      "image_path": "assets/trackblazer/items/speed_manual.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "spd": 7
+        },
+        "notes": "Speed +7"
+      }
+    },
+    {
+      "name": "Power Manual",
+      "image_path": "assets/trackblazer/items/power_manual.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "pwr": 7
+        },
+        "notes": "Power +7"
+      }
+    },
+    {
+      "name": "Stamina Manual",
+      "image_path": "assets/trackblazer/items/stamina_manual.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "sta": 7
+        },
+        "notes": "Stamina +7"
+      }
+    },
+    {
+      "name": "Guts Manual",
+      "image_path": "assets/trackblazer/items/guts_manual.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "guts": 7
+        },
+        "notes": "Guts +7"
+      }
+    },
+    {
+      "name": "Wit Manual",
+      "image_path": "assets/trackblazer/items/wit_manual.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "wit": 7
+        },
+        "notes": "Wit +7"
+      }
+    },
+    {
+      "name": "Speed Scroll",
+      "image_path": "assets/trackblazer/items/speed_scroll.png",
+      "match_threshold": 0.78,
+      "cost": 30,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "spd": 15
+        },
+        "notes": "Speed +15"
+      }
+    },
+    {
+      "name": "Power Scroll",
+      "image_path": "assets/trackblazer/items/power_scroll.png",
+      "match_threshold": 0.78,
+      "cost": 30,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "pwr": 15
+        },
+        "notes": "Power +15"
+      }
+    },
+    {
+      "name": "Stamina Scroll",
+      "image_path": "assets/trackblazer/items/stamina_scroll.png",
+      "match_threshold": 0.78,
+      "cost": 30,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "sta": 15
+        },
+        "notes": "Stamina +15"
+      }
+    },
+    {
+      "name": "Guts Scroll",
+      "image_path": "assets/trackblazer/items/guts_scroll.png",
+      "match_threshold": 0.78,
+      "cost": 30,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "guts": 15
+        },
+        "notes": "Guts +15"
+      }
+    },
+    {
+      "name": "Wit Scroll",
+      "image_path": "assets/trackblazer/items/wit_scroll.png",
+      "match_threshold": 0.78,
+      "cost": 30,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "wit": 15
+        },
+        "notes": "Wit +15"
+      }
+    },
+    {
+      "name": "Coaching Megaphone",
+      "image_path": "assets/trackblazer/items/coaching_megaphone.png",
+      "match_threshold": 0.78,
+      "cost": 40,
+      "priority": 1,
+      "usage_effects": {
+        "training_bonus": {
+          "effectiveness": 1.2,
+          "turns": 4
+        },
+        "notes": "Training stat gain +20% for 4 turns"
+      }
+    },
+    {
+      "name": "Motivating Megaphone",
+      "image_path": "assets/trackblazer/items/motivating_megaphone.png",
+      "match_threshold": 0.78,
+      "cost": 55,
+      "priority": 8,
+      "usage_effects": {
+        "training_bonus": {
+          "effectiveness": 1.4,
+          "turns": 3
+        },
+        "notes": "Training stat gain +40% for 3 turns"
+      }
+    },
+    {
+      "name": "Plain Cupcake",
+      "image_path": "assets/trackblazer/items/plain_cupcake.png",
+      "match_threshold": 0.78,
+      "cost": 30,
+      "priority": 10,
+      "usage_effects": {
+        "mood_bonus": 1,
+        "notes": "Mood +1"
+      }
+    },
+    {
+      "name": "Berry Sweet Cupcake",
+      "image_path": "assets/trackblazer/items/berry_sweet_cupcake.png",
+      "match_threshold": 0.78,
+      "cost": 55,
+      "priority": 8,
+      "usage_effects": {
+        "mood_bonus": 2,
+        "notes": "Mood +2"
+      }
+    },
+    {
+      "name": "Vita 20",
+      "image_path": "assets/trackblazer/items/vita_20.png",
+      "match_threshold": 0.78,
+      "cost": 35,
+      "priority": 15,
+      "usage_effects": {
+        "energy_restore": 20,
+        "notes": "Restores 20 energy"
+      }
+    },
+    {
+      "name": "Vita 40",
+      "image_path": "assets/trackblazer/items/vita_40.png",
+      "match_threshold": 0.78,
+      "cost": 55,
+      "priority": 15,
+      "usage_effects": {
+        "energy_restore": 40,
+        "notes": "Restores 40 energy"
+      }
+    },
+    {
+      "name": "Vita 65",
+      "image_path": "assets/trackblazer/items/vita_65.png",
+      "match_threshold": 0.78,
+      "cost": 75,
+      "priority": 15,
+      "usage_effects": {
+        "energy_restore": 65,
+        "notes": "Restores 65 energy"
+      }
+    },
+    {
+      "name": "Royal Kale Juice",
+      "image_path": "assets/trackblazer/items/royal_kale_juice.png",
+      "match_threshold": 0.78,
+      "cost": 70,
+      "priority": 15,
+      "usage_effects": {
+        "energy_restore": 100,
+        "mood_bonus": -1,
+        "notes": "Restores 100 energy, Mood -1"
+      }
+    },
+    {
+      "name": "Grilled Carrots",
+      "image_path": "assets/trackblazer/items/grilled_carrots.png",
+      "match_threshold": 0.78,
+      "cost": 40,
+      "priority": 5,
+      "usage_effects": {
+        "support_bond_bonus_all": 5,
+        "notes": "All support card bonds +5"
+      }
+    },
+    {
+      "name": "Good-Luck Charm",
+      "image_path": "assets/trackblazer/items/good_luck_charm.png",
+      "match_threshold": 0.78,
+      "cost": 40,
+      "priority": 10,
+      "usage_effects": {
+        "training_failure_override": 0,
+        "turns": 1,
+        "notes": "Training failure set to 0 for 1 turn"
+      }
+    },
+    {
+      "name": "Artisan Cleat Hammer",
+      "image_path": "assets/trackblazer/items/artisan_cleat_hammer.png",
+      "match_threshold": 0.78,
+      "cost": 25,
+      "priority": 5,
+      "usage_effects": {
+        "race_bonus": 1.2,
+        "turns": 1,
+        "notes": "Race bonus +20% for 1 turn"
+      }
+    },
+    {
+      "name": "Master Cleat Hammer",
+      "image_path": "assets/trackblazer/items/master_cleat_hammer.png",
+      "match_threshold": 0.78,
+      "cost": 40,
+      "priority": 5,
+      "usage_effects": {
+        "race_bonus": 1.35,
+        "turns": 1,
+        "notes": "Race bonus +35% for 1 turn"
+      }
+    },
+    {
+      "name": "Empowering Megaphone",
+      "image_path": "assets/trackblazer/items/empowering_megaphone.png",
+      "match_threshold": 0.78,
+      "cost": 70,
+      "priority": 10,
+      "usage_effects": {
+        "training_bonus": {
+          "effectiveness": 1.6,
+          "turns": 2
+        },
+        "notes": "Training stat gain +60% for 2 turns"
+      }
+    },
+    {
+      "name": "Reset Whistle",
+      "image_path": "assets/trackblazer/items/reset_whistle.png",
+      "match_threshold": 0.78,
+      "cost": 20,
+      "priority": 500,
+      "usage_effects": {
+        "shuffle_support_cards": true,
+        "notes": "Shuffles support cards on training options"
+      }
+    },
+    {
+      "name": "Aroma Diffuser",
+      "image_path": "assets/trackblazer/items/aroma_diffuser.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 0,
+      "usage_effects": {
+        "heal_negative_status": "migraine",
+        "notes": "Heal Migraine"
+      }
+    },
+    {
+      "name": "Fluffy Pillow",
+      "image_path": "assets/trackblazer/items/fluffy_pillow.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 0,
+      "usage_effects": {
+        "heal_negative_status": "night_owl",
+        "notes": "Heal Night Owl"
+      }
+    },
+    {
+      "name": "Glow Sticks",
+      "image_path": "assets/trackblazer/items/glow_sticks.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 0,
+      "usage_effects": {
+        "race_fan_gain_bonus": 1.5,
+        "turns": 1,
+        "notes": "Race fan gain +50% for 1 turn"
+      }
+    },
+    {
+      "name": "Energy Drink MAX",
+      "image_path": "assets/trackblazer/items/energy_drink_max.png",
+      "match_threshold": 0.78,
+      "cost": 30,
+      "priority": 4,
+      "usage_effects": {
+        "max_energy_bonus": 4,
+        "energy_restore": 5,
+        "notes": "Maximum energy +4, Energy +5"
+      }
+    },
+    {
+      "name": "Speed Ankle Weights",
+      "image_path": "assets/trackblazer/items/speed_ankle_weights.png",
+      "match_threshold": 0.78,
+      "cost": 50,
+      "priority": 6,
+      "usage_effects": {
+        "training_bonus": {
+          "stat": "spd",
+          "effectiveness": 1.5,
+          "turns": 1
+        },
+        "energy_consumption_multiplier": 1.2,
+        "notes": "Speed training bonus +50%, Energy consumption +20% (One turn)"
+      }
+    },
+    {
+      "name": "Stamina Ankle Weights",
+      "image_path": "assets/trackblazer/items/stamina_ankle_weights.png",
+      "match_threshold": 0.78,
+      "cost": 50,
+      "priority": 4,
+      "usage_effects": {
+        "training_bonus": {
+          "stat": "sta",
+          "effectiveness": 1.5,
+          "turns": 1
+        },
+        "energy_consumption_multiplier": 1.2,
+        "notes": "Stamina training bonus +50%, Energy consumption +20% (One turn)"
+      }
+    },
+    {
+      "name": "Power Ankle Weights",
+      "image_path": "assets/trackblazer/items/power_ankle_weights.png",
+      "match_threshold": 0.78,
+      "cost": 50,
+      "priority": 0,
+      "usage_effects": {
+        "training_bonus": {
+          "stat": "pwr",
+          "effectiveness": 1.5,
+          "turns": 1
+        },
+        "energy_consumption_multiplier": 1.2,
+        "notes": "Power training bonus +50%, Energy consumption +20% (One turn)"
+      }
+    },
+    {
+      "name": "Guts Ankle Weights",
+      "image_path": "assets/trackblazer/items/guts_ankle_weights.png",
+      "match_threshold": 0.78,
+      "cost": 50,
+      "priority": 0,
+      "usage_effects": {
+        "training_bonus": {
+          "stat": "guts",
+          "effectiveness": 1.5,
+          "turns": 1
+        },
+        "energy_consumption_multiplier": 1.2,
+        "notes": "Guts training bonus +50%, Energy consumption +20% (One turn)"
+      }
+    },
+    {
+      "name": "Pocket Planner",
+      "image_path": "assets/trackblazer/items/pocket_planner.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 0,
+      "usage_effects": {
+        "heal_negative_status": "slacker",
+        "notes": "Heal Slacker"
+      }
+    },
+    {
+      "name": "Practice Drills DVD",
+      "image_path": "assets/trackblazer/items/practice_drills_dvd.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 0,
+      "usage_effects": {
+        "heal_negative_status": "practice_poor",
+        "notes": "Heal Practice Poor"
+      }
+    },
+    {
+      "name": "Rich Hand Cream",
+      "image_path": "assets/trackblazer/items/rich_hand_cream.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 0,
+      "usage_effects": {
+        "heal_negative_status": "skin_outbreak",
+        "notes": "Heal Skin Outbreak"
+      }
+    },
+    {
+      "name": "Smart Scale",
+      "image_path": "assets/trackblazer/items/smart_scale.png",
+      "match_threshold": 0.78,
+      "cost": 15,
+      "priority": 0,
+      "usage_effects": {
+        "heal_negative_status": "slow_metabolism",
+        "notes": "Heal Slow Metabolism"
+      }
+    },
+    {
+      "name": "Yummy Cat Food",
+      "image_path": "assets/trackblazer/items/yummy_cat_food.png",
+      "match_threshold": 0.78,
+      "cost": 10,
+      "priority": 0,
+      "usage_effects": {
+        "bond_bonus": {
+          "yayoi_akikawa": 5
+        },
+        "notes": "Yayoi Akikawa's bond +5"
+      }
+    },
+    {
+      "name": "Miracle Cure",
+      "image_path": "assets/trackblazer/items/miracle_cure.png",
+      "match_threshold": 0.78,
+      "cost": 40,
+      "priority": 0,
+      "usage_effects": {
+        "heal_all_negative_status": true,
+        "notes": "Heal all negative status effects"
+      }
+    },
+    {
+      "name": "Energy Drink MAX EX",
+      "image_path": "assets/trackblazer/items/energy_drink_max_ex.png",
+      "match_threshold": 0.78,
+      "cost": 50,
+      "priority": 0,
+      "usage_effects": {
+        "max_energy_bonus": 8,
+        "notes": "Maximum energy +8"
+      }
+    },
+    {
+      "name": "Guts Training Application",
+      "image_path": "assets/trackblazer/items/guts_training_application.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 0,
+      "usage_effects": {
+        "training_level_bonus": {
+          "guts": 1
+        },
+        "notes": "Guts Training Level +1"
+      }
+    },
+    {
+      "name": "Master Practice Guide",
+      "image_path": "assets/trackblazer/items/master_practice_guide.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 0,
+      "usage_effects": {
+        "status_effect_gain": "practice_perfect_circle",
+        "notes": "Get Practice Perfect (circle) status effect"
+      }
+    },
+    {
+      "name": "Power Training Application",
+      "image_path": "assets/trackblazer/items/power_training_application.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 0,
+      "usage_effects": {
+        "training_level_bonus": {
+          "pwr": 1
+        },
+        "notes": "Power Training Level +1"
+      }
+    },
+    {
+      "name": "Pretty Mirror",
+      "image_path": "assets/trackblazer/items/pretty_mirror.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 0,
+      "usage_effects": {
+        "status_effect_gain": "charming_circle",
+        "notes": "Get Charming (circle) status effect"
+      }
+    },
+    {
+      "name": "Reporter's Binoculars",
+      "image_path": "assets/trackblazer/items/reporters_binoculars.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 0,
+      "usage_effects": {
+        "status_effect_gain": "hot_topic",
+        "notes": "Get Hot Topic status effect"
+      }
+    },
+    {
+      "name": "Stamina Training Application",
+      "image_path": "assets/trackblazer/items/stamina_training_application.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 0,
+      "usage_effects": {
+        "training_level_bonus": {
+          "sta": 1
+        },
+        "notes": "Stamina Training Level +1"
+      }
+    },
+    {
+      "name": "Speed Training Application",
+      "image_path": "assets/trackblazer/items/speed_training_application.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 3,
+      "usage_effects": {
+        "training_level_bonus": {
+          "spd": 1
+        },
+        "notes": "Speed Training Level +1"
+      }
+    },
+    {
+      "name": "Wit Training Application",
+      "image_path": "assets/trackblazer/items/wit_training_application.png",
+      "match_threshold": 0.78,
+      "cost": 150,
+      "priority": 0,
+      "usage_effects": {
+        "training_level_bonus": {
+          "wit": 1
+        },
+        "notes": "Wisdom Training Level +1"
+      }
+    },
+    {
+      "name": "Scholar's Hat",
+      "image_path": "assets/trackblazer/items/scholars_hat.png",
+      "match_threshold": 0.78,
+      "cost": 280,
+      "priority": 3,
+      "usage_effects": {
+        "status_effect_gain": "fast_learner",
+        "notes": "Get Fast Learner status effect"
+      }
+    }
+  ]
+}

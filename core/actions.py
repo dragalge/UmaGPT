@@ -12,15 +12,18 @@ from utils.screenshot import are_screenshots_same
 import pyautogui
 import core.bot as bot
 from utils.shared import CleanDefaultDict, get_race_type
+from scenarios.registry import get_active_scenario_handler
 
 class Action:
   def __init__(self, **options):
     self.func = None
+    self._callable = None  # When set, run() uses this instead of a globals() lookup.
     self.available_actions = []
     self.options = options
 
   def run(self):
-
+    if self._callable is not None:
+      return self._callable(self.options)
     return globals()[self.func](self.options)
 
   def get(self, key, default=None):
@@ -137,7 +140,8 @@ def do_race(options=None):
     options = {}
   debug(f"do_race options before enter race: {options}")
   if "is_race_day" in options and options["is_race_day"]:
-    race_day(options)
+    if not race_day(options):
+      return False
   elif ("race_mission_available" in options and options["race_mission_available"]):
     if not enter_race(options=options):
       return False
@@ -189,14 +193,21 @@ def click_race_buttons():
   sleep(0.5)
 
 def race_day(options=None):
-  if options["year"] == "Finale Underway":
-    device_action.locate_and_click("assets/ura/ura_race_btn.png", min_search_time=get_secs(10), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
-  else:
-    device_action.locate_and_click("assets/buttons/race_day_btn.png", min_search_time=get_secs(10), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+  if options is None:
+    options = {}
+
+  active_handler = get_active_scenario_handler()
+  if active_handler.race_day_entry_action(options):
+    return True
+
+  if not device_action.locate_and_click("assets/buttons/race_day_btn.png", min_search_time=get_secs(10), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
+    warning("Couldn't find race day button.")
+    return False
   sleep(0.5)
   device_action.locate_and_click("assets/buttons/ok_btn.png")
   sleep(0.5)
   click_race_buttons()
+  return True
 
 def go_to_racebox_top():
   for i in range(10):
@@ -210,18 +221,20 @@ def go_to_racebox_top():
   return False
 
 def enter_race(race_name="any", race_image_path="", options=None):
+  if options is None:
+    options = {}
+
   if not device_action.locate_and_click("assets/buttons/races_btn.png", min_search_time=get_secs(10), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
     warning("Couldn't find races_btn, something probably went wrong. Looking for race day.")
+    active_handler = get_active_scenario_handler()
+    if active_handler.enter_race_fallback_action(options):
+      return True
+
     if device_action.locate("assets/buttons/race_day_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
       info("We missed a race day check somehow. Found the race_day_btn now, proceed to race_day.")
-      race_day(options=options)
-      return True
-    elif device_action.locate("assets/buttons/ura_race_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
-      info("We missed a race day check somehow. Found the ura_race_btn now, proceed to race_day.")
-      race_day(options=options)
-      return True
+      return race_day(options=options)
     else:
-      warning("Couldn't find races_btn/race_day_btn/ura_race_btn, something probably went very wrong. Probably retry turn.")
+      warning("Couldn't find races_btn/race_day_btn, something probably went very wrong. Probably retry turn.")
       return False
 
   debug(f"race_name: {race_name}, race_image_path: {race_image_path}")

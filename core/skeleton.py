@@ -10,7 +10,8 @@ import core.config as config
 from PIL import ImageGrab
 from core.actions import Action
 import utils.constants as constants
-from scenarios.unity import unity_cup_function
+from scenarios.base import ScenarioHandler
+from scenarios.registry import initialize_scenario_registry, set_active_scenario, get_active_scenario_handler, get_registered_scenarios
 from core.events import select_event
 from core.claw_machine import play_claw_machine
 from core.skill import buy_skill, init_skill_py
@@ -53,15 +54,11 @@ templates = {
 
 cached_templates = cache_templates(templates)
 
-unity_templates = {
-  "close_btn": "assets/buttons/close_btn.png",
-  "unity_cup_btn": "assets/unity/unity_cup_btn.png",
-  "unity_banner_mid_screen": "assets/unity/unity_banner_mid_screen.png"
-}
-
-cached_unity_templates = cache_templates(unity_templates)
-
 def detect_scenario():
+  scenario_name = ScenarioHandler.detect_scenario(get_registered_scenarios().values())
+  if scenario_name is not None:
+    return scenario_name
+
   screenshot = device_action.screenshot()
   if not device_action.locate_and_click("assets/buttons/details_btn.png", confidence=0.75, min_search_time=get_secs(2), region_ltrb=constants.SCREEN_TOP_BBOX):
     error("Details button not found.")
@@ -93,6 +90,9 @@ def career_lobby(dry_run_turn=False):
   sleep(1)
   bot.PREFERRED_POSITION_SET = False
   constants.SCENARIO_NAME = ""
+  initialize_scenario_registry()
+  default_handler = set_active_scenario("ura_finale")
+  info(f"Scenario handler selected: {default_handler.id} ({default_handler.display_name})")
   clear_aptitudes_cache()
   strategy = Strategy()
   init_adb()
@@ -112,11 +112,16 @@ def career_lobby(dry_run_turn=False):
           device_action.stop_bot("stuck", f"assets/notifications/{config.ERROR_NOTIFICATION}", volume = config.NOTIFICATION_VOLUME)
       if constants.SCENARIO_NAME == "":
         info("Trying to find what scenario we're on.")
-        if device_action.locate_and_click("assets/unity/unity_cup_btn.png", min_search_time=get_secs(1)):
-          constants.SCENARIO_NAME = "unity"
-          info("Unity race detected, calling unity cup function. If this is not correct, please report this.")
-          unity_cup_function()
-          continue
+        try:
+          scenario_name = detect_scenario()
+          constants.SCENARIO_NAME = scenario_name
+          active_handler = set_active_scenario(constants.SCENARIO_NAME)
+          info(f"Scenario handler selected: {active_handler.id} ({active_handler.display_name})")
+          if active_handler.on_scenario_detected({"scenario_name": scenario_name}):
+            continue
+        except ValueError:
+          # Not on a screen where scenario detection is possible yet.
+          pass
 
       matches = device_action.match_cached_templates(cached_templates, region_ltrb=constants.GAME_WINDOW_BBOX, threshold=0.9, stop_after_first_match=True)
       def click_match(matches):
@@ -182,21 +187,10 @@ def career_lobby(dry_run_turn=False):
         non_match_count = 0
         continue
 
-      if constants.SCENARIO_NAME == "unity":
-        unity_matches = device_action.match_cached_templates(cached_unity_templates, region_ltrb=constants.GAME_WINDOW_BBOX)
-        if click_match(unity_matches.get("unity_cup_btn")):
-          debug("Pressed unity cup.")
-          unity_cup_function()
-          non_match_count = 0
-          continue
-        if click_match(unity_matches.get("close_btn")):
-          debug("Pressed close.")
-          non_match_count = 0
-          continue
-        if click_match(unity_matches.get("unity_banner_mid_screen")):
-          debug("Unity banner mid screen found. Starting over.")
-          non_match_count = 0
-          continue
+      active_handler = get_active_scenario_handler()
+      if active_handler.on_special_screen({"click_match": click_match}):
+        non_match_count = 0
+        continue
 
       if not matches.get("tazuna"):
         print(".", end="")
@@ -209,18 +203,38 @@ def career_lobby(dry_run_turn=False):
           scenario_name = detect_scenario()
           info(f"Scenario detected: {scenario_name}, if this is not correct, please report this.")
           constants.SCENARIO_NAME = scenario_name
+          active_handler = set_active_scenario(scenario_name)
+          info(f"Scenario handler selected: {active_handler.id} ({active_handler.display_name})")
+          if active_handler.on_scenario_detected({"scenario_name": scenario_name}):
+            continue
         non_match_count = 0
       device_action.flush_screenshot_cache()
       debug(f"Bot version: {VERSION}")
 
       action = Action()
+      def mark_race_selected_for_next_turn_if_supported(selected_action_name):
+        if selected_action_name != "do_race":
+          return
+        if hasattr(active_handler, "mark_race_selected_for_next_turn"):
+          active_handler.mark_race_selected_for_next_turn()
+
       state_obj = collect_main_state()
       if not validate_turn(state_obj):
         info("Couldn't read turn text correctly, retrying to avoid unnecessary races. If this keeps happening please report it.")
         continue
       action["scroll_to_top_wanted"] = False
       if state_obj["turn"] == "Race Day":
+        # Allow scenario handlers to consume pre-race items before entering race.
+        pre_race_handler_action = active_handler.decide_handler_action(state_obj)
+        if pre_race_handler_action is not None:
+          if pre_race_handler_action.run():
+            # Keep going into race on the same turn unless handler explicitly wants to end turn.
+            if not pre_race_handler_action.options.get("continue_turn_after_run", False):
+              record_and_finalize_turn(state_obj, pre_race_handler_action)
+              continue
+
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         action["is_race_day"] = True
         action["year"] = state_obj["year"]
         info(f"Race Day")
@@ -232,9 +246,28 @@ def career_lobby(dry_run_turn=False):
           del action.options["is_race_day"]
           del action.options["year"]
 
+      training_function_name = strategy.get_training_template(state_obj)['training_function']
+      state_obj = collect_training_state(state_obj, training_function_name, force_stat_gains=True)
+      if not state_obj.get("training_results", False):
+        info("Couldn't collect training state, retrying turn from top.")
+        continue
+      handler_action = active_handler.decide_handler_action(state_obj)
+      if handler_action is not None:
+        if handler_action.run():
+          if handler_action.options.get("recheck_trainings", False):
+            state_obj = collect_training_state(state_obj, training_function_name, force_stat_gains=True)
+            if not state_obj.get("training_results", False):
+              info("Couldn't re-collect training state after handler action, retrying turn from top.")
+              continue
+          if not handler_action.options.get("continue_turn_after_run", False):
+            record_and_finalize_turn(state_obj, handler_action)
+            continue
+        # Action failed — fall through so normal training/race logic can proceed this turn.
+
       if config.PRIORITIZE_MISSIONS_OVER_G1 and config.DO_MISSION_RACES_IF_POSSIBLE and state_obj["race_mission_available"]:
         debug(f"Mission race logic entered with priority.")
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         action["race_name"] = "any"
         action["race_image_path"] = "assets/ui/match_track.png"
         action["race_mission_available"] = True
@@ -252,6 +285,7 @@ def career_lobby(dry_run_turn=False):
       action = strategy.check_scheduled_races(state_obj, action)
       if "race_name" in action.options:
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         debug(f"Taking action: {action.func}")
         buy_skill(state_obj, action_count, race_check=True)
         if action.run():
@@ -265,6 +299,7 @@ def career_lobby(dry_run_turn=False):
       if (not config.PRIORITIZE_MISSIONS_OVER_G1) and config.DO_MISSION_RACES_IF_POSSIBLE and state_obj["race_mission_available"]:
         debug(f"Mission race logic entered.")
         action.func = "do_race"
+        mark_race_selected_for_next_turn_if_supported(action.func)
         action["race_name"] = "any"
         action["race_image_path"] = "assets/ui/match_track.png"
         action["prioritize_missions_over_g1"] = config.PRIORITIZE_MISSIONS_OVER_G1
@@ -283,6 +318,7 @@ def career_lobby(dry_run_turn=False):
       if not "Achieved" in state_obj["criteria"]:
         action = strategy.decide_race_for_goal(state_obj, action)
         if action.func == "do_race":
+          mark_race_selected_for_next_turn_if_supported(action.func)
           debug(f"Taking action: {action.func}")
           buy_skill(state_obj, action_count, race_check=True)
           if action.run():
@@ -290,13 +326,6 @@ def career_lobby(dry_run_turn=False):
             continue
           else:
             action.func = None
-
-      training_function_name = strategy.get_training_template(state_obj)['training_function']
-
-      state_obj = collect_training_state(state_obj, training_function_name)
-      if not state_obj.get("training_results", False):
-        info("Couldn't collect training state, retrying turn from top.")
-        continue
       # go to skill buy function every turn, conditions are handled inside the function.
       buy_skill(state_obj, action_count)
 
@@ -314,6 +343,7 @@ def career_lobby(dry_run_turn=False):
         info("Skipping turn, retrying...")
       else:
         debug(f"Taking action: {action.func}")
+        mark_race_selected_for_next_turn_if_supported(action.func)
 
         # go to skill buy function if we come across a do_race function, conditions are handled in buy_skill
         if action.func == "do_race":
@@ -339,6 +369,7 @@ def career_lobby(dry_run_turn=False):
             sleep(1)
             debug(f"Trying action: {function_name}")
             action.func = function_name
+            mark_race_selected_for_next_turn_if_supported(action.func)
             # go to skill buy function if we come across a do_race function, conditions are handled in buy_skill
             if action.func == "do_race":
               buy_skill(state_obj, action_count, race_check=True)

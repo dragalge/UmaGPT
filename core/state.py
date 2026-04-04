@@ -3,6 +3,7 @@ import operator
 import re
 import cv2
 import time
+import difflib
 
 from utils.log import info, warning, error, debug, debug_window, args
 
@@ -15,7 +16,8 @@ import utils.device_action_wrapper as device_action
 from utils.shared import CleanDefaultDict
 import core.config as config
 import utils.constants as constants
-from collections import defaultdict
+from scenarios.registry import get_active_scenario_handler
+from collections import defaultdict, Counter
 from math import floor
 
 aptitudes_cache = {}
@@ -69,11 +71,17 @@ def collect_main_state():
       filter_race_list(state_object)
       filter_race_schedule(state_object)
       device_action.locate_and_click("assets/buttons/close_btn.png", min_search_time=get_secs(1), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+
+  active_handler = get_active_scenario_handler()
+  state_patch = active_handler.collect_main_state_patch(state_object)
+  if state_patch:
+    state_object.update(state_patch)
+
   debug(f"Main state collection done.")
   return state_object
 
-def collect_training_state(state_object, training_function_name):
-  check_stat_gains = False
+def collect_training_state(state_object, training_function_name, force_stat_gains=False):
+  check_stat_gains = force_stat_gains
   if training_function_name == "meta_training" or training_function_name == "most_stat_gain":
     check_stat_gains = True
 
@@ -81,6 +89,7 @@ def collect_training_state(state_object, training_function_name):
     if not device_action.locate("assets/buttons/back_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX):
       return state_object
     training_results = CleanDefaultDict()
+    active_handler = get_active_scenario_handler()
     sleep(0.25)
     for name, mouse_pos in constants.TRAINING_BUTTON_POSITIONS.items():
       # swipe up to avoid clicking on the training button again.
@@ -92,17 +101,38 @@ def collect_training_state(state_object, training_function_name):
         for i in range(10):
           test_results.append(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
           test_results.append(get_support_card_data())
-        equal, info = compare_training_samples(test_results)
+        equal, debug_info = compare_training_samples(test_results)
 
         if not equal:
           debug("Training samples diverged")
-          debug(info)
-      training_results[name].update(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
+          debug(debug_info)
+      training_results[name].update(
+        get_training_data(
+          year=state_object["year"],
+          check_stat_gains=check_stat_gains,
+          training_name=name,
+        )
+      )
       training_results[name].update(get_support_card_data())
+      training_patch = active_handler.collect_training_state_patch(training_results[name], state_object)
+      if training_patch:
+        training_results[name].update(training_patch)
+
+      # Keep only this training's own stat support bucket (e.g., keep "pwr" in
+      # pwr training), removing cross-stat buckets like "spd"/"wit" from this row.
+      for stat_name in constants.TRAINING_BUTTON_POSITIONS.keys():
+        if stat_name != name:
+          training_results[name].pop(stat_name, None)
+
+      stat_gains = training_results[name].get("stat_gains", {})
+      if stat_gains:
+        gains_str = ", ".join(f"{stat}={gain}" for stat, gain in stat_gains.items())
+        info(f"[TRAINING] {name}: {gains_str}")
 
     debug(f"Training results: {training_results}")
     
     training_results = filter_training_lock(training_results)
+
     device_action.locate_and_click("assets/buttons/back_btn.png", min_search_time=get_secs(1), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
     state_object["training_results"] = training_results
 
@@ -182,28 +212,9 @@ def is_valid_training(name, training):
 
 def get_support_card_data(threshold=0.8):
   count_result = CleanDefaultDict()
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_SUPPORT_CARD_ICON_REGION
-  else:
-    region_xywh = constants.SUPPORT_CARD_ICON_REGION
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.support_card_icon_region() or constants.SUPPORT_CARD_ICON_REGION
   screenshot = device_action.screenshot(region_xywh=region_xywh)
-
-  if constants.SCENARIO_NAME == "unity":
-    unity_training_matches = device_action.match_template("assets/unity/unity_training.png", screenshot, threshold)
-    unity_gauge_matches = device_action.match_template("assets/unity/unity_gauge_unfilled.png", screenshot, threshold)
-    unity_spirit_exp_matches = device_action.match_template("assets/unity/unity_spirit_explosion.png", screenshot, threshold)
-
-    for training_match in unity_training_matches:
-      count_result["unity_trainings"] += 1
-      for gauge_match in unity_gauge_matches:
-        dist = gauge_match[1] - training_match[1]
-        if dist < 100 and dist > 0:
-          count_result["unity_gauge_fills"] += 1
-          # each unity training can only be matched to one gauge fill, so break
-          break
-
-    for spirit_exp_match in unity_spirit_exp_matches:
-      count_result["unity_spirit_explosions"] += 1
 
   hint_matches = device_action.match_template("assets/icons/support_hint.png", screenshot, threshold)
 
@@ -237,26 +248,43 @@ def get_support_card_data(threshold=0.8):
 
   return count_result
 
-def get_training_data(year=None, check_stat_gains = False):
+def get_training_data(year=None, check_stat_gains=False, training_name=None):
+  active_handler = get_active_scenario_handler()
   results = {}
+  failure_region = active_handler.failure_region() or constants.FAILURE_REGION
+  results["failure"] = get_failure_chance(region_xywh=failure_region)
 
-  if constants.SCENARIO_NAME == "unity":
-    results["failure"] = get_failure_chance(region_xywh=constants.UNITY_FAILURE_REGION)
-    if check_stat_gains:
-      stat_gains = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_REGION, scale_factor=1.5)
-      stat_gains2 = get_stat_gains(year=year, region_xywh=constants.UNITY_STAT_GAINS_2_REGION, scale_factor=1.5, secondary_stat_gains=True)
-      for key, value in stat_gains.items():
-        if key in stat_gains2:
-          stat_gains[key] += stat_gains2[key]
-      results["stat_gains"] = stat_gains
-  else:
-    results["failure"] = get_failure_chance(region_xywh=constants.FAILURE_REGION)
-    if check_stat_gains:
-      results["stat_gains"] = get_stat_gains(year=year, region_xywh=constants.URA_STAT_GAINS_REGION)
+  if check_stat_gains:
+    stat_gain_regions = active_handler.stat_gain_region_configs()
+    if not stat_gain_regions:
+      stat_gain_regions = active_handler.default_stat_gain_region_configs()
+
+    stat_gains = {}
+    for region_config in stat_gain_regions:
+      region_stat_gains = get_stat_gains(
+        year=year,
+        region_xywh=region_config["region_xywh"],
+        scale_factor=region_config.get("scale_factor", 1),
+        secondary_stat_gains=region_config.get("secondary_stat_gains", False),
+        training_name=training_name,
+      )
+      for key, value in region_stat_gains.items():
+        stat_gains[key] = stat_gains.get(key, 0) + value
+
+    results["stat_gains"] = stat_gains
 
   return results
 
-def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False, region_xywh=None, scale_factor=1, secondary_stat_gains=False):
+def get_stat_gains(
+  year=1,
+  attempts=0,
+  enable_debug=True,
+  show_screenshot=False,
+  region_xywh=None,
+  scale_factor=1,
+  secondary_stat_gains=False,
+  training_name=None,
+):
   if region_xywh is None:
     raise ValueError("region_xywh is required")
   
@@ -315,6 +343,7 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
 
   h, w = stat_screenshot.shape
   stat_gains={}
+  stat_candidates = {}
   for key, (xr, yr, wr, hr) in boxes.items():
     x, y, ww, hh = int(xr*w), int(yr*h), int(wr*w), int(hr*h)
     cropped_image = np.array(stat_screenshot[y:y+hh, x:x+ww])
@@ -328,15 +357,96 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
       continue
     if enable_debug:
       debug_window(cropped_image, save_name=f"stat_{key}_cropped_{year}", show_on_screen=show_screenshot)
-    cropped_image = clean_noise(cropped_image)
-    if enable_debug:
-      debug_window(cropped_image, save_name=f"stat_{key}_cleaned_{year}", show_on_screen=show_screenshot)
-    text = extract_number(cropped_image)
 
-    if text != -1:
+    cleaned = clean_noise(cropped_image)
+    if enable_debug:
+      debug_window(cleaned, save_name=f"stat_{key}_cleaned_{year}", show_on_screen=show_screenshot)
+
+    # Build multiple OCR views and vote, similar to shop coin OCR approach.
+    ocr_variants = [("cleaned", cleaned, 3)]
+
+    otsu = cv2.threshold(cleaned, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    ocr_variants.append(("otsu", otsu, 2))
+
+    adaptive = cv2.adaptiveThreshold(
+      cleaned,
+      255,
+      cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+      cv2.THRESH_BINARY,
+      11,
+      2,
+    )
+    ocr_variants.append(("adaptive", adaptive, 1))
+
+    sobel_x = cv2.Sobel(cleaned, cv2.CV_64F, 1, 0, ksize=3)
+    sobel_x = cv2.convertScaleAbs(sobel_x)
+    sobel = cv2.threshold(sobel_x, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    ocr_variants.append(("sobel", sobel, 1))
+
+    votes = []
+    raw_candidates = []
+    for variant_name, variant_image, weight in ocr_variants:
       if enable_debug:
-        debug_window(cropped_image, save_name=f"{text}_stat_{key}_gain_screenshot_{year}", show_on_screen=show_screenshot)
-      stat_gains[key] = text
+        debug_window(
+          variant_image,
+          save_name=f"stat_{key}_{variant_name}_{year}",
+          show_on_screen=show_screenshot,
+        )
+
+      detected = extract_number(variant_image)
+      if detected == -1:
+        continue
+
+      try:
+        detected = int(detected)
+      except (TypeError, ValueError):
+        continue
+
+      if not (0 <= detected <= 120):
+        continue
+
+      raw_candidates.append(detected)
+      votes.extend([detected] * max(1, int(weight)))
+
+    if votes:
+      counts = Counter(votes)
+      best_value = sorted(counts.keys(), key=lambda value: (counts[value], -value), reverse=True)[0]
+      stat_gains[key] = int(best_value)
+      stat_candidates[key] = sorted(set(raw_candidates))
+
+      if enable_debug:
+        debug(
+          f"[STAT_GAINS] {year} {key} votes={dict(counts)} chosen={best_value}"
+        )
+
+  # Safety check: clicked training's main stat should dominate in most cases.
+  # If OCR outputs a very large off-stat while main stat is small, discard the off-stat
+  # when lower alternatives exist from variant candidates.
+  if training_name in {"spd", "sta", "pwr", "guts", "wit"} and training_name in stat_gains:
+    main_gain = int(stat_gains.get(training_name, 0) or 0)
+    for key, value in list(stat_gains.items()):
+      if key in {"sp", training_name}:
+        continue
+      off_gain = int(value or 0)
+      if off_gain >= 40 and off_gain > (main_gain + 20) and main_gain <= 25:
+        alternatives = [
+          candidate
+          for candidate in stat_candidates.get(key, [])
+          if candidate <= max(main_gain + 20, 35)
+        ]
+        if alternatives:
+          replacement = max(alternatives)
+          debug(
+            f"[STAT_GAINS] {year} {key} adjusted {off_gain} -> {replacement} "
+            f"(training={training_name}, main={main_gain})"
+          )
+          stat_gains[key] = replacement
+        else:
+          debug(
+            f"[STAT_GAINS] {year} dropping suspicious off-stat {key}={off_gain} "
+            f"(training={training_name}, main={main_gain})"
+          )
+          stat_gains.pop(key, None)
 
   if attempts >= 10:
     if enable_debug:
@@ -345,7 +455,16 @@ def get_stat_gains(year=1, attempts=0, enable_debug=True, show_screenshot=False,
   elif any(value > 100 for value in stat_gains.values()):
     if enable_debug:
       debug(f"[STAT_GAINS] {year} Too high, retrying. Gains: {stat_gains}")
-    return get_stat_gains(year=year, attempts=attempts + 1, enable_debug=enable_debug, show_screenshot=show_screenshot, region_xywh=region_xywh)
+    return get_stat_gains(
+      year=year,
+      attempts=attempts + 1,
+      enable_debug=enable_debug,
+      show_screenshot=show_screenshot,
+      region_xywh=region_xywh,
+      scale_factor=scale_factor,
+      secondary_stat_gains=secondary_stat_gains,
+      training_name=training_name,
+    )
   debug(f"[STAT_GAINS] {year} Gains: {stat_gains}")
   return stat_gains
 
@@ -397,30 +516,18 @@ def get_mood(attempts=0):
 
 # Check turn
 def get_turn():
-  if device_action.locate("assets/buttons/race_day_btn.png", region_ltrb=constants.SCREEN_BOTTOM_BBOX):
-    return "Race Day"
-  elif device_action.locate("assets/ura/ura_race_btn.png", region_ltrb=constants.SCREEN_BOTTOM_BBOX):
-    return "Race Day"
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_TURN_REGION
-  else:
-    region_xywh = constants.TURN_REGION
+  active_handler = get_active_scenario_handler()
+  for race_day_template in active_handler.race_day_button_templates():
+    if device_action.locate(race_day_template, region_ltrb=constants.SCREEN_BOTTOM_BBOX):
+      active_handler.on_turn_read("Race Day")
+      return "Race Day"
+  region_xywh = active_handler.turn_region() or constants.TURN_REGION
   turn = device_action.screenshot(region_xywh=region_xywh)
   turn = enhance_image_for_ocr(turn, resize_factor=2)
   turn_text = extract_allowed_text(turn, allowlist="0123456789")
   debug(f"Turn text: {turn_text}")
 
-  if constants.SCENARIO_NAME == "unity":
-    race_turns = device_action.screenshot(region_xywh=constants.UNITY_RACE_TURNS_REGION)
-    race_turns = enhance_image_for_ocr(race_turns, resize_factor=4, binarize_threshold=None)
-    race_turns_text = extract_allowed_text(race_turns, allowlist="0123456789")
-    digits_only = re.sub(r"[^\d]", "", race_turns_text)
-    if digits_only:
-      digits_only = int(digits_only)
-      debug(f"Unity cup race turns text: {race_turns_text}")
-      if digits_only in [5, 10]:
-        debug(f"Race turns left until unity cup: {digits_only}, waiting for 3 seconds to allow banner to pass.")
-        sleep(3)
+  active_handler.on_turn_read(turn_text)
 
   digits_only = re.sub(r"[^\d]", "", turn_text)
 
@@ -431,10 +538,34 @@ def get_turn():
 
 # Check year
 def get_current_year():
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_YEAR_REGION
-  else:
-    region_xywh = constants.YEAR_REGION
+  def _normalize_timeline_text(value):
+    normalized = str(value or "").strip().lower()
+    normalized = normalized.replace("pre debut", "pre-debut")
+    normalized = re.sub(r"\s+", " ", normalized)
+    return normalized
+
+  def _match_timeline_fuzzy(text, min_ratio=0.78):
+    normalized_text = _normalize_timeline_text(text)
+    if not normalized_text:
+      return None
+
+    best_token = None
+    best_ratio = 0.0
+    for token in constants.TIMELINE:
+      normalized_token = _normalize_timeline_text(token)
+      ratio = difflib.SequenceMatcher(None, normalized_text, normalized_token).ratio()
+      if ratio > best_ratio:
+        best_ratio = ratio
+        best_token = token
+
+    if best_token is not None and best_ratio >= min_ratio:
+      debug(f"Fuzzy matched year text '{text}' -> '{best_token}' (ratio={best_ratio:.3f})")
+      return best_token
+    return None
+
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.year_region() or constants.YEAR_REGION
+  text = ""
   for i in range(3):
     year = enhanced_screenshot(region_xywh)
     text = extract_text(year, allowlist=constants.OCR_DATE_RECOGNITION_SET)
@@ -442,6 +573,9 @@ def get_current_year():
     debug(f"Year text from main screen: {text}")
     if text in constants.TIMELINE:
       return text
+    fuzzy_match = _match_timeline_fuzzy(text)
+    if fuzzy_match:
+      return fuzzy_match
     else:
       device_action.flush_screenshot_cache()
 
@@ -451,16 +585,17 @@ def get_current_year():
     year_region = enhanced_screenshot(constants.RACE_LIST_YEAR_REGION)
     text = extract_text(year_region, allowlist=constants.OCR_DATE_RECOGNITION_SET)
     debug(f"Year text from races screen: {text}")
+    fuzzy_match = _match_timeline_fuzzy(text)
     device_action.locate_and_click("assets/buttons/back_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
+    if fuzzy_match:
+      return fuzzy_match
 
   return text
 
 # Check criteria
 def get_criteria():
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_CRITERIA_REGION
-  else:
-    region_xywh = constants.CRITERIA_REGION
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.criteria_region() or constants.CRITERIA_REGION
   img = enhanced_screenshot(region_xywh)
   text = extract_text(img)
   debug(f"Criteria text: {text}")
@@ -567,10 +702,8 @@ def get_aptitudes():
 
 def get_energy_level(threshold=0.85):
   # find where the right side of the bar is on screen
-  if constants.SCENARIO_NAME == "unity":
-    region_xywh = constants.UNITY_ENERGY_REGION
-  else:
-    region_xywh = constants.ENERGY_REGION
+  active_handler = get_active_scenario_handler()
+  region_xywh = active_handler.energy_region() or constants.ENERGY_REGION
   screenshot = device_action.screenshot(region_xywh=region_xywh)
 
   right_bar_match = device_action.match_template("assets/ui/energy_bar_right_end_part.png", screenshot, threshold)

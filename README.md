@@ -1,21 +1,3 @@
-# Umamusume Auto Train
-
-Like the title says, this is a simple auto training for Umamusume.
-
-To support the creator and the current contributors, use these links:
-  - Give thanks to the creator of project [Samsul Panjul](https://ko-fi.com/samsulpanjul)
-  - Give thanks to the current maintainer and developer [CrazyIvanTR](https://buymeacoffee.com/crazyivantr)
-
-We do not expect compensation but it helps motivate the development to see people join the Discord, present new ideas, give thanks and support monetarily.
-
-This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
-
-Join our [discord server](https://discord.gg/vKKmYUNZuk)
-
-[Demo video](https://youtu.be/CXSYVD-iMJk)
-
-![Screenshot](screenshot.png)
-
 # ⚠️ USE IT AT YOUR OWN RISK ⚠️
 
 We are not responsible for any issues, account bans, or losses that may occur from using it.
@@ -24,6 +6,17 @@ Use responsibly and at your own discretion.
 
 ### If you are a new player, it is recommended to learn the game's systems before using the bot.
 - For game guides visit [this link](./readmes/GUIDES.md).
+
+To support the creator and the current contributors, use these links:
+  - Give thanks to the creator of project [Samsul Panjul](https://ko-fi.com/samsulpanjul)
+  - Give thanks to the current maintainer and developer [CrazyIvanTR](https://buymeacoffee.com/crazyivantr)
+  - Thanks to [Fuzznip](https://github.com/samsulpanjul/umamusume-auto-train/compare/main...Fuzznip:umamusume-auto-train:mant) for TB integration
+
+This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
+
+[Demo video](https://youtu.be/CXSYVD-iMJk)
+
+![Screenshot](screenshot.png)
 
 ## Features
 
@@ -54,8 +47,8 @@ Use responsibly and at your own discretion.
 #### Clone repository
 
 ```
-git clone https://github.com/samsulpanjul/umamusume-auto-train.git
-cd umamusume-auto-train
+git clone https://github.com/dragalge/UmaGPT.git
+cd UmaGPT
 ```
 
 #### Install dependencies
@@ -104,7 +97,7 @@ Open your browser and go to: `http://127.0.0.1:8000/` to easily edit the bot's c
 
 Note: multiple bots can work on one machine, they will have the same config templates but they will hook to different function keys for start / stop and ports for web UI. Though they will share the config.json used in the bot folder, so they will all be using the same logic.
 
-### Check FAQ for common problems and problem reporting
+### Check FAQ for common problems
 
 [FAQ](./readmes/FAQ.md)
 
@@ -131,8 +124,4 @@ Notes: this doesn't work if you have an in progress CM from the main menu, like 
 ### Known Issues
 
 - OCR might misread some values and do trainings otherwise it shouldn't do.
-
-### Contribute
-
-If you run into any issues or something doesn’t work as expected, feel free to open an issue or join the Discord to ask.
-Contributions are very welcome! If you want to contribute, please check out the [dev](https://github.com/samsulpanjul/umamusume-auto-train/tree/dev) branch, which is used for testing new features. We truly appreciate any support to help improve this project further.
+- Limited TB capabilities.

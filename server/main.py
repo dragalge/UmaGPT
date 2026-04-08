@@ -198,8 +198,9 @@ def get_applied_preset_id():
   return {"preset_id": preset_id}
 
 def get_next_config_id():
-  global CURRENT_CONFIGS
-  return CURRENT_CONFIGS[-1]["id"].split("_")[1] + 1
+    if not CURRENT_CONFIGS:
+        return 1
+    return int(CURRENT_CONFIGS[-1]["id"].split("_")[1]) + 1
 
 # added double because of dev env rules, I didn't want to bother with modifying the link in there
 @app.post("/configs")

@@ -45288,6 +45288,54 @@
   "characterArraySchema": {
     "characters": [
       {
+        "id": "105101",
+        "name": "Nishino Flower (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1051_105101.png"
+      },
+      {
+        "id": "107201",
+        "name": "Yaeno Muteki (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1072_107201.png"
+      },
+      {
+        "id": "106102",
+        "name": "King Halo (Cheerleader)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1061_106102.png"
+      },
+      {
+        "id": "106002",
+        "name": "Nice Nature (Cheerleader)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1060_106002.png"
+      },
+      {
+        "id": "103101",
+        "name": "Ines Fujin (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1031_103101.png"
+      },
+      {
+        "id": "106401",
+        "name": "Mejiro Palmer (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1064_106401.png"
+      },
+      {
+        "id": "103802",
+        "name": "Curren Chan (Wedding)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1038_103802.png"
+      },
+      {
+        "id": "102202",
+        "name": "Fine Motion (Wedding)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1022_102202.png"
+      },
+      {
         "id": "102002",
         "name": "Seiun Sky (Ballroom)",
         "rarity": "SSR",
@@ -45735,6 +45783,62 @@
   },
   "supportCardArraySchema": {
     "supportCards": [
+      {
+        "id": "30093",
+        "name": "Daiwa Scarlet (SSR) (POW)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30093.png",
+        "rarity": "SSR",
+        "type": "POW"
+      },
+      {
+        "id": "30096",
+        "name": "Kawakami Princess (SSR) (POW)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30096.png",
+        "rarity": "SSR",
+        "type": "POW"
+      },
+      {
+        "id": "30095",
+        "name": "Seeking the Pearl (SSR) (SPD)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30095.png",
+        "rarity": "SSR",
+        "type": "SPD"
+      },
+      {
+        "id": "30094",
+        "name": "Bamboo Memory (SSR) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30094.png",
+        "rarity": "SSR",
+        "type": "GUTS"
+      },
+      {
+        "id": "30097",
+        "name": "Mr. C.B. (SSR) (WIT)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30097.png",
+        "rarity": "SSR",
+        "type": "WIT"
+      },
+      {
+        "id": "30100",
+        "name": "Rice Shower (SSR) (WIT)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30100.png",
+        "rarity": "SSR",
+        "type": "WIT"
+      },
+      {
+        "id": "30099",
+        "name": "Ikuno Dictus (SSR) (STA)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30099.png",
+        "rarity": "SSR",
+        "type": "STA"
+      },
+      {
+        "id": "30098",
+        "name": "Haru Urara (SSR) (POW)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30098.png",
+        "rarity": "SSR",
+        "type": "POW"
+      },
       {
         "id": "30092",
         "name": "Air Shakur (SSR) (SPD)",
@@ -46296,6 +46400,27 @@
         "type": "GUTS"
       },
       {
+        "id": "20045",
+        "name": "Smart Falcon (SR) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20045.png",
+        "rarity": "SR",
+        "type": "GUTS"
+      },
+      {
+        "id": "20046",
+        "name": "Sweep Tosho (SR) (WIT)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20046.png",
+        "rarity": "SR",
+        "type": "WIT"
+      },
+      {
+        "id": "20047",
+        "name": "Tokai Teio (SR) (STA)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20047.png",
+        "rarity": "SR",
+        "type": "STA"
+      },
+      {
         "id": "20044",
         "name": "Curren Chan (SR) (SPD)",
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20044.png",
@@ -46587,6 +46712,13 @@
         "name": "Fuji Kiseki (SR) (WIT)",
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20001.png",
         "rarity": "SR",
+        "type": "WIT"
+      },
+      {
+        "id": "10078",
+        "name": "Mr. C.B. (R) (WIT)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_10078.png",
+        "rarity": "R",
         "type": "WIT"
       },
       {

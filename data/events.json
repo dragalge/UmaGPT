@@ -45288,6 +45288,12 @@
   "characterArraySchema": {
     "characters": [
       {
+        "id": "103401",
+        "name": "Inari One (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1034_103401.png"
+      },
+      {
         "id": "105101",
         "name": "Nishino Flower (Original)",
         "rarity": "SSR",

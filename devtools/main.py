@@ -84,7 +84,7 @@ def create_chromedriver():
     Returns:
         The Chrome driver.
     """
-    driver = uc.Chrome(headless=True, use_subprocess=True, version_main=148)
+    driver = uc.Chrome(headless=True, use_subprocess=True)
     return driver
 
 
@@ -433,12 +433,18 @@ class BaseScraper:
 
         for j, training_event in enumerate(all_training_events):
             self.safe_click(driver, training_event)
-            time.sleep(1.0)
+            time.sleep(1)
 
             tooltip = driver.find_element(By.XPATH, "//div[@data-tippy-root]")
             try:
+                ## TODO: Every time the code is run, the hexadecimals between sc- and -2 need to be updated right now, below comment doesn't work perfectly as well
                 # tooltip_title = tooltip.find_element(By.XPATH, ".//div[contains(@class, 'sc-') and contains(@class, '-2 ')]").text
-                tooltip_title = " ".join(tooltip.find_element(By.XPATH, "//div[contains(@class,'sc-652e4157-2')]").get_attribute("textContent").split())
+                tooltip_title = " ".join(tooltip.find_element(By.XPATH, "//div[contains(@class,'sc-428369cd-2')]").get_attribute("textContent").split())
+
+                unwanted = ["(❯)", "(❯❯)", "(❯❯❯)"]
+                for bad in unwanted:
+                    tooltip_title = tooltip_title.replace(bad, "")
+
                 if tooltip_title in events_ignore:
                     logging.info(f"Training event {tooltip_title} ({j + 1}/{len(all_training_events)}) was ignore. Skipping this...")
                     continue
@@ -538,71 +544,78 @@ class CharacterScraper(BaseScraper):
                     logging.warning("Could not find link or image source for a visible item.")
         
         logging.info(f"Found {len(character_details)} visible character to process.")
-
+        character_details.reverse()
         existing_count = 0
 
         # Iterate through each character.
         for i, details in enumerate(character_details):
-            link = details['link']
-            img_src = details['img_src']
+            link      = details['link']
+            img_src   = details['img_src']
+
+            # Extract support_id from the URL
+            support_id = link.rstrip('/').split('/')[-1].split('-')[0]
+
+            # Skip if we already have this character
+            if str(support_id) in self.data:
+                existing_count += 1
+                logging.info(
+                    f"Skipping {support_id} {self.data[str(support_id)]['name']} — already exists ({existing_count}) in JSON."
+                )
+                continue
+
+            # Navigate to the page
             logging.info(f"Navigating to {link} ({i + 1}/{len(character_details)})")
             driver.get(link)
             time.sleep(3)
 
-            character_name_raw = driver.find_element(By.XPATH, "//main//h1").text
+            # Get the displayed name
+            character_name_raw = driver.find_element(
+                By.XPATH, "//main//h1"
+            ).text
+
+            # Only keep characters that contain "(Original)"
+            if "(Original)" not in character_name_raw:
+                logging.info(
+                    f"Skipping {character_name_raw} — '(Original)' not found in name."
+                )
+                continue   # go to the next link without further processing
+
             character_name = character_name_raw.replace("(Original)", "").strip()
-            # Remove any other parentheses that denote different forms of the character like "Wedding" or "Swimsuit".
-            # character_name = re.sub(r"\s*\(.*?\)", "", character_name).strip()
 
-            # Initialize an empty object to store the following character data if it doesn't exist yet.
-            # if character_name not in self.data:
-            #     self.data[character_name] = {}
+            # Build JSON endpoint and fetch extra data
+            url_name   = link.split("/")[-1]
+            final_url  = f"https://gametora.com/_next/data/{build_id}/umamusume/characters/{url_name}.json"
+            response   = requests.get(final_url)
+            data       = response.json()
+            time.sleep(5)
 
-            url_name = link.split("/")[-1]
-            final_url = f"https://gametora.com/_next/data/{build_id}/umamusume/characters/{url_name}.json"
-            # logging.info(f"Navigating to {final_url}")
-            response = requests.get(final_url)
-            data = response.json()
-            time.sleep(3)
+            item       = data["pageProps"]["itemData"]
+            char_id    = item.get("char_id")
+            char_name  = item.get("name_en")
+            type_      = item.get("type")
+            rarity_num = item.get("rarity")
 
-            item = data["pageProps"]["itemData"]
-            # Extract the desired values
-            support_id = item.get("card_id")
-            char_id = item.get("char_id")
-            char_name = item.get("name_en")
-            type_ = item.get("type")
-            rarity = item.get("rarity")
+            # Normalise rarity
+            rarity = {3: "SSR", 2: "SR"}.get(rarity_num, "R")
 
-            # logging.info({ "support_id": support_id, "char_id": char_id, "char_name": char_name, "type": type_, "rarity": rarity })
-                
-            if rarity == 3:
-                rarity = "SSR"
-            elif rarity == 2:
-                rarity = "SR"
-            else:
-                rarity = "R"
-
-            # 4. Initialize/Update data and scrape events
-            if str(support_id) in self.data:
-                existing_count += 1
-                logging.info(f"Skipping {character_name_raw} — already exists ({existing_count}/5) in JSON.")
-
-                if existing_count >= 5:
-                    logging.info("Reached 5 existing characters. Stopping scraper.")
-                    break  # <-- stops entire loop
-
-                continue
-
-            # If new, initialize record
+            # Initialise the record
             self.data = {str(support_id): {}} | self.data
-            self.data[str(support_id)]['id'] = str(support_id)
-            self.data[str(support_id)]['name'] = character_name_raw
-            self.data[str(support_id)]['rarity'] = rarity
-            self.data[str(support_id)]['image_url'] = img_src
+            self.data[str(support_id)].update({
+                'id'        : str(support_id),
+                'name'      : character_name_raw,
+                'rarity'    : rarity,
+                'image_url' : img_src,
+            })
 
-            # Scrape all the Training Events (including "After a Race" events for characters).
-            self.process_training_events(driver, character_name_raw, self.data[str(support_id)], include_after_race_events=True)
+            # Scrape training events and save
+            self.process_training_events(
+                driver,
+                character_name_raw,
+                self.data[str(support_id)],
+                include_after_race_events=True,
+            )
             self.save_data()
+
         
         driver.quit()
 
@@ -660,86 +673,84 @@ class SupportCardScraper(BaseScraper):
                     logging.warning("Could not find link or image source for a visible item.")
 
         logging.info(f"Found {len(card_details)} visible support cards to process.")
-
+        card_details.reverse()
         existing_count = 0
-
         # Iterate through each support card.
         for i, details in enumerate(card_details):
-            link = details['link']
+            link    = details['link']
             img_src = details['img_src']
+
+            # Extract the support_id from the URL (format: …/supports/<support_id>-<slug>)
+            support_id = link.rstrip('/').split('/')[-1].split('-')[0]
+
+            # Skip if this support card is already stored
+            if str(support_id) in self.data:
+                existing_count += 1
+                logging.info(
+                    f"Skipping {support_id} {self.data[str(support_id)]['name']} — already exists ({existing_count}) in JSON."
+                )
+                continue
+
+            # Navigate to the page
             logging.info(f"Navigating to {link} ({i + 1}/{len(card_details)})")
             driver.get(link)
             time.sleep(3)
 
+            # Get the displayed name and clean it
             support_card_name = driver.find_element(By.XPATH, "//main//h1").text
             support_card_name = support_card_name.replace("Support Card", "").strip()
-            # Remove any other parentheses that denote different forms of the support card.
-            # support_card_name = re.sub(r"\s*\(.*?\)", "", support_card_name).strip()
 
-            # # Initialize an empty object to store the following support card data if it doesn't exist yet.
-            # if support_card_name not in self.data:
-            #     self.data[support_card_name] = {}
-
-            # Extract the rarity from the parentheses.
+            # Extract rarity from the name
             rarity_match = re.search(r"\((SSR|SR|R)\)", support_card_name)
             if rarity_match:
                 support_card_rarity = rarity_match.group(1)
-                support_card_name = support_card_name.replace(f" ({support_card_rarity})", "").strip()
+                support_card_name = support_card_name.replace(
+                    f" ({support_card_rarity})", ""
+                ).strip()
             else:
-                # Fallback to a more basic method.
-                support_card_rarity = support_card_name.split(" ")[-1].replace(")", "").replace("(", "").strip()
+                # Fallback – take the last token inside parentheses
+                support_card_rarity = (
+                    support_card_name.split(" ")[-1]
+                    .replace(")", "")
+                    .replace("(", "")
+                    .strip()
+                )
 
-            # Get details from uma json
-            url_name = link.split("/")[-1]
+            # Build the JSON endpoint and fetch extra data
+            url_name  = link.split("/")[-1]
             final_url = f"https://gametora.com/_next/data/{build_id}/umamusume/supports/{url_name}.json"
             response = requests.get(final_url)
-            data = response.json()
+            data     = response.json()
             time.sleep(3)
 
             item = data["pageProps"]["itemData"]
-            # Extract the desired values
-            support_id = item.get("support_id")
-            char_id = item.get("char_id")
+            char_id   = item.get("char_id")
             char_name = item.get("char_name")
-            type_ = item.get("type")
+            type_raw  = item.get("type")
 
-            if type_ == "speed":
-                type__ = "SPD"
-            elif type_ == "power":
-                type__ = "POW"
-            elif type_ == "friend":
-                type__ = "PAL"
-            elif type_ == "stamina":
-                type__ = "STA"
-            elif type_ == "intelligence":
-                type__ = "WIT"
-            elif type_ == "guts":
-                type__ = "GUTS"
-            elif type_ == "group":
-                type__ = "GRP"
+            # Normalise the type field
+            type_map = {
+                "speed":        "SPD",
+                "power":        "POW",
+                "friend":       "PAL",
+                "stamina":      "STA",
+                "intelligence": "WIT",
+                "guts":         "GUTS",
+                "group":        "GRP",
+            }
+            type__ = type_map.get(type_raw, type_raw)
 
-
-            
-            # Skip if support already saved
-            if str(support_id) in self.data:
-                existing_count += 1
-                logging.info(f"Skipping {support_card_name} — already exists ({existing_count}/5) in JSON.")
-
-                if existing_count >= 5:
-                    logging.info("Reached 5 existing cards. Stopping scraper.")
-                    break  # <-- stops entire loop
-
-                continue
-
-            # If new, initialize record
+            # Initialise the record for the new card
             self.data = {str(support_id): {}} | self.data
-            self.data[str(support_id)]['id'] = str(support_id)
-            self.data[str(support_id)]['name'] = support_card_name + " (" + support_card_rarity + ")"+ " (" + type__ + ")"
-            self.data[str(support_id)]['image_url'] = img_src
-            self.data[str(support_id)]['rarity'] = support_card_rarity
-            self.data[str(support_id)]['type'] = type__
+            self.data[str(support_id)].update({
+                'id'        : str(support_id),
+                'name'      : f"{support_card_name} ({support_card_rarity}) ({type__})",
+                'image_url' : img_src,
+                'rarity'    : support_card_rarity,
+                'type'      : type__,
+            })
 
-            # Scrape all the Training Events.
+            # Scrape training events and save
             self.process_training_events(driver, support_card_name, self.data[str(support_id)])
             self.save_data()
 

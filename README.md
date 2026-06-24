@@ -53,7 +53,8 @@ Use responsibly and at your own discretion.
   - After you run the downloaded file, this needs to be checked.
   - <img width="427" height="137" alt="image" src="https://github.com/user-attachments/assets/49398a08-3586-44d0-ab6d-b882a767a961" />
 
-### Setup
+### Quick Setup
+For a step by step guide go to [bot guide](./readmes/BOT_GUIDE.md)
 
 #### Clone repository
 

@@ -210,7 +210,7 @@ def user_info_block(state, last_state, action):
         string_block += f"Non-max {training_data['total_friendship_increases']}, "
       if (training_data['total_supports'] - training_data['total_rainbow_friends']) > 0:
         string_block += f"Non-rainbow {training_data['total_supports'] - training_data['total_rainbow_friends']}, "
-      for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_trainings"]:
+      for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_extreme_spirit_explosions", "unity_trainings"]:
         if training_data.get(unity_element, False):
           if training_data[unity_element] > 0:
             string_block += f"{unity_element.replace('_', ' ')} {training_data[unity_element]}, "
@@ -235,7 +235,7 @@ def user_info_block(state, last_state, action):
             string_block += f"Non-max {training_data['total_friendship_increases']}, "
           if (training_data['total_supports'] - training_data['total_rainbow_friends']) > 0:
             string_block += f"Non-rainbow {training_data['total_supports'] - training_data['total_rainbow_friends']}, "
-          for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_trainings"]:
+          for unity_element in ["unity_gauge_fills", "unity_spirit_explosions", "unity_extreme_spirit_explosions", "unity_trainings"]:
             if training_data.get(unity_element, False):
               if training_data[unity_element] > 0:
                 string_block += f"{unity_element.replace('_', ' ')} {training_data[unity_element]}, "

@@ -37,6 +37,7 @@ def create_training_score_entry(training_name, training_data, score_tuple):
     entry["unity_gauge_fills"] = training_data["unity_gauge_fills"]
     entry["unity_trainings"] = training_data["unity_trainings"] - training_data["unity_gauge_fills"]
     entry["unity_spirit_explosions"] = training_data["unity_spirit_explosions"]
+    entry["unity_extreme_spirit_explosions"] = training_data["unity_extreme_spirit_explosions"]
 
   return entry
 
@@ -564,8 +565,12 @@ def max_out_friendships_score(x):
 
   priority_index = get_priority_index(x)
   tiebreaker = -priority_index
-  # adjust by priority index, 5 stats, higher priority = lower index = more value to the training
-  possible_friendship = possible_friendship * (1 + (5 - priority_index) * 0.025)
+  if training_name == "wit":
+    # wit training gets a free friend score since it gives energy instead of taking it away
+    possible_friendship = (possible_friendship+1) * (1 + (5 - priority_index) * 0.025)
+  else:
+    # adjust by priority index, 5 stats, higher priority = lower index = more value to the training
+    possible_friendship = possible_friendship * (1 + (5 - priority_index) * 0.025)
 
   debug(f"Max out friendships score: {training_name} -> {possible_friendship:.3f} -> {friendship_levels['gray']} + {friendship_levels['blue']} + {friendship_levels['green']} + {friendship_levels['max']} + {friendship_levels['yellow']} + {hint_bonus}")
 
@@ -650,8 +655,10 @@ def unity_training_score(x, year):
     score += training_data["unity_trainings"] * 0.1
   if priority_adjustment >= 0:
     score += training_data["unity_spirit_explosions"] * (1 + year_adjustment) * (1 + priority_adjustment)
+    score += training_data["unity_extreme_spirit_explosions"] * (2 + year_adjustment) * (1 + priority_adjustment)
   else:
     score += training_data["unity_spirit_explosions"] * (1 + year_adjustment) / (1 + abs(priority_adjustment))
+    score += training_data["unity_extreme_spirit_explosions"] * (2 + year_adjustment) / (1 + abs(priority_adjustment))
 
   debug(f"Unity training score: {training_name} -> {score}")
   return score

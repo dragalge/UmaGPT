@@ -335,12 +335,13 @@ class Strategy:
       wit_raw_energy = 5
       if available_trainings["wit"].get("unity_spirit_explosions"):
         wit_raw_energy += available_trainings["wit"]["unity_spirit_explosions"] * 5
+      if available_trainings["wit"].get("unity_extreme_spirit_explosions"):
+        wit_raw_energy += available_trainings["wit"]["unity_extreme_spirit_explosions"] * 5
       wit_raw_energy += (rainbow_count * 4)  # Base 5 + 4 per rainbow
-
 
       # Effective energy value is limited by how much we can actually hold
       wit_energy_value = min(wit_raw_energy, energy_headroom)
-      
+
       dates_near_energy_gain = [
         "Junior Year Early Dec",
         "Junior Year Late Dec",

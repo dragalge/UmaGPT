@@ -193,6 +193,7 @@ def get_support_card_data(threshold=0.8):
     unity_training_matches = device_action.match_template("assets/unity/unity_training.png", screenshot, threshold)
     unity_gauge_matches = device_action.match_template("assets/unity/unity_gauge_unfilled.png", screenshot, threshold)
     unity_spirit_exp_matches = device_action.match_template("assets/unity/unity_spirit_explosion.png", screenshot, threshold)
+    unity_ext_spirit_exp_matches = device_action.match_template("assets/unity/unity_extreme_spirit_explosion.png", screenshot, threshold)
 
     for training_match in unity_training_matches:
       count_result["unity_trainings"] += 1
@@ -205,6 +206,8 @@ def get_support_card_data(threshold=0.8):
 
     for spirit_exp_match in unity_spirit_exp_matches:
       count_result["unity_spirit_explosions"] += 1
+    for spirit_exp_match in unity_ext_spirit_exp_matches:
+      count_result["unity_extreme_spirit_explosions"] += 1
 
   hint_matches = device_action.match_template("assets/icons/support_hint.png", screenshot, threshold)
 
@@ -512,7 +515,7 @@ def get_current_stats(turn, enable_debug=True):
         final_stat_value = extract_text(cropped_image, allowlist="0123456789MAX", threshold=threshold)
         debug(f"Threshold: {threshold}, stat value: {final_stat_value}")
     if final_stat_value == "MAX":
-      final_stat_value = 1200
+      final_stat_value = 99999
     elif is_number(final_stat_value):
       final_stat_value = int(final_stat_value)
     else:

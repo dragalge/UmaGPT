@@ -37,6 +37,7 @@ def create_training_score_entry(training_name, training_data, score_tuple):
     entry["unity_gauge_fills"] = training_data["unity_gauge_fills"]
     entry["unity_trainings"] = training_data["unity_trainings"] - training_data["unity_gauge_fills"]
     entry["unity_spirit_explosions"] = training_data["unity_spirit_explosions"]
+    entry["unity_extreme_spirit_explosions"] = training_data["unity_extreme_spirit_explosions"]
 
   return entry
 
@@ -650,8 +651,10 @@ def unity_training_score(x, year):
     score += training_data["unity_trainings"] * 0.1
   if priority_adjustment >= 0:
     score += training_data["unity_spirit_explosions"] * (1 + year_adjustment) * (1 + priority_adjustment)
+    score += training_data["unity_extreme_spirit_explosions"] * (2 + year_adjustment) * (1 + priority_adjustment)
   else:
     score += training_data["unity_spirit_explosions"] * (1 + year_adjustment) / (1 + abs(priority_adjustment))
+    score += training_data["unity_extreme_spirit_explosions"] * (2 + year_adjustment) / (1 + abs(priority_adjustment))
 
   debug(f"Unity training score: {training_name} -> {score}")
   return score

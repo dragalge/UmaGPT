@@ -48,7 +48,7 @@ def buy_skill(state, action_count, race_check=False):
         # mutate local coordinates to world coordinates
         x = x + x1
         y = y + y1
-        region = (x - 420, y - 40, w + 275, h + 5)
+        region = (x - 420, y - 50, w + 275, h + 5)
         screenshot = enhanced_screenshot(region)
         text = extract_text(screenshot)
         debug(f"Extracted skill text: {text}")

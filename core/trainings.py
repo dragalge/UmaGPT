@@ -565,8 +565,12 @@ def max_out_friendships_score(x):
 
   priority_index = get_priority_index(x)
   tiebreaker = -priority_index
-  # adjust by priority index, 5 stats, higher priority = lower index = more value to the training
-  possible_friendship = possible_friendship * (1 + (5 - priority_index) * 0.025)
+  if training_name == "wit":
+    # wit training gets a free friend score since it gives energy instead of taking it away
+    possible_friendship = (possible_friendship+1) * (1 + (5 - priority_index) * 0.025)
+  else:
+    # adjust by priority index, 5 stats, higher priority = lower index = more value to the training
+    possible_friendship = possible_friendship * (1 + (5 - priority_index) * 0.025)
 
   debug(f"Max out friendships score: {training_name} -> {possible_friendship:.3f} -> {friendship_levels['gray']} + {friendship_levels['blue']} + {friendship_levels['green']} + {friendship_levels['max']} + {friendship_levels['yellow']} + {hint_bonus}")
 

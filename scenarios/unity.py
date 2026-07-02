@@ -13,7 +13,7 @@ TEAM_MATCHUP_TEMPLATES = {
 }
 
 if not hasattr(config, "UNITY_MINIMUM_MATCHUP_SCORE"):
-  config.UNITY_MINIMUM_MATCHUP_SCORE = 11
+  config.UNITY_MINIMUM_MATCHUP_SCORE = 8
 
 def find_best_match(matchups):
   best_match = matchups[0]

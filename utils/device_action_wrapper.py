@@ -14,6 +14,12 @@ import warnings
 warnings.filterwarnings("ignore", message="pkg_resources is deprecated as an API")
 import pygame
 
+from random import randint
+#get random int
+deviation=5
+def gri():
+  return randint(-deviation, deviation)
+
 from time import sleep, time
 
 class BotStopException(Exception):
@@ -63,10 +69,10 @@ def click(target: Pos | Box, clicks: int = 1, interval: float = 0.1, duration: f
     if bot.use_adb:
       sleep(duration)
       for _ in range(clicks):
-        adb_actions.click(x, y)
+        adb_actions.click(x+gri(), y+gri())
         sleep(interval)
     else:
-      pyautogui_actions.click(x_y=(x, y), clicks=clicks, interval=interval, duration=duration)
+      pyautogui_actions.click(x_y=(x+gri(), y+gri()), clicks=clicks, interval=interval, duration=duration)
   elif len(target) == 4:
     x, y, w, h = target
     cx = x + w // 2
@@ -74,10 +80,10 @@ def click(target: Pos | Box, clicks: int = 1, interval: float = 0.1, duration: f
     if bot.use_adb:
       sleep(duration)
       for _ in range(clicks):
-        adb_actions.click(cx, cy)
+        adb_actions.click(cx+gri(), cy+gri())
         sleep(interval)
     else:
-      pyautogui_actions.click(x_y=(cx, cy), clicks=clicks, interval=interval, duration=duration)
+      pyautogui_actions.click(x_y=(cx+gri(), cy+gri()), clicks=clicks, interval=interval, duration=duration)
   else:
     raise TypeError(f"Expected (x, y) or (x, y, w, h) tuple, got type {type(target)}: {target}")
   if args.device_debug:
@@ -92,10 +98,11 @@ def swipe(start_x_y : tuple[int, int], end_x_y : tuple[int, int], duration=0.3, 
   # Swipe from start to end coordinates
   if not bot.is_bot_running:
     stop_bot()
+  print(f"{start_x_y[0]+gri()}, {start_x_y[1]+gri()}, {end_x_y[0]+gri()}, {end_x_y[1]+gri()}")
   if bot.use_adb:
-    adb_actions.swipe(start_x_y[0], start_x_y[1], end_x_y[0], end_x_y[1], duration)
+    adb_actions.swipe(start_x_y[0]+gri(), start_x_y[1]+gri(), end_x_y[0]+gri(), end_x_y[1]+gri(), duration)
   else:
-    pyautogui_actions.swipe(start_x_y, end_x_y, duration)
+    pyautogui_actions.swipe((start_x_y[0]+gri(), start_x_y[1]+gri()), (end_x_y[0]+gri(), end_x_y[1]+gri()), duration)
   if args.device_debug:
     debug(f"We swiped from {start_x_y} to {end_x_y}, screen might change, flushing screenshot cache.")
   flush_screenshot_cache()

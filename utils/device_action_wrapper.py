@@ -98,7 +98,6 @@ def swipe(start_x_y : tuple[int, int], end_x_y : tuple[int, int], duration=0.3, 
   # Swipe from start to end coordinates
   if not bot.is_bot_running:
     stop_bot()
-  print(f"{start_x_y[0]+gri()}, {start_x_y[1]+gri()}, {end_x_y[0]+gri()}, {end_x_y[1]+gri()}")
   if bot.use_adb:
     adb_actions.swipe(start_x_y[0]+gri(), start_x_y[1]+gri(), end_x_y[0]+gri(), end_x_y[1]+gri(), duration)
   else:

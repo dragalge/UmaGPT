@@ -70,15 +70,17 @@ def unity_cup_function():
     tries = 0
     while tries < 10:
       if device_action.locate("assets/unity/unity_tazuna.png"):
+        sleep(0.1)
         break
       tries += 1
       if tries > 10:
         raise ValueError("Affinity screen not found, please report this.")
+      sleep(0.05)
       device_action.flush_screenshot_cache()
-    
+
     screenshot = device_action.screenshot(region_xywh=constants.UNITY_TEAM_MATCHUP_REGION)
     debug_window(screenshot, save_name="unity_team_matchup")
-    
+
     # find all affinity vs opponent team
     for name, path in TEAM_MATCHUP_TEMPLATES.items():
       matches = device_action.match_template(path, screenshot)

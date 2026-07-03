@@ -1,21 +1,3 @@
-# Umamusume Auto Train
-
-Like the title says, this is a simple auto training for Umamusume.
-
-To support the creator and the current contributors, use these links:
-  - Give thanks to the creator of project [Samsul Panjul](https://ko-fi.com/samsulpanjul)
-  - Give thanks to the current maintainer and developer [CrazyIvanTR](https://buymeacoffee.com/crazyivantr)
-
-We do not expect compensation but it helps motivate the development to see people join the Discord, present new ideas, give thanks and support monetarily.
-
-This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
-
-Join our [discord server](https://discord.gg/vKKmYUNZuk)
-
-[Demo video](https://youtu.be/CXSYVD-iMJk)
-
-![Screenshot](screenshot.png)
-
 # ⚠️ USE IT AT YOUR OWN RISK ⚠️
 
 We are not responsible for any issues, account bans, or losses that may occur from using it.
@@ -24,6 +6,17 @@ Use responsibly and at your own discretion.
 
 ### If you are a new player, it is recommended to learn the game's systems before using the bot.
 - For game guides visit [this link](./readmes/GUIDES.md).
+
+To support the creator and the current contributors, use these links:
+  - Give thanks to the creator of project [Samsul Panjul](https://ko-fi.com/samsulpanjul)
+  - Give thanks to the current maintainer and developer [CrazyIvanTR](https://buymeacoffee.com/crazyivantr)
+  - Thanks to [Fuzznip](https://github.com/samsulpanjul/umamusume-auto-train/compare/main...Fuzznip:umamusume-auto-train:mant) for TB integration
+
+This project is inspired by [shiokaze/UmamusumeAutoTrainer](https://github.com/shiokaze/UmamusumeAutoTrainer)
+
+[Demo video](https://youtu.be/CXSYVD-iMJk)
+
+![Screenshot](screenshot.png)
 
 ## Features
 
@@ -47,20 +40,15 @@ Use responsibly and at your own discretion.
 
 - [Python Versions 3.10 to 3.13](https://www.python.org/downloads/)
 - [Windows Installer 64-bit direct link](https://www.python.org/ftp/python/3.13.11/python-3.13.11-amd64.exe)
-  - You need to scroll down and download one of these. (3.13 is always tested, the others will be supported but not guaranteed to immediately work, ask on Discord or issues if things don't work for you)
-  - <img width="445" height="141" alt="image" src="https://github.com/user-attachments/assets/36f7f078-9fce-4bd8-b92c-7ff5c5a5eb8d" />
-- [Build Tools for C++ for Windows](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
-  - After you run the downloaded file, this needs to be checked.
-  - <img width="427" height="137" alt="image" src="https://github.com/user-attachments/assets/49398a08-3586-44d0-ab6d-b882a767a961" />
+<img width="445" height="141" alt="image" src="https://github.com/user-attachments/assets/36f7f078-9fce-4bd8-b92c-7ff5c5a5eb8d" />
 
-### Quick Setup
-For a step by step guide go to [bot guide](./readmes/BOT_GUIDE.md)
+### Setup
 
 #### Clone repository
 
 ```
-git clone https://github.com/samsulpanjul/umamusume-auto-train.git
-cd umamusume-auto-train
+git clone -b unity_cup_beta https://github.com/dragalge/UmaGPT.git
+cd UmaGPT
 ```
 
 #### Install dependencies
@@ -109,7 +97,7 @@ Open your browser and go to: `http://127.0.0.1:8000/` to easily edit the bot's c
 
 Note: multiple bots can work on one machine, they will have the same config templates but they will hook to different function keys for start / stop and ports for web UI. Though they will share the config.json used in the bot folder, so they will all be using the same logic.
 
-### Check FAQ for common problems and problem reporting
+### Check FAQ for common problems
 
 [FAQ](./readmes/FAQ.md)
 
@@ -127,23 +115,6 @@ Notes: this doesn't work if you have an in progress CM from the main menu, like 
 `py auto_misc.py --cm` for automatically doing ALL of CM races (will use 30 carat for last race).
 `py auto_misc.py --tt` for automatically doing all TT races. You can do `py auto_misc.py --tt hard/medium/easy` to pick difficulty.
 
-#### Migrate old localStorage presets to config files
-
-If you used an older web UI that stored presets in browser localStorage, you can migrate them into `config/*.json` with following steps:
-
-Click on Manage in the UI, click on Export Old Configs. The file should be downloaded as `old_configs.json` into your default download folder.
-
-You can either cut and paste the file into the bot folder and run this:
-```py migrate_local_storage_presets.py ./old_configs.json```
-
-or you can specify where the file is with:
-
-```py migrate_local_storage_presets.py "C:\path\to\file.json"```
-
-if you add the `--dry-run` option to the end it will say what it will do like this:
-
-```py migrate_local_storage_presets.py "C:\path\to\file.json" --dry-run```
-
 ### How to change branches / install bot / use github desktop video guide
 - Watch video https://www.youtube.com/watch?v=iOuoJI1q1hk
 - Do not install latest python version. Supported versions are above (3.10 to 3.13)
@@ -153,8 +124,4 @@ if you add the `--dry-run` option to the end it will say what it will do like th
 ### Known Issues
 
 - OCR might misread some values and do trainings otherwise it shouldn't do.
-
-### Contribute
-
-If you run into any issues or something doesn’t work as expected, feel free to open an issue or join the Discord to ask.
-Contributions are very welcome! If you want to contribute, please check out the [dev](https://github.com/samsulpanjul/umamusume-auto-train/tree/dev) branch, which is used for testing new features. We truly appreciate any support to help improve this project further.
+- Limited TB capabilities.

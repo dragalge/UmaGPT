@@ -246,7 +246,6 @@ def locate(img_path : str, confidence=0.8, min_search_time=0, region_ltrb : tupl
   boxes = match_template(img_path, _screenshot, confidence, template_scaling=template_scaling)
   tries = 1
   elapsed_time = time() - time_start
-
   while len(boxes) < 1 and elapsed_time < min_search_time:
     tries += 1
     flush_screenshot_cache()

@@ -45,10 +45,23 @@ def unity_cup_function():
       raise ValueError("Select opponent button not found, please report this.")
 
   # wait for if the elite team animations appear, can miss the first elite team's button if it doesn't wait
-  sleep(1)
   device_action.flush_screenshot_cache()
+  screenshot = device_action.screenshot()
 
   rank_matches = device_action.match_template("assets/unity/team_rank.png", screenshot)
+  tries = 0
+  while len(rank_matches) < 3:
+    sleep(1)
+    device_action.flush_screenshot_cache()
+    screenshot = device_action.screenshot()
+    rank_matches = device_action.match_template("assets/unity/team_rank.png", screenshot)
+    debug(f"Unity opponent matches {tries}: {rank_matches}")
+    tries += 1
+    if tries > 20:
+      break
+
+  if len(rank_matches) < 3:
+    raise ValueError("Unity teams not found properly, please report this.")
   if not select_opponent_btn and not s_rank_opponent:
     raise ValueError("Select opponent and zenith race button not found, please report this.")
   elif select_opponent_btn:
@@ -58,8 +71,6 @@ def unity_cup_function():
     device_action.click(target=(constants.SKILL_SCROLL_BOTTOM_MOUSE_POS))
     unity_race_start()
     return True
-  if len(rank_matches) == 0:
-    raise ValueError("Team rank not found, please report this.")
   matchups = []
   # sort matchups by Y coords
   rank_matches.sort(key=lambda x: x[1])

@@ -168,6 +168,27 @@ def select_event():
     return False
   debug(f"Event Name: {event_name}")
 
+  # happy meek workaround
+  hm_similarity = 0
+  hm_text = "Happy Meek's Challenge!"
+  if HAS_WEIGHTED_LEVENSHTEIN:
+    dist = lev(
+      hm_text,
+      event_name,
+      substitute_costs=SUB_COSTS,
+      insert_costs=INS_COSTS,
+      delete_costs=DEL_COSTS
+    )
+
+    max_len = max(len(hm_text), len(event_name)) or 1
+    hm_similarity = 1.0 - (dist / max_len)
+  else:
+    hm_similarity = fuzz.token_sort_ratio(hm_text, event_name) / 100
+  if hm_similarity > 0.9:
+    debug(f"Happy Meek event similarity: {hm_similarity}")
+    resolve_happy_meek_event()
+    return True
+  # happy meek workaround end
   event = event_choice(event_name)
   chosen = event["chosen"]
   debug(f"Event Choice: {chosen}")
@@ -221,4 +242,37 @@ def select_event():
       device_action.click(target=(x, confirm_acupuncturist_y), text=f"Selecting optimal choice: {event_name}")
       # click(boxes=(x, confirm_acupuncturist_y, 1, 1), text="Confirm acupuncturist.")
   info(f"Found event: {event_name} || Selected option: {chosen}")
+  return True
+
+
+HAPPY_MEEK_AFFINITY_TEMPLATES = {
+  "affinity_0": "assets/ura/ura_affinity_0.png",
+  "affinity_1": "assets/ura/ura_affinity_1.png",
+  "affinity_2": "assets/ura/ura_affinity_2.png",
+  "affinity_3": "assets/ura/ura_affinity_3.png",
+}
+
+#can't care enough to make an elegant solution so this is what we got
+CHECK_ORDER=[ "affinity_3", "affinity_2", "affinity_1", "affinity_0",]
+
+def resolve_happy_meek_event():
+  debug(f"Happy Meek challenge event found.")
+
+  device_action.flush_screenshot_cache()
+
+  screenshot = device_action.screenshot(region_xywh=constants.GAME_WINDOW_REGION)
+
+  matches = {}
+  # find all affinity vs opponent team
+  for name, path in HAPPY_MEEK_AFFINITY_TEMPLATES.items():
+    matches[name] = device_action.match_template(path, screenshot)
+  debug(f"Happy Meek matches: {matches}")
+  for name in CHECK_ORDER:
+    if matches.get(name):
+      debug(f"Happy Meek found: {name}")
+      x, y, w, h = matches[name][0]
+      cx = constants.GAME_WINDOW_REGION[0] + x + w // 2
+      cy = y + h // 2
+      debug(f"Coords: {cx}, {cy}")
+      return device_action.click(target=(cx, cy), text=f"Clicked match: {matches[name][0]}")
   return True

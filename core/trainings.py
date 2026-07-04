@@ -38,6 +38,8 @@ def create_training_score_entry(training_name, training_data, score_tuple):
     entry["unity_trainings"] = training_data["unity_trainings"] - training_data["unity_gauge_fills"]
     entry["unity_spirit_explosions"] = training_data["unity_spirit_explosions"]
     entry["unity_extreme_spirit_explosions"] = training_data["unity_extreme_spirit_explosions"]
+  elif constants.SCENARIO_NAME == "ura":
+    entry["happy_meek_challenge"] = training_data["happy_meek_challenge"]
 
   return entry
 
@@ -623,6 +625,8 @@ def add_scenario_gimmick_score(training_dict, score_tuple, state):
   score = 0
   if constants.SCENARIO_NAME == "unity" or state["scenario_name"] == "unity":
     score = unity_training_score(training_dict, state["year"].split()[0]) * config.SCENARIO_GIMMICK_WEIGHT
+  elif constants.SCENARIO_NAME == "ura" or state["scenario_name"] == "ura":
+    score = ura_training_score(training_dict, state["year"].split()[0]) * config.SCENARIO_GIMMICK_WEIGHT
   debug(f"Scenario gimmick score: {score}")
 
   score_tuple = (score_tuple[0] + score, score_tuple[1])
@@ -660,5 +664,31 @@ def unity_training_score(x, year):
     score += training_data["unity_spirit_explosions"] * (1 + year_adjustment) / (1 + abs(priority_adjustment))
     score += training_data["unity_extreme_spirit_explosions"] * (2 + year_adjustment) / (1 + abs(priority_adjustment))
 
+  debug(f"Unity training score: {training_name} -> {score}")
+  return score
+
+def ura_training_score(x, year):
+  training_name, training_data = x
+  if training_data["happy_meek_challenge"] == 0:
+    return 0
+
+  priority_index = get_priority_index(x)
+  priority_effect = config.PRIORITY_EFFECTS_LIST[priority_index]
+  priority_weight = PRIORITY_WEIGHTS_LIST[config.PRIORITY_WEIGHT]
+  priority_adjustment = priority_effect * priority_weight
+
+  # spirit explosions are more important later years.
+  if year == "Junior":
+    year_adjustment = -0.25
+  elif year == "Classic":
+    year_adjustment = 0.1
+  elif year == "Senior" or year == "Finale":
+    year_adjustment = 0.35
+  else:
+    warning("Didn't get year value, this should not happen.")
+    year_adjustment = 0
+
+  score = 0
+  score = training_data["happy_meek_challenge"] * 2
   debug(f"Unity training score: {training_name} -> {score}")
   return score

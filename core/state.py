@@ -208,6 +208,10 @@ def get_support_card_data(threshold=0.8):
       count_result["unity_spirit_explosions"] += 1
     for spirit_exp_match in unity_ext_spirit_exp_matches:
       count_result["unity_extreme_spirit_explosions"] += 1
+  elif constants.SCENARIO_NAME == "ura":
+    happy_meek_match = device_action.match_template("assets/ura/happy_meek_challenge.png", screenshot, threshold)
+    if happy_meek_match:
+      count_result["happy_meek_challenge"] = 1
 
   hint_matches = device_action.match_template("assets/icons/support_hint.png", screenshot, threshold)
 

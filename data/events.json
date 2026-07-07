@@ -36475,6 +36475,54 @@
         "all_outcomes": "Wit +5, Mood +1, Maruzensky bond +5"
       },
       {
+        "char_id": "30109",
+        "event_name": "Today's Words of Wisdom!",
+        "character_name": "Sakura Chiyono O (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sakura Chiyono O (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy -10, Power +20, Sakura Chiyono O bond +5"
+      },
+      {
+        "char_id": "30109",
+        "event_name": "Today's Words of Wisdom!",
+        "character_name": "Sakura Chiyono O (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Sakura Chiyono O (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy +5, Skill points +10, Sakura Chiyono O bond +5"
+      },
+      {
+        "char_id": "30109",
+        "event_name": "Until I Bloom...",
+        "character_name": "Sakura Chiyono O (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Sakura Chiyono O (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy +5, Stamina +5, Sakura Chiyono O bond +5"
+      },
+      {
+        "char_id": "30109",
+        "event_name": "Until I Bloom...",
+        "character_name": "Sakura Chiyono O (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Sakura Chiyono O (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Spring Runner O hint +1, Sakura Chiyono O bond +5"
+      },
+      {
         "char_id": "20048",
         "event_name": " \"I Just Can't Quit Food\" —Oguri Cap",
         "character_name": "Oguri Cap (SR) (GUTS)",
@@ -51798,6 +51846,13 @@
         "type": "SPD"
       },
       {
+        "id": "30109",
+        "name": "Sakura Chiyono O (SSR) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30109.png",
+        "rarity": "SSR",
+        "type": "GUTS"
+      },
+      {
         "id": "30053",
         "name": "Taiki Shuttle (SSR) (SPD)",
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30053.png",
@@ -52419,13 +52474,6 @@
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30025.png",
         "rarity": "SSR",
         "type": "SPD"
-      },
-      {
-        "id": "30102",
-        "name": "El Condor Pasa (SSR) (GUTS)",
-        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30102.png",
-        "rarity": "SSR",
-        "type": "GUTS"
       },
       {
         "id": "20048",

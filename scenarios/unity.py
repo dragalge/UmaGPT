@@ -13,7 +13,7 @@ TEAM_MATCHUP_TEMPLATES = {
 }
 
 if not hasattr(config, "UNITY_MINIMUM_MATCHUP_SCORE"):
-  config.UNITY_MINIMUM_MATCHUP_SCORE = 11
+  config.UNITY_MINIMUM_MATCHUP_SCORE = 8
 
 def find_best_match(matchups):
   best_match = matchups[0]
@@ -33,7 +33,9 @@ def unity_cup_function():
     screenshot = device_action.screenshot()
     select_opponent_btn = device_action.locate("assets/unity/select_opponent_btn.png")
     s_rank_opponent = device_action.locate("assets/unity/s_rank_opponent.png", region_ltrb=constants.SCREEN_MIDDLE_BBOX)
-    sleep(0.25)
+    if not s_rank_opponent:
+      s_rank_opponent = device_action.locate("assets/unity/s_plus_rank_opponent.png", region_ltrb=constants.SCREEN_MIDDLE_BBOX)
+    sleep(0.5)
     if select_opponent_btn:
       break
     elif s_rank_opponent:
@@ -41,7 +43,7 @@ def unity_cup_function():
     tries += 1
     if tries > 20:
       raise ValueError("Select opponent button not found, please report this.")
-  rank_matches = device_action.match_template("assets/unity/team_rank.png", screenshot)
+
   if not select_opponent_btn and not s_rank_opponent:
     raise ValueError("Select opponent and zenith race button not found, please report this.")
   elif select_opponent_btn:
@@ -49,10 +51,29 @@ def unity_cup_function():
   elif s_rank_opponent:
     sleep(1)
     device_action.click(target=(constants.SKILL_SCROLL_BOTTOM_MOUSE_POS))
+    while not device_action.locate("assets/unity/start_unity_match.png", min_search_time=get_secs(2)):
+      device_action.click(target=(constants.SKILL_SCROLL_BOTTOM_MOUSE_POS))
     unity_race_start()
     return True
-  if len(rank_matches) == 0:
-    raise ValueError("Team rank not found, please report this.")
+
+  # wait for if the elite team animations appear, can miss the first elite team's button if it doesn't wait
+  device_action.flush_screenshot_cache()
+  screenshot = device_action.screenshot()
+  rank_matches = device_action.match_template("assets/unity/team_rank.png", screenshot)
+  tries = 0
+  while len(rank_matches) < 3:
+    sleep(1)
+    device_action.flush_screenshot_cache()
+    screenshot = device_action.screenshot()
+    rank_matches = device_action.match_template("assets/unity/team_rank.png", screenshot)
+    debug(f"Unity opponent matches {tries}: {rank_matches}")
+    tries += 1
+    if tries > 20:
+      break
+
+  if len(rank_matches) < 3:
+    raise ValueError("Unity teams not found properly, please report this.")
+
   matchups = []
   # sort matchups by Y coords
   rank_matches.sort(key=lambda x: x[1])
@@ -70,15 +91,17 @@ def unity_cup_function():
     tries = 0
     while tries < 10:
       if device_action.locate("assets/unity/unity_tazuna.png"):
+        sleep(0.1)
         break
       tries += 1
       if tries > 10:
         raise ValueError("Affinity screen not found, please report this.")
+      sleep(0.05)
       device_action.flush_screenshot_cache()
-    
+
     screenshot = device_action.screenshot(region_xywh=constants.UNITY_TEAM_MATCHUP_REGION)
     debug_window(screenshot, save_name="unity_team_matchup")
-    
+
     # find all affinity vs opponent team
     for name, path in TEAM_MATCHUP_TEMPLATES.items():
       matches = device_action.match_template(path, screenshot)

@@ -49,6 +49,32 @@
         ],
         "implemented": "2026-06-11"
     },
+    "30102": {
+        "id": "30102",
+        "name": "El Condor Pasa (SSR) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30102.png",
+        "rarity": "SSR",
+        "type": "GUTS",
+        " Where My Courage Comes From": [
+            "Guts +15, El Condor Pasa bond +5"
+        ],
+        " A Mask with Many Faces": [
+            "Randomly either Mood +1, Skill points +30, El Condor Pasa bond +5 or Energy -10, Skill points +5",
+            "Speed +7, Power +7, Guts +7, El Condor Pasa bond +5"
+        ],
+        " With All the Courage I Have": [
+            "Randomly either Speed +5, Guts +15, Skill points +30, Speed Star hint +3, El Condor Pasa bond +5 or Speed +5, Guts +15, Skill points +30, Speed Star hint +1, El Condor Pasa bond +5"
+        ],
+        "Blazing Fire!": [
+            "Stamina +10, El Condor Pasa bond +5",
+            "Energy -10, Power +20, El Condor Pasa bond +5"
+        ],
+        "Secret Notebook!": [
+            "Power +10, El Condor Pasa bond +5",
+            "Sunny Days ○ hint +1, El Condor Pasa bond +5"
+        ],
+        "implemented": "2026-06-11"
+    },
     "20048": {
         "id": "20048",
         "name": "Oguri Cap (SR) (GUTS)",
@@ -4915,21 +4941,33 @@
         ],
         "implemented": "2025-06-26"
     },
-    "30102": {
-        "id": "30102",
-        "name": "El Condor Pasa (SSR) (GUTS)",
-        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30102.png",
-        "rarity": "SSR",
+    "10081": {
+        "id": "10081",
+        "name": "Tsurumaru Tsuyoshi (R) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_10081.png",
+        "rarity": "R",
         "type": "GUTS",
-        " Where My Courage Comes From": [
-            "Guts +15, El Condor Pasa bond +5"
+        "Preparing to the MAX!": [
+            "Energy +10, Mood +1, Tsurumaru Tsuyoshi bond +5",
+            "Speed +15, Tsurumaru Tsuyoshi bond +5"
         ],
-        " A Mask with Many Faces": [
-            "Randomly either Mood +1, Skill points +30, El Condor Pasa bond +5 or Energy -10, Skill points +5",
-            "Speed +7, Power +7, Guts +7, El Condor Pasa bond +5"
+        "Helping Out to the MAX!": [
+            "Fighter hint +1, Tsurumaru Tsuyoshi bond +5",
+            "Guts +15, Tsurumaru Tsuyoshi bond +5"
+        ]
+    },
+    "20033": {
+        "id": "20033",
+        "name": "El Condor Pasa (SR) (SPD)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20033.png",
+        "rarity": "SR",
+        "type": "SPD",
+        " With Passion and Joy!": [
+            "Energy +10, Speed +5, Power +5, El Condor Pasa bond +5",
+            "Energy -10, Speed +15, Power +10, El Condor Pasa bond +5"
         ],
-        " With All the Courage I Have": [
-            "Randomly either Speed +5, Guts +15, Skill points +30, Speed Star hint +3, El Condor Pasa bond +5 or Speed +5, Guts +15, Skill points +30, Speed Star hint +1, El Condor Pasa bond +5"
+        " Muddy Heroes": [
+            "Energy -10, Speed +15, Power +15, Pace Chaser Corners ○ hint +1, El Condor Pasa bond +7"
         ],
         "Blazing Fire!": [
             "Stamina +10, El Condor Pasa bond +5",
@@ -4938,6 +4976,148 @@
         "Secret Notebook!": [
             "Power +10, El Condor Pasa bond +5",
             "Sunny Days ○ hint +1, El Condor Pasa bond +5"
+        ]
+    },
+    "30067": {
+        "id": "30067",
+        "name": "Heirs to the Throne (SSR) (GRP)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30067.png",
+        "rarity": "SSR",
+        "type": "GRP",
+        "#StudentingSymboli Rudolf": [
+            "Energy +12, Wit +34, Fighting Spirit hint +1, Heirs to the Throne bond +5"
+        ],
+        "The Monarch's PrideTokai Teio": [
+            "Energy +12, Mood +1, Speed +23, Prudent Positioning hint +1, Heirs to the Throne bond +5"
+        ],
+        "A Leisurely Stroll for TwoTsurumaru Tsuyoshi": [
+            "Energy +36, Skill points +17, Full Throttle hint +1, Heirs to the Throne bond +5"
+        ],
+        "I Wanna Be Just Like Prez!": [
+            "Energy +24, Speed +11, Wit +28, Skill points +17, Nakayama Racecourse ○ hint +1, Heal Night Owl, Heal Slacker, Heirs to the Throne bond +5"
+        ],
+        "I Want to Be Just Like President Rudolf!": [
+            "Energy +24, Mood +1, Speed +17, Wit +34, Skill points +23, Refraction Arc hint +1, Get Pure Passion: Heirs to the Throne status, Heirs to the Throne bond +5"
+        ],
+        "My Way, Or...": [
+            "Mood +1, Skill points +17, Tokai Teio bond +5",
+            "Guts +17, Tokai Teio bond +5"
+        ],
+        "My Weapon": [
+            "Mood +1, Guts +11, Tokai Teio bond +5",
+            "Pace Chaser Straightaways ○ hint +1, Tokai Teio bond +5"
+        ],
+        "The Emperor's Encouragement": [
+            "Speed +11, Symboli Rudolf bond +5",
+            "Energy -10, Skill points +34, Symboli Rudolf bond +5"
+        ],
+        "The Student Council President's Thoughtfulness": [
+            "Rainy Days ○ hint +1, Symboli Rudolf bond +5",
+            "Stamina +17, Symboli Rudolf bond +5"
+        ],
+        "Preparing to the MAX!": [
+            "Energy +12, Mood +1, Tsurumaru Tsuyoshi bond +5",
+            "Speed +17, Tsurumaru Tsuyoshi bond +5"
+        ],
+        "Helping Out to the MAX!": [
+            "Fighter hint +1, Tsurumaru Tsuyoshi bond +5",
+            "Guts +17, Tsurumaru Tsuyoshi bond +5"
+        ],
+        "Emulation Is the Sincerest Form of FlatteryDating starts": [
+            "Speed +5, Wit +17, Skill points +5, Get Pure Passion: Heirs to the Throne status, Heirs to the Throne bond +5, Can start dating"
+        ],
+        "The Bright Future Ahead": [
+            "Wit +17, Heirs to the Throne bond +5",
+            "Speed +17, Heirs to the Throne bond +5"
+        ],
+        "Diamonds in the RoughAfter first training": [
+            "Wit +17, Heirs to the Throne bond +5"
+        ],
+        "We'll Get Stronger, TogetherRandomly after training (repeatable)": [
+            "Wit +4, Heirs to the Throne bond +5, ※ has Pure Passion: Heirs to the Throne, Wit +4, Skill points +4, Heirs to the Throne bond +5",
+            "Speed +4, Heirs to the Throne bond +5, ※ has Pure Passion: Heirs to the Throne, Speed +4, Skill points +4, Heirs to the Throne bond +5",
+            "Skill points +4, Heirs to the Throne bond +5, ※ has Pure Passion: Heirs to the Throne, Energy +3, Skill points +4, Heirs to the Throne bond +5"
+        ],
+        "The Heroic Trio Running Side by SideAfter Finals (bond maxed)": [
+            "Speed +23, Wit +23, Skill points +23"
+        ],
+        "With Our Powers CombinedAfter Finals (bond not maxed)": [
+            "Speed +17, Wit +17, Skill points +17"
+        ],
+        "Dreaming the Same DreamDating before the first New Year's": [
+            "Speed +11, Wit +23, Skill points +11, Medium Corners ○ hint +1, Heirs to the Throne bond +5"
+        ]
+    },
+    "30105": {
+        "id": "30105",
+        "name": "Special Week (SSR) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30105.png",
+        "rarity": "SSR",
+        "type": "GUTS",
+        " I'm Gonna Buckle Down 'n' Work Hard!": [
+            "All stats +3, Special Week bond +5"
+        ],
+        " I'm Gonna Run with Everyone!": [
+            "Speed +10, Feature Act hint +2, Special Week bond +5",
+            "Stamina +10, Straightaway Recovery hint +2, Special Week bond +5"
+        ],
+        " I'm Gonna Visit Home!": [
+            "Energy -10, All stats +7, Overwhelming Pressure hint +1, Special Week bond +7"
+        ],
+        "Watch Where You're Going!": [
+            "Extra Tank hint +1, Special Week bond +5",
+            "Guts +15, Special Week bond +5"
+        ],
+        "So Many Options!": [
+            "Energy +10, Mood +1, Special Week bond +5",
+            "Energy -10, Stamina +15, Skill points +15, Special Week bond +5"
+        ]
+    },
+    "20049": {
+        "id": "20049",
+        "name": "Gold City (SR) (WIT)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_20049.png",
+        "rarity": "SR",
+        "type": "WIT",
+        " I Can Do It Myself": [
+            "Skill points +30, Gold City bond +5"
+        ],
+        " Relying On Others": [
+            "Speed +10, Skill points +10, Straightaway Recovery hint +2, Gold City bond +5",
+            "Wit +10, Skill points +10, Snowy Days ○ hint +2, Gold City bond +5"
+        ],
+        "08:36 / Crap, I Overslept": [
+            "Mood -1, Skill points +45, Gold City bond +5",
+            "Energy +10, Wit +5, Gold City bond +5"
+        ],
+        "13:12 / Lunch Break, Gotta Get Myself Together": [
+            "Skill points +30, Gold City bond +5",
+            "A Small Breather hint +1, Gold City bond +5"
+        ]
+    },
+    "30106": {
+        "id": "30106",
+        "name": "Air Groove (SSR) (POW)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30106.png",
+        "rarity": "SSR",
+        "type": "POW",
+        " My Source of Admiration": [
+            "Mood +1, Power +10, Fearless hint +1, Air Groove bond +5"
+        ],
+        " You Make Me Who I Am": [
+            "Power +7, Wit +7, Take the Chance hint +1, Air Groove bond +5",
+            "Skill points +10, Updrafters hint +1, Air Groove bond +5"
+        ],
+        " Dynamic Duo": [
+            "Power +10, Wit +10, Lie in Wait hint +1, Air Groove bond +5"
+        ],
+        "Strict but Gracious": [
+            "Go with the Flow hint +1, Air Groove bond +5",
+            "Energy +10, Wit +10, Air Groove bond +5"
+        ],
+        "Agile but Strong": [
+            "Power +15, Air Groove bond +5",
+            "Speed +10, Stamina +5, Air Groove bond +5"
         ]
     }
 }

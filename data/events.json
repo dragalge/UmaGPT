@@ -36295,6 +36295,90 @@
         "all_outcomes": "Subdued Front Runners hint +1, Matikanetannhauser bond +5"
       },
       {
+        "char_id": "30102",
+        "event_name": " A Mask with Many Faces",
+        "character_name": "El Condor Pasa (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "El Condor Pasa (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Mood +1, Skill points +30, El Condor Pasa bond +5"
+      },
+      {
+        "char_id": "30102",
+        "event_name": " A Mask with Many Faces",
+        "character_name": "El Condor Pasa (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "El Condor Pasa (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "Chance",
+        "all_outcomes": "Energy -10, Skill points +5"
+      },
+      {
+        "char_id": "30102",
+        "event_name": " A Mask with Many Faces",
+        "character_name": "El Condor Pasa (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "El Condor Pasa (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Speed +7, Power +7, Guts +7, El Condor Pasa bond +5"
+      },
+      {
+        "char_id": "30102",
+        "event_name": "Blazing Fire!",
+        "character_name": "El Condor Pasa (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "El Condor Pasa (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Stamina +10, El Condor Pasa bond +5"
+      },
+      {
+        "char_id": "30102",
+        "event_name": "Blazing Fire!",
+        "character_name": "El Condor Pasa (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "El Condor Pasa (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy -10, Power +20, El Condor Pasa bond +5"
+      },
+      {
+        "char_id": "30102",
+        "event_name": "Secret Notebook!",
+        "character_name": "El Condor Pasa (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "El Condor Pasa (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Power +10, El Condor Pasa bond +5"
+      },
+      {
+        "char_id": "30102",
+        "event_name": "Secret Notebook!",
+        "character_name": "El Condor Pasa (SSR) (GUTS)",
+        "type": "GUTS",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "El Condor Pasa (SSR) (GUTS)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Sunny Days Γùï hint +1, El Condor Pasa bond +5"
+      },
+      {
         "char_id": "30104",
         "event_name": "Book-lover Quirks",
         "character_name": "Zenno Rob Roy (SSR) (STA)",
@@ -51691,6 +51775,13 @@
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30103.png",
         "rarity": "SSR",
         "type": "WIT"
+      },
+      {
+        "id": "30102",
+        "name": "El Condor Pasa (SSR) (GUTS)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30102.png",
+        "rarity": "SSR",
+        "type": "GUTS"
       },
       {
         "id": "30104",

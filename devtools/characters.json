@@ -1,4 +1,184 @@
 {
+    "100103": {
+        "id": "100103",
+        "name": "Special Week (Commander)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1001_100103.png",
+        "implemented": "2026-06-25",
+        "The Days Past and the Days to Come": [
+            "Randomly either Power +5 or Power +10, Winter Runner ○ hint +1 or Power +15, Winter Runner ○ hint +2"
+        ],
+        "The Ruler of the Stage": [
+            "Speed +10, Homestretch Haste hint +2"
+        ],
+        "Spe's Impromptu Guided Tour": [
+            "Stamina +15, (random) Get Fast Learner status",
+            "Guts +10, Wit +5, (random) Get Fast Learner status"
+        ],
+        "A Beautiful Day for Tennis": [
+            "Speed +10",
+            "Stamina +10"
+        ],
+        "Karaoke Connoisseur ♪": [
+            "Energy +10",
+            "Power +10"
+        ],
+        "Early Afternoon Payback": [
+            "Energy +5, Wit +5",
+            "Pace Strategy hint +1"
+        ],
+        "Special Week's Alter Ego": [
+            "Randomly either Energy +30, Power +10, Skill points +10 or Energy +30, Speed -5, Power +15, Skill points +10, Get Slow Metabolism status",
+            "Energy +10, Power +5, Skill points +5",
+            "Randomly either Full energy recovery or Full energy recovery, Speed -5, Get Slow Metabolism status"
+        ],
+        "Putting It Away at the Cafeteria": [
+            "Energy +10, Skill points +5",
+            "Randomly either (~90%), Energy +30, Skill points +10, or (~10%), Energy +30, Skill points +10, Speed -5, Power +5, Get Slow Metabolism status"
+        ],
+        "Because It's Special": [
+            "Stamina +10",
+            "Speed +10"
+        ],
+        "A Place I Want to Take You": [
+            "Wit +10",
+            "Stamina +10"
+        ],
+        "Someone I Respect": [
+            "Skill points +30",
+            "Stamina +5, Guts +5",
+            "Speed +5, Power +5"
+        ],
+        "Just a Little More": [
+            "Homestretch Haste hint +1",
+            "Corner Adept ○ hint +1"
+        ],
+        "Research Fanatic": [
+            "Tokyo Racecourse ○ hint +1",
+            "Nakayama Racecourse ○ hint +1"
+        ],
+        "Rivals in Arms": [
+            "Speed +30, Power +30, Stamina to Spare hint +2, Slick Surge hint +2"
+        ],
+        "Bonus at start": [
+            "Skill points +120"
+        ],
+        "At Summer Camp (Year 2)": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "Fan Letter": [
+            "Mood +1, Skill points +30"
+        ],
+        "Dance Lesson": [
+            "Guts +10",
+            "Stamina +10"
+        ],
+        "New Year's Resolutions": [
+            "Stamina +25",
+            "Energy +20",
+            "Skill points +20"
+        ],
+        "New Year's Shrine Visit": [
+            "Energy +30",
+            "All stats +8",
+            "Skill points +35"
+        ]
+    },
+    "103601": {
+        "id": "103601",
+        "name": "Air Shakur (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1036_103601.png",
+        "implemented": "2026-06-18",
+        "This Is the Proof": [
+            "Speed +20",
+            "Wit +20"
+        ],
+        "This Is Junk Too": [
+            "Power +10, Guts +10",
+            "Wit +10, Skill points +15"
+        ],
+        "This Is the Reason": [
+            "Energy +15, (random) Get Charming ○ status",
+            "Speed +10, Wit +10, (random) Get Charming ○ status"
+        ],
+        "Requisite Specification: Quantify a Miracle": [
+            "Stamina +10",
+            "Energy -5, Guts +15"
+        ],
+        "Requisite Specification: Prove Ghosts Exist": [
+            "Speed +5, Skill points +15",
+            "Power +10"
+        ],
+        "Requisite Specification: Construct the Optimal Route": [
+            "Speed +5, Stamina +5, Power +5",
+            "Intense Gaze hint +1"
+        ],
+        "Tell Me What Specs You Need": [
+            "Speed +10, Wit +10",
+            "Energy +15",
+            "Eager hint +2"
+        ],
+        "Late-Night Ramen": [
+            "Energy +10, Skill points +5",
+            "Randomly either (~90%), Energy +30, Skill points +10, or (~10%), Energy +30, Skill points +10, Speed -5, Power +5, Get Slow Metabolism status"
+        ],
+        "Logic and Technique": [
+            "Wit +10",
+            "Speed +10"
+        ],
+        "Two Egoists": [
+            "Power +10",
+            "Wit +10"
+        ],
+        "Victory Conditions": [
+            "Speed +10",
+            "Guts +10",
+            "Stamina +10"
+        ],
+        "Accessories Are like Parts": [
+            "Wit +10",
+            "Speed +10"
+        ],
+        "Insane Consensus": [
+            "Wit +10",
+            "Power +10"
+        ],
+        "It's a New Day": [
+            "Speed +10, Power +10, Fall Runner ○ hint +1"
+        ],
+        "After the Kikuka Sho: King of the Game": [
+            "Speed +15, All stats +3, Skill points +45, Corner Adept ○ hint +2, Yayoi Akikawa bond +4"
+        ],
+        "After the Japan C.: Noise": [
+            "All stats +3, Skill points +75, Fighting Spirit hint +3, Obtain 99 Problems skill, Yayoi Akikawa bond +4"
+        ],
+        "Bonus at start": [
+            "Skill points +120"
+        ],
+        "At Summer Camp (Year 2)": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "Fan Letter": [
+            "Mood +1, Skill points +30"
+        ],
+        "Dance Lesson": [
+            "Speed +10",
+            "Stamina +10"
+        ],
+        "New Year's Resolutions": [
+            "Wit +25",
+            "Energy +20",
+            "Skill points +20"
+        ],
+        "New Year's Shrine Visit": [
+            "Energy +30",
+            "All stats +8",
+            "Skill points +35"
+        ]
+    },
     "101002": {
         "id": "101002",
         "name": "Taiki Shuttle (Camping)",

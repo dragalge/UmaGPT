@@ -12524,6 +12524,7 @@ const minimum_condition_severity = 2;
 const minimum_mood = "GOOD";
 const priority_weight = "MEDIUM";
 const minimum_mood_junior_year = "NORMAL";
+const enable_dating = false;
 const maximum_failure = 5;
 const minimum_aptitudes = { "surface": "b", "distance": "b", "style": "c" };
 const rest_before_summer_energy = 60;
@@ -12546,6 +12547,7 @@ const hint_hunting_weights = { "spd": 0.5, "sta": 0.5, "pwr": 0.5, "guts": 0.5, 
 const stop_at_turns = ["Finale Underway Finals"];
 const use_skip_claw_machine = false;
 const scenario_gimmick_weight = 1;
+const duel = { "duel_hunting_enabled": false, "duel_priority_na": false, "duel_priority_stats": { "spd": false, "sta": false, "pwr": false, "guts": false, "wit": false, "energy": false } };
 const race_schedule = [{ "name": "Satsuki Sho", "year": "Classic Year", "date": "Early Apr" }, { "name": "Tokyo Yushun Japanese Derby", "year": "Classic Year", "date": "Late May" }, { "name": "Kikuka Sho", "year": "Classic Year", "date": "Late Oct" }, { "name": "Hopeful Stakes", "date": "Late Dec", "year": "Junior Year" }, { "name": "Arima Kinen", "date": "Late Dec", "year": "Classic Year" }, { "name": "Osaka Hai", "date": "Late Mar", "year": "Senior Year" }, { "name": "Tenno Sho Spring", "date": "Late Apr", "year": "Senior Year" }, { "name": "Takarazuka Kinen", "date": "Late Jun", "year": "Senior Year" }, { "name": "Tenno Sho Autumn", "date": "Late Oct", "year": "Senior Year" }, { "name": "Japan Cup", "date": "Late Nov", "year": "Senior Year" }, { "name": "Arima Kinen", "date": "Late Dec", "year": "Senior Year" }, { "name": "Hanshin Juvenile Fillies", "date": "Early Dec", "year": "Junior Year" }, { "name": "Oka Sho", "date": "Early Apr", "year": "Classic Year" }, { "name": "NHK Mile Cup", "date": "Early May", "year": "Classic Year" }, { "name": "Yasuda Kinen", "date": "Early Jun", "year": "Classic Year" }, { "name": "Mile Championship", "date": "Late Nov", "year": "Classic Year" }, { "name": "Victoria Mile", "date": "Early May", "year": "Senior Year" }, { "name": "Yasuda Kinen", "date": "Early Jun", "year": "Senior Year" }, { "name": "Mile Championship", "date": "Late Nov", "year": "Senior Year" }];
 const skill = { "is_auto_buy_skill": false, "skill_check_turns": 10, "check_skill_before_races": false, "skill_pts_check": 400, "skill_list": ["Homestretch Haste", "Go with the Flow", "Focus", "Concentration", "Red Shift/LP1211-M", "U=ma2", "Professor of Curvature", "Swinging Maestro"] };
 const event = { "use_optimal_event_choice": true, "event_choices": [{ "character_name": "Unity Cup", "event_name": "Tutorial", "chosen": 2 }] };
@@ -12574,6 +12576,7 @@ const rawConfig = {
   minimum_mood,
   priority_weight,
   minimum_mood_junior_year,
+  enable_dating,
   maximum_failure,
   minimum_aptitudes,
   rest_before_summer_energy,
@@ -12596,6 +12599,7 @@ const rawConfig = {
   stop_at_turns,
   use_skip_claw_machine,
   scenario_gimmick_weight,
+  duel,
   race_schedule,
   skill,
   event,
@@ -17164,6 +17168,30 @@ const FunctionFallbacksBase = object({
 const FunctionFallbacksSchema = FunctionFallbacksBase.default(
   FunctionFallbacksBase.parse({})
 );
+const DuelPriorityStatsSchema = object({
+  spd: boolean(),
+  sta: boolean(),
+  pwr: boolean(),
+  guts: boolean(),
+  wit: boolean(),
+  energy: boolean()
+});
+const DuelSchema = object({
+  duel_hunting_enabled: boolean(),
+  duel_priority_na: boolean(),
+  duel_priority_stats: DuelPriorityStatsSchema
+}).default({
+  duel_hunting_enabled: false,
+  duel_priority_na: false,
+  duel_priority_stats: {
+    spd: false,
+    sta: false,
+    pwr: false,
+    guts: false,
+    wit: false,
+    energy: false
+  }
+});
 const ConfigSchema = object({
   config_name: string(),
   theme: string().default("Default"),
@@ -17182,6 +17210,7 @@ const ConfigSchema = object({
   rainbow_support_weight_addition: number(),
   non_max_support_weight: number(),
   scenario_gimmick_weight: number(),
+  duel: DuelSchema,
   race_turn_threshold: number(),
   do_mission_races_if_possible: boolean(),
   prioritize_missions_over_g1: boolean(),
@@ -17189,6 +17218,8 @@ const ConfigSchema = object({
   priority_weight: string(),
   minimum_mood: string(),
   minimum_mood_junior_year: string(),
+  // .default() keeps configs exported before the dating feature importable.
+  enable_dating: boolean().default(false),
   maximum_failure: number(),
   minimum_aptitudes: object({
     surface: string(),
@@ -21050,7 +21081,7 @@ const navItems = [
 function Sidebar({ activeTab, setActiveTab, appVersion, eventCount, raceCount, skillCount }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-64 h-screen sticky top-0 flex flex-col", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3 py-4 absolute", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-3xl font-bold text-primary tracking-tight", children: "Uma Auto Train" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-3xl font-bold text-primary tracking-tight", children: "UmaGPT" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-sm block w-full text-right font-bold text-slate-400 -mt-2", children: [
         "v",
         appVersion || "Loading..."
@@ -37685,7 +37716,7 @@ function RadioGroupItem({ className, ...props }) {
     }
   );
 }
-function TrainingSection$2({ config: config2, updateConfig }) {
+function TrainingSection$1({ config: config2, updateConfig }) {
   const {
     priority_stat: priority_stat2,
     priority_weight: priority_weight2,
@@ -37696,7 +37727,8 @@ function TrainingSection$2({ config: config2, updateConfig }) {
     wit_training_score_ratio_threshold: wit_training_score_ratio_threshold2,
     rainbow_support_weight_addition: rainbow_support_weight_addition2,
     non_max_support_weight: non_max_support_weight2,
-    scenario_gimmick_weight: scenario_gimmick_weight2
+    scenario_gimmick_weight: scenario_gimmick_weight2,
+    duel: duel2
   } = config2;
   const sensors = useSensors(useSensor(PointerSensor));
   const handleDragEnd = (event2) => {
@@ -37776,7 +37808,26 @@ function TrainingSection$2({ config: config2, updateConfig }) {
               ] }, weight))
             }
           )
-        ] }) })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-semibold", children: [
+            "Stat Caps",
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "These values decide when a training or stat is no longer worth it and tells the bot to avoid them completely. If you set these too low, the bot may get stuck." })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(stat_caps2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Input,
+              {
+                className: "w-24",
+                type: "number",
+                value: val,
+                min: 0,
+                onChange: (e) => updateConfig("stat_caps", { ...stat_caps2, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber })
+              }
+            )
+          ] }, stat)) })
+        ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
@@ -37865,32 +37916,46 @@ function TrainingSection$2({ config: config2, updateConfig }) {
               onChange: (e) => updateConfig("scenario_gimmick_weight", e.target.valueAsNumber)
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "This increases the value of scenario gimmick. In unity scenario, this is the value of unity gauge fills and spirit explosions." })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "This increases the value of scenario gimmick. In unity scenario, this is the value of unity gauge fills and spirit explosions. In URA Finale, this is the value of a training with an active Happy Meek duel." })
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-fit", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-semibold", children: [
-          "Stat Caps",
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "These values decide when a training or stat is no longer worth it and tells the bot to avoid them completely. If you set these too low, the bot may get stuck." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: Object.entries(stat_caps2).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block w-16", children: stat.toUpperCase() }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Input,
-            {
-              className: "w-24",
-              type: "number",
-              value: val,
-              min: 0,
-              onChange: (e) => updateConfig("stat_caps", { ...stat_caps2, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber })
-            }
-          )
-        ] }, stat)) })
-      ] }) })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: duel2.duel_hunting_enabled, onCheckedChange: () => updateConfig("duel", { ...duel2, duel_hunting_enabled: !duel2.duel_hunting_enabled }) }),
+          "Enable Duel Hunting",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "URA Finale only. When enabled, the bot favors training tiles with an active Happy Meek duel (weighted by Scenario Gimmick Weight) and handles the duel event itself.\n              The bot only willingly takes duels predicted 〇 or ◎, prefers your checked stats, and spreads duels evenly across them over the career." })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 mb-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `font-semibold ${duel2.duel_hunting_enabled ? "" : "disabled"}`, children: "Duel Priority" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${duel2.duel_hunting_enabled ? "" : "disabled"}`, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Checkbox,
+              {
+                checked: duel2.duel_priority_na,
+                disabled: !duel2.duel_hunting_enabled,
+                onCheckedChange: () => updateConfig("duel", { ...duel2, duel_priority_na: !duel2.duel_priority_na })
+              }
+            ),
+            "N/A Priority. Pick the option with 〇 affinity or above.",
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "Ignores the stat checkboxes below. The bot takes any duel predicted 〇 or above and spreads its picks evenly across all six options." })
+          ] }),
+          Object.entries(duel2.duel_priority_stats).map(([stat, val]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `uma-label ${duel2.duel_hunting_enabled && !duel2.duel_priority_na ? "" : "disabled"}`, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Checkbox,
+              {
+                checked: val,
+                disabled: !duel2.duel_hunting_enabled || duel2.duel_priority_na,
+                onCheckedChange: () => updateConfig("duel", { ...duel2, duel_priority_stats: { ...duel2.duel_priority_stats, [stat]: !val } })
+              }
+            ),
+            stat.toUpperCase()
+          ] }, stat))
+        ] })
+      ] })
     ] })
   ] });
 }
-function TrainingSection$1({ config: config2, updateConfig }) {
+function TrainingSection({ config: config2, updateConfig }) {
   const {
     maximum_failure: maximum_failure2,
     minimum_condition_severity: minimum_condition_severity2,
@@ -38007,8 +38072,8 @@ function TrainingSection$1({ config: config2, updateConfig }) {
     ] })
   ] });
 }
-function TrainingSection({ config: config2, updateConfig }) {
-  const { minimum_mood: minimum_mood2, minimum_mood_junior_year: minimum_mood_junior_year2 } = config2;
+function MoodSection({ config: config2, updateConfig }) {
+  const { minimum_mood: minimum_mood2, minimum_mood_junior_year: minimum_mood_junior_year2, enable_dating: enable_dating2 } = config2;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "section-card", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-semibold mb-6 flex items-center gap-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Heart, { className: "text-primary" }),
@@ -38049,7 +38114,12 @@ function TrainingSection({ config: config2, updateConfig }) {
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "Minimum acceptable mood for classic and senior year, bot will not do anything else if it sees mood below this value and directly try to do recreation (unless it has mood improvement disabling statuses)" })
-      ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "uma-label", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Checkbox, { checked: enable_dating2, onCheckedChange: () => updateConfig("enable_dating", !enable_dating2) }),
+        "Enable Dating",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltips, { children: "Requires a pal support card in your deck. When enabled, if the pink pal icon is on the Recreation button, the bot takes the pal's date instead of plain recreation (dates give energy, mood, and friendship).\n            Once all dates are done (Event Complete!), the bot returns to normal recreation automatically. When disabled, the bot always picks the trainee's plain recreation." })
+      ] }) })
     ] })
   ] });
 }
@@ -40647,9 +40717,9 @@ function App() {
         ] });
       case "training":
         return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection$1, { ...props }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection, { ...props }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection$2, { ...props })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(MoodSection, { ...props }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TrainingSection$1, { ...props })
         ] });
       case "skills":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(SkillSection, { ...props });

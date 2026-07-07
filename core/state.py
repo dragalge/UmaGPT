@@ -1,5 +1,6 @@
 import numpy as np
 import operator
+import os
 import re
 import cv2
 import time
@@ -100,6 +101,10 @@ def collect_training_state(state_object, training_function_name, check_stat_gain
           debug(info)
       training_results[name].update(get_training_data(year=state_object["year"], check_stat_gains=check_stat_gains))
       training_results[name].update(get_support_card_data())
+      if constants.SCENARIO_NAME == "ura" and getattr(config, "DUEL_HUNTING_ENABLED", False):
+        training_results[name]["duel_available"] = get_duel_status(mouse_pos)
+      elif constants.SCENARIO_NAME == "ura":
+        debug(f"Duel detection skipped for {name}: duel_hunting_enabled is off in this config.")
 
     debug(f"Training results: {training_results}")
     training_locked, training_results = filter_training_lock(training_results)
@@ -240,6 +245,30 @@ def get_support_card_data(threshold=0.8):
           count_result["hints_per_friend_level"][friend_level] += 1
 
   return count_result
+
+def get_duel_status(mouse_pos):
+  # Detects the orange "Duel" ribbon on the currently selected training button.
+  # The ribbon sits at a fixed offset from the button position, measured at
+  # roughly (-73..-16, -78..-41) relative to the button's mouse position, so a
+  # (-100, -95, 120, 70) region fully contains it with margin. Unselected
+  # buttons render smaller, so a ribbon on a neighboring tile cannot false
+  # match at this scale.
+  duel_ribbon_path = "assets/ura/duel_ribbon.png"
+  if not os.path.isfile(duel_ribbon_path):
+    debug(f"Duel ribbon template missing: {duel_ribbon_path}, skipping duel detection.")
+    return 0
+  region_xywh = (mouse_pos[0] - 100, mouse_pos[1] - 95, 120, 70)
+  screenshot = device_action.screenshot(region_xywh=region_xywh)
+  debug_window(screenshot, save_name="duel_ribbon_check")
+  # threshold 0.65: the ribbon's spiky edges let per-tile background through,
+  # so a template cropped on one tile scores ~0.79 on the others. False
+  # positives measure at most 0.39 anywhere, so 0.65 separates cleanly.
+  matches = device_action.match_template(duel_ribbon_path, screenshot, threshold=0.65)
+  if matches:
+    debug(f"Duel ribbon found at {matches} for button at {mouse_pos}")
+    return 1
+  debug(f"Duel ribbon not found for button at {mouse_pos}, region {region_xywh}")
+  return 0
 
 def get_training_data(year=None, check_stat_gains = False):
   results = {}

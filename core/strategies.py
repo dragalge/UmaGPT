@@ -56,10 +56,8 @@ class Strategy:
         if action["training_function"] != "meta_training" and action["training_function"] != "most_stat_gain":
           action["available_trainings"].pop("spd", None)
       if state["energy_level"] < 50:
-        if state["date_event_available"]:
-          action.available_actions.append("do_recreation")
-        else:
-          action.available_actions.append("do_rest")
+        # Ruling A: low energy always offers rest, never a date substitute
+        action.available_actions.append("do_rest")
 
       if action.func != "do_race":
         if "Early Jun" in state["year"] or "Late Jun" in state["year"]:
@@ -153,14 +151,11 @@ class Strategy:
           action.func = action.available_actions[0]
         debug(f"High energy fallback: {action.func}")
       elif current_energy < config.SKIP_TRAINING_ENERGY:
-        if state["date_event_available"]:
-          action.func = "do_recreation"
-          action.available_actions.append("do_recreation")
-        else:
-          action.func = "do_rest"
-          action.available_actions.append("do_rest")
-        
-        debug("Low energy: forcing rest")
+        # Ruling A: low energy always forces rest, never a date substitute
+        action.func = "do_rest"
+        action.available_actions.append("do_rest")
+
+        debug(f"Low energy ({current_energy} < {config.SKIP_TRAINING_ENERGY}): forcing rest")
       elif current_energy < 50:
         action.available_actions.append("do_rest")
         if len(action.available_actions) == 0:
@@ -371,11 +366,9 @@ class Strategy:
         debug(f"[ENERGY_MGMT] → RECREATION: Training score too low ({training_score}) and mood improvable")
       # Rest if energy is very low and it's Early Jun, Late Jun, or Early Jul
       elif current_energy < config.REST_BEFORE_SUMMER_ENERGY and "Junior" not in state["year"] and ("Early Jun" in state["year"] or "Late Jun" in state["year"]):
-        if state["date_event_available"]:
-          action.func = "do_recreation"
-        else:
-          action.func = "do_rest"
-        debug(f"[ENERGY_MGMT] → Resting before summer for energy. Energy: ({current_energy})")
+        # Ruling A: always rest, never a date substitute
+        action.func = "do_rest"
+        debug(f"[ENERGY_MGMT] → RESTING before summer for energy. Energy: ({current_energy})")
       # Use wit if it provides significant energy gain
       elif wit_energy_value >= 9 and energy_headroom > wit_energy_value and wit_score_ratio < config.WIT_TRAINING_SCORE_RATIO_THRESHOLD:
         action["training_name"] = "wit"
@@ -384,24 +377,18 @@ class Strategy:
       # Rest if energy is very low
       elif ((current_energy < 50 and training_score <= min_score) or
         (current_energy < 50 and action["training_name"] == "wit")):
-        if state["date_event_available"]:
-          action.func = "do_recreation"
-        else:
-          action.func = "do_rest"
+        # Ruling A: always rest, never a date substitute
+        action.func = "do_rest"
         debug(f"[ENERGY_MGMT] → RESTING: Very low energy ({current_energy}) and score ({training_score}) is below minimum ({min_score})")
       else:
         debug(f"[ENERGY_MGMT] → STICK WITH TRAINING: No compelling alternatives (wit effective energy: {wit_energy_value})")
     elif current_energy < config.SKIP_TRAINING_ENERGY:
-      if state["date_event_available"]:
-        action.func = "do_recreation"
-      else:
-        action.func = "do_rest"
+      # Ruling A: always rest, never a date substitute
+      action.func = "do_rest"
       debug(f"[ENERGY_MGMT] → Failsafe for failure chance not being read correctly. Resting because energy is too low. Please report this if it happens to you.")
     elif len(available_trainings) == 0:
-      if state["date_event_available"]:
-        action.func = "do_recreation"
-      else:
-        action.func = "do_rest"
+      # Ruling A: always rest, never a date substitute
+      action.func = "do_rest"
     else:
       debug(f"[ENERGY_MGMT] → ACTION ACCEPTED: No alternatives needed")
     return action

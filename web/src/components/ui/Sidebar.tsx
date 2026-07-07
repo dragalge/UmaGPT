@@ -36,7 +36,7 @@ export function Sidebar({ activeTab, setActiveTab, appVersion, eventCount, raceC
   return (
     <div className="w-64 h-screen sticky top-0 flex flex-col">
       <div className="p-3 py-4 absolute">
-        <h1 className="text-3xl font-bold text-primary tracking-tight">Uma Auto Train</h1>
+        <h1 className="text-3xl font-bold text-primary tracking-tight">UmaGPT</h1>
         <span className="text-sm block w-full text-right font-bold text-slate-400 -mt-2">v{appVersion || "Loading..."}</span>
       </div>
       <nav className="flex-1 content-center px-3 space-y-3">

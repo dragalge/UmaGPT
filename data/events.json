@@ -36343,6 +36343,54 @@
         "all_outcomes": "Medium Straightaways ○ hint +1, Zenno Rob Roy bond +5"
       },
       {
+        "char_id": "30107",
+        "event_name": "For an Adorable Younger Student",
+        "character_name": "Maruzensky (SSR) (SPD)",
+        "type": "SPD",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Maruzensky (SSR) (SPD)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Early Lead hint +1, Maruzensky bond +5"
+      },
+      {
+        "char_id": "30107",
+        "event_name": "For an Adorable Younger Student",
+        "character_name": "Maruzensky (SSR) (SPD)",
+        "type": "SPD",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Maruzensky (SSR) (SPD)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Energy +5, Speed +10, Maruzensky bond +5"
+      },
+      {
+        "char_id": "30107",
+        "event_name": "Drive Destination",
+        "character_name": "Maruzensky (SSR) (SPD)",
+        "type": "SPD",
+        "choice_text": "",
+        "choice_number": "1",
+        "relation": "Maruzensky (SSR) (SPD)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Speed +5, Mood +1, Maruzensky bond +5"
+      },
+      {
+        "char_id": "30107",
+        "event_name": "Drive Destination",
+        "character_name": "Maruzensky (SSR) (SPD)",
+        "type": "SPD",
+        "choice_text": "",
+        "choice_number": "2",
+        "relation": "Maruzensky (SSR) (SPD)",
+        "relation_type": "Support Card",
+        "success_type": "-",
+        "all_outcomes": "Wit +5, Mood +1, Maruzensky bond +5"
+      },
+      {
         "char_id": "20048",
         "event_name": " \"I Just Can't Quit Food\" —Oguri Cap",
         "character_name": "Oguri Cap (SR) (GUTS)",
@@ -51650,6 +51698,13 @@
         "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30104.png",
         "rarity": "SSR",
         "type": "STA"
+      },
+      {
+        "id": "30107",
+        "name": "Maruzensky (SSR) (SPD)",
+        "image_url": "https://gametora.com/images/umamusume/supports/support_card_s_30107.png",
+        "rarity": "SSR",
+        "type": "SPD"
       },
       {
         "id": "30053",

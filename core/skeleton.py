@@ -11,7 +11,7 @@ from PIL import ImageGrab
 from core.actions import Action
 import utils.constants as constants
 from scenarios.unity import unity_cup_function
-from core.events import select_event
+from core.events import select_event, init_events_py
 from core.claw_machine import play_claw_machine
 from core.skill import buy_skill, init_skill_py
 
@@ -98,6 +98,7 @@ def career_lobby(dry_run_turn=False):
   strategy = Strategy()
   init_adb()
   init_skill_py()
+  init_events_py()
   reset_progress_tracking()
   last_state = CleanDefaultDict()
   try:

@@ -38,6 +38,8 @@ def create_training_score_entry(training_name, training_data, score_tuple):
     entry["unity_trainings"] = training_data["unity_trainings"] - training_data["unity_gauge_fills"]
     entry["unity_spirit_explosions"] = training_data["unity_spirit_explosions"]
     entry["unity_extreme_spirit_explosions"] = training_data["unity_extreme_spirit_explosions"]
+  elif constants.SCENARIO_NAME == "ura":
+    entry["duel_available"] = training_data["duel_available"]
 
   return entry
 
@@ -623,6 +625,8 @@ def add_scenario_gimmick_score(training_dict, score_tuple, state):
   score = 0
   if constants.SCENARIO_NAME == "unity" or state["scenario_name"] == "unity":
     score = unity_training_score(training_dict, state["year"].split()[0]) * config.SCENARIO_GIMMICK_WEIGHT
+  elif constants.SCENARIO_NAME == "ura":
+    score = ura_duel_score(training_dict)
   debug(f"Scenario gimmick score: {score}")
 
   score_tuple = (score_tuple[0] + score, score_tuple[1])
@@ -661,4 +665,21 @@ def unity_training_score(x, year):
     score += training_data["unity_extreme_spirit_explosions"] * (2 + year_adjustment) / (1 + abs(priority_adjustment))
 
   debug(f"Unity training score: {training_name} -> {score}")
+  return score
+
+def ura_duel_score(x):
+  training_name, training_data = x
+  if not getattr(config, "DUEL_HUNTING_ENABLED", False):
+    return 0
+  if not training_data["duel_available"]:
+    return 0
+
+  # in URA, scenario_gimmick_weight is the value of a training with an
+  # active Happy Meek duel, mirroring its role in the unity scenario.
+  # the duel banner is prioritized unconditionally regardless of which stat
+  # tile it lands on; the duel priority checkboxes only govern the choice
+  # made inside the duel event itself.
+  score = config.SCENARIO_GIMMICK_WEIGHT
+
+  debug(f"URA duel score: {training_name} -> {score}")
   return score

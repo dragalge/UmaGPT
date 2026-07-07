@@ -26,6 +26,7 @@ export default function TrainingSection({ config, updateConfig }: Props) {
     rainbow_support_weight_addition,
     non_max_support_weight,
     scenario_gimmick_weight,
+    duel,
   } = config;
 
   const sensors = useSensors(useSensor(PointerSensor));
@@ -114,6 +115,25 @@ export default function TrainingSection({ config, updateConfig }: Props) {
                 ))}
               </RadioGroup>
             </label>
+          </div>
+
+          <div className="flex flex-col gap-2 w-fit">
+            <p className="font-semibold">Stat Caps<Tooltips>These values decide when a training or stat is no longer worth it and tells the bot to avoid them completely. If you set these too low, the bot may get stuck.</Tooltips></p>
+            <div className="flex flex-col gap-2">
+              {Object.entries(stat_caps).map(([stat, val]) => (
+                <label key={stat} className="uma-label">
+                  <span className="inline-block w-16">{stat.toUpperCase()}</span>
+                  <Input
+                    className="w-24"
+                    type="number"
+                    value={val}
+                    min={0}
+                    onChange={(e) =>
+                      updateConfig("stat_caps", { ...stat_caps, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber, })}
+                  />
+                </label>
+              ))}
+            </div>
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -205,32 +225,42 @@ export default function TrainingSection({ config, updateConfig }: Props) {
               onChange={(e) =>
                 updateConfig("scenario_gimmick_weight", e.target.valueAsNumber)
               }
-            /><Tooltips>This increases the value of scenario gimmick. In unity scenario, this is the value of unity gauge fills and spirit explosions.</Tooltips>
+            /><Tooltips>This increases the value of scenario gimmick. In unity scenario, this is the value of unity gauge fills and spirit explosions. In URA Finale, this is the value of a training with an active Happy Meek duel.</Tooltips>
           </label>
 
 
         </div>
         <div className="flex flex-col gap-2">
 
-          <div className="flex flex-col gap-2 w-fit">
-            <p className="font-semibold">Stat Caps<Tooltips>These values decide when a training or stat is no longer worth it and tells the bot to avoid them completely. If you set these too low, the bot may get stuck.</Tooltips></p>
-            <div className="flex flex-col gap-2">
-              {Object.entries(stat_caps).map(([stat, val]) => (
-                <label key={stat} className="uma-label">
-                  <span className="inline-block w-16">{stat.toUpperCase()}</span>
-                  <Input
-                    className="w-24"
-                    type="number"
-                    value={val}
-                    min={0}
-                    onChange={(e) =>
-                      updateConfig("stat_caps", { ...stat_caps, [stat]: isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber, })}
-                  />
-                </label>
-              ))}
-            </div>
+          <div className="flex items-center gap-2">
+            <label className="uma-label">
+              <Checkbox checked={duel.duel_hunting_enabled} onCheckedChange={() => updateConfig("duel", { ...duel, duel_hunting_enabled: !duel.duel_hunting_enabled })} />
+              Enable Duel Hunting<Tooltips>{"URA Finale only. When enabled, the bot favors training tiles with an active Happy Meek duel (weighted by Scenario Gimmick Weight) and handles the duel event itself.\n\
+              The bot only willingly takes duels predicted 〇 or ◎, prefers your checked stats, and spreads duels evenly across them over the career."}</Tooltips>
+            </label>
           </div>
 
+          <div className="flex flex-col gap-2 mb-2">
+            <p className={`font-semibold ${duel.duel_hunting_enabled ? "" : "disabled"}`}>Duel Priority</p>
+            <label className={`uma-label ${duel.duel_hunting_enabled ? "" : "disabled"}`}>
+              <Checkbox
+                checked={duel.duel_priority_na}
+                disabled={!duel.duel_hunting_enabled}
+                onCheckedChange={() => updateConfig("duel", { ...duel, duel_priority_na: !duel.duel_priority_na })}
+              />
+              N/A Priority. Pick the option with 〇 affinity or above.<Tooltips>Ignores the stat checkboxes below. The bot takes any duel predicted 〇 or above and spreads its picks evenly across all six options.</Tooltips>
+            </label>
+            {Object.entries(duel.duel_priority_stats).map(([stat, val]) => (
+              <label key={stat} className={`uma-label ${duel.duel_hunting_enabled && !duel.duel_priority_na ? "" : "disabled"}`}>
+                <Checkbox
+                  checked={val}
+                  disabled={!duel.duel_hunting_enabled || duel.duel_priority_na}
+                  onCheckedChange={() => updateConfig("duel", { ...duel, duel_priority_stats: { ...duel.duel_priority_stats, [stat]: !val } })}
+                />
+                {stat.toUpperCase()}
+              </label>
+            ))}
+          </div>
 
         </div>
       </div>

@@ -8,6 +8,36 @@ import { TrainingStrategySchema } from "./training-strategy.type";
 import { MinimumAcceptableScoresSchema } from "./game-state.type";
 import { FunctionFallbacksSchema } from "./function-fallbacks.type";
 
+export const DuelPriorityStatsSchema = z.object({
+  spd: z.boolean(),
+  sta: z.boolean(),
+  pwr: z.boolean(),
+  guts: z.boolean(),
+  wit: z.boolean(),
+  energy: z.boolean(),
+});
+
+// .default() keeps configs exported before the duel feature importable:
+// a missing "duel" key validates and silently gains the block, switched off.
+export const DuelSchema = z
+  .object({
+    duel_hunting_enabled: z.boolean(),
+    duel_priority_na: z.boolean(),
+    duel_priority_stats: DuelPriorityStatsSchema,
+  })
+  .default({
+    duel_hunting_enabled: false,
+    duel_priority_na: false,
+    duel_priority_stats: {
+      spd: false,
+      sta: false,
+      pwr: false,
+      guts: false,
+      wit: false,
+      energy: false,
+    },
+  });
+
 export const ConfigSchema = z.object({
   config_name: z.string(),
   theme: z.string().default("Default"),
@@ -26,6 +56,7 @@ export const ConfigSchema = z.object({
   rainbow_support_weight_addition: z.number(),
   non_max_support_weight: z.number(),
   scenario_gimmick_weight: z.number(),
+  duel: DuelSchema,
   race_turn_threshold: z.number(),
   do_mission_races_if_possible: z.boolean(),
   prioritize_missions_over_g1: z.boolean(),
@@ -33,6 +64,8 @@ export const ConfigSchema = z.object({
   priority_weight: z.string(),
   minimum_mood: z.string(),
   minimum_mood_junior_year: z.string(),
+  // .default() keeps configs exported before the dating feature importable.
+  enable_dating: z.boolean().default(false),
   maximum_failure: z.number(),
   minimum_aptitudes: z.object({
     surface: z.string(),

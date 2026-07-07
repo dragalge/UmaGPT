@@ -1,4 +1,5 @@
 from rapidfuzz import fuzz
+import os
 import re
 import utils.device_action_wrapper as device_action
 
@@ -149,6 +150,144 @@ def find_best_match(text: str, event_list: list[dict]) -> tuple[str, float]:
 
   return best_match, best_similarity
 
+# --- URA duel (Happy Meek) event handling ---
+
+PREDICTION_TEMPLATES = {
+  "cross": "assets/ura/prediction_cross.png",
+  "triangle": "assets/ura/prediction_triangle.png",
+  "circle": "assets/ura/prediction_circle.png",
+  "double_circle": "assets/ura/prediction_double_circle.png",
+}
+# worst to best
+PREDICTION_RANKS = ["cross", "triangle", "circle", "double_circle"]
+# the hard floor: duels below circle odds are never chosen willingly
+GOOD_PREDICTIONS = ["circle", "double_circle"]
+
+# per-career tally of duels taken per stat, so picks spread evenly
+# across the priority checkboxes. reset by init_events_py() at career start.
+duel_counter = {}
+
+def init_events_py():
+  global duel_counter
+  duel_counter = {}
+
+DUEL_STAT_KEYWORDS = {
+  "speed": "spd",
+  "stamina": "sta",
+  "power": "pwr",
+  "guts": "guts",
+  "wits": "wit",
+  "wit": "wit",
+  "energy": "energy",
+}
+
+def read_prediction_marker(event_choices_icon, row_index, choice_vertical_gap=112, retries=0):
+  # markers sit at a fixed offset right of the choice icon column, one per row.
+  # retries exist because the first frame after the choice icon appears can be
+  # mid-animation, before the prediction wedges have rendered.
+  x, y = event_choices_icon
+  region_xywh = (x + 485, y - 20 + row_index * choice_vertical_gap, 50, 40)
+  found = None
+  for attempt in range(retries + 1):
+    screenshot = device_action.screenshot(region_xywh=region_xywh)
+    found = None
+    for name in PREDICTION_RANKS:
+      path = PREDICTION_TEMPLATES[name]
+      if not os.path.isfile(path):
+        debug(f"Prediction template missing: {path}, skipping.")
+        continue
+      # 0.75: correct glyphs validate at 0.90+, the nearest wrong glyph at
+      # 0.70, and live frames can carry a small rendering tax.
+      matches = device_action.match_template(path, screenshot, threshold=0.75)
+      if matches:
+        if found is not None:
+          warning(f"Duel row {row_index}: multiple prediction markers matched ({found} and {name}), keeping {name}.")
+        found = name
+    if found is not None:
+      break
+    if attempt < retries:
+      debug(f"Duel row {row_index}: no marker on attempt {attempt + 1}, retrying with a fresh frame.")
+      device_action.flush_screenshot_cache()
+      sleep(0.4)
+  debug(f"Duel row {row_index}: prediction marker: {found}")
+  return found
+
+def read_duel_stat(event_choices_icon, row_index, choice_vertical_gap=112):
+  x, y = event_choices_icon
+  region_xywh = (x + 25, y - 16 + row_index * choice_vertical_gap, 280, 32)
+  screenshot = enhanced_screenshot(region_xywh)
+  text = extract_text(screenshot).lower()
+  debug(f"Duel row {row_index} text: {text}")
+  for keyword, stat in DUEL_STAT_KEYWORDS.items():
+    if keyword in text:
+      return stat
+  warning(f"Duel row {row_index}: couldn't parse a stat from '{text}'.")
+  return None
+
+def is_duel_event_name(event_name):
+  if not event_name:
+    return False
+  similarity = fuzz.partial_ratio(event_name.lower(), "happy meek's challenge") / 100
+  debug(f"Duel event name check: '{event_name}' similarity {similarity:.2f}")
+  return similarity >= 0.75
+
+def is_duel_event(event_choices_icon):
+  # The event name is the sole gate. It OCRs reliably (observed live as
+  # "Happy Meek's Challengel", similarity 1.00 on every real duel, and it
+  # correctly rejected every ordinary event that reached it). The old marker
+  # fast-path was matching ordinary event artwork against the prediction
+  # templates and hijacking normal events, so it was removed.
+  return is_duel_event_name(get_event_name())
+
+def select_duel_choice(event_choices_icon, choice_vertical_gap=112):
+  x, y = event_choices_icon
+  choices = []
+  for i in range(3):
+    stat = read_duel_stat(event_choices_icon, i)
+    marker = read_prediction_marker(event_choices_icon, i, retries=3)
+    choices.append({"row": i, "stat": stat, "marker": marker})
+  info(f"Duel event detected. Choices: {choices}")
+
+  def rank(choice):
+    if choice["marker"] is None:
+      return -1
+    return PREDICTION_RANKS.index(choice["marker"])
+
+  def times_dueled(choice):
+    return duel_counter.get(choice["stat"], 0)
+
+  # hard floor: only circle and double_circle are acceptable odds.
+  qualifying = [c for c in choices if c["marker"] in GOOD_PREDICTIONS]
+
+  na_mode = getattr(config, "DUEL_PRIORITY_NA", False)
+  priority_stats = getattr(config, "DUEL_PRIORITY_STATS", {})
+
+  candidates = []
+  if not na_mode:
+    checked = [stat for stat, enabled in priority_stats.items() if enabled]
+    candidates = [c for c in qualifying if c["stat"] in checked]
+
+  if not candidates:
+    # N/A mode, or no checked stat qualified: fall back to anything at the floor.
+    candidates = qualifying
+
+  if candidates:
+    # balance first: the stat dueled least this career wins.
+    # ties break on better marker, then top row.
+    chosen = min(candidates, key=lambda c: (times_dueled(c), -rank(c), c["row"]))
+  else:
+    # everything is triangle or cross: forced pick, least-bad marker, ties -> top row.
+    chosen = min(choices, key=lambda c: (-rank(c), c["row"]))
+    warning(f"Duel event: no choice at circle or above, forced least-bad pick.")
+
+  if chosen["stat"] is not None:
+    duel_counter[chosen["stat"]] = duel_counter.get(chosen["stat"], 0) + 1
+
+  target = (x, y + chosen["row"] * choice_vertical_gap)
+  device_action.click(target=target, text=f"Duel choice: {chosen['stat']} ({chosen['marker']})")
+  info(f"Duel event: selected {chosen['stat']} with prediction {chosen['marker']} (row {chosen['row']}). Duel counts this career: {duel_counter}")
+  return True
+
 # needs a rework can be more optimized
 def select_event():
   event_choices_icon = device_action.locate("assets/icons/event_choice_1.png")
@@ -156,6 +295,10 @@ def select_event():
 
   if not event_choices_icon:
     return False
+
+  if constants.SCENARIO_NAME == "ura" and getattr(config, "DUEL_HUNTING_ENABLED", False):
+    if is_duel_event(event_choices_icon):
+      return select_duel_choice(event_choices_icon)
 
   if not config.USE_OPTIMAL_EVENT_CHOICE:
     device_action.click(target=event_choices_icon, text=f"Event found, selecting top choice.")

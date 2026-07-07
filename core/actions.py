@@ -11,7 +11,7 @@ from utils.log import error, info, warning, debug
 from utils.screenshot import are_screenshots_same
 import pyautogui
 import core.bot as bot
-from utils.shared import CleanDefaultDict, get_race_type
+from utils.shared import get_race_type
 
 class Action:
   def __init__(self, **options):
@@ -71,64 +71,79 @@ def do_infirmary(options=None):
     device_action.click(target=infirmary_btn, duration=0.1)
   return True
 
-event_templates = {
-  "aoi_event": "assets/ui/aoi_event.png",
-  "tazuna_event": "assets/ui/tazuna_event.png",
-  "riko_event": "assets/ui/riko_event.png",
-  "sasami_event": "assets/ui/sasami_event.png",
-  "trainee_uma": "assets/ui/trainee_uma.png"
-}
+# Recreation dialog anchors. The trainee row is identified by its
+# "Trainee Umamusume" badge (character-independent). The old per-pal
+# portrait templates (aoi/tazuna/riko/sasami) are retired: pal detection
+# now runs off the pink pal icon on the Recreation button and the
+# "Event Complete!" banner, so any pal card works without new assets.
+TRAINEE_BADGE_TEMPLATE = "assets/ui/trainee_umamusume.png"
+TRAINEE_BADGE_FALLBACK = "assets/ui/trainee_uma.png"  # legacy anchor, proven on-screen
+EVENT_COMPLETE_TEMPLATE = "assets/ui/event_complete.png"
+PAL_ICON_TEMPLATE = "assets/ui/recreation_with.png"
 
-event_progress_templates = [
-  "assets/ui/pal_progress_1.png",
-  "assets/ui/pal_progress_2.png",
-  "assets/ui/pal_progress_3.png",
-  "assets/ui/pal_progress_4.png",
-  "assets/ui/pal_progress_5.png"
-]
+# Vertical distance from the trainee row's center up to the pal row's
+# center in the recreation dialog. Static layout, measured at 1920x1080.
+PAL_ROW_Y_OFFSET = 120
 
 def do_recreation(options=None):
   recreation_btn = device_action.locate("assets/buttons/recreation_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
 
-  if recreation_btn:
-    device_action.click(target=recreation_btn, duration=0.15)
-    sleep(1)
-    screenshot = device_action.screenshot()
-    matches = CleanDefaultDict()
-    for name, path in event_templates.items():
-      match = device_action.match_template(path, screenshot)
-      if len(match) > 0:
-        matches[name] = match[0]
-        debug(f"{name} found: {match[0]}")
-      else:
-        debug(f"{name} not found")
-
-    available_recreation = None
-    for name, box in matches.items():
-      debug(f"{name}, {box}")
-      x, y, w, h = box
-      x = x + constants.GAME_WINDOW_BBOX[0]
-      region_xywh = (x, y, 550, 85)
-      # for later, use event_progress_templates to loop through and find our progress
-      pal_screenshot = device_action.screenshot(region_xywh=region_xywh)
-      match = device_action.match_template(event_progress_templates[4], pal_screenshot)
-      if len(match) > 0:
-        debug(f"{name} is NOT available for recreation.")
-      else:
-        available_recreation = (x + w // 2, y + h // 2)
-        debug(f"{name} is available for recreation.")
-        break
-      
-    debug(f"Available recreation: {available_recreation}")  
-    device_action.click(target=available_recreation, duration=0.15)
-  else:
+  if not recreation_btn:
     debug(f"No recreation button found, clicking rest summer button")
     recreation_summer_btn = device_action.locate("assets/buttons/rest_summer_btn.png", min_search_time=get_secs(2), region_ltrb=constants.SCREEN_BOTTOM_BBOX)
     if recreation_summer_btn:
       device_action.click(target=recreation_summer_btn, duration=0.15)
+      return True
+    return False
+
+  # Decide date intent BEFORE opening the dialog: the pink pal icon on the
+  # Recreation button means at least one date is still available.
+  date_intent = False
+  if config.ENABLE_DATING:
+    pal_icon = device_action.locate(PAL_ICON_TEMPLATE)
+    if pal_icon:
+      date_intent = True
+      debug("Dating: enabled and pal icon present, will take the date")
     else:
-      return False
-  
+      debug("Dating: enabled but no pal icon, taking plain recreation")
+  else:
+    debug("Dating: disabled, taking plain recreation")
+
+  device_action.click(target=recreation_btn, duration=0.15)
+  sleep(1)
+  screenshot = device_action.screenshot()
+
+  # Anchor on the trainee row via its badge. Fall back to the legacy
+  # template if the new one misses, then give up loudly instead of
+  # clicking a None target.
+  badge_matches = device_action.match_template(TRAINEE_BADGE_TEMPLATE, screenshot)
+  if len(badge_matches) == 0:
+    debug("Recreation dialog: trainee badge not found, trying legacy template")
+    badge_matches = device_action.match_template(TRAINEE_BADGE_FALLBACK, screenshot)
+  if len(badge_matches) == 0:
+    error("Recreation dialog: trainee row not found by any template. Aborting recreation.")
+    return False
+
+  x, y, w, h = badge_matches[0]
+  trainee_target = (x + w // 2 + constants.GAME_WINDOW_BBOX[0], y + h // 2)
+
+  # Tripwire: the "Event Complete!" banner in the dialog overrules the
+  # icon, always. If all dates are done, the pal row is off limits.
+  if date_intent:
+    complete_matches = device_action.match_template(EVENT_COMPLETE_TEMPLATE, screenshot)
+    if len(complete_matches) > 0:
+      date_intent = False
+      warning("Dating: Event Complete banner visible, overriding to plain recreation")
+
+  if date_intent:
+    target = (trainee_target[0], trainee_target[1] - PAL_ROW_Y_OFFSET)
+    debug(f"Recreation: clicking pal row at {target}")
+  else:
+    target = trainee_target
+    debug(f"Recreation: clicking trainee row at {target}")
+
+  device_action.click(target=target, duration=0.15)
+
   # quit to wait for input
   return True
 

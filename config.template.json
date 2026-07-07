@@ -36,6 +36,7 @@
   "minimum_mood": "GOOD",
   "priority_weight": "MEDIUM",
   "minimum_mood_junior_year": "NORMAL",
+  "enable_dating": false,
   "maximum_failure": 5,
   "minimum_aptitudes": {
     "surface": "b",
@@ -75,6 +76,18 @@
   ],
   "use_skip_claw_machine": false,
   "scenario_gimmick_weight": 1.0,
+  "duel": {
+    "duel_hunting_enabled": false,
+    "duel_priority_na": false,
+    "duel_priority_stats": {
+      "spd": false,
+      "sta": false,
+      "pwr": false,
+      "guts": false,
+      "wit": false,
+      "energy": false
+    }
+  },
   "race_schedule": [
     {
       "name": "Satsuki Sho",

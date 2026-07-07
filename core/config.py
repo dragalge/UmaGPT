@@ -87,6 +87,15 @@ def reload_config():
     load_var('HINT_HUNTING_ENABLED', config["hint_hunting_enabled"])
     load_var('HINT_HUNTING_WEIGHTS', config["hint_hunting_weights"])
     load_var('SCENARIO_GIMMICK_WEIGHT', config["scenario_gimmick_weight"])
+    # URA duel (Happy Meek) settings. Soft-loaded with defaults so configs
+    # without a "duel" block keep working. Duel hunting is opt-in.
+    duel_config = config.get("duel", {})
+    load_var('DUEL_HUNTING_ENABLED', duel_config.get("duel_hunting_enabled", False))
+    load_var('DUEL_PRIORITY_NA', duel_config.get("duel_priority_na", False))
+    load_var('DUEL_PRIORITY_STATS', duel_config.get("duel_priority_stats", {}))
+    # Dating (pal recreation). Soft-loaded with a default so configs without
+    # the key keep working. Dating is opt-in.
+    load_var('ENABLE_DATING', config.get("enable_dating", False))
     load_var('USE_SKIP_CLAW_MACHINE', config["use_skip_claw_machine"])
     load_var('STOP_AT_TURNS', config["stop_at_turns"])
     load_var('MINIMUM_ACCEPTABLE_SCORES', config["minimum_acceptable_scores"])

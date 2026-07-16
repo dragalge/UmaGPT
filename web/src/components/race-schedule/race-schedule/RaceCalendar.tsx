@@ -1,4 +1,4 @@
-import { CALENDAR } from "@/constants/race.constant";
+import { CALENDAR, CALENDAR_JUNIOR } from "@/constants/race.constant";
 import type { RaceScheduleType, RaceType } from "@/types/race.type";
 import RaceDateCard from "./RaceDateCard";
 
@@ -17,9 +17,11 @@ export default function RaceCalendar({
   addRaceSchedule,
   deleteRaceSchedule,
 }: Props) {
+  const dates = year === "Junior Year" ? CALENDAR_JUNIOR : CALENDAR;
+
   return (
     <>
-      {CALENDAR.map((date) => (
+      {dates.map((date) => (
         <RaceDateCard
           key={date}
           date={date}

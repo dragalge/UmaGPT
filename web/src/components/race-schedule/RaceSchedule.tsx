@@ -35,7 +35,15 @@ export default function RaceSchedule({
     try {
       const res = await fetch("/data/races.json");
       if (!res.ok) throw new Error("Failed to fetch races");
-      return res.json();
+      const json = await res.json();
+    console.log("Junior count", Object.keys(json["Junior Year"] ?? {}).length);
+    console.log(
+      "Junior Late Dec",
+      Object.entries(json["Junior Year"] ?? {})
+        .filter(([, race]: any) => race.date === "Late Dec")
+        .map(([name]) => name)
+    );
+    return json;
     } catch (error) {
       console.error("Failed to fetch races:", error);
     }

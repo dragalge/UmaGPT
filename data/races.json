@@ -240,6 +240,23 @@
         "required": 1000,
         "gained": 7000
       }
+    },
+    "Zen-Nippon Junior Yushun": {
+      "grade": "G1",
+      "date": "Late Dec",
+      "racetrack": "Kawasaki",
+      "terrain": "Dirt",
+      "distance": {
+        "type": "Mile",
+        "meters": 1600
+      },
+      "sparks": [
+        "Power"
+      ],
+      "fans": {
+        "required": 1000,
+        "gained": 4200
+      }
     }
   },
   "Classic Year": {
@@ -508,7 +525,7 @@
         "meters": 1600
       },
       "sparks": [
-        "Hanshin Racecourse ○",
+        "Hanshin Racecourse \u25cb",
         "Guts"
       ],
       "fans": {
@@ -526,7 +543,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Nakayama Racecourse ○",
+        "Nakayama Racecourse \u25cb",
         "Power"
       ],
       "fans": {
@@ -630,7 +647,7 @@
         "meters": 2400
       },
       "sparks": [
-        "Tokyo Racecourse ○",
+        "Tokyo Racecourse \u25cb",
         "Stamina"
       ],
       "fans": {
@@ -648,7 +665,7 @@
         "meters": 2400
       },
       "sparks": [
-        "Tokyo Racecourse ○",
+        "Tokyo Racecourse \u25cb",
         "Guts"
       ],
       "fans": {
@@ -717,7 +734,7 @@
         "meters": 1600
       },
       "sparks": [
-        "Tokyo Racecourse ○",
+        "Tokyo Racecourse \u25cb",
         "Speed"
       ],
       "fans": {
@@ -752,7 +769,7 @@
         "meters": 2200
       },
       "sparks": [
-        "Summer Runner ○",
+        "Summer Runner \u25cb",
         "Guts"
       ],
       "fans": {
@@ -821,7 +838,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Oi Racecourse ○",
+        "Oi Racecourse \u25cb",
         "Power"
       ],
       "fans": {
@@ -1196,7 +1213,7 @@
         "meters": 1200
       },
       "sparks": [
-        "Standard Distance ○",
+        "Standard Distance \u25cb",
         "Speed"
       ],
       "fans": {
@@ -1219,6 +1236,23 @@
       "fans": {
         "required": 1750,
         "gained": 5400
+      }
+    },
+    "Mile Championship Nambu Hai": {
+      "grade": "G1",
+      "date": "Early Oct",
+      "racetrack": "Morioka",
+      "terrain": "Dirt",
+      "distance": {
+        "type": "Mile",
+        "meters": 1600
+      },
+      "sparks": [
+        "Wit"
+      ],
+      "fans": {
+        "required": 12000,
+        "gained": 6000
       }
     },
     "Fuchu Umamusume Stakes": {
@@ -1299,7 +1333,7 @@
         "meters": 3000
       },
       "sparks": [
-        "Kyoto Racecourse ○",
+        "Kyoto Racecourse \u25cb",
         "Stamina"
       ],
       "fans": {
@@ -1317,7 +1351,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Kyoto Racecourse ○",
+        "Kyoto Racecourse \u25cb",
         "Wit"
       ],
       "fans": {
@@ -1352,7 +1386,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Fall Runner ○",
+        "Fall Runner \u25cb",
         "Speed"
       ],
       "fans": {
@@ -1492,7 +1526,7 @@
         "meters": 2200
       },
       "sparks": [
-        "Non-Standard Distance ○",
+        "Non-Standard Distance \u25cb",
         "Stamina"
       ],
       "fans": {
@@ -1510,7 +1544,7 @@
         "meters": 2400
       },
       "sparks": [
-        "Tokyo Racecourse ○",
+        "Tokyo Racecourse \u25cb",
         "Stamina"
       ],
       "fans": {
@@ -1545,7 +1579,7 @@
         "meters": 1600
       },
       "sparks": [
-        "Standard Distance ○",
+        "Standard Distance \u25cb",
         "Speed"
       ],
       "fans": {
@@ -1597,7 +1631,7 @@
         "meters": 1800
       },
       "sparks": [
-        "Chukyo Racecourse ○",
+        "Chukyo Racecourse \u25cb",
         "Power"
       ],
       "fans": {
@@ -1666,7 +1700,7 @@
         "meters": 2500
       },
       "sparks": [
-        "Nakayama Racecourse ○",
+        "Nakayama Racecourse \u25cb",
         "Guts"
       ],
       "fans": {
@@ -1701,7 +1735,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Oi Racecourse ○",
+        "Oi Racecourse \u25cb",
         "Power"
       ],
       "fans": {
@@ -1847,6 +1881,23 @@
         "gained": 5500
       }
     },
+    "Kawasaki Kinen": {
+      "grade": "G1",
+      "date": "Early Feb",
+      "racetrack": "Kawasaki",
+      "terrain": "Dirt",
+      "distance": {
+        "type": "Medium",
+        "meters": 2100
+      },
+      "sparks": [
+        "Wit"
+      ],
+      "fans": {
+        "required": 12000,
+        "gained": 6000
+      }
+    },
     "Kyoto Kinen": {
       "grade": "G2",
       "date": "Early Feb",
@@ -1908,7 +1959,7 @@
         "meters": 1600
       },
       "sparks": [
-        "Winter Runner ○",
+        "Winter Runner \u25cb",
         "Power"
       ],
       "fans": {
@@ -2096,7 +2147,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Standard Distance ○",
+        "Standard Distance \u25cb",
         "Guts"
       ],
       "fans": {
@@ -2114,7 +2165,7 @@
         "meters": 1200
       },
       "sparks": [
-        "Chukyo Racecourse ○",
+        "Chukyo Racecourse \u25cb",
         "Speed"
       ],
       "fans": {
@@ -2217,12 +2268,29 @@
         "meters": 3200
       },
       "sparks": [
-        "Spring Runner ○",
+        "Spring Runner \u25cb",
         "Stamina"
       ],
       "fans": {
         "required": 20000,
         "gained": 15000
+      }
+    },
+    "Kashiwa Kinen": {
+      "grade": "G1",
+      "date": "Early May",
+      "racetrack": "Funabashi",
+      "terrain": "Dirt",
+      "distance": {
+        "type": "Mile",
+        "meters": 1600
+      },
+      "sparks": [
+        "Speed"
+      ],
+      "fans": {
+        "required": 12000,
+        "gained": 8000
       }
     },
     "Keio Hai Spring Cup": {
@@ -2372,7 +2440,7 @@
         "meters": 1600
       },
       "sparks": [
-        "Tokyo Racecourse ○",
+        "Tokyo Racecourse \u25cb",
         "Speed"
       ],
       "fans": {
@@ -2407,7 +2475,7 @@
         "meters": 2200
       },
       "sparks": [
-        "Summer Runner ○",
+        "Summer Runner \u25cb",
         "Guts"
       ],
       "fans": {
@@ -2425,7 +2493,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Oi Racecourse ○",
+        "Oi Racecourse \u25cb",
         "Power"
       ],
       "fans": {
@@ -2749,12 +2817,29 @@
         "meters": 1200
       },
       "sparks": [
-        "Standard Distance ○",
+        "Standard Distance \u25cb",
         "Speed"
       ],
       "fans": {
         "required": 15000,
         "gained": 13000
+      }
+    },
+    "Mile Championship Nambu Hai": {
+      "grade": "G1",
+      "date": "Early Oct",
+      "racetrack": "Morioka",
+      "terrain": "Dirt",
+      "distance": {
+        "type": "Mile",
+        "meters": 1600
+      },
+      "sparks": [
+        "Wit"
+      ],
+      "fans": {
+        "required": 12000,
+        "gained": 6000
       }
     },
     "Fuchu Umamusume Stakes": {
@@ -2852,7 +2937,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Fall Runner ○",
+        "Fall Runner \u25cb",
         "Speed"
       ],
       "fans": {
@@ -2992,7 +3077,7 @@
         "meters": 2200
       },
       "sparks": [
-        "Non-Standard Distance ○",
+        "Non-Standard Distance \u25cb",
         "Stamina"
       ],
       "fans": {
@@ -3010,7 +3095,7 @@
         "meters": 2400
       },
       "sparks": [
-        "Tokyo Racecourse ○",
+        "Tokyo Racecourse \u25cb",
         "Stamina"
       ],
       "fans": {
@@ -3045,7 +3130,7 @@
         "meters": 1600
       },
       "sparks": [
-        "Standard Distance ○",
+        "Standard Distance \u25cb",
         "Speed"
       ],
       "fans": {
@@ -3097,7 +3182,7 @@
         "meters": 1800
       },
       "sparks": [
-        "Chukyo Racecourse ○",
+        "Chukyo Racecourse \u25cb",
         "Power"
       ],
       "fans": {
@@ -3166,7 +3251,7 @@
         "meters": 2500
       },
       "sparks": [
-        "Nakayama Racecourse ○",
+        "Nakayama Racecourse \u25cb",
         "Guts"
       ],
       "fans": {
@@ -3201,7 +3286,7 @@
         "meters": 2000
       },
       "sparks": [
-        "Oi Racecourse ○",
+        "Oi Racecourse \u25cb",
         "Power"
       ],
       "fans": {

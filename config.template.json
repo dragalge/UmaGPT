@@ -421,6 +421,7 @@
         "training",
         "recreation",
         "rest",
+        "skip_turn",
         "race"
       ]
     },

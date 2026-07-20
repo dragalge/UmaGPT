@@ -1,4 +1,355 @@
 {
+    "109801": {
+        "id": "109801",
+        "name": "Copano Rickey (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1098_109801.png",
+        "implemented": "2026-07-16",
+        "The Signature Racewear That Attracts Happiness ☆": [
+            "Power +20",
+            "Speed +20"
+        ],
+        "Feng Shui Can Catch Ghosts?!": [
+            "Speed +20",
+            "Stamina +10, Guts +10"
+        ],
+        "Happy on TV ☆": [
+            "Power +20, (random) Get Charming ○ status",
+            "Wit +20, (random) Get Charming ○ status"
+        ],
+        "Spreading the Word of Feng Shui": [
+            "Wit +10",
+            "Guts +10"
+        ],
+        "A Sudden Feng Shui Battle?!": [
+            "Energy +5, Mood +1",
+            "Speed +5, Wit +5"
+        ],
+        "The Bond Between Classmates": [
+            "Speed +5, Stamina +5, Guts +5",
+            "Solid Steps hint +1"
+        ],
+        "Happy! Lucky! Sumo Stew! ♪": [
+            "Energy +10, Skill points +5",
+            "Randomly either (~90%), Energy +30, Skill points +10, or (~10%), Energy +30, Skill points +10, Speed -5, Power +5, Get Slow Metabolism status"
+        ],
+        "A Dramatic Feng Shui Renovation!": [
+            "Speed +10",
+            "Stamina +10"
+        ],
+        "Let's Make Some Good Memories!": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "A Customized and Special Day": [
+            "Speed +10",
+            "Power +10",
+            "Wit +10"
+        ],
+        "Happiness! ☆ Luck! ☆ Come Forth!": [
+            "Wit +10",
+            "Guts +10"
+        ],
+        "A Happy Barbecue for One and All ☆": [
+            "Power +10",
+            "Speed +10"
+        ],
+        "Eleven Stars in the Sky": [
+            "Speed +25, Power +25, Wit +25, Skill points +30, Top Pick hint +2, Forward, March! hint +2"
+        ],
+        "Bonus at start": [
+            "Skill points +120"
+        ],
+        "At Summer Camp (Year 2)": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "Fan Letter": [
+            "Mood +1, Skill points +30"
+        ],
+        "Dance Lesson": [
+            "Wit +10",
+            "Power +10"
+        ],
+        "New Year's Resolutions": [
+            "Wit +25",
+            "Energy +20",
+            "Skill points +20"
+        ],
+        "New Year's Shrine Visit": [
+            "Energy +30",
+            "All stats +8",
+            "Skill points +35"
+        ]
+    },
+    "105301": {
+        "id": "105301",
+        "name": "Bamboo Memory (Original)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1053_105301.png",
+        "implemented": "2026-07-07",
+        "Dreaming Big With My Rivals!": [
+            "Power +20",
+            "Speed +20"
+        ],
+        "Behind the Dream": [
+            "Wit +10, Skill points +15",
+            "Guts +20"
+        ],
+        "Vibing?": [
+            "Stamina +20, (random) Get Practice Perfect ○ status",
+            "Power +20, (random) Get Practice Perfect ○ status"
+        ],
+        "Good Deed Week": [
+            "Mood +1, Power +5",
+            "Speed +5, Stamina +5"
+        ],
+        "Kindred Spirits": [
+            "Guts +10",
+            "Energy +5, Speed +5"
+        ],
+        "The End of the Disciplinary Committee?!": [
+            "Speed +5, Power +10",
+            "Target in Sight ○ hint +1"
+        ],
+        "Beyond Fiction!": [
+            "Randomly either Power +20, Guts +20 or Energy -5, Power +20, Guts +10 or Energy -10, Power +10, Guts +5",
+            "Energy +10"
+        ],
+        "Red-Hot Ramen Rumble!": [
+            "Energy +10, Skill points +5",
+            "Randomly either (~90%), Energy +30, Skill points +10, or (~10%), Energy +30, Skill points +10, Speed -5, Power +5, Get Slow Metabolism status"
+        ],
+        "Hanging with the Girls!": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "Bamboo's Dilemma": [
+            "Stamina +5, Guts +5",
+            "Stamina +5, Power +5"
+        ],
+        "Run into the Sunset!": [
+            "Guts +10",
+            "Power +10",
+            "Speed +10"
+        ],
+        "Bamboo and the Troubled Student": [
+            "Wit +10",
+            "Stamina +10"
+        ],
+        "Swords and Racing": [
+            "Speed +10",
+            "Guts +10"
+        ],
+        "I'm the BEST OF THE BEST!": [
+            "Power +30, Guts +30, Sprint Straightaways ○ hint +2, Homestretch Haste hint +2"
+        ],
+        "Bonus at start": [
+            "Skill points +120"
+        ],
+        "At Summer Camp (Year 2)": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "Fan Letter": [
+            "Mood +1, Skill points +30"
+        ],
+        "Dance Lesson": [
+            "Wit +10",
+            "Power +10"
+        ],
+        "New Year's Resolutions": [
+            "Guts +25",
+            "Energy +20",
+            "Skill points +20"
+        ],
+        "New Year's Shrine Visit": [
+            "Energy +30",
+            "All stats +8",
+            "Skill points +35"
+        ]
+    },
+    "100702": {
+        "id": "100702",
+        "name": "Gold Ship (Summer)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1007_100702.png",
+        "implemented": "2026-07-02",
+        "Welcome to Gol-Chateau": [
+            "Skill points +15",
+            "Guts +20"
+        ],
+        "The Beach House (Family)": [
+            "Speed +10"
+        ],
+        "Golshi, Master of Marine Creatures": [
+            "Summer Runner ○ hint +2, (random) Get Practice Perfect ○ status",
+            "Power +20, (random) Get Practice Perfect ○ status"
+        ],
+        "Pair Discount Repeat Offender": [
+            "Guts +10",
+            "Stamina +10"
+        ],
+        "Which Did You Lose?": [
+            "Energy -10, Power +20",
+            "Speed +10"
+        ],
+        "My Part-Time Job Is... Crazy?": [
+            "Stamina +10, Skill points +15",
+            "Hanshin Racecourse ○ hint +1"
+        ],
+        "The Day After, Voices Hoarse": [
+            "Stamina +10, Wit +10",
+            "Guts +15, Mood +1"
+        ],
+        "This One's For Keeps!": [
+            "Energy +10",
+            "Randomly either Skill points +60, Non-Standard Distance ○ hint +1 or Skill points +15, Get Slacker status"
+        ],
+        "Summer Camp (Year 3) Ends": [
+            "3 random stats +5"
+        ],
+        "Killer Appetite!": [
+            "Energy +10, Skill points +5",
+            "Randomly either (~90%), Energy +30, Skill points +10, or (~10%), Energy +30, Skill points +10, Speed -5, Power +5, Get Slow Metabolism status"
+        ],
+        "Legend of the Left Pinky": [
+            "Stamina +10",
+            "Speed +10"
+        ],
+        "Hello From About 1.5 Billion Years Ago": [
+            "Guts +10",
+            "Wit +10"
+        ],
+        "And Then She...": [
+            "Speed +10",
+            "Guts +10",
+            "Power +10"
+        ],
+        "A Lovely Place": [
+            "Stamina +10",
+            "Wit +10"
+        ],
+        "Nighttime Park Visit": [
+            "Guts +10",
+            "Speed +10"
+        ],
+        "After the Takarazuka Kinen: Keyword 2": [
+            "Mood +1, Power +15, All stats +3, Skill points +45, Yayoi Akikawa bond +4",
+            "Randomly either Mood +3, All stats +3, Skill points +45, All stats +5, Skill points +15, (random) Get Charming ○ status, Yayoi Akikawa bond +4 or All stats +3, Skill points +45, (random) Obtain Gatekept skill"
+        ],
+        "Bonus at start": [
+            "Skill points +120"
+        ],
+        "At Summer Camp (Year 2)": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "Fan Letter": [
+            "Mood +1, Skill points +30"
+        ],
+        "Dance Lesson": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "New Year's Resolutions": [
+            "Stamina +25",
+            "Energy +20",
+            "Skill points +20"
+        ],
+        "New Year's Shrine Visit": [
+            "Energy +30",
+            "All stats +8",
+            "Skill points +35"
+        ]
+    },
+    "101303": {
+        "id": "101303",
+        "name": "Mejiro McQueen (Summer)",
+        "rarity": "SSR",
+        "image_url": "https://gametora.com/images/umamusume/characters/thumb/chara_stand_1013_101303.png",
+        "implemented": "2026-07-02",
+        "More than a Photo, a Blueprint": [
+            "Wit +20",
+            "Energy +10"
+        ],
+        "You're My Trainer": [
+            "Randomly either Speed +10, Wit +10, Playtime's Over! hint +3 or Power +20 or Wit +10"
+        ],
+        "I Won't React to Troublemakers!": [
+            "Stamina +20, (random) Get Charming ○ status",
+            "Summer Runner ○ hint +2, (random) Get Charming ○ status"
+        ],
+        "Queen of the Island": [
+            "Speed +10",
+            "Stamina +10"
+        ],
+        "It's Called a Sea Pineapple!": [
+            "Skill points +30",
+            "Stamina +10"
+        ],
+        "Cooking Up Memories": [
+            "Energy +15",
+            "Early Lead hint +1"
+        ],
+        "The Allure of Racecourse Food": [
+            "Randomly either Energy +30, Stamina +10, Skill points +10 or Energy +30, Skill points +10, Speed -5, Power +5, Get Slow Metabolism status",
+            "Guts +15, Skill points +5",
+            "Randomly either Energy +50, Wit +10 or Energy +50, Wit -10, Get Slow Metabolism status"
+        ],
+        "Attack of the Chestnut Feast!": [
+            "Energy +10, Skill points +5",
+            "Randomly either (~90%), Energy +30, Skill points +10, or (~10%), Energy +30, Skill points +10, Speed -5, Power +5, Get Slow Metabolism status"
+        ],
+        "Two Tickets for the Silver Screen": [
+            "Stamina +10",
+            "Wit +5, Skill points +15"
+        ],
+        "An Excited Young Lady": [
+            "Guts +10",
+            "Power +10"
+        ],
+        "Endless Kingdom": [
+            "Stamina +10",
+            "Wit +10",
+            "Speed +5, Power +5"
+        ],
+        "Bargain Find": [
+            "Speed +10",
+            "Guts +10"
+        ],
+        "Three Ramen Bowls' Worth of Temptation": [
+            "Skill points +30",
+            "Speed +5, Stamina +5"
+        ],
+        "Autumn Congratulations": [
+            "Speed +15, Stamina +15, Guts +15, Skill points +15"
+        ],
+        "Bonus at start": [
+            "Skill points +120"
+        ],
+        "At Summer Camp (Year 2)": [
+            "Power +10",
+            "Guts +10"
+        ],
+        "Fan Letter": [
+            "Mood +1, Skill points +30"
+        ],
+        "Dance Lesson": [
+            "Stamina +10",
+            "Wit +10"
+        ],
+        "New Year's Resolutions": [
+            "Stamina +25",
+            "Energy +20",
+            "Skill points +20"
+        ],
+        "New Year's Shrine Visit": [
+            "Energy +30",
+            "All stats +8",
+            "Skill points +35"
+        ]
+    },
     "100103": {
         "id": "100103",
         "name": "Special Week (Commander)",

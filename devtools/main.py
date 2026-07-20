@@ -84,7 +84,7 @@ def create_chromedriver():
     Returns:
         The Chrome driver.
     """
-    driver = uc.Chrome(headless=True, use_subprocess=True)
+    driver = uc.Chrome(version_main=150, headless=True, use_subprocess=True)
     return driver
 
 
@@ -452,6 +452,9 @@ class BaseScraper:
                 unwanted = ["(❯)", "(❯❯)", "(❯❯❯)"]
                 for bad in unwanted:
                     tooltip_title = tooltip_title.replace(bad, "")
+
+                if tooltip_title.endswith("Dating starts"):
+                    tooltip_title = tooltip_title[:-len("Dating starts")].rstrip()
 
                 if tooltip_title in events_ignore:
                     logging.info(f"Training event {tooltip_title} ({j + 1}/{len(all_training_events)}) was ignore. Skipping this...")

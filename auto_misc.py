@@ -164,9 +164,13 @@ cm_templates = {
   "cm_special_missions": "assets/buttons/cm_special_missions.png",
   "cm_entry": "assets/buttons/cm_entry.png",
   "cm_register": "assets/buttons/cm_register.png",
+  "cm_matching": "assets/buttons/cm_matching.png",
   "cm_event": "assets/buttons/cm_event.png",
   "cm_race": "assets/buttons/cm_race_btn.png",
+  "cm_race_2": "assets/buttons/cm_race_btn_2.png",
   "cm_claim": "assets/buttons/cm_claim_btn.png",
+  "cm_view_results": "assets/buttons/view_results.png",
+  "cm_view_results_2": "assets/buttons/view_results_2.png",
 }
 
 lr_templates = {
@@ -253,13 +257,6 @@ while True:
     non_match_count = 0
     continue
 
-  if args.cm and (click_match(matches.get("race")) or click_match(matches.get("race_2"))):
-    info("Pressed race.")
-    sleep(2)
-    do_race()
-    non_match_count = 0
-    continue
-
   if args.cm or args.tt or args.lr:
     if click_match(matches.get("main_menu_races"), "main_menu_races"):
       non_match_count=0
@@ -273,15 +270,38 @@ while True:
   if args.cm:
     device_action.flush_screenshot_cache()
     cm_matches = device_action.multi_match_templates(cm_templates, screenshot=screenshot)
+    if click_match(cm_matches.get("cm_event"), "cm_event"):
+      non_match_count = 0
+      continue
+
+    if not cm_entered and (click_match(cm_matches.get("cm_entry"), "cm_entry") or click_match(cm_matches.get("cm_register"), "cm_register")):
+      non_match_count = 0
+      cm_entered = True
+      continue
+
     if not cm_missions_collected and click_match(cm_matches.get("cm_special_missions"), "cm_special_missions"):
       non_match_count=0
       continue
+
+    if click_match(cm_matches.get("cm_view_results"), "cm_view_results") or click_match(cm_matches.get("cm_view_results_2"), "cm_view_results_2"):
+      device_action.click(target=constants.SAFE_SPACE_MOUSE_POS, clicks=5, interval=0.25)
+      non_match_count=0
+      continue
+
+    if click_match(matches.get("race")) or click_match(matches.get("race_2")):
+      info("Pressed race.")
+      sleep(2)
+      do_race()
+      non_match_count = 0
+      continue
+
     if (
         click_match(cm_matches.get("cm_entry"), "cm_entry") or
         click_match(cm_matches.get("cm_register"), "cm_register") or
         click_match(cm_matches.get("cm_race"), "cm_race") or
+        click_match(cm_matches.get("cm_race_2"), "cm_race_2") or
         click_match(cm_matches.get("cm_claim"), "cm_claim") or
-        click_match(cm_matches.get("cm_event"), "cm_event")
+        click_match(cm_matches.get("cm_matching"), "cm_matching")
       ):
       non_match_count = 0
       cm_entered = True

@@ -88,6 +88,10 @@ PAL_ICON_TEMPLATE = "assets/ui/recreation_with.png"
 # "Event Progress" pill; the locked group meta-row sits at the bottom.
 # Topmost pill = top member = the one we click (Mary's ruling).
 EVENT_PROGRESS_TEMPLATE = "assets/ui/event_progress.png"
+# The picker renders its own, larger "Event Complete!" banner (203x21) on
+# finished member rows — a different size than the dialog-one banner, so
+# it needs its own template. Used to skip completed rows in the picker.
+EVENT_COMPLETE_PICKER_TEMPLATE = "assets/ui/event_complete_picker.png"
 
 # Vertical distance from the trainee row's center up to the pal row's
 # center in the recreation dialog. Static layout, measured at 1920x1080.
@@ -161,10 +165,25 @@ def do_recreation(options=None):
     picker_screenshot = device_action.screenshot()
     member_matches = device_action.match_template(EVENT_PROGRESS_TEMPLATE, picker_screenshot)
     if len(member_matches) > 0:
-      top = min(member_matches, key=lambda m: m[1])
+      # Completed member rows keep their Event Progress pill and clicking
+      # them only shows a "This event is finished" toast. Filter out any
+      # pill whose row also carries the picker's Event Complete banner
+      # (same row = within 40px vertically; row pitch is 122px), then
+      # click the topmost survivor. In the endgame state that survivor is
+      # the unlocked group meta-row at the bottom.
+      complete_matches = device_action.match_template(EVENT_COMPLETE_PICKER_TEMPLATE, picker_screenshot)
+      complete_ys = [c[1] for c in complete_matches]
+      open_matches = [m for m in member_matches if not any(abs(m[1] - cy) < 40 for cy in complete_ys)]
+      debug(f"Dating: picker rows {len(member_matches)}, completed {len(complete_ys)}, open {len(open_matches)}")
+      if len(open_matches) == 0:
+        # Shouldn't happen: the pink pal icon should be gone when nothing
+        # is dateable. Preserve old behavior (harmless toast) and scream.
+        warning("Dating: picker visible but every row reads complete; clicking topmost anyway")
+        open_matches = member_matches
+      top = min(open_matches, key=lambda m: m[1])
       mx, my, mw, mh = top
       member_target = (mx + mw // 2 + constants.GAME_WINDOW_BBOX[0], my + mh // 2)
-      debug(f"Dating: group member picker detected ({len(member_matches)} rows), clicking top member at {member_target}")
+      debug(f"Dating: group member picker detected, clicking open row at {member_target}")
       device_action.click(target=member_target, duration=0.15)
     else:
       debug("Dating: no member picker detected, single-pal date assumed")

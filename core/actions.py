@@ -83,6 +83,11 @@ TRAINEE_BADGE_TEMPLATE = "assets/ui/trainee_umamusume.png"
 TRAINEE_BADGE_FALLBACK = "assets/ui/trainee_uma.png"  # legacy anchor, proven on-screen
 EVENT_COMPLETE_TEMPLATE = "assets/ui/event_complete.png"
 PAL_ICON_TEMPLATE = "assets/ui/recreation_with.png"
+# Group cards (e.g. Heirs to the Throne) open a second "Choose Recreation
+# Partner" dialog after the pal row is clicked. Each member row carries an
+# "Event Progress" pill; the locked group meta-row sits at the bottom.
+# Topmost pill = top member = the one we click (Mary's ruling).
+EVENT_PROGRESS_TEMPLATE = "assets/ui/event_progress.png"
 
 # Vertical distance from the trainee row's center up to the pal row's
 # center in the recreation dialog. Static layout, measured at 1920x1080.
@@ -146,6 +151,23 @@ def do_recreation(options=None):
     debug(f"Recreation: clicking trainee row at {target}")
 
   device_action.click(target=target, duration=0.15)
+
+  if date_intent:
+    # Group cards open a member picker instead of starting the date.
+    # Detect it by the "Event Progress" pills on the member rows. No
+    # pills = ordinary single-pal date already playing, nothing to do.
+    sleep(1)
+    device_action.flush_screenshot_cache()
+    picker_screenshot = device_action.screenshot()
+    member_matches = device_action.match_template(EVENT_PROGRESS_TEMPLATE, picker_screenshot)
+    if len(member_matches) > 0:
+      top = min(member_matches, key=lambda m: m[1])
+      mx, my, mw, mh = top
+      member_target = (mx + mw // 2 + constants.GAME_WINDOW_BBOX[0], my + mh // 2)
+      debug(f"Dating: group member picker detected ({len(member_matches)} rows), clicking top member at {member_target}")
+      device_action.click(target=member_target, duration=0.15)
+    else:
+      debug("Dating: no member picker detected, single-pal date assumed")
 
   # quit to wait for input
   return True

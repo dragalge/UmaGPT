@@ -125,3 +125,4 @@ Notes: this doesn't work if you have an in progress CM from the main menu, like 
 
 - OCR might misread some values and do trainings otherwise it shouldn't do.
 - Limited TB capabilities.
+- Limited GC capabilities.

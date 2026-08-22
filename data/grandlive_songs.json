@@ -1,0 +1,296 @@
+[
+  {
+    "name":"Believe in Miracles!",
+    "name_jp":"Kiseki wo Shinjite!",
+    "effect_1":"Training Wit Gain +1",
+    "effect_2":"Specialty Priority +5",
+    "costs":{
+      "da":0,
+      "pa":21,
+      "vo":0,
+      "vi":0,
+      "me":21
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Zero Is Where the Center Stands!",
+    "name_jp":"Tachiichi zero-ban! Juni wa Ichiban!",
+    "effect_1":"Training Speed Gain +1",
+    "effect_2":"Support Chain Event Frequency Lvl +1",
+    "costs":{
+      "da":21,
+      "pa":0,
+      "vo":0,
+      "vi":21,
+      "me":0
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Getaway! Fallin' Love",
+    "name_jp":"Nigekiri! Fallin' Love",
+    "effect_1":"Training Guts Gain +1",
+    "effect_2":"Support Chain Event Frequency Lvl +1",
+    "costs":{
+      "da":21,
+      "pa":0,
+      "vo":0,
+      "vi":21,
+      "me":0
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Go This Way",
+    "name_jp":"Go This Way",
+    "effect_1":"Training Power Gain +1",
+    "effect_2":"Support Chain Event Frequency Lvl +1",
+    "costs":{
+      "da":0,
+      "pa":0,
+      "vo":21,
+      "vi":0,
+      "me":21
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Ring Ring Diary",
+    "name_jp":"Ring Ring Diary",
+    "effect_1":"Training Stamina Gain +1",
+    "effect_2":"Support Chain Event Frequency Lvl +1",
+    "costs":{
+      "da":0,
+      "pa":21,
+      "vo":0,
+      "vi":21,
+      "me":0
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Here Comes Our Time",
+    "name_jp":"Seishun ga Matteru",
+    "effect_1":"Power +22",
+    "effect_2":"Friendship Training Effectiveness +5%",
+    "costs":{
+      "da":0,
+      "pa":0,
+      "vo":32,
+      "vi":0,
+      "me":12
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Run n' Run!",
+    "name_jp":"RUN×RUN!",
+    "effect_1":"Skill Pt +22",
+    "effect_2":"Friendship Training Effectiveness +5%",
+    "costs":{
+      "da":14,
+      "pa":0,
+      "vo":0,
+      "vi":16,
+      "me":14
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Full Speed Ahead! Umadol Power☆",
+    "name_jp":"Zensoku! Zenshin! Umadol Power☆",
+    "effect_1":"Speed +22",
+    "effect_2":"Friendship Training Effectiveness +5%",
+    "costs":{
+      "da":32,
+      "pa":0,
+      "vo":0,
+      "vi":12,
+      "me":0
+    },
+    "promo_req":0
+  },
+  {
+    "name":"Run for Our Dream!",
+    "name_jp":"Yume wo Kakeru!",
+    "effect_1":"Training Skill Pt Gain +2",
+    "effect_2":"Specialty Priority +5",
+    "costs":{
+      "da":0,
+      "pa":21,
+      "vo":0,
+      "vi":21,
+      "me":0
+    },
+    "promo_req":1
+  },
+  {
+    "name":"Hey, Guess What!",
+    "name_jp":"A・NO・NE",
+    "effect_1":"Training Guts Gain +2",
+    "effect_2":"Specialty Priority +5",
+    "costs":{
+      "da":42,
+      "pa":0,
+      "vo":0,
+      "vi":21,
+      "me":0
+    },
+    "promo_req":1
+  },
+  {
+    "name":"Our Blue Bird Days",
+    "name_jp":"Bokura no Bluebird Days",
+    "effect_1":"Training Speed Gain +2",
+    "effect_2":"Specialty Priority +5",
+    "costs":{
+      "da":21,
+      "pa":0,
+      "vo":0,
+      "vi":42,
+      "me":0
+    },
+    "promo_req":1
+  },
+  {
+    "name":"Grow Up and Shine!",
+    "name_jp":"Grow Up, Shine!",
+    "effect_1":"Training Skill Pt Gain +3",
+    "effect_2":"Support Chain Event Frequency Lvl +1",
+    "costs":{
+      "da":21,
+      "pa":0,
+      "vo":21,
+      "vi":0,
+      "me":21
+    },
+    "promo_req":2
+  },
+  {
+    "name":"Sunbeam Cheer",
+    "name_jp":"Komorebi no Yell",
+    "effect_1":"Training Wit Gain +2",
+    "effect_2":"Support Chain Event Frequency Lvl +1",
+    "costs":{
+      "da":0,
+      "pa":42,
+      "vo":0,
+      "vi":0,
+      "me":21
+    },
+    "promo_req":2
+  },
+  {
+    "name":"Hoppity Sunny Days♪",
+    "name_jp":"Pyoitto ♪ Hallelujah!",
+    "effect_1":"Training Stamina Gain +2",
+    "effect_2":"Specialty Priority +5",
+    "costs":{
+      "da":0,
+      "pa":42,
+      "vo":21,
+      "vi":0,
+      "me":0
+    },
+    "promo_req":2
+  },
+  {
+    "name":"Seven Colors Scenery",
+    "name_jp":"Nanairo no Keshiki",
+    "effect_1":"Training Power Gain +2",
+    "effect_2":"Specialty Priority +5",
+    "costs":{
+      "da":0,
+      "pa":0,
+      "vo":21,
+      "vi":0,
+      "me":42
+    },
+    "promo_req":2
+  },
+  {
+    "name":"Dream Sky",
+    "name_jp":"Yumezora",
+    "effect_1":"Wit +22",
+    "effect_2":"Friendship Training Effectiveness +5%",
+    "costs":{
+      "da":0,
+      "pa":22,
+      "vo":0,
+      "vi":0,
+      "me":22
+    },
+    "promo_req":3
+  },
+  {
+    "name":"Present March♪",
+    "name_jp":"PRESENT MARCH♪",
+    "effect_1":"Power +22",
+    "effect_2":"Friendship Training Effectiveness +5%",
+    "costs":{
+      "da":0,
+      "pa":0,
+      "vo":22,
+      "vi":0,
+      "me":22
+    },
+    "promo_req":3
+  },
+  {
+    "name":"Precious Treasure Box",
+    "name_jp":"Daisuki no Takarabako",
+    "effect_1":"Speed +26",
+    "effect_2":"Friendship Training Effectiveness +10%",
+    "costs":{
+      "da":42,
+      "pa":0,
+      "vo":0,
+      "vi":26,
+      "me":0
+    },
+    "promo_req":3
+  },
+  {
+    "name":"The World's at Our Whim",
+    "name_jp":"Sekai wa Bokura no Iinari Sa",
+    "effect_1":"Stamina +22",
+    "effect_2":"Friendship Training Effectiveness +5%",
+    "costs":{
+      "da":0,
+      "pa":32,
+      "vo":12,
+      "vi":0,
+      "me":0
+    },
+    "promo_req":3
+  },
+  {
+    "name":"Sky-Blue Spring",
+    "name_jp":"Harusora BLUE",
+    "effect_1":"Guts +22",
+    "effect_2":"Friendship Training Effectiveness +5%",
+    "costs":{
+      "da":12,
+      "pa":0,
+      "vo":0,
+      "vi":32,
+      "me":0
+    },
+    "promo_req":3
+  },
+  {
+    "name":"Fanfare for the Future!",
+    "name_jp":"Fanfare for Future!",
+    "effect_1":"Guts +26",
+    "effect_2":"Friendship Training Effectiveness +10%",
+    "costs":{
+      "da":26,
+      "pa":0,
+      "vo":0,
+      "vi":42,
+      "me":0
+    },
+    "promo_req":3
+  }
+]

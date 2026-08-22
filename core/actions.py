@@ -86,7 +86,7 @@ PAL_ICON_TEMPLATE = "assets/ui/recreation_with.png"
 # Group cards (e.g. Heirs to the Throne) open a second "Choose Recreation
 # Partner" dialog after the pal row is clicked. Each member row carries an
 # "Event Progress" pill; the locked group meta-row sits at the bottom.
-# Topmost pill = top member = the one we click (Mary's ruling).
+# Topmost pill = top member = the one we click.
 EVENT_PROGRESS_TEMPLATE = "assets/ui/event_progress.png"
 # The picker renders its own, larger "Event Complete!" banner (203x21) on
 # finished member rows — a different size than the dialog-one banner, so

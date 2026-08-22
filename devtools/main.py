@@ -447,9 +447,9 @@ class BaseScraper:
             try:
                 ## TODO: Every time the code is run, the hexadecimals between sc- and -2 need to be updated right now, below comment doesn't work perfectly as well
                 # tooltip_title = tooltip.find_element(By.XPATH, ".//div[contains(@class, 'sc-') and contains(@class, '-2 ')]").text
-                tooltip_title = " ".join(tooltip.find_element(By.XPATH, "//div[contains(@class,'sc-428369cd-2')]").get_attribute("textContent").split())
+                tooltip_title = " ".join(tooltip.find_element(By.XPATH, "//div[contains(@class,'sc-cdc1be45-2')]").get_attribute("textContent").split())
 
-                unwanted = ["(❯)", "(❯❯)", "(❯❯❯)"]
+                unwanted = ["(❯) ", "(❯❯) ", "(❯❯❯) ", "(❯❯❯❯) ", "(❯❯❯❯❯) "]
                 for bad in unwanted:
                     tooltip_title = tooltip_title.replace(bad, "")
 
@@ -596,7 +596,7 @@ class CharacterScraper(BaseScraper):
                     logging.info(
                         f"Skipping {support_id} {self.data[str(support_id)]['name']} — already exists ({existing_count}) in JSON."
                     )
-                continue
+                    continue
 
             # Navigate to the page
             logging.info(f"Navigating to {link} ({i + 1}/{len(character_details)})")
@@ -757,7 +757,7 @@ class SupportCardScraper(BaseScraper):
                     logging.info(
                         f"Skipping {support_id} {self.data[str(support_id)]['name']} — already exists ({existing_count}) in JSON."
                     )
-                continue
+                    continue
 
             # Navigate to the page
             logging.info(f"Navigating to {link} ({i + 1}/{len(card_details)})")
@@ -795,6 +795,7 @@ class SupportCardScraper(BaseScraper):
             char_id   = item.get("char_id")
             char_name = item.get("char_name")
             type_raw  = item.get("type")
+            implemented = item.get("release_en")
 
             # Normalise the type field
             type_map = {
@@ -816,6 +817,7 @@ class SupportCardScraper(BaseScraper):
                 'image_url' : img_src,
                 'rarity'    : support_card_rarity,
                 'type'      : type__,
+                'implemented' : implemented
             })
 
             # Scrape training events and save
@@ -1559,7 +1561,18 @@ def convert_all(char_file, support_file, output_file):
             "relation_type": "Scenario",
             "success_type": "-",
             "all_outcomes": "Skip unity cup tutorial."
-            }
+            },
+            {
+            "char_id": "x3",
+            "event_name": "main event thingy wingy",
+            "character_name": "Grand Concert",
+            "choice_text": "Smart Falcon",
+            "choice_number": "1",
+            "relation": "Grand Concert",
+            "relation_type": "Scenario",
+            "success_type": "-",
+            "all_outcomes": "beep boop this text will change later"
+            },
         ]
 
     choices_output = []
@@ -1704,7 +1717,12 @@ def convert_all(char_file, support_file, output_file):
             {
                 "name": "Unity Cup",
                 "image_url": "https://gametora.com/images/umamusume/scenarios/bnr_ico_002.png"
+            },
+            {
+                "name": "Grand Concert",
+                "image_url": "https://gametora.com/images/umamusume/scenarios/bnr_ico_003.png"
             }
+
         ]
     }
 

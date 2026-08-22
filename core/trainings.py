@@ -627,6 +627,8 @@ def add_scenario_gimmick_score(training_dict, score_tuple, state):
     score = unity_training_score(training_dict, state["year"].split()[0]) * config.SCENARIO_GIMMICK_WEIGHT
   elif constants.SCENARIO_NAME == "ura":
     score = ura_duel_score(training_dict)
+  elif constants.SCENARIO_NAME == "grandlive" or state["scenario_name"] == "grandlive":
+    score = grandlive_training_score(training_dict, state["year"].split()[0]) * config.SCENARIO_GIMMICK_WEIGHT
   debug(f"Scenario gimmick score: {score}")
 
   score_tuple = (score_tuple[0] + score, score_tuple[1])
@@ -682,4 +684,28 @@ def ura_duel_score(x):
   score = config.SCENARIO_GIMMICK_WEIGHT
 
   debug(f"URA duel score: {training_name} -> {score}")
+  return score
+
+grandlive_token_weights={
+  "da": 1.175,
+  "pa": 0.935,
+  "vo": 0.700,
+  "vi": 1.280,
+  "co": 0.910
+}
+
+LIGHT_HELLO_TRAINING_MULT = 0.69  # Nice.
+
+def grandlive_training_score(x, year):
+  training_name, training_data = x
+  priority_index = get_priority_index(x)
+  priority_effect = config.PRIORITY_EFFECTS_LIST[priority_index]
+  priority_weight = PRIORITY_WEIGHTS_LIST[config.PRIORITY_WEIGHT]
+  priority_adjustment = priority_effect * priority_weight
+
+  score = 0
+  for name in training_data["grandlive_tokens"]:
+    score += grandlive_token_weights[name]
+  score += training_data["light_hello"] * LIGHT_HELLO_TRAINING_MULT
+  debug(f"Grand Live training score: {training_name} -> {score}")
   return score

@@ -59,6 +59,9 @@ TURN_REGION = convert_xyxy_to_xywh(TURN_BBOX)
 UNITY_TURN_BBOX = add_tuple_elements(GAME_WINDOW_BBOX, (110, 60, -630, -975))
 UNITY_TURN_REGION = convert_xyxy_to_xywh(UNITY_TURN_BBOX)
 
+GRANDLIVE_TURN_BBOX = add_tuple_elements(GAME_WINDOW_BBOX, (110, 58, -630, -975))
+GRANDLIVE_TURN_REGION = convert_xyxy_to_xywh(GRANDLIVE_TURN_BBOX)
+
 UNITY_RACE_TURNS_BBOX = add_tuple_elements(GAME_WINDOW_BBOX, (120, 114, -640, -947))
 UNITY_RACE_TURNS_REGION = convert_xyxy_to_xywh(UNITY_RACE_TURNS_BBOX)
 
@@ -426,3 +429,8 @@ GOOD_STATUS_EFFECTS={
   "Practice Perfect":"Lowers chance of training failure by 2%",
   "Shining Brightly":"Lowers chance of training failure by 5%"
 }
+
+GL_SONGS_FILE="data/grandlive_songs.json"
+GRANDLIVE_SONGS = []
+with open(GL_SONGS_FILE, "r", encoding="utf-8") as f:
+  GRANDLIVE_SONGS = json.load(f)

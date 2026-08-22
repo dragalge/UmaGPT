@@ -84,6 +84,25 @@ def collect_training_state(state_object, training_function_name, check_stat_gain
       return state_object
     training_results = CleanDefaultDict()
     sleep(0.25)
+    training_tokens = {name: [] for name in constants.TRAINING_BUTTON_POSITIONS}
+    if constants.SCENARIO_NAME == "grandlive":
+      screenshot = device_action.screenshot(region_xywh=constants.SCREEN_BOTTOM_REGION)
+      token_matches = device_action.multi_match_templates(grandlive_tokens, screenshot)
+      if len(token_matches) < 5:
+        debug(f"Token matches under 5: {token_matches}")
+
+      if token_matches and len(token_matches) > 0:
+        for token_name in token_matches:
+          for match in token_matches[token_name]:
+            x, y, w, h = match
+            # find the top left of the match, add two times its width to get close to the clicking position and add the bottom region's x value as well to adjust for different gaps on the left side of the screen
+            cx = x + w * 2 + constants.SCREEN_BOTTOM_REGION[0]
+            closest_training = min(
+              constants.TRAINING_BUTTON_POSITIONS.items(),
+              key=lambda item: abs(item[1][0] - cx)
+            )[0]
+            training_tokens[closest_training].append(token_name)
+
     for name, mouse_pos in constants.TRAINING_BUTTON_POSITIONS.items():
       # swipe up to avoid clicking on the training button again.
       device_action.swipe(mouse_pos, (mouse_pos[0], mouse_pos[1] + 150), duration=0.1)
@@ -105,6 +124,8 @@ def collect_training_state(state_object, training_function_name, check_stat_gain
         training_results[name]["duel_available"] = get_duel_status(mouse_pos)
       elif constants.SCENARIO_NAME == "ura":
         debug(f"Duel detection skipped for {name}: duel_hunting_enabled is off in this config.")
+      if constants.SCENARIO_NAME == "grandlive":
+        training_results[name]["grandlive_tokens"] = training_tokens[name]
 
     debug(f"Training results: {training_results}")
     training_locked, training_results = filter_training_lock(training_results)
@@ -170,6 +191,14 @@ def training_fingerprint(training):
   # final canonical form
   return tuple(sorted(fp))
 
+grandlive_tokens={
+  "da":"assets/grandlive/da.png",
+  "pa":"assets/grandlive/pa.png",
+  "vo":"assets/grandlive/vo.png",
+  "vi":"assets/grandlive/vi.png",
+  "co":"assets/grandlive/co.png"
+}
+
 valid_training_dict={
   'spd': {'stat_gains': {'spd': 1, 'pwr': 1, 'sp': 1}},
   'sta': {'stat_gains': {'sta': 1, 'guts': 1, 'sp': 1}},
@@ -222,6 +251,16 @@ def get_support_card_data(threshold=0.8):
 
   for key, icon_path in constants.SUPPORT_ICONS.items():
     matches = device_action.match_template(icon_path, screenshot, threshold)
+    if constants.SCENARIO_NAME == "grandlive" and key == "friend" and matches and len(matches) > 0:
+      for match in matches:
+        light_hello = device_action.match_template("assets/grandlive/light_hello.png", screenshot, threshold)
+        mx, my, mw, mh = match
+        if light_hello:
+          lhx, lhy, lhw, lhh = light_hello[0]
+          dist_to_pal_icon = (mx - lhx + my - lhy)
+          if 0 < dist_to_pal_icon and dist_to_pal_icon < 100:
+            count_result["light_hello"] = 1
+
 
     for match in matches:
       # auto-created entries if not yet present
@@ -440,8 +479,11 @@ def get_turn():
     return "Race Day"
   if constants.SCENARIO_NAME == "unity":
     region_xywh = constants.UNITY_TURN_REGION
+  elif constants.SCENARIO_NAME == "grandlive":
+    region_xywh = constants.GRANDLIVE_TURN_REGION
   else:
     region_xywh = constants.TURN_REGION
+
   turn = device_action.screenshot(region_xywh=region_xywh)
   turn = enhance_image_for_ocr(turn, resize_factor=2)
   turn_text = extract_allowed_text(turn, allowlist="0123456789")
@@ -458,6 +500,9 @@ def get_turn():
       if digits_only in [5, 10]:
         debug(f"Race turns left until unity cup: {digits_only}, waiting for 3 seconds to allow banner to pass.")
         sleep(3)
+  elif constants.SCENARIO_NAME == "grandlive":
+    #for now this does nothing so it just screenshots a wrong area.
+    grandlive_turns = device_action.screenshot(region_xywh=constants.UNITY_RACE_TURNS_REGION)
 
   digits_only = re.sub(r"[^\d]", "", turn_text)
 
@@ -468,7 +513,7 @@ def get_turn():
 
 # Check year
 def get_current_year():
-  if constants.SCENARIO_NAME == "unity":
+  if constants.SCENARIO_NAME == "unity" or constants.SCENARIO_NAME == "grandlive":
     region_xywh = constants.UNITY_YEAR_REGION
   else:
     region_xywh = constants.YEAR_REGION
@@ -496,7 +541,7 @@ def get_current_year():
 
 # Check criteria
 def get_criteria():
-  if constants.SCENARIO_NAME == "unity":
+  if constants.SCENARIO_NAME == "unity" or constants.SCENARIO_NAME == "grandlive":
     region_xywh = constants.UNITY_CRITERIA_REGION
   else:
     region_xywh = constants.CRITERIA_REGION
@@ -606,7 +651,7 @@ def get_aptitudes():
 
 def get_energy_level(threshold=0.85):
   # find where the right side of the bar is on screen
-  if constants.SCENARIO_NAME == "unity":
+  if constants.SCENARIO_NAME == "unity" or constants.SCENARIO_NAME == "grandlive":
     region_xywh = constants.UNITY_ENERGY_REGION
   else:
     region_xywh = constants.ENERGY_REGION
